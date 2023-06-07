@@ -5,5 +5,6 @@ import CartList from "./CartList";
 import CommentWrite from "./CommentWrite";
 import NotFound from "./NotFound";
 import Detail from "./Detail";
+import Category from "./Category";
 
-export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound };
+export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category };

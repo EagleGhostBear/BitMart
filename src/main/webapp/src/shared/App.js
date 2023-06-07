@@ -19,6 +19,7 @@ import {
   NotFound,
   CommentWrite,
   Detail,
+  Category,
 } from "../pages/page";
 
 function App() {
@@ -49,10 +50,11 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/detail/:seq" element={<Detail />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/category" element={<Category />} />
       </Routes>
     </div>
   );

@@ -1,6 +1,7 @@
 package main.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,22 @@ public class MainDAOMyBatis implements MainDAO {
 	}
 	
 	@Override
-	public List<MainDTO> prodcut_card() {
+	public List<MainDTO> product_card() {
 		
 		return sqlSession.selectList("mainSQL.product_card");
+	}
+	
+	@Override
+	public MainDTO product_detail(String seq) {
+		
+		return sqlSession.selectOne("mainSQL.product_detail", seq);
+	}
+	
+	@Override
+	public List<MainDTO> list(Map<Object, Object> map) {
+		System.out.println(map);
+		List<MainDTO> list = sqlSession.selectList("mainSQL.product_list", map);
+		
+		return list;
 	}
 }

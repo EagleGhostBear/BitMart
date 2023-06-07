@@ -1,6 +1,7 @@
 package main.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,20 @@ public class MainServiceImpl implements MainService {
 	}
 	
 	@Override
-	public List<MainDTO> prodcut_card() {
+	public List<MainDTO> product_card() {
 		
-		return mainDAO.prodcut_card();
+		return mainDAO.product_card();
+	}
+	
+	@Override
+	public MainDTO product_detail(String seq) {
+		
+		return mainDAO.product_detail(seq);
+	}
+	
+	@Override
+	public List<MainDTO> list(Map<Object, Object> map) {
+		
+		return mainDAO.list(map);
 	}
 }

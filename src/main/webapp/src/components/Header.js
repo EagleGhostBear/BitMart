@@ -23,14 +23,7 @@ const Header = (props) => {
           <React.Fragment>
             {!islogin && (
               <>
-                <li
-                  className="signup"
-                  onClick={() => {
-                    navigate("/signup");
-                  }}
-                >
-                  회원가입
-                </li>
+                <li className="signup" onClick={() => {navigate("/signup");}}>회원가입</li>
                 <li
                   onClick={() => {
                     navigate("/login");
@@ -68,7 +61,10 @@ const Header = (props) => {
           <HeaderCategory>
             <CategoryIcon></CategoryIcon>
             <li>전체 카테고리</li>
-            <li>신상품</li>
+            <li onClick={() => {
+              navigate("/category");
+              window.scrollTo(0, 0);
+              }}>신상품</li>
             <li>베스트</li>
             <li>알뜰쇼핑 </li>
             <li> 특가/혜택</li>

@@ -14,4 +14,17 @@
 	<select id="product_card" resultType="main.bean.MainDTO">
 		select * from product
 	</select>
+	
+	<select id="product_detail" parameterType="String" resultType="main.bean.MainDTO">
+		select * from product where seq = #{seq}
+	</select>
+	
+	<select id ="product_list" parameterType="java.util.Map" resultType="main.bean.MainDTO">
+		SELECT * FROM product WHERE title like CONCAT('%', #{word}, '%') ORDER BY
+			CASE #{tag}
+				WHEN 'new' THEN seq
+				WHEN 'sale' THEN sale
+				ELSE seq
+			END DESC LIMIT #{endNum} OFFSET #{startNum};
+	</select>
 </mapper>
