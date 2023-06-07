@@ -1,9 +1,9 @@
 // import logo from "../logo.svg";
 import { Route, Routes } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { actionCreators as userActions } from "../redux/modules/user";
-import axios from 'axios';
 
 import "../App.css";
 
@@ -19,19 +19,17 @@ import {
   NotFound,
   CommentWrite,
   Detail,
-  Category,
+  FindPwd,
+  FindId,
 } from "../pages/page";
 
 function App() {
-  const [data, setData] = useState([]);
   const dispatch = useDispatch();
   const token_key = `${localStorage.getItem("token")}`;
   const islogin = useSelector((state) => state.user.is_login);
   console.log("islogin: ", islogin);
 
   useEffect(() => {
-    // axios.get('/main/mainList')
-    //   .then(response => setData(response.data));
     if (!token_key) {
       return;
     }
@@ -43,9 +41,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* {data.map(item => (
-        <div key={item.age}>{item.name}</div>
-      ))} */}
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
@@ -55,6 +50,8 @@ function App() {
         <Route path="/comment/write/:id" element={<CommentWrite />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/category" element={<Category />} />
+        <Route path="/FindPwd" element={<FindPwd />} />
+        <Route path="/FindId" element={<FindId />} />
       </Routes>
     </div>
   );
