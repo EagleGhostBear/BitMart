@@ -19,6 +19,9 @@ import {
   NotFound,
   CommentWrite,
   Detail,
+  FindPwd,
+  FindId,
+  Category,
 } from "../pages/page";
 
 function App() {
