@@ -138,7 +138,7 @@ const Login = () => {
                 paddingTop: "3px",
               }}
             >
-              <Link to="/FindId">아이디 찾기</Link>
+              <Link to="/FindId">아이디 찾기 | </Link>
               <Link to="/findpwd">비밀번호 찾기</Link>
             </div>
           </FindStyle>
