@@ -7,23 +7,34 @@ import { emailCheck } from '../shared/common';
 import {FindIdBox} from "../elements/element";
 
 const FindId = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [showErrorMessage, setShowErrorMessage] = React.useState(false);
-  const [showErrorMessage1, setShowErrorMessage1] = React.useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [showErrorMessage, setShowErrorMessage] = useState(false);
+  const [showErrorMessage1, setShowErrorMessage1] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
   const [isValidName, setIsValidName] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [errorText1, setErrorText1] = useState('');
   const [isDeleteVisible, setDeleteVisible] = useState(false);
+  const [isDeleteVisible1, setDeleteVisible1] = useState(false);
   
   const handleNameChange = (event) => {
     const nameValue = event.target.value.trim();
     setName(nameValue);
     setDeleteVisible(nameValue !== '');
-    
+    setShowErrorMessage1(nameValue === '');
+    validateName(nameValue);
+  };
+  
+  const handleEmailChange = (event) => {
+    const emailValue = event.target.value.trim();
+    setEmail(emailValue);
+    setDeleteVisible1(emailValue !== '');
+    setShowErrorMessage(emailValue === '');
+    validateEmail(emailValue);
+  };
+
+  const validateName = (nameValue) => {
     if (nameValue === ''){
       setErrorText1('가입시 등록한 이름을 입력해 주세요.');
       setIsValidName(false);
@@ -32,42 +43,29 @@ const FindId = () => {
       setIsValidName(true);
     }
   }
-  const handleEmailChange = (event) => {
-    const emailValue = event.target.value.trim();
-    setEmail(emailValue);
-    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    if (emailValue === '') {
-      setErrorText('가입 시 등록한 이메일을 입력해 주세요.');
-      setIsValidEmail(false);
-    } else if (!emailRegex.test(emailValue)) {
-      setErrorText('이메일 형식이 올바르지 않습니다.');
-      setIsValidEmail(false);
-    } else {
-      setErrorText('');
-      setIsValidEmail(true);
-    }
-  };
+
+  const validateEmail = (emailValue) =>{
+  const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  if (emailValue === '') {
+    setErrorText('가입 시 등록한 이메일을 입력해 주세요.');
+    setIsValidEmail(false);
+  } else if (!emailRegex.test(emailValue)) {
+    setErrorText('이메일 형식이 올바르지 않습니다.');
+    setIsValidEmail(false);
+  } else {
+    setErrorText('');
+    setIsValidEmail(true);
+  }
+  }
   
   const handleDelete = () => {
     setName('');
     setDeleteVisible(false);
   }
 
-  const changeName = (e) => {
-    setName(e);
-  };
-
-  const changeEmail = (e) => {
-    setEmail(e);
-  };
-
-  const findid = () => {
-    if (name === "" || email === ""){
-      window.alert("이름과 이메일을 입력해주세요.");
-      return;
-    } else{
-      dispatch(userActions.fingidDB(name, email));
-    }
+  const handleDeleteEmail = () => {
+    setEmail('');
+    setDeleteVisible1(false);
   };
   
   return (
@@ -79,7 +77,7 @@ const FindId = () => {
         <NameWrapper>
         <FindIdBox
         type="text"
-        className={isValidName? '': 'error'}
+        className={`find-id-box ${isValidName ? "" : "error"}`}
         value={name}
         placeholder="이름을 입력해 주세요"
         _onChange={handleNameChange}
@@ -116,24 +114,21 @@ const FindId = () => {
         _onChange={handleEmailChange}
         placeholder="이메일을 입력해 주세요"
 
-        onBlur={()=>{
-          if(email===""){
-            showErrorMessage(true);
-          } else {
-            showErrorMessage(false);
-          }
-        }}
+        onBlur={() => setShowErrorMessage(email === '')}
         />
-        <DeleteButton1>
-          <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-            <g fill="none" fill-rule="evenodd">
-        <circle fill="#999" opacity=".5" cx="8" cy="8" r="8"/>
-          <g stroke="#FFF" stroke-linecap="round" stroke-width="1.5">
-            <path d="m10.897 10.786-5.77-5.769M5.122 10.785l5.775-5.775"/>
-          </g>
-          </g>
-        </svg>
-        </DeleteButton1>
+
+        {isDeleteVisible1 && (
+            <DeleteButton1 onClick={handleDeleteEmail}>
+              <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" fillRule="evenodd">
+                  <circle fill="#999" opacity=".5" cx="8" cy="8" r="8" />
+                  <g stroke="#FFF" strokeLinecap="round" strokeWidth="1.5">
+                    <path d="m10.897 10.786-5.77-5.769M5.122 10.785l5.775-5.775" />
+                  </g>
+                </g>
+              </svg>
+            </DeleteButton1>
+          )}
         </EmailWrapper>
         {errorText && <div className="emailError" style={{ color: "rgb(240, 63, 64)", fontSize: "13px", marginTop: "4px", marginBottom: "0px"}}>
           {errorText}</div>}
@@ -142,9 +137,6 @@ const FindId = () => {
           backgroundColor: isValidEmail && isValidName ? "#5f0080" : "",
           cursor: isValidEmail && isValidName ? "pointer" : "default"
           }}
-        onClick={()=>{
-          findid();
-        }}
         >
           확인
         </ButtonFindId>
