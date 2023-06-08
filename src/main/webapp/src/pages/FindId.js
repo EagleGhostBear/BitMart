@@ -9,8 +9,8 @@ import {FindIdBox} from "../elements/element";
 const FindId = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
   const [showErrorMessage, setShowErrorMessage] = React.useState(false);
   const [showErrorMessage1, setShowErrorMessage1] = React.useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
@@ -18,12 +18,20 @@ const FindId = () => {
   const [errorText, setErrorText] = useState('');
   const [errorText1, setErrorText1] = useState('');
   const [isDeleteVisible, setDeleteVisible] = useState(false);
-
-  const handleDelete = () => {
-    setName('');
-    setDeleteVisible(false);
+  
+  const handleNameChange = (event) => {
+    const nameValue = event.target.value.trim();
+    setName(nameValue);
+    setDeleteVisible(nameValue !== '');
+    
+    if (nameValue === ''){
+      setErrorText1('가입시 등록한 이름을 입력해 주세요.');
+      setIsValidName(false);
+    } else {
+      setErrorText1('');
+      setIsValidName(true);
+    }
   }
-
   const handleEmailChange = (event) => {
     const emailValue = event.target.value.trim();
     setEmail(emailValue);
@@ -39,18 +47,10 @@ const FindId = () => {
       setIsValidEmail(true);
     }
   };
-
-  const handleNameChange = (event) => {
-    const nameValue = event.target.value.trim();
-    setName(nameValue);
-    setDeleteVisible(event.target.value !== '');
-    if (nameValue === ''){
-      setErrorText1('가입시 등록한 이름을 입력해 주세요.');
-      setIsValidName(false);
-    } else {
-      setErrorText1('');
-      setIsValidName(true);
-    }
+  
+  const handleDelete = () => {
+    setName('');
+    setDeleteVisible(false);
   }
 
   const changeName = (e) => {
@@ -70,7 +70,6 @@ const FindId = () => {
     }
   };
   
-
   return (
     <React.Fragment>
       <FindIdWrap>
