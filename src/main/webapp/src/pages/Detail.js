@@ -7,6 +7,7 @@ import { actionCreators as postActions } from "../redux/modules/post";
 
 import { useParams } from "react-router-dom";
 import DetailItem from "../components/DetailItem";
+import DetailImage from "../components/DetailImage";
 import { CommentList } from "../components/component";
 
 const Detail = (props) => {
@@ -24,7 +25,9 @@ const Detail = (props) => {
 
   return (
     <React.Fragment>
-      <DetailItem {...detail_list}></DetailItem>
+      {/* <DetailItem {...detail_list}></DetailItem> */}
+      <DetailItem seq={seq} />
+      <DetailImage />
       {/* <Navbar>
         <span>후기</span>
       </Navbar> */}
