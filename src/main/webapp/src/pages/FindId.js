@@ -132,7 +132,13 @@ const FindId = () => {
           </div>
         )}
         <ButtonContainer>
-          <ButtonFindId>확인</ButtonFindId>
+        <ButtonFindId  style={{   
+          backgroundColor: isValidEmail && isValidName ? "#5f0080" : "",   
+          cursor: isValidEmail && isValidName ? "pointer" : "default"   
+          }}   
+        >   
+          확인   
+        </ButtonFindId>
         </ButtonContainer>
       </FindIdWrap>
     </React.Fragment>
