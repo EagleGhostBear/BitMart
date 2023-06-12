@@ -6,38 +6,40 @@ import { useNavigate } from "react-router-dom";
 import { LoginBox } from "../elements/element";
 
 const FindPwd = () => {
-  const [name, setName] = useState("");
+  const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
   const [showErrorMessage1, setShowErrorMessage1] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(false);
-  const [isValidName, setIsValidName] = useState(false);
+  const [isValidId, setIsValidId] = useState(false);
   const [errorText, setErrorText] = useState('');
   const [errorText1, setErrorText1] = useState('');
   const [isDeleteVisible, setDeleteVisible] = useState(false);
+  const [isDeleteVisible1, setDeleteVisible1] = useState(false);
 
-  const handleNameChange = (event) => {
-    const nameValue = event.target.value.trim();
-    setName(nameValue);
-    setDeleteVisible(nameValue !== '');
-    setShowErrorMessage1(nameValue === '');
-    validateName(nameValue);
+  const handleIdChange = (event) => {
+    const idValue = event.target.value.trim();
+    setId(idValue);
+    setDeleteVisible(idValue !== '');
+    setShowErrorMessage1(idValue === '');
+    validateId(idValue);
   };
 
   const handleEmailChange = (event) => {
     const emailValue = event.target.value.trim();
     setEmail(emailValue);
+    setDeleteVisible1(emailValue !=='');
     setShowErrorMessage(emailValue === '');
     validateEmail(emailValue);
   };
 
-  const validateName = (nameValue) => {
-    if (nameValue === '') {
-      setErrorText1('가입시 등록한 이름을 입력해 주세요.');
-      setIsValidName(false);
+  const validateId = (idValue) => {
+    if (idValue === '') {
+      setErrorText1('가입시 등록한 아이디를 입력해 주세요.');
+      setIsValidId(false);
     } else {
       setErrorText1('');
-      setIsValidName(true);
+      setIsValidId(true);
     }
   };
 
@@ -56,8 +58,13 @@ const FindPwd = () => {
   };
 
   const handleDelete = () => {
-    setName('');
+    setId('');
     setDeleteVisible(false);
+  };
+
+  const handleDeleteEmail = () => {
+    setEmail('');
+    setDeleteVisible1(false);
   };
 
   return (
@@ -66,16 +73,16 @@ const FindPwd = () => {
         <Title>비밀번호 찾기</Title>
         <Text2>이메일 인증</Text2>
 
-        <Text3>이름</Text3>
+        <Text3>아이디</Text3>
         <NameWrapper>
           <Input
             type="text"
-            className={`find-id-box ${isValidName ? "" : "error"}`}
-            value={name}
-            placeholder="이름을 입력해 주세요"
-            onChange={handleNameChange}
+            className={`find-id-box ${isValidId ? "" : "error"}`}
+            value={id}
+            placeholder="아이디를 입력해 주세요"
+            onChange={handleIdChange}
             onBlur={() => {
-              if (name === "") {
+              if (id === "") {
                 setShowErrorMessage1(true);
               } else {
                 setShowErrorMessage1(false);
@@ -105,12 +112,24 @@ const FindPwd = () => {
         <EmailWrapper>
           <Input
             type="text"
-            className={isValidEmail ? "" : "error"}
+            className={isValidEmail ? '' : 'error'}
             value={email}
             onChange={handleEmailChange}
             placeholder="이메일을 입력해 주세요"
-            onBlur={() => setShowErrorMessage(email === "")}
+            onBlur={() => setShowErrorMessage(email === '')}
           />
+          {isDeleteVisible1 && (
+            <DeleteButton1 onClick={handleDeleteEmail}>
+              <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" fillRule="evenodd">
+                  <circle fill="#999" opacity=".5" cx="8" cy="8" r="8" />
+                  <g stroke="#FFF" strokeLinecap="round" strokeWidth="1.5">
+                    <path d="m10.897 10.786-5.77-5.769M5.122 10.785l5.775-5.775" />
+                  </g>
+                </g>
+              </svg>
+            </DeleteButton1>
+          )}
         </EmailWrapper>
         {errorText && (
           <div className="emailError" style={{ color: "rgb(240, 63, 64)", fontSize: "13px", marginTop: "4px", marginBottom: "0px" }}>
@@ -120,8 +139,8 @@ const FindPwd = () => {
         <ButtonContainer>
           <ButtonFindPwd
             style={{
-              backgroundColor: isValidEmail && isValidName ? "#5f0080" : "",
-              cursor: isValidEmail && isValidName ? "pointer" : "default"
+              backgroundColor: isValidEmail && isValidId ? "#5f0080" : "",
+              cursor: isValidEmail && isValidId ? "pointer" : "default"
             }}
           >
             확인
@@ -175,6 +194,20 @@ const ButtonFindPwd = styled.button`
 `;
 
 const DeleteButton = styled.button`
+  position: absolute;
+  top: 30%;
+  right: 20px;
+  height: 16px;
+  width: 16px;
+  background-color: initial;
+  background-size: cover;
+  border-width: initial;
+  border-style: none;
+  border-color: initial;
+  border-image: initial;
+`;
+
+const DeleteButton1 = styled.button`
   position: absolute;
   top: 30%;
   right: 20px;
