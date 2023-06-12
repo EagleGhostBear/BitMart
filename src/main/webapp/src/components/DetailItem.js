@@ -77,7 +77,7 @@ const DetailItem = (props) => {
           <InfoWrap>
             <dl className="list">
               <dt className="tit">판매단위</dt>
-              <dd className="desc">{data.unitText}</dd>
+              <dd className="desc">{data.unit}</dd>
             </dl>
             <dl className="list">
               <dt className="tit">중량/용량</dt>
@@ -85,7 +85,7 @@ const DetailItem = (props) => {
             </dl>
             <dl className="list">
               <dt className="tit">배송구분</dt>
-              <dd className="desc">{data.deliveryTimeType}</dd>
+              <dd className="desc">{data.delivery}</dd>
             </dl>
             {/* <dl className="list">
                             <dt className="tit">원산지</dt>
@@ -93,7 +93,7 @@ const DetailItem = (props) => {
                         </dl> */}
             <dl className="list">
               <dt className="tit">포장타입</dt>
-              <dd className="desc">{data.packingType}</dd>
+              <dd className="desc">{data.packingtype}</dd>
             </dl>
             <dl className="list">
               <dt className="tit">알레르기정보</dt>
@@ -140,7 +140,7 @@ const DetailItem = (props) => {
             <strong>총 상품금액 :</strong>
             {/* <span className="num">{setDisconunt.toLocaleString()}</span> */}
             {/* 금액 " , " 를 사용 : toLocalString() 사용 -> 주의점 : Number.prototype.toLocaleString() 이기때문에 꼭 Number()로 타입변경  */}
-            <span className="won">원</span>
+            <span className="won">{((1 - data.sale / 100) * data.price) * count}원</span>
           </div>
         </Total>
       )}

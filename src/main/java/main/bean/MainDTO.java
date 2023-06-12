@@ -13,4 +13,9 @@ public class MainDTO {
 	private String subtitle;
 	private int price;
 	private int sale;
+	private String unit;
+	private String weight;
+	private String delivery;
+	private String packingtype;
+	private String detailimage;
 }

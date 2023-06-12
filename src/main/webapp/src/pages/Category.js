@@ -1,24 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import ProductList from "../components/ProductList";
 import "./Category.css";
 import axios from 'axios';
 
-const Category = () => {
+const Category = (props) => {
     const [data, setData] = useState([]);
     const [selectedTag, setSelectedTag] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [startNum, setStartNum] = useState(0);
-    const [endNum, setEndNum] = useState(9);
+    const startNum = useRef(0);
+    const endNum = useRef(9);
+    const tag = useRef('new');
+    const category = useRef('');
+    const word = useRef(props.searchValue);
 
     useEffect(() => {
       setSelectedTag('신상품순');
       axios.post('/list1', {
-        tag: 'sale',
-        category: '',
-        word: '',
-        startNum: startNum,
-        endNum: endNum
+        tag: tag.current,
+        category: category.current,
+        word: word.current,
+        startNum: startNum.current,
+        endNum: endNum.current
       })
         .then(response => setData(response.data));
 
@@ -29,25 +31,76 @@ const Category = () => {
       };
     }, []);
 
+    useEffect(() => {
+      word.current = props.searchValue;
+      setSelectedTag('신상품순');
+      axios.post('/list1', {
+        tag: tag.current,
+        category: category.current,
+        word: word.current,
+        startNum: startNum.current,
+        endNum: endNum.current
+      })
+        .then(response => setData(response.data));
+    }, [props.searchValue]);
+
+    useEffect(() => {
+      // setStartNum(0);
+      // setEndNum(9);
+      startNum.current = 0;
+      endNum.current = 9;
+      console.log(startNum + ", " + endNum);
+      if (selectedTag === '신상품순') {
+        setSelectedTag('신상품순');
+        tag.current = 'new';
+        category.current = '';
+      }
+      else if (selectedTag === '판매량순') {
+        setSelectedTag('판매량순');
+        tag.current = 'best';
+        category.current = '';
+      }
+      else if (selectedTag === '혜택순') {
+        setSelectedTag('혜택순');
+        tag.current = 'sale';
+        category.current = '';
+      }
+      else if (selectedTag === '낮은가격순') {
+        setSelectedTag('낮은가격순');
+        tag.current = 'price';
+        category.current = '';
+      }
+      axios.post('/list1', {
+        tag: tag.current,
+        category: category.current,
+        word: word.current,
+        startNum: startNum.current,
+        endNum: endNum.current
+      })
+        .then(response => setData(response.data));
+    }, [selectedTag]);
+
     // 스크롤 이벤트 핸들러
     const handleScroll = () => {
       console.log(window.innerHeight + ", "+ window.pageYOffset + ", " + document.documentElement.clientHeight + ", " + document.documentElement.scrollTop);
       //if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight && document.documentElement.offsetHeight !== window.innerHeight)
-      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight)
-      {console.log("끝까지 도달함");} //fetchData();}
+      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+        fetchData();
+        console.log("끝까지 도달함")
+      }
     };
 
     // 데이터 가져오기
     const fetchData = async () => {
-      setIsLoading(true);
-      console.log(startNum + ", " + endNum);
+      startNum.current += 9;
+      endNum.current += 9;
+      console.log(startNum.current + ", " + endNum.current);
       try {
-        const response = await axios.post('/list2', { tag: 'sale', category: '', word: '', startNum: startNum, endNum: endNum}) // API_URL에 실제 API 엔드포인트를 입력합니다.
+        const response = await axios.post('/list2', { tag: tag.current, category: category.current, word: word.current, startNum: startNum.current, endNum: endNum.current}) // API_URL에 실제 API 엔드포인트를 입력합니다.
         setData(data => [...data, ...response.data]); // 기존 데이터와 새로운 데이터를 합쳐서 업데이트합니다.
       } catch (error) {
         setError(error);
       }
-      setIsLoading(false);
     };
 
     const handleTagClick = (tag) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,15 @@ const Header = (props) => {
     dispatch(userActions.outUser());
     alert("로그아웃 되셨습니다!");
     navigate("/");
+  };
+  const [searchValue, setSearchValue] = useState(""); // 검색어 상태
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value); // 검색어 상태 업데이트
+  };
+
+  const handleSearchSubmit = () => {
+    // 검색어 전달 및 검색 실행
+    props.onSearchSubmit(searchValue);
   };
 
   return (
@@ -69,8 +78,8 @@ const Header = (props) => {
             <li>알뜰쇼핑 </li>
             <li> 특가/혜택</li>
             <SearchWrap>
-              <Search placeholder="검색어를 입력해주세요."></Search>
-              <SearchIcon></SearchIcon>
+              <Search placeholder="검색어를 입력해주세요." value={searchValue} onChange={handleSearchChange} />
+              <SearchIcon onClick={handleSearchSubmit} />
             </SearchWrap>
             <IconWrap>
               <LocationIcon />

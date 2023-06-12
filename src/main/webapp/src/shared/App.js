@@ -2,7 +2,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import "../App.css";
@@ -29,6 +29,12 @@ function App() {
   const token_key = `${localStorage.getItem("token")}`;
   const islogin = useSelector((state) => state.user.is_login);
   console.log("islogin: ", islogin);
+  const [searchValue, setSearchValue] = useState(""); // 검색어 상태
+
+  const handleSearchSubmit = (value) => {
+    console.log("검색어 : " + value);
+    setSearchValue(value); // 검색어 업데이트
+  };
 
   useEffect(() => {
     if (!token_key) {
@@ -41,7 +47,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header onSearchSubmit={handleSearchSubmit} />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
@@ -50,7 +56,7 @@ function App() {
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
         <Route path="/*" element={<NotFound />} />
-        <Route path="/category" element={<Category />} />
+        <Route path="/category" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
       </Routes>

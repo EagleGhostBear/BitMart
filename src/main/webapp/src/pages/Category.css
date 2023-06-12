@@ -1,24 +1,10 @@
-/* #container *,
-#container::before,
-#container::after {
-    box-sizing: border-box;
-    margin: 0;
-}
-#container *,
-#container::before,
-#container::after,
-#container legend,
-#container td,
-#container th {
-    padding: 0px;
-} */
-*, ::after, ::before {
+/* *, ::after, ::before {
     box-sizing: border-box;
     margin: 0;
 }
 *, ::after, ::before, legend, td, th {
     padding: 0px;
-}
+} */
 html, button, input, select, textarea {
     font-family: 'Noto Sans', 'malgun gothic', 'AppleGothic', dotum, sans-serif;
 }
@@ -28,10 +14,16 @@ a {
     color: inherit;
 }
 .css-1i60c0e {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     width: 1050px;
     margin: 0px auto;
 }
 .css-pzlq5x {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     position: relative;
     display: flex;
     width: 1050px;
@@ -39,6 +31,9 @@ a {
     margin-bottom: 75px;
 }
 .css-1jgnig9 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     position: sticky;
     width: 220px;
     flex-shrink: 0;
@@ -50,6 +45,9 @@ a {
     /* overflow: hidden scroll; */
 }
 .css-11y1fso {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     position: sticky;
     top: 0;
     display: flex;
@@ -64,17 +62,26 @@ a {
     line-height: 20px;
   }
 .css-wy76no {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     font-weight: 500;
     font-size: 15px;
     color: rgb(51, 51, 51);
 }
 .css-7pv5zq {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     display: flex;
     -webkit-box-align: center;
     align-items: center;
     pointer-events: none;
 }
 .css-16ixplb {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
@@ -85,15 +92,24 @@ a {
     overflow: hidden;
 }
 .css-146937 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     border-bottom: 1px solid rgb(238, 238, 238);
 }
 .css-x67gaa {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     list-style: none;
     margin-bottom: 18px;
     /* display: inline-block;
     margin-top: 9px; */
 }
 .css-s5xdrg {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     text-decoration: none;
     background-color: transparent;
     color: inherit;
@@ -102,12 +118,18 @@ a {
     align-items: center;
 }
 .css-11kh0cw {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     display: grid;
     grid-template-columns: repeat(auto-fill, 249px);
     gap: 31px 18px;
     width: 100%;
 }
 .css-1xyd46f {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     display: flex;
     flex-direction: column;
     height: 538px;
@@ -115,6 +137,9 @@ a {
     cursor: pointer;
 }
 .css-1kth2sq {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     overflow: hidden;
     position: relative;
     background-color: rgb(245, 245, 245);
@@ -122,11 +147,17 @@ a {
     height: 320px;
 }
 .css-1kth2sq::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     content: "";
     position: absolute;
     inset: 0px;
 }
 .e1c07x4813.css-1kth2sq.e3um3060 span {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     overflow: hidden;
     background: none;
     border: 0px;
@@ -138,6 +169,9 @@ a {
     position: absolute;
 }
 .css-1kth2sq > span > img {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     transition: all 0.5s ease-in-out 0s;
     vertical-align: top;
     inset: 0px;
@@ -154,19 +188,30 @@ a {
     object-fit: cover;
 }
 .css-c1cgl {
+    box-sizing: border-box;
+    margin: 0;
     padding: 14px 10px 0px 0px;
 }
 .css-1qd61ut {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     display: block;
     padding-bottom: 2px;
 }
 .css-1vdqr5b {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     font-size: 14px;
     color: rgb(153, 153, 153);
     line-height: 19px;
     letter-spacing: -0.5px;
 }
 .css-1dry2r1 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     max-height: 58px;
     font-size: 16px;
     line-height: 24px;
@@ -179,6 +224,9 @@ a {
     -webkit-box-orient: vertical;
 }
 .css-1wejlc3 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     padding-top: 4px;
     font-size: 12px;
     color: rgb(153, 153, 153);
@@ -192,14 +240,23 @@ a {
     -webkit-box-orient: vertical;
 }
 .css-1t4zbyd {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     display: flex;
     flex-direction: column;
     padding-top: 8px;
 }  
 .css-1t4zbyd .discount-rate {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     margin-right: 7px;
 }
 .css-1t4zbyd .discount-rate, .css-1t4zbyd .sales-price {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     font-weight: 800;
     font-size: 16px;
     line-height: 24px;
@@ -207,19 +264,31 @@ a {
     letter-spacing: -0.5px;
 }
 .css-19lkxd2 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     color: rgb(250, 98, 47);
 }
 .css-18tpqqq {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     color: rgb(51, 51, 51);
     white-space: nowrap;
 }
 .css-1t4zbyd .dimmed-price {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     font-size: 14px;
     color: rgb(181, 181, 181);
     line-height: 20px;
     text-decoration: line-through;
 }
 .css-1nwimb9 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     display: flex;
     padding-top: 8px;
     font-weight: 500;
@@ -228,6 +297,9 @@ a {
     line-height: 17px;
 }
 .css-qb0iqo {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
     width: 15px;
     height: 15px;
     margin: 1px 2px 0px 0px;
