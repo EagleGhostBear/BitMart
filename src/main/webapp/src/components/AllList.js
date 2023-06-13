@@ -15,14 +15,14 @@ const AllList = (props) => { //부모 컴포넌트에서 받은 state와 method
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('/product_card')
+    axios.post('/product_card')
       .then(response => setData(response.data));
   }, []);
 
   return (
 
     < Wrap >
-      <TitleWrap><span>이 상품 어때요?</span></TitleWrap>
+      <TitleWrap><span>고객님의 맞춤 상품</span></TitleWrap>
       <Slider {...settings}>
         {data.map((item, i) => {
           return (

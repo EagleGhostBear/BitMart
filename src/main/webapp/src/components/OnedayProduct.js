@@ -1,79 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React from 'react';
 import styled from "styled-components";
+import { useNavigate } from 'react-router-dom';
 import CartIcon from "../elements/CartIcon";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import OnedayProduct from "./OnedayProduct";
-import axios from 'axios';
 
-const Oneday = (props) => {
-  const navigate = useNavigate();
-  // const list = useSelector((state) => state.post.list[3]);
-  // console.log(list);
-  const [data, setData] = useState([]);
+const OnedayProduct = (props) => {
+    const navigate = useNavigate();
+    const item = props.data;
 
-  useEffect(() => {
-    axios.post('/oneday_product')
-      .then(response => setData(response.data));
-  }, []);
+    return (
+        <div>
+            <ImgContainer key={item.seq}
+                onClick={() => {
+                navigate(`/detail/${item.seq}`);
+                window.scrollTo(0, 0);
+                }}
+            >
+                <a href="">
+                <img
+                    src={item.image}
+                />
+                <CartIcon></CartIcon>
+                </a>
+            </ImgContainer>
 
-  return (
-    <Wrap>
-      <Left>
-        <h2>일일 특가</h2>
-        <h3>24시간 한정 특가</h3>
-      </Left>
-
-      <List>
-        {data.map((item, i) => {
-          return (
-            <Right>
-            <OnedayProduct key={i} data={item} />
-            </Right>
-          );
-        })}
-      </List>
-    </Wrap>
-  );
+            <TextWrap>
+                <ProductSubTitle>
+                {item.subtitle}
+                </ProductSubTitle>
+                <ProductTitle>
+                {item.title}
+                </ProductTitle>
+                <CostBox>
+                    {item.sale === 0 ? (<ProductPrice>{item.price}원</ProductPrice>) : (
+                    <>
+                        <Sale>{item.sale}%</Sale><ProductPrice>{(1 - item.sale/100)*item.price}원</ProductPrice><SalePrice>{item.price}원</SalePrice>
+                    </>)}
+                
+                {/* <SalePrice>{props.Price}원</SalePrice> */}
+                </CostBox>
+            </TextWrap>
+        </div>
+    );
 };
-
-Oneday.defaultProps = {
-  SubTitle: "뜨끈한 국물이 필요할때",
-  Title: "[고래사어묵] 김치 우동 전골",
-  Img: "https://img-cf.kurly.com/shop/data/goods/1644900782348l0.jpg",
-  Sale: "30",
-  Price: "9,900",
-  SalePrice: "6,930",
-};
-
-const Wrap = styled.div`
-  display: flex;
-  margin: 5% auto;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  padding: 80px 0px;
-`;
-
-const List = styled.div`
-  width: 694px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const Left = styled.div`
-  width: 337px;
-  & h3 {
-    font-size: 16px;
-    color: rgb(153, 153, 153);
-    font-weight: normal;
-    line-height: 1.3;
-    letter-spacing: normal;
-    margin-bottom: 24px;
-  }
-`;
-const Right = styled.div`
-  margin-right: 50px;
-`;
 
 const ImgContainer = styled.div`
   display: flex;
@@ -190,4 +158,4 @@ const CartIconWrap = styled.div`
   height: 45px;
 `;
 
-export default Oneday;
+export default OnedayProduct;

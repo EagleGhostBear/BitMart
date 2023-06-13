@@ -37,4 +37,16 @@ public class MainServiceImpl implements MainService {
 		
 		return mainDAO.list(map);
 	}
+	
+	@Override
+	public List<MainDTO> oneday_product() {
+		
+		return mainDAO.oneday_product();
+	}
+	
+	@Override
+	public String product_number() {
+		
+		return mainDAO.product_number();
+	}
 }

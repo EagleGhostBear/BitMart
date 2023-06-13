@@ -36,9 +36,21 @@ public class MainDAOMyBatis implements MainDAO {
 	
 	@Override
 	public List<MainDTO> list(Map<Object, Object> map) {
-		System.out.println(map);
-		List<MainDTO> list = sqlSession.selectList("mainSQL.product_list", map);
 		
+		List<MainDTO> list = sqlSession.selectList("mainSQL.product_list", map);
+		System.out.println("list_data:" + list);
 		return list;
+	}
+	
+	@Override
+	public List<MainDTO> oneday_product() {
+		
+		return sqlSession.selectList("mainSQL.oneday_product");
+	}
+	
+	@Override
+	public String product_number() {
+		
+		return sqlSession.selectOne("mainSQL.product_number");
 	}
 }

@@ -41,7 +41,7 @@ public class MainController {
 		return list;
 	}
 	
-	@GetMapping("/product_card")
+	@PostMapping("/product_card")
 	@ResponseBody
 	public List<MainDTO> product_card(){
 		//return personService.getPersonList();
@@ -60,9 +60,9 @@ public class MainController {
 	
 	@PostMapping(value = "list1")
 	@ResponseBody
-	public  List<MainDTO> list1(@RequestBody Map map, HttpSession session) {
+	public List<MainDTO> list1(@RequestBody Map map, HttpSession session) {
 		
-		System.out.println("list1:" + map);
+		System.out.println("list1_tag:" + map);
 
 //		session.setAttribute("startNum", "0");
 //		session.setAttribute("endNum", "9");
@@ -78,5 +78,12 @@ public class MainController {
 
 		// UserDTO를 JSON형태로 list에 넣어준 형태가 된다.
 		return mainService.list(map);
+	}
+	
+	@PostMapping("/product_number")
+	@ResponseBody
+	public String product_number(){
+		
+		return mainService.product_number();
 	}
 }

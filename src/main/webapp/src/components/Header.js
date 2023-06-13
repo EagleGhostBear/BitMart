@@ -15,6 +15,7 @@ const Header = (props) => {
     navigate("/");
   };
   const [searchValue, setSearchValue] = useState(""); // 검색어 상태
+  
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value); // 검색어 상태 업데이트
   };
@@ -70,13 +71,10 @@ const Header = (props) => {
           <HeaderCategory>
             <CategoryIcon></CategoryIcon>
             <li>전체 카테고리</li>
-            <li onClick={() => {
-              navigate("/category");
-              window.scrollTo(0, 0);
-              }}>신상품</li>
-            <li>베스트</li>
-            <li>알뜰쇼핑 </li>
-            <li> 특가/혜택</li>
+            <li onClick={() => {navigate("/category/new"); window.scrollTo(0, 0);}}>신상품</li>
+            <li onClick={() => {navigate("/category/best"); window.scrollTo(0, 0);}}>베스트</li>
+            <li onClick={() => {navigate("/category/sale"); window.scrollTo(0, 0);}}>특가/혜택 </li>
+            <li onClick={() => {navigate("/category/price"); window.scrollTo(0, 0);}}> 알뜰쇼핑</li>
             <SearchWrap>
               <Search placeholder="검색어를 입력해주세요." value={searchValue} onChange={handleSearchChange} />
               <SearchIcon onClick={handleSearchSubmit} />

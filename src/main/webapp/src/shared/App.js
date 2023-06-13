@@ -1,5 +1,5 @@
 // import logo from "../logo.svg";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -26,14 +26,17 @@ import {
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const token_key = `${localStorage.getItem("token")}`;
   const islogin = useSelector((state) => state.user.is_login);
   console.log("islogin: ", islogin);
   const [searchValue, setSearchValue] = useState(""); // 검색어 상태
+  const [selectedTag, setSelectedTag] = useState('');
 
   const handleSearchSubmit = (value) => {
     console.log("검색어 : " + value);
     setSearchValue(value); // 검색어 업데이트
+    navigate("/category");
   };
 
   useEffect(() => {
@@ -56,7 +59,7 @@ function App() {
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
         <Route path="/*" element={<NotFound />} />
-        <Route path="/category" element={<Category searchValue={searchValue} />} />
+        <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
       </Routes>

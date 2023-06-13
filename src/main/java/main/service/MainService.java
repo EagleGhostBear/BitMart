@@ -14,4 +14,8 @@ public interface MainService {
 	MainDTO product_detail(String seq);
 
 	List<MainDTO> list(Map<Object, Object> map);
+
+	List<MainDTO> oneday_product();
+
+	String product_number();
 }
