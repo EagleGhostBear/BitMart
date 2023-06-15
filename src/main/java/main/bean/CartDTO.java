@@ -6,7 +6,11 @@ import lombok.Data;
 
 @Component
 @Data
-public class MainDTO {
+public class CartDTO {
+	private int cart_seq;
+	private int user;
+	private int product;
+	private int number;
 	private int seq;
 	private String image;
 	private String title;

@@ -32,7 +32,7 @@
 				WHEN '간식류' THEN '간식류'
 				WHEN '건강식품' THEN '건강식품'
 				WHEN '기타류' THEN '기타류'
-				ELSE ''
+				ELSE '%%'
 			END ORDER BY
 			CASE #{tag}
 				WHEN 'new' THEN seq
@@ -50,4 +50,42 @@
 	<select id="product_number" resultType="String">
 		select count(*) from product
 	</select>
+	
+	<select id="login" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where id=#{id} and pwd=#{pwd}
+	</select>
+	
+	<select id="check_login" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where seq=#{seq}
+	</select>
+	
+	<select id ="cart_list" parameterType="java.util.Map" resultType="main.bean.CartDTO">
+		SELECT *
+		FROM cart
+			inner join product
+		    on cart.product = product.seq
+		WHERE cart.user = #{seq}
+	</select>
+	
+	<delete id="cart_delete" parameterType="java.util.Map">
+		delete from cart where cart_seq = #{cart_seq}
+	</delete>
+	
+	<update id="cart_num_edit" parameterType="java.util.Map">
+		UPDATE cart
+		SET number = CASE #{plus_minus}
+		    WHEN 'plus' THEN number + 1
+		    WHEN 'minus' THEN number - 1
+		    ELSE number
+		END
+		WHERE cart_seq=#{cart_seq}
+	</update>
+	
+	<select id="check_cart" parameterType="java.util.Map" resultType="main.bean.CartDTO">
+		select * from cart where user=#{user_seq} and product=#{product_seq}
+	</select>
+	
+	<insert id="cart_insert" parameterType="java.util.Map">
+		insert into cart(user, product, number) values(#{user_seq}, #{product_seq}, 1)
+	</insert>
 </mapper>

@@ -113,9 +113,12 @@ const Category = (props) => {
 
     // 스크롤 이벤트 핸들러
     const handleScroll = () => {
-      console.log(window.innerHeight + ", "+ window.pageYOffset + ", " + document.documentElement.clientHeight + ", " + document.documentElement.scrollTop);
+      const scrollHeight = document.documentElement.scrollHeight; // 문서 전체의 높이
+      const clientHeight = document.documentElement.clientHeight; // 뷰포트의 높이
+      const scrollDistance = scrollHeight - clientHeight; // 제일 아래로 스크롤된 거리
+      console.log(scrollDistance + ", " + document.documentElement.scrollTop);
       //if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight && document.documentElement.offsetHeight !== window.innerHeight)
-      if (window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight) {
+      if (scrollDistance === document.documentElement.scrollTop) {
         fetchData();
         console.log("끝까지 도달함")
       }

@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
+import main.bean.CartDTO;
 import main.bean.MainDTO;
+import main.bean.UserDTO;
 import main.service.MainService;
 
 @Controller
@@ -60,7 +62,7 @@ public class MainController {
 	
 	@PostMapping(value = "list1")
 	@ResponseBody
-	public List<MainDTO> list1(@RequestBody Map map, HttpSession session) {
+	public List<MainDTO> list1(@RequestBody Map map) {
 		
 		System.out.println("list1_tag:" + map);
 
@@ -72,7 +74,7 @@ public class MainController {
 	
 	@PostMapping(value = "list2")
 	@ResponseBody // DispatcherServlet로 반환하는걸 막아준다 //알아서 JSON으로 변환시켜준다
-	public List<MainDTO> list2(@RequestBody Map map, HttpSession session) {
+	public List<MainDTO> list2(@RequestBody Map map) {
 		
 		System.out.println("list2:" + map);
 
@@ -85,5 +87,60 @@ public class MainController {
 	public String product_number(){
 		
 		return mainService.product_number();
+	}
+	
+	@PostMapping(value = "login")
+	@ResponseBody
+	public UserDTO login(@RequestBody Map map) {
+		
+		System.out.println("로그인 요청됨");
+		UserDTO userDTO = mainService.login(map);
+		return userDTO;
+	}
+	
+	@PostMapping(value = "check_login")
+	@ResponseBody
+	public UserDTO check_login(@RequestBody Map map) {
+		
+		UserDTO userDTO = mainService.check_login(map);
+		return userDTO;
+	}
+	
+	@PostMapping(value = "cart_list")
+	@ResponseBody
+	public List<CartDTO> cart_list(@RequestBody Map map) {
+		
+		return mainService.cart_list(map);
+	}
+	
+	@PostMapping(value = "cart_delete")
+	@ResponseBody
+	public void cart_delete(@RequestBody Map map) {
+		
+		mainService.cart_delete(map);
+	}
+	
+	@PostMapping(value = "cart_num_edit")
+	@ResponseBody
+	public void cart_num_edit(@RequestBody Map map) {
+		
+		mainService.cart_num_edit(map);
+	}
+	
+	@PostMapping(value = "check_cart")
+	@ResponseBody
+	public String check_cart(@RequestBody Map map) {
+		
+		CartDTO cartDTO = mainService.check_cart(map);
+		
+		if(cartDTO == null) {return "true";}
+		else {return "false";}
+	}
+	
+	@PostMapping(value = "cart_insert")
+	@ResponseBody
+	public void cart_insert(@RequestBody Map map) {
+		
+		mainService.cart_insert(map);
 	}
 }

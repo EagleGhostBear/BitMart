@@ -29,7 +29,8 @@ function App() {
   const navigate = useNavigate();
   const token_key = `${localStorage.getItem("token")}`;
   const islogin = useSelector((state) => state.user.is_login);
-  console.log("islogin: ", islogin);
+  const user = useSelector((state) => state.user.user);
+  console.log("islogin: ", islogin + " user: " + JSON.stringify(user));
   const [searchValue, setSearchValue] = useState(""); // 검색어 상태
   const [selectedTag, setSelectedTag] = useState('');
 
@@ -40,12 +41,13 @@ function App() {
   };
 
   useEffect(() => {
-    if (!token_key) {
+    if (token_key === null && token_key === "null") {
       return;
     }
-    if (token_key) {
+    if (token_key !== null && token_key !== "null") {
+      console.log("토큰 있음:" + token_key);
       dispatch(userActions.loginCheckDB(token_key));
-    }
+    }    
   }, []);
 
   return (
