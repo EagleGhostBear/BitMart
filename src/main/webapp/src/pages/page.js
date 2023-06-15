@@ -8,5 +8,7 @@ import Detail from "./Detail";
 import Category from "./Category";
 import FindPwd from "./FindPwd";
 import FindId from "./FindId";
+import NoticeListPage from "./NoticeListPage";
+import NoticeDetailPage from "./NoticeDetailPage";
 
-export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category, FindPwd, FindId };
+export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category, FindPwd, FindId, NoticeListPage, NoticeDetailPage };

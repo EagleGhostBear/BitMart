@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import main.bean.MainDTO;
+import main.bean.NoticeDTO;
 
 public interface MainDAO {
 
@@ -18,4 +19,9 @@ public interface MainDAO {
 	List<MainDTO> oneday_product();
 
 	String product_number();
+
+	List<NoticeDTO> getNoticeList();
+
+	NoticeDTO getNoticeDetail(int id);
+
 }

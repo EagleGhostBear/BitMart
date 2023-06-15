@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import main.bean.MainDTO;
+import main.bean.NoticeDTO;
 
 @Repository
 @Transactional
@@ -53,4 +54,15 @@ public class MainDAOMyBatis implements MainDAO {
 		
 		return sqlSession.selectOne("mainSQL.product_number");
 	}
+
+	@Override
+	public List<NoticeDTO> getNoticeList() {
+	    return sqlSession.selectList("mainSQL.getNoticeList");
+	}
+
+	@Override
+	public NoticeDTO getNoticeDetail(int id) {
+	    return sqlSession.selectOne("mainSQL.getNoticeDetail", id);
+	}
+
 }

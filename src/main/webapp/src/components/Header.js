@@ -48,7 +48,11 @@ const Header = (props) => {
                 <li onClick={logout}>로그아웃</li>
               </>
             )}
-            <li>고객센터 ▼</li>
+            <li onClick={() => {
+              navigate("/notices");
+            }}
+            >
+              고객센터 ▼</li>
           </React.Fragment>
 
           {/* <React.Fragment>

@@ -50,4 +50,12 @@
 	<select id="product_number" resultType="String">
 		select count(*) from product
 	</select>
+	
+	<select id="getNoticeList" resultType="main.bean.NoticeDTO">
+		SELECT * FROM notices
+	</select>
+	
+	<select id="getNoticeDetail" parameterType="int" resultType="main.bean.NoticeDTO">
+		SELECT * FROM notices WHERE id = #{id}
+	</select>
 </mapper>
