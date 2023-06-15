@@ -14,6 +14,17 @@ const Header = (props) => {
     alert("로그아웃 되셨습니다!");
     navigate("/");
   };
+  const [searchValue, setSearchValue] = useState(""); // 검색어 상태
+  
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value); // 검색어 상태 업데이트
+  };
+
+  const handleSearchSubmit = () => {
+    // 검색어 전달 및 검색 실행
+    props.onSearchSubmit(searchValue);
+    navigate("/category/new"); window.scrollTo(0, 0);
+  };
 
   return (
     <React.Fragment>
