@@ -23,6 +23,7 @@ const Header = (props) => {
   const handleSearchSubmit = () => {
     // 검색어 전달 및 검색 실행
     props.onSearchSubmit(searchValue);
+    navigate("/category/new"); window.scrollTo(0, 0);
   };
 
   return (
