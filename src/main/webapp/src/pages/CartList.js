@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import AddressForm from "../components/AddressForm";
 
 import { actionCreators as cartActions } from "../redux/modules/cart";
 import { CartItem } from "../components/component";
@@ -107,29 +108,15 @@ const CartList = (props) => {
 
           <PriceWrapper>
             <DeliveryArea>
-              <h3 className="tit">배송지</h3>
-              <div className="address">
-                <p className="addr">항해도 항해시 항해로 99가길 99</p>
-              </div>
-              <div className="delivery-type">
-                <span className="delivery-type-star">샛별배송</span>
-              </div>
-              <button
-                style={{
-                  color: "rgb(95, 0, 128)",
-                  backgroundColor: "white",
-                  border: "1px solid rgb(95, 0, 128)",
-                  height: "36px",
-                  margin: "17px 0px 0px",
-                  fontWeight: "600",
-                  fontSize: "12px",
-                  width: "100%",
-                  borderRadius: "4px",
-                }}
-              >
-                배송지 변경
-              </button>
+             
+             
+              <div>
+       
+        <AddressForm />
+      </div>
+      
             </DeliveryArea>
+         
 
             <PriceArea>
               <PriceDetail>
@@ -501,3 +488,5 @@ const Notice = styled.div`
     }
   }
 `;
+
+
