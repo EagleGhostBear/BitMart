@@ -9,45 +9,38 @@ const Card = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const data = props.data;
-
-  const original = data.originalPrice
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  const discounted = data.discountedPrice
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const item = props.data;
 
   return (
     <ProductContainer
       onClick={() => {
-        navigate(`/detail/${data.pid}`);
+        navigate(`/detail/${item.seq}`);
         // window.scrollTo(0, 0);
         // dispatch(postActions.detailPostDB(data.pid))
       }}
     >
       <React.Fragment>
         <ProductImgWrap>
-          <img src={data.mainImageUrl} />
+          <img src={item.image} />
           <CartIcon></CartIcon>
         </ProductImgWrap>
 
-        {data.discountPercent !== 0 ? (
+        {item.sale !== 0 ? (
           <TextWrap>
-            <ProductSubTitle>{data.shortDescription}</ProductSubTitle>
-            <ProductTitle>{data.name}</ProductTitle>
+            <ProductSubTitle>{item.subtitle}</ProductSubTitle>
+            <ProductTitle>{item.title}</ProductTitle>
             <CostBox></CostBox>
             <CostBox>
-              <Sale>{data.discountPercent}%</Sale>
-              <ProductPrice> {discounted}원</ProductPrice>
+              <Sale>{item.sale}%</Sale>
+              <ProductPrice>{(1 - item.sale/100)*item.price}원</ProductPrice>
             </CostBox>
-            <SalePrice>{original}원</SalePrice>
+            <SalePrice>{item.price}원</SalePrice>
           </TextWrap>
         ) : (
           <TextWrap>
-            <ProductTitle>{data.name}</ProductTitle>
+            <ProductTitle>{item.title}</ProductTitle>
             <CostBox>
-              <ProductPrice>{original} 원</ProductPrice>
+              <ProductPrice>{item.price}원</ProductPrice>
             </CostBox>
           </TextWrap>
         )}

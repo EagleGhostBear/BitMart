@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { Text, LoginBox } from "../elements/element";
-
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  // useState를 이용하여 아이디와 비밀번호의 값을 redux로 보내줄 준비
 
   const changeUsername = (e) => {
     setUsername(e);
@@ -24,12 +23,10 @@ const Login = () => {
   const login = () => {
     if (username === "" || password === "") {
       window.alert("아이디와 비밀번호를 입력해주세요.");
-      // 아이디와 비밀번호를 입력하지 않을 경우 alert 띄움
       return;
     } else {
       dispatch(userActions.loginDB(username, password));
     }
-    // redux의 loginDB에 id, pwd를 보내줌
   };
 
   return (
@@ -61,6 +58,7 @@ const Login = () => {
             changePassword(e.target.value);
           }}
         />
+
         <div
           style={{
             width: "27%",
@@ -80,7 +78,6 @@ const Login = () => {
                 display: "contents",
               }}
             >
-              {" "}
               보안접속
             </div>
           </CheckWrap>
@@ -95,17 +92,12 @@ const Login = () => {
                 paddingTop: "3px",
               }}
             >
-              아이디 찾기 | 비밀번호 찾기
+              <Link to="/FindId" style={{ textDecoration: 'none', color: 'black' }}>아이디 찾기 | </Link>
+              <Link to="/findpwd" style={{ textDecoration: 'none', color: 'black' }}>비밀번호 찾기</Link>
             </div>
-            {/* <div
-              style={{
-                color: "#4f4f4f",
-                fontSize: "13px",
-                margin: "0 0 0 4px",
-              }}
-            ></div> */}
           </FindStyle>
         </div>
+
         <ButtonLogin
           onClick={() => {
             login();
@@ -149,11 +141,6 @@ const Check = styled.input`
 
 const FindStyle = styled.ul`
   display: contents;
-  /* display: flex;
-  justify-content: end;
-  margin-right: 463px;
-  margin-top: -20px;
-  margin-bottom: 30px; */
 `;
 
 const ButtonLogin = styled.button`

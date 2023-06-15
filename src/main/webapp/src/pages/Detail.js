@@ -14,14 +14,15 @@ const Detail = (props) => {
   const dispatch = useDispatch();
 
   const params = useParams();
-  const pid = params.id;
+  const seq = params.seq;
+  // const { seq } = params;
 
   const detail_list = useSelector((state) => state.post.detail_list);
   // console.log(detail_list);
 
-  useEffect(() => {
-    dispatch(postActions.detailPostDB(pid));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(postActions.detailPostDB(pid));
+  // }, []);
 
   return (
     <React.Fragment>
@@ -31,7 +32,7 @@ const Detail = (props) => {
       {/* <Navbar>
         <span>후기</span>
       </Navbar> */}
-      <CommentList pid={pid} />
+      <CommentList seq={seq} />
     </React.Fragment>
   );
 };
