@@ -25,6 +25,19 @@ const Header = (props) => {
     props.onSearchSubmit(searchValue);
     navigate("/category/new"); window.scrollTo(0, 0);
   };
+<<<<<<< HEAD
+=======
+  const [searchValue, setSearchValue] = useState(""); // 검색어 상태
+  
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value); // 검색어 상태 업데이트
+  };
+
+  const handleSearchSubmit = () => {
+    // 검색어 전달 및 검색 실행
+    props.onSearchSubmit(searchValue);
+  };
+>>>>>>> parent of 7f95b7c (12)
 
   return (
     <React.Fragment>
