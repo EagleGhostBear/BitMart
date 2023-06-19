@@ -88,4 +88,17 @@
 	<insert id="cart_insert" parameterType="java.util.Map">
 		insert into cart(user, product, number) values(#{user_seq}, #{product_seq}, 1)
 	</insert>
+
+	<select id="getNoticeList" resultType="main.bean.NoticeDTO">
+		SELECT * FROM notices
+	</select>
+	
+	<select id="getNoticeDetail" parameterType="int" resultType="main.bean.NoticeDTO">
+		SELECT * FROM notices WHERE id = #{id}
+	</select>
+	
+		<select id="getFaqList" resultType="main.bean.FaqDTO">
+		SELECT * FROM faq
+	</select>
+	
 </mapper>

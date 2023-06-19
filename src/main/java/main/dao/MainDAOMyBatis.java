@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import main.bean.CartDTO;
+import main.bean.FaqDTO;
 import main.bean.MainDTO;
+import main.bean.NoticeDTO;
 import main.bean.UserDTO;
 
 @Repository
@@ -55,6 +57,17 @@ public class MainDAOMyBatis implements MainDAO {
 		
 		return sqlSession.selectOne("mainSQL.product_number");
 	}
+
+	@Override
+	public List<NoticeDTO> getNoticeList() {
+	    return sqlSession.selectList("mainSQL.getNoticeList");
+	}
+
+	@Override
+	public NoticeDTO getNoticeDetail(int id) {
+	    return sqlSession.selectOne("mainSQL.getNoticeDetail", id);
+	}
+
 	
 	@Override
 	public UserDTO login(Map map) {
@@ -99,4 +112,14 @@ public class MainDAOMyBatis implements MainDAO {
 		
 		sqlSession.insert("mainSQL.cart_insert", map);
 	}
+
+	@Override
+	public List<FaqDTO> getFaqList() {
+	    return sqlSession.selectList("mainSQL.getFaqList");
+	}
+
+
+	
+	
+
 }
