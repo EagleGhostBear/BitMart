@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
 
 
@@ -6,24 +6,21 @@ const width = 500;
 const height = 400;
 
 const AddressForm = () => {
+  const [addr, setAddr] = useState(sessionStorage.getItem('address'));
+  const [buildingName, setBuildingName] = useState(sessionStorage.getItem('buildingName'));
+
   const onClickLink = useCallback(() => {
     /*global daum*/
     new daum.Postcode({
       oncomplete: function (data) {
-        let left = Math.ceil((window.screen.width - width) / 2);
-        let top = Math.ceil((window.screen.height - height) / 2);
+        const selectedAddr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
+        const selectedBuildingName = data.buildingName ? data.buildingName : '';
 
-        const addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
-        const buildingName = data.buildingName ? data.buildingName : '';
+        sessionStorage.setItem('address', selectedAddr);
+        sessionStorage.setItem('buildingName', selectedBuildingName);
 
-        sessionStorage.setItem('address', addr);
-        sessionStorage.setItem('buildingName', buildingName);
-
-        window.open(
-          '/kakao/destination',
-          '_blank',
-          `height=${height},width=${width}, top=${top}, left=${left}`,
-        );
+        setAddr(selectedAddr);
+        setBuildingName(selectedBuildingName);
       },
     }).open({
       left: Math.ceil((window.screen.width - width) / 2),
@@ -31,26 +28,27 @@ const AddressForm = () => {
     });
   }, []);
 
-  let addr = sessionStorage.getItem('address');
-  let buildingName = sessionStorage.getItem('buildingName');
-
   return (
     <div className='rightContainer' style={rightContainerStyle}>
     <div className="AddressInfo" style={AddressInfoStyle}>
       <p>
-        <FaMapMarkerAlt className="inline-block mr-3" />
+        <FaMapMarkerAlt className="marker-icon" />
         배송지
       </p>
       {addr === null && (
-        <p>
-          <span className="text-kp-600">배송지를 입력</span>하고
-          <span className="block">배송유형을 확인해 보세요!</span>
-        </p>
+        <div>
+          <p>
+            <span className="delivery-message">배송지를 등록하고</span>
+          </p>
+          <p>
+            <span className="block-message">구매 가능한 상품을 확인하세요!</span>
+          </p>
+        </div>
       )}
       {addr !== null && (
-        <p className="pt-4 font-medium">
+        <p className="delivery-address">
           <span>{`${addr} ${buildingName && '(' + buildingName + ')'}`}</span>
-          <span className="block text-kp-600 text-r-1.4 pt-3">샛별배송</span>
+          <span className="block-message"></span>
         </p>
       )}
 
@@ -130,6 +128,4 @@ const StartStyle = {
 }
 
 export default AddressForm;
-
-
 
