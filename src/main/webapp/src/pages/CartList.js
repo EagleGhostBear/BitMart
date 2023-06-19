@@ -406,6 +406,7 @@ const PriceDetail = styled.div`
   .discount {
     float: left;
     margin: 0;
+   
   }
   .discount-price {
     float: right;
@@ -417,6 +418,7 @@ const PriceDetail = styled.div`
     float: left;
     padding-top: 9px;
     margin: 0;
+    margin-right: 100px;
   }
   .delivery-fee-price {
     float: right;
@@ -427,8 +429,9 @@ const PriceDetail = styled.div`
     height: 26.5px;
   }
   .discount-area {
-    height: 26.5px;
-    padding-top: 10px;
+    height: 36.5px;
+    padding-top: 11px;
+
   }
 `;
 

@@ -1,16 +1,14 @@
-// import logo from "../logo.svg";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import React from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { actionCreators as userActions } from '../redux/modules/user';
+import '../App.css';
 
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { actionCreators as userActions } from "../redux/modules/user";
+// Components
+import { Header } from '../components/component';
 
-import "../App.css";
-
-//components
-import { Header } from "../components/component";
-
-//pages
+// Pages
 import {
   Main,
   Login,
@@ -23,23 +21,24 @@ import {
   Address,
   FindPwd,
   FindId,
+  OrderList,
+  Payment,
   Category,
 } from "../pages/page";
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token_key = `${localStorage.getItem("token")}`;
+  const token_key = localStorage.getItem('token');
   const islogin = useSelector((state) => state.user.is_login);
-  const user = useSelector((state) => state.user.user);
-  console.log("islogin: ", islogin + " user: " + JSON.stringify(user));
+  console.log("islogin: ", islogin);
   const [searchValue, setSearchValue] = useState(""); // 검색어 상태
   const [selectedTag, setSelectedTag] = useState('');
 
   const handleSearchSubmit = (value) => {
-    console.log("검색어 : " + value);
-    setSearchValue(value); // 검색어 업데이트
-    navigate("/category");
+    console.log('검색어: ' + value);
+    setSearchValue(value);
+    navigate('/category');
   };
 
   useEffect(() => {
@@ -68,6 +67,8 @@ function App() {
         <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
+        <Route path="/orderlist" element={<OrderList />} />
+        <Route path="/Payment" element={<Payment />} />
       </Routes>
     </div>
   );
