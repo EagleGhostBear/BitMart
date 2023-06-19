@@ -17,5 +17,6 @@ import InquiryFormPage from "./InquiryFormPage";
 import Category from "./Category";
 import Order from "./Order";
 import Address from "./Address";
+import ConfirmPwd from "./ConfirmPwd";
 
-export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category, FindPwd, FindId, Order, Address, NoticeListPage, NoticeDetailPage, FaqPage, InquiryPage, InquiryFormPage, Payment, OrderList };
+export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category, FindPwd, FindId, Order, Address, NoticeListPage, NoticeDetailPage, FaqPage, InquiryPage, InquiryFormPage, Payment, OrderList, ConfirmPwd };

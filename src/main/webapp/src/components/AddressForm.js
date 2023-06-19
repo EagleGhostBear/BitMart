@@ -9,20 +9,11 @@ const AddressForm = () => {
     /*global daum*/
     new daum.Postcode({
       oncomplete: function (data) {
-        let left = Math.ceil((window.screen.width - width) / 2);
-        let top = Math.ceil((window.screen.height - height) / 2);
-
         const addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
         const buildingName = data.buildingName ? data.buildingName : '';
 
         sessionStorage.setItem('address', addr);
         sessionStorage.setItem('buildingName', buildingName);
-
-        window.open(
-          '/kakao/destination',
-          '_blank',
-          `height=${height},width=${width}, top=${top}, left=${left}`,
-        );
       },
     }).open({
       left: Math.ceil((window.screen.width - width) / 2),
@@ -40,27 +31,31 @@ const AddressForm = () => {
         배송지
       </p>
       {addr === null && (
-        <p>
-          <span className="text-kp-600">배송지를 입력</span>하고
-          <span className="block">배송유형을 확인해 보세요!</span>
-        </p>
+        <div>
+          <p>
+            <span className="text-kp-600">배송지를 등록하고</span>
+          </p>
+          <p>
+            <span className="block">구매 가능한 상품을 확인하세요!</span>
+          </p>
+        </div>
       )}
       {addr !== null && (
         <p className="pt-4 font-medium">
           <span>{`${addr} ${buildingName && '(' + buildingName + ')'}`}</span>
-          <span className="block text-kp-600 text-r-1.4 pt-3">샛별배송</span>
+          <span className="block text-kp-600 text-r-1.4 pt-3"></span>
         </p>
       )}
 
       <div className="delivery-type">
-        <span className="delivery-type-star">샛별배송</span>
+        <span className="delivery-type-star"></span>
       </div>
 
       <p
         onClick={onClickLink}
         className="cursor-pointer mt-7 border rounded-r-0.4 border-kp-600 w-full h-14 text-r-1.2 text-kp-600 inline-block text-center leading-r-3.5 font-semibold"
         style={{
-          color: 'rgb(95, 0, 128)',
+          color: 'purple', // Changed color to purple
           backgroundColor: 'white',
           border: '1px solid rgb(95, 0, 128)',
           height: '36px',
@@ -89,6 +84,7 @@ const AddressForm = () => {
 };
 
 export default AddressForm;
+
 
 
 

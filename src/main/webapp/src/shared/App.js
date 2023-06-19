@@ -24,14 +24,14 @@ import {
   OrderList,
   Payment,
   Category,
+  ConfirmPwd,
+  notices,
   NoticeListPage,
   NoticeDetailPage,
-  Faq,
   FaqPage,
+  InquiryPage,
   InquiryFormPage,
-  InquiryPage
 } from "../pages/page";
-
 
 function App() {
   const dispatch = useDispatch();
@@ -68,19 +68,20 @@ function App() {
         <Route path="/detail/:seq" element={<Detail />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
-        <Route path="/*" element={<NotFound />} />
         <Route path="/order" element={<Order />} />
         <Route path="/address" element={<Address />} />
         <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
+        <Route path="/confirmPwd" element={<ConfirmPwd />} />
         <Route path="/orderlist" element={<OrderList />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/notices" element={<NoticeListPage />} />
         <Route path="/notices/:id" element={<NoticeDetailPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/inquiry" element={<InquiryPage />} />
-        <Route path="/inquirywrite" element={<InquiryFormPage />}/>
+        <Route path="/inquiry/wri" element={<InquiryFormPage />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
   );
