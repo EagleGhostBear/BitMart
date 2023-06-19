@@ -15,40 +15,20 @@ const AllList = (props) => { //부모 컴포넌트에서 받은 state와 method
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get('/prodcut_card')
+    axios.post('/product_card')
       .then(response => setData(response.data));
   }, []);
 
   return (
 
     < Wrap >
-      <TitleWrap><span>이 상품 어때요?</span></TitleWrap>
+      <TitleWrap><span>고객님의 맞춤 상품</span></TitleWrap>
       <Slider {...settings}>
-        {/* {all_list && all_list.map((data, i) => {
+        {data.map((item, i) => {
           return (
-            <Card key={i} data={data}></Card>
+            <Card key={i} data={item}></Card>
           );
-        })} */}
-        {data.map(item => (
-        <ProductContainer>
-        <React.Fragment>
-          <ProductImgWrap>
-            <img src={item.image} />
-            <CartIcon></CartIcon>
-          </ProductImgWrap>
-            <TextWrap>
-              <ProductSubTitle key={item.seq}>{item.subtitle}</ProductSubTitle>
-              <ProductTitle>{item.title}</ProductTitle>
-              <CostBox></CostBox>
-              <CostBox>
-                <Sale>{item.sale}%</Sale>
-                <ProductPrice>{(1 - item.sale/100)*item.price}원</ProductPrice>
-              </CostBox>
-              <SalePrice>{item.price}원</SalePrice>
-            </TextWrap>
-        </React.Fragment>
-      </ProductContainer>
-      ))}
+        })}
       </Slider>
 
     </Wrap >

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import axios from 'axios';
 
 import { actionCreators as cartActions } from "../redux/modules/cart";
 
@@ -11,16 +12,20 @@ const CartItem = (props) => {
   // const [count, setCount] = useState(cart_list.quantity);
   const [select, setSelect] = useState(true);
 
-  const editCount = (count) => {
-    if (count === "plus") {
-      dispatch(cartActions.editCartDB(cart_list.pid, cart_list.quantity + 1));
-    } else if (count === "minus") {
-      dispatch(cartActions.editCartDB(cart_list.pid, cart_list.quantity - 1));
-    }
+  const editCount = (plus_minus, cart_seq) => {
+    axios.post('/cart_num_edit', { plus_minus: plus_minus, cart_seq: cart_seq})
+    window.location.reload();
+    // if (count === "plus") {
+    //   dispatch(cartActions.editCartDB(cart_list.pid, cart_list.quantity + 1));
+    // } else if (count === "minus") {
+    //   dispatch(cartActions.editCartDB(cart_list.pid, cart_list.quantity - 1));
+    // }
   };
 
-  const deleteItem = () => {
-    dispatch(cartActions.deleteCartDB(cart_list.pid));
+  const deleteItem = (cart_seq) => {
+    console.log("삭제할 카트 번호: ", cart_seq);
+    axios.post('/cart_delete', { cart_seq: cart_seq })
+    //dispatch(cartActions.deleteCartDB(cart_list.pid));
     alert("장바구니 물품이 삭제되었습니다!");
   };
 
@@ -55,7 +60,7 @@ const CartItem = (props) => {
                 href="#"
                 className="thumb"
                 style={{
-                  backgroundImage: `url(${cart_list.img})`,
+                  backgroundImage: `url(${cart_list.image})`,
                 }}
               >
                 상품이미지
@@ -64,14 +69,14 @@ const CartItem = (props) => {
               <div className="price">
                 <div className="real-price">
                   <span className="selling">
-                    {(cart_list.price * cart_list.quantity).toLocaleString(
+                    {((1 - cart_list.sale/100) * cart_list.price * cart_list.number).toLocaleString(
                       "ko-KR"
                     )}
                     원
                   </span>
                 </div>
                 <div className="counter">
-                  {cart_list.quantity <= 1 && (
+                  {cart_list.number <= 1 && (
                     <button
                       type="button"
                       className="btn-minus"
@@ -80,34 +85,34 @@ const CartItem = (props) => {
                       }}
                     />
                   )}
-                  {cart_list.quantity > 1 && (
+                  {cart_list.number > 1 && (
                     <button
                       style={{ cursor: "pointer" }}
                       type="button"
                       className="btn-minus"
                       onClick={() => {
-                        if (cart_list.quantity <= 1) {
+                        if (cart_list.number <= 1) {
                           return;
                         }
                         // setCount(count - 1);
-                        editCount("minus");
+                        editCount("minus", cart_list.cart_seq);
                       }}
                     />
                   )}
-                  <div className="number">{cart_list.quantity}</div>
+                  <div className="number">{cart_list.number}</div>
                   <button
                     style={{ cursor: "pointer" }}
                     type="button"
                     className="btn-plus"
                     onClick={() => {
                       // setCount(count + 1);
-                      editCount("plus");
+                      editCount("plus", cart_list.cart_seq);
                     }}
                   />
                 </div>
               </div>
             </div>
-            <button className="btn-close" onClick={deleteItem} />
+            <button className="btn-close" onClick={() => deleteItem(cart_list.cart_seq)} />
           </div>
         </li>
       </ul>

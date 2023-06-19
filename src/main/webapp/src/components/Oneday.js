@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CartIcon from "../elements/CartIcon";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import OnedayProduct from "./OnedayProduct";
+import axios from 'axios';
 
 const Oneday = (props) => {
   const navigate = useNavigate();
-  const list = useSelector((state) => state.post.list[3]);
-  console.log(list);
+  // const list = useSelector((state) => state.post.list[3]);
+  // console.log(list);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.post('/oneday_product')
+      .then(response => setData(response.data));
+  }, []);
 
   return (
     <Wrap>
@@ -17,70 +25,13 @@ const Oneday = (props) => {
       </Left>
 
       <List>
-        <Right>
-          <div>
-            <ImgContainer
-              onClick={() => {
-                navigate("/detail/64");
-                window.scrollTo(0, 0);
-              }}
-            >
-              <a href="">
-                <img
-                  src={
-                    "https://img-cf.kurly.com/shop/data/goods/1637155079598i0.jpg"
-                  }
-                />
-                <CartIcon></CartIcon>
-              </a>
-            </ImgContainer>
-
-            <TextWrap>
-              <ProductSubTitle>
-                믿고 먹을 수 있는 상품을 합리적인 가격에, KF365
-              </ProductSubTitle>
-              <ProductTitle>
-                [KF365] 김구원선생 국내산 무농약 콩나물 300g
-              </ProductTitle>
-              <CostBox>
-                <ProductPrice>900원</ProductPrice>
-                {/* <SalePrice>{props.Price}원</SalePrice> */}
-              </CostBox>
-            </TextWrap>
-          </div>
-        </Right>
-        <Right>
-          <div>
-            <ImgContainer
-              onClick={() => {
-                navigate("/detail/531");
-                window.scrollTo(0, 0);
-              }}
-            >
-              <a href="">
-                <img
-                  src={
-                    "https://img-cf.kurly.com/shop/data/goods/1637922958237i0.jpg"
-                  }
-                />
-                <CartIcon></CartIcon>
-              </a>
-            </ImgContainer>
-            <TextWrap>
-              <ProductSubTitle>
-                트러플의 영양을 가득 담은 마스크팩
-              </ProductSubTitle>
-              <ProductTitle>
-                [달바] 화이트 트러플 너리싱 트리트먼트 마스크 2종
-              </ProductTitle>
-              <CostBox>
-                <Sale>66%</Sale>
-                <ProductPrice>1,700원</ProductPrice>
-                <SalePrice>5,000원</SalePrice>
-              </CostBox>
-            </TextWrap>
-          </div>
-        </Right>
+        {data.map((item, i) => {
+          return (
+            <Right>
+            <OnedayProduct key={i} data={item} />
+            </Right>
+          );
+        })}
       </List>
     </Wrap>
   );

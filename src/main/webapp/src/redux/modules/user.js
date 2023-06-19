@@ -104,14 +104,13 @@ const loginDB = (username, password) => {
   console.log(username, password);
   return async function (dispatch, getState, { history }) {
     try {
-      const login = await axios.post("http://3.38.153.67/user/login", {
-        username: username,
-        password: password,
+      const login = await axios.post('/login', {
+        id: username,
+        pwd: password
       });
-      console.log(login);
 
-      dispatch(setUser({}));
-      localStorage.setItem("token", login.headers.authorization.split(" ")[1]);
+      dispatch(setUser({ id: login.data.id, pwd: login.data.pwd, name: login.data.name }));
+      localStorage.setItem("token", login.data.seq);
       window.alert("로그인 되었습니다!");
       window.location.replace("/");
 
@@ -128,24 +127,17 @@ const loginDB = (username, password) => {
 const loginCheckDB = (token_key) => {
   return async function (dispatch, getState, { history }) {
     try {
-      const check = await axios.post(
-        "http://3.38.153.67/api/user/islogin",
-        {},
-        {
-          headers: {
-            // "content-type": "applicaton/json;charset=UTF-8",
-            // "accept": "application/json",
-            Authorization: `Bearer ${token_key}`,
-          },
-          //헤더에 토큰 담기
-        }
-      );
+      const check = await axios.post('/check_login', {
+        seq: token_key
+      });
       // if (check.data.ok === true) {
       dispatch(
         setUser({
-          username: check.data.username,
-          uid: check.data.id,
-          nickname: check.data.nickname,
+          seq: check.data.seq,
+          id: check.data.id,
+          pwd: check.data.pwd,
+          name: check.data.name
+          //nickname: check.data.nickname,
         })
       );
       //   dispatch(
@@ -168,6 +160,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user = action.payload.user;
         draft.is_login = true;
+        console.log("성공함" + draft.user);
       }),
     [OUT_USER]: (state, action) =>
       produce(state, (draft) => {

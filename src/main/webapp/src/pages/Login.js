@@ -4,53 +4,7 @@ import { Text, LoginBox } from "../elements/element";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Link, useNavigate } from "react-router-dom";
-
-const LoginWrap = styled.div`
-  margin: 0px auto 100px 0px;
-  justify-content: center;
-  text-align: center;
-`;
-
-const CheckWrap = styled.div``;
-
-const Check = styled.input`
-  width: 10px;
-  height: 12px;
-  border-radius: 3px;
-  border: 1px solid #8c8c8c;
-  background-size: 16px 17px;
-  color: #8c8c8c;
-`;
-
-const FindStyle = styled.ul`
-  display: contents;
-`;
-
-const ButtonLogin = styled.button`
-  margin: 10px auto;
-  width: 27%;
-  height: 54px;
-  border-radius: 3px;
-  border: 1px solid #5f0081;
-  background-color: #5f0080;
-  cursor: pointer;
-  display: block;
-  overflow: hidden;
-  text-align: center;
-`;
-
-const ButtonSignup = styled.button`
-  margin: 10px auto;
-  width: 27%;
-  height: 54px;
-  border-radius: 3px;
-  border: 1px solid #5f0081;
-  background-color: #ffffff;
-  cursor: pointer;
-  display: block;
-  overflow: hidden;
-  text-align: center;
-`;
+import axios from 'axios';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -167,5 +121,52 @@ const Login = () => {
     </React.Fragment>
   );
 };
+
+const LoginWrap = styled.div`
+  margin: 0px auto 100px 0px;
+  justify-content: center;
+  text-align: center;
+`;
+
+const CheckWrap = styled.div``;
+
+const Check = styled.input`
+  width: 10px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid #8c8c8c;
+  background-size: 16px 17px;
+  color: #8c8c8c;
+`;
+
+const FindStyle = styled.ul`
+  display: contents;
+`;
+
+const ButtonLogin = styled.button`
+  margin: 10px auto;
+  width: 27%;
+  height: 54px;
+  border-radius: 3px;
+  border: 1px solid #5f0081;
+  background-color: #5f0080;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  text-align: center;
+`;
+
+const ButtonSignup = styled.button`
+  margin: 10px auto;
+  width: 27%;
+  height: 54px;
+  border-radius: 3px;
+  border: 1px solid #5f0081;
+  background-color: #ffffff;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  text-align: center;
+`;
 
 export default Login;

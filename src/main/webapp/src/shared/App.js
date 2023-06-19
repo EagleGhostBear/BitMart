@@ -1,16 +1,14 @@
-// import logo from "../logo.svg";
-import { Route, Routes } from "react-router-dom";
+import React from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { actionCreators as userActions } from '../redux/modules/user';
+import '../App.css';
 
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { actionCreators as userActions } from "../redux/modules/user";
+// Components
+import { Header } from '../components/component';
 
-import "../App.css";
-
-//components
-import { Header } from "../components/component";
-
-//pages
+// Pages
 import {
   Main,
   Login,
@@ -21,40 +19,45 @@ import {
   Detail,
   FindPwd,
   FindId,
-  Payment,
-  OrderList,
 } from "../pages/page";
 
 function App() {
   const dispatch = useDispatch();
-  const token_key = `${localStorage.getItem("token")}`;
+  const navigate = useNavigate();
+  const token_key = localStorage.getItem('token');
   const islogin = useSelector((state) => state.user.is_login);
   console.log("islogin: ", islogin);
+  const [searchValue, setSearchValue] = useState(""); // 검색어 상태
+  const [selectedTag, setSelectedTag] = useState('');
+
+  const handleSearchSubmit = (value) => {
+    console.log('검색어: ' + value);
+    setSearchValue(value);
+    navigate('/category');
+  };
 
   useEffect(() => {
-    if (!token_key) {
+    if (token_key === null && token_key === "null") {
       return;
     }
-    if (token_key) {
+    if (token_key !== null && token_key !== "null") {
+      console.log("토큰 있음:" + token_key);
       dispatch(userActions.loginCheckDB(token_key));
-    }
+    }    
   }, []);
 
   return (
     <div className="App">
-      <Header />
+      <Header onSearchSubmit={handleSearchSubmit} />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/detail/:seq" element={<Detail />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
-        <Route path="/*" element={<NotFound />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
-        <Route path="/payment" element={<Payment />} />
-        <Route path="/orderlist" element={<OrderList />} />
       </Routes>
     </div>
   );

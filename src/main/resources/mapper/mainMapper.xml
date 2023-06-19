@@ -14,4 +14,91 @@
 	<select id="product_card" resultType="main.bean.MainDTO">
 		select * from product
 	</select>
+	
+	<select id="product_detail" parameterType="String" resultType="main.bean.MainDTO">
+		select * from product where seq = #{seq}
+	</select>
+	
+	<select id ="product_list" parameterType="java.util.Map" resultType="main.bean.MainDTO">
+		SELECT * FROM product WHERE title like CONCAT('%', #{word}, '%') AND category like
+			CASE #{category}
+				WHEN '수산물' THEN '수산물'
+				WHEN '육류' THEN '육류'
+				WHEN '야채' THEN '야채'
+				WHEN '과일' THEN '과일'
+				WHEN '욕실' THEN '욕실'
+				WHEN '주방용품' THEN '주방용품'
+				WHEN '면류' THEN '면류'
+				WHEN '간식류' THEN '간식류'
+				WHEN '건강식품' THEN '건강식품'
+				WHEN '기타류' THEN '기타류'
+				ELSE '%%'
+			END ORDER BY
+			CASE #{tag}
+				WHEN 'new' THEN seq
+				WHEN 'best' THEN sale
+				WHEN 'sale' THEN sale
+				WHEN 'price' THEN price
+				ELSE seq
+			END DESC LIMIT #{endNum} OFFSET #{startNum}
+	</select>
+	
+	<select id="oneday_product" resultType="main.bean.MainDTO">
+		select * from product ORDER BY sale desc limit 2 offset 0
+	</select>
+	
+	<select id="product_number" resultType="String">
+		select count(*) from product
+	</select>
+	
+	<select id="login" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where id=#{id} and pwd=#{pwd}
+	</select>
+	
+	<select id="check_login" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where seq=#{seq}
+	</select>
+	
+	<select id ="cart_list" parameterType="java.util.Map" resultType="main.bean.CartDTO">
+		SELECT *
+		FROM cart
+			inner join product
+		    on cart.product = product.seq
+		WHERE cart.user = #{seq}
+	</select>
+	
+	<delete id="cart_delete" parameterType="java.util.Map">
+		delete from cart where cart_seq = #{cart_seq}
+	</delete>
+	
+	<update id="cart_num_edit" parameterType="java.util.Map">
+		UPDATE cart
+		SET number = CASE #{plus_minus}
+		    WHEN 'plus' THEN number + 1
+		    WHEN 'minus' THEN number - 1
+		    ELSE number
+		END
+		WHERE cart_seq=#{cart_seq}
+	</update>
+	
+	<select id="check_cart" parameterType="java.util.Map" resultType="main.bean.CartDTO">
+		select * from cart where user=#{user_seq} and product=#{product_seq}
+	</select>
+	
+	<insert id="cart_insert" parameterType="java.util.Map">
+		insert into cart(user, product, number) values(#{user_seq}, #{product_seq}, 1)
+	</insert>
+
+	<select id="getNoticeList" resultType="main.bean.NoticeDTO">
+		SELECT * FROM notices
+	</select>
+	
+	<select id="getNoticeDetail" parameterType="int" resultType="main.bean.NoticeDTO">
+		SELECT * FROM notices WHERE id = #{id}
+	</select>
+	
+		<select id="getFaqList" resultType="main.bean.FaqDTO">
+		SELECT * FROM faq
+	</select>
+	
 </mapper>
