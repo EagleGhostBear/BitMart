@@ -28,25 +28,25 @@ const AddressForm = () => {
   }, []);
 
   return (
-    <div className="w-r-28.4 px-8 py-9 border text-r-1.6 font-bold">
+    <div className="address-form-container">
       <p>
-        <FaMapMarkerAlt className="inline-block mr-3" />
+        <FaMapMarkerAlt className="marker-icon" />
         배송지
       </p>
       {addr === null && (
         <div>
           <p>
-            <span className="text-kp-600">배송지를 등록하고</span>
+            <span className="delivery-message">배송지를 등록하고</span>
           </p>
           <p>
-            <span className="block">구매 가능한 상품을 확인하세요!</span>
+            <span className="block-message">구매 가능한 상품을 확인하세요!</span>
           </p>
         </div>
       )}
       {addr !== null && (
-        <p className="pt-4 font-medium">
+        <p className="delivery-address">
           <span>{`${addr} ${buildingName && '(' + buildingName + ')'}`}</span>
-          <span className="block text-kp-600 text-r-1.4 pt-3"></span>
+          <span className="block-message"></span>
         </p>
       )}
 
@@ -56,7 +56,7 @@ const AddressForm = () => {
 
       <p
         onClick={onClickLink}
-        className="cursor-pointer mt-7 border rounded-r-0.4 border-kp-600 w-full h-14 text-r-1.2 text-kp-600 inline-block text-center leading-r-3.5 font-semibold"
+        className="address-search-button"
         style={{
           color: 'purple', // Changed color to purple
           backgroundColor: 'white',
@@ -75,7 +75,7 @@ const AddressForm = () => {
       >
         {addr === null ? (
           <>
-            <FaSearch className="inline-block mr-3" />
+            <FaSearch className="search-icon" />
             주소 검색
           </>
         ) : (
@@ -87,8 +87,4 @@ const AddressForm = () => {
 };
 
 export default AddressForm;
-
-
-
-
 
