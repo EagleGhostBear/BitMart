@@ -19,6 +19,9 @@ import {
   NotFound,
   CommentWrite,
   Detail,
+
+  Order,
+  Address,
 } from "../pages/page";
 
 function App() {
@@ -53,6 +56,10 @@ function App() {
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
         <Route path="/*" element={<NotFound />} />
+
+        <Route path="/order" element={<Order />} />
+        <Route path="/address" element={<Address />} />
+        
       </Routes>
     </div>
   );

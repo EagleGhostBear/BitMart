@@ -6,4 +6,7 @@ import CommentWrite from "./CommentWrite";
 import NotFound from "./NotFound";
 import Detail from "./Detail";
 
-export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound };
+import Order from "./Order";
+import Address from "./Address";
+
+export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Order, Address };
