@@ -189,6 +189,24 @@ public class MainController {
 	   System.out.println("list = " + faqs);
 	   return faqs;
 	    }
+	
+	@PostMapping(value="/checkUserId")
+	@ResponseBody
+	public UserDTO checkUserId(@RequestBody Map<String, String> requestData) {
+	    String id = requestData.get("id");
+	    System.out.println("아이디는 " + id);
+	    return mainService.checkUserId(id);
+	}
+	
+	@PostMapping(value="/checkEmail")
+	@ResponseBody
+	public UserDTO checkEmail(@RequestBody Map<String, String> requestData) {
+		String email = requestData.get("email");
+		System.out.println("이메일은 " + email);
+		
+		return mainService.checkEmail(email);
+	}
+	
 
 	
 }

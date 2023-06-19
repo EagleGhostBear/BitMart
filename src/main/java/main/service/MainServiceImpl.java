@@ -123,5 +123,17 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.findId(map);
 	}
 
+	@Override
+	public UserDTO checkUserId(String id) {
+		// TODO Auto-generated method stub
+		return mainDAO.checkUserId(id);
+	}
+
+	@Override
+	public UserDTO checkEmail(String email) {
+		// TODO Auto-generated method stub
+		return mainDAO.checkEmail(email);
+	}
+
 
 }

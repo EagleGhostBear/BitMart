@@ -105,5 +105,12 @@
 		SELECT * FROM user WHERE name = #{name} AND CONCAT(email1, '@', email2) = #{email}
 	</select>
 	
+	<select id="checkUserId" resultType="main.bean.UserDTO" parameterType="String">
+		SELECT * FROM user where id=#{id}
+	</select>
+	
+	<select id="checkEmail" resultType="main.bean.UserDTO" parameterType="java.util.Map">
+		SELECT * FROM user where email1=#{email1} and email2=#{email2}
+	</select>
 	
 </mapper>

@@ -15,19 +15,19 @@ const initialState = {
   is_login: false,
 };
 
-const usernameCheckF = (username) => {
+const userIdCheckF = (userId) => {
   return function (dispatch, getState) {
-    console.log(username);
+    console.log(userId);
     axios({
       method: "post",
-      url: "http://3.38.153.67/api/user/signup/username",
+      url: "/checkUserId",
       data: {
-        username: username,
-      },
+        id: userId,
+      }
     })
       .then((res) => {
         console.log(res.data);
-        if (!res.data) {
+        if (res.data === "") {
           window.alert("사용 가능한 아이디입니다!");
         } else {
           window.alert("이미 사용 중인 아이디입니다!");
@@ -45,7 +45,7 @@ const emailCheckF = (email) => {
     console.log(email);
     axios({
       method: "post",
-      url: "http://3.38.153.67/api/user/signup/email",
+      url: "/checkEmail",
       data: {
         email: email,
       },
@@ -210,7 +210,7 @@ const actionCreators = {
   signupDB,
   loginDB,
   loginCheckDB,
-  usernameCheckF,
+  userIdCheckF,
   emailCheckF,
   findIdDB
 };

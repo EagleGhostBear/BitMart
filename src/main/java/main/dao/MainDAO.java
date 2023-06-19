@@ -45,4 +45,8 @@ public interface MainDAO {
 
 	UserDTO findId(Map map);
 
+	UserDTO checkUserId(String id);
+
+	UserDTO checkEmail(String email);
+
 }
