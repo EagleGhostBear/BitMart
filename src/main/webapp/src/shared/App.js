@@ -24,6 +24,12 @@ import {
   OrderList,
   Payment,
   Category,
+  notices,
+  NoticeListPage,
+  NoticeDetailPage,
+  FaqPage,
+  InquiryPage,
+  InquiryFormPage
 } from "../pages/page";
 
 function App() {
@@ -61,7 +67,6 @@ function App() {
         <Route path="/detail/:seq" element={<Detail />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
-        <Route path="/*" element={<NotFound />} />
         <Route path="/order" element={<Order />} />
         <Route path="/address" element={<Address />} />
         <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
@@ -69,6 +74,12 @@ function App() {
         <Route path="/FindId" element={<FindId />} />
         <Route path="/orderlist" element={<OrderList />} />
         <Route path="/Payment" element={<Payment />} />
+        <Route path="/notices" element={<NoticeListPage />} />
+        <Route path="/notices/:id" element={<NoticeDetailPage />} />
+        <Route path="/faq" element={<FaqPage />} />
+        <Route path="/inquiry" element={<InquiryPage />} />
+        <Route path="/inquiry/wri" element={<InquiryFormPage />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
   );
