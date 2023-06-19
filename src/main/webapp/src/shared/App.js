@@ -21,6 +21,8 @@ import {
   Detail,
   FindPwd,
   FindId,
+  Payment,
+  OrderList,
 } from "../pages/page";
 
 function App() {
@@ -51,6 +53,8 @@ function App() {
         <Route path="/*" element={<NotFound />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/orderlist" element={<OrderList />} />
       </Routes>
     </div>
   );
