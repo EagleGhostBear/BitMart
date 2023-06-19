@@ -137,7 +137,7 @@ const Order = () => {
                 </li>
     
                 <li className="NavDetail" >
-                  <a href="/info" className="Info">
+                  <a href="/ConfirmPwd" className="Info">
                     개인 정보 수정
                     <svg
                       id="Arrow"

@@ -25,7 +25,8 @@ export default function Component() {
   return (
     <>
       <div
-        className="body"
+        //className="body"
+        className={`mainContainer ${modalOpen ? "darken" : ""}`}
         style={{
           boxSizing: "border-box",
           padding: "50px 0px 80px",
@@ -75,7 +76,7 @@ export default function Component() {
             <li
               style={{ padding: "0px", margin: "0px", boxSizing: "border-box" }}
             >
-              <a
+              <a href="./order"
                 className="css-g4g0eu ecbxmj0"
                 style={{
                   margin: "0px",
@@ -188,7 +189,7 @@ export default function Component() {
             <li
               style={{ padding: "0px", margin: "0px", boxSizing: "border-box" }}
             >
-              <a
+              <a href="./address"
                 className="css-g4g0eu ecbxmj0"
                 style={{
                   margin: "0px",
@@ -530,6 +531,7 @@ export default function Component() {
         </div>
         <div
           className="section"
+          //className={`mainContainer ${modalOpen ? "darken" : ""}`}
           style={{
             padding: "0px",
             margin: "0px",
@@ -860,7 +862,7 @@ export default function Component() {
                 }}
               >
                 {/* 클릭하면 모달창이 열리는 코드 */}
-                <React.Fragment>
+                
                 <button
                   className="confirmBtn"
                   onClick={openModal}
@@ -907,15 +909,16 @@ export default function Component() {
                   </span>
                 </button>
 
-                  {/* 모달창 부분 */}
-                  {modalOpen && (<Modal modalOpen={modalOpen} open={openModal} close={closeModal} header="Modal heading"
-                  style={{
-                    
-                  }}>
-                  아이디, 비밀번호를 확인해주세요.
-                  </Modal>
+                {modalOpen && 
+                  (<Modal 
+                      //modalOpen={modalOpen} 
+                      open={openModal} 
+                      close={closeModal} 
+                      //onRequestClose={closeModal} 
+                      //header="Modal heading"
+                    ></Modal>
                   )}
-                </React.Fragment>
+                
               </div>
             </form>
           </div>
@@ -947,6 +950,12 @@ body {
   font-size: 14px;
   color: rgb(51, 51, 51);
 }
+
+.darken {
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
 `,
         }}
       />
