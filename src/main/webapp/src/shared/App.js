@@ -24,7 +24,14 @@ import {
   OrderList,
   Payment,
   Category,
+  NoticeListPage,
+  NoticeDetailPage,
+  Faq,
+  FaqPage,
+  InquiryFormPage,
+  InquiryPage
 } from "../pages/page";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -69,6 +76,11 @@ function App() {
         <Route path="/FindId" element={<FindId />} />
         <Route path="/orderlist" element={<OrderList />} />
         <Route path="/Payment" element={<Payment />} />
+        <Route path="/notices" element={<NoticeListPage />} />
+        <Route path="/notices/:id" element={<NoticeDetailPage />} />
+        <Route path="/faq" element={<FaqPage />} />
+        <Route path="/inquiry" element={<InquiryPage />} />
+        <Route path="/inquirywrite" element={<InquiryFormPage />}/>
       </Routes>
     </div>
   );
