@@ -10,11 +10,11 @@ import { useParams } from "react-router-dom";
 
 const DetailItem = (props) => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
   const [data, setData] = useState([]);
 
   // const params = useParams();
   const seq = props.seq;
-  console.log("테스트" + seq);
   // console.log(pid);
 
   useEffect(() => {
@@ -44,9 +44,10 @@ const DetailItem = (props) => {
   // const setPrice = count * price;
   // const setDisconunt = count * disconunt;
 
-  const addCart = () => {
-    let product_id = parseInt(seq);
-    dispatch(cartActions.addCartDB(product_id, count));
+  const addCart = (user_seq, product_seq) => {
+    axios.post('/check_cart', { user_seq: user_seq, product_seq: product_seq }).then(response => {
+      if(response.data === true) { axios.post('/cart_insert', { user_seq: user_seq, product_seq: product_seq }); alert("장바구니에 담겼습니다!") }
+      else { alert("이미 장바구니에 담긴 상품입니다!") }});
   };
 
   return (
@@ -146,7 +147,7 @@ const DetailItem = (props) => {
       )}
 
       <BtnWrap>
-        <button className="btn" onClick={addCart}>
+        <button className="btn" onClick={() => user ? addCart(user.seq, data.seq) : alert("로그인 후 이용해주세요!")}>
           장바구니 담기
         </button>
       </BtnWrap>

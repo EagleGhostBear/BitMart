@@ -6,5 +6,6 @@
 	<typeAliases>
 		<typeAlias type="main.bean.MainDTO" alias="main"/>
 	    <typeAlias type="main.bean.NoticeDTO" alias="notice"/>
+	    <typeAlias type="main.bean.FaqDTO" alias="faq" />
 	</typeAliases>
 </configuration> 

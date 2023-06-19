@@ -6,33 +6,42 @@ import AddressForm from "../components/AddressForm";
 
 import { actionCreators as cartActions } from "../redux/modules/cart";
 import { CartItem } from "../components/component";
+import axios from 'axios';
 
 const CartList = (props) => {
   const dispatch = useDispatch();
   const cart_list = useSelector((state) => state.cart.list);
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState([]);
 
-  let quantity_data = [];
-  let price_data = [];
+  // let quantity_data = [];
+  // let price_data = [];
 
-  for (let i = 0; i < cart_list.length; i++) {
-    quantity_data.push(cart_list[i].quantity);
-  }
-  for (let i = 0; i < cart_list.length; i++) {
-    price_data.push(cart_list[i].price);
-  }
+  // for (let i = 0; i < cart_list.length; i++) {
+  //   quantity_data.push(cart_list[i].quantity);
+  // }
+  // for (let i = 0; i < cart_list.length; i++) {
+  //   price_data.push(cart_list[i].price);
+  // }
 
-  let total_quantity = quantity_data.reduce((a, c) => a + c, 0);
-  let now_price = quantity_data.reduce(function (r, a, i) {
-    return r + a * price_data[i];
-  }, 0);
+  // let total_quantity = quantity_data.reduce((a, c) => a + c, 0);
+  // let now_price = quantity_data.reduce(function (r, a, i) {
+  //   return r + a * price_data[i];
+  // }, 0);
 
-  let total_price = 0;
-  const delivery_fee = 3000;
-  if (now_price < 40000) {
-    total_price = now_price + delivery_fee;
-  } else {
-    total_price = now_price;
-  }
+  // let total_price = 0;
+  // const delivery_fee = 3000;
+  // if (now_price < 40000) {
+  //   total_price = now_price + delivery_fee;
+  // } else {
+  //   total_price = now_price;
+  // }
+
+  let now_price = 0;
+  let discount_price = 0;
+  let total_quantity = 0;
+  let delivery_price = 0;
+  let total_price = now_price - discount_price;
 
   console.log("only 물품 가격: ", now_price);
   console.log("총 수량: ", total_quantity);
@@ -42,6 +51,12 @@ const CartList = (props) => {
     if (cart_list) {
       dispatch(cartActions.getCartDB());
     }
+  }, []);
+
+  useEffect(() => {
+    console.log("token_key: ", token_key)
+    axios.post('/cart_list', { seq: token_key })
+      .then(response => setData(response.data));
   }, []);
 
   return (
@@ -76,10 +91,19 @@ const CartList = (props) => {
 
             {/* {!cart_list && } */}
 
-            {cart_list &&
+            {/* {cart_list &&
               cart_list.map((a, i) => {
                 return <CartItem key={i} {...a} />;
-              })}
+              })} */}
+            {data.map((item, i) => {
+              now_price += item.price * item.number;
+              discount_price += ((item.sale/100) * item.price * item.number);
+              if( (now_price - discount_price) < 40000 ) {delivery_price=3000}
+              else delivery_price=0;
+              return (
+                <CartItem key={i} {...item} />
+              );
+            })}
           </ProductWrapper>
 
           <PriceWrapper>
@@ -106,20 +130,20 @@ const CartList = (props) => {
               <PriceDetail>
                 <div className="discount-area">
                   <p className="discount">상품할인금액</p>
-                  <p className="discount-price">0원</p>
+                  <p className="discount-price">{discount_price.toLocaleString("ko-KR")}원</p>
                 </div>
               </PriceDetail>
               <PriceDetail>
                 <div className="area">
                   <p className="delivery-fee">배송비</p>
                   <p className="delivery-fee-price">
-                    {now_price < 40000 ? "+3,000원" : "0원"}
+                    {delivery_price.toLocaleString("ko-KR")}원
                   </p>
                 </div>
               </PriceDetail>
               <p className="free">
                 {now_price < 40000
-                  ? `${(40000 - now_price).toLocaleString(
+                  ? `${(40000 - (now_price - discount_price)).toLocaleString(
                       "ko-KR"
                     )}원 추가주문 시 무료배송`
                   : ""}
@@ -134,10 +158,7 @@ const CartList = (props) => {
                     float: "right",
                   }}
                 >
-                  {total_price === 0
-                    ? "0"
-                    : total_price.toLocaleString("ko-KR")}
-                  원
+                  {(now_price - discount_price + delivery_price).toLocaleString("ko-KR")}원
                 </p>
               </PriceDetail>
               <Point>

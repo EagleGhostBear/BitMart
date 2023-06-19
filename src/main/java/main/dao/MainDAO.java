@@ -3,8 +3,11 @@ package main.dao;
 import java.util.List;
 import java.util.Map;
 
+import main.bean.CartDTO;
+import main.bean.FaqDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
+import main.bean.UserDTO;
 
 public interface MainDAO {
 
@@ -20,8 +23,24 @@ public interface MainDAO {
 
 	String product_number();
 
-	List<NoticeDTO> getNoticeList();
+	List<NoticeDTO> getNoticeList(); // 추가
 
-	NoticeDTO getNoticeDetail(int id);
+	NoticeDTO getNoticeDetail(int id); // 추가
+
+	UserDTO login(Map map);
+
+	UserDTO check_login(Map map);
+
+	List<CartDTO> cart_list(Map map);
+
+	public void cart_delete(Map map);
+
+	public void cart_num_edit(Map map);
+
+	CartDTO check_cart(Map map);
+
+	public void cart_insert(Map map);
+	
+	List<FaqDTO> getFaqList(); // 추가
 
 }

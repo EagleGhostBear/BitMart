@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import main.bean.CartDTO;
+import main.bean.FaqDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
+import main.bean.UserDTO;
 
 @Repository
 @Transactional
@@ -64,5 +67,59 @@ public class MainDAOMyBatis implements MainDAO {
 	public NoticeDTO getNoticeDetail(int id) {
 	    return sqlSession.selectOne("mainSQL.getNoticeDetail", id);
 	}
+
+	
+	@Override
+	public UserDTO login(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.login", map);
+	}
+	
+	@Override
+	public UserDTO check_login(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.check_login", map);
+	}
+	
+	@Override
+	public List<CartDTO> cart_list(Map map) {
+		
+		List<CartDTO> list = sqlSession.selectList("mainSQL.cart_list", map);
+		System.out.println("cart_data:" + list);
+		return list;
+	}
+	
+	@Override
+	public void cart_delete(Map map) {
+		
+		sqlSession.delete("mainSQL.cart_delete", map);
+	}
+	
+	@Override
+	public void cart_num_edit(Map map) {
+		
+		sqlSession.update("mainSQL.cart_num_edit", map);
+	}
+	
+	@Override
+	public CartDTO check_cart(Map map) {
+		System.out.println(map);
+		return sqlSession.selectOne("mainSQL.check_cart", map);
+	}
+	
+	@Override
+	public void cart_insert(Map map) {
+		
+		sqlSession.insert("mainSQL.cart_insert", map);
+	}
+
+	@Override
+	public List<FaqDTO> getFaqList() {
+	    return sqlSession.selectList("mainSQL.getFaqList");
+	}
+
+
+	
+	
 
 }

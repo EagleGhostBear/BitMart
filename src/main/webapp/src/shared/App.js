@@ -22,15 +22,20 @@ import {
   Category,
   NoticeListPage,
   NoticeDetailPage,
+  Faq,
+  FaqPage,
+  InquiryFormPage,
 } from '../pages/page';
+import InquiryPage from '../pages/InquiryPage';
 
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token_key = localStorage.getItem('token');
   const islogin = useSelector((state) => state.user.is_login);
-  console.log('islogin: ', islogin);
-  const [searchValue, setSearchValue] = useState('');
+  console.log("islogin: ", islogin);
+  const [searchValue, setSearchValue] = useState(""); // 검색어 상태
+  const [selectedTag, setSelectedTag] = useState('');
 
   const handleSearchSubmit = (value) => {
     console.log('검색어: ' + value);
@@ -39,12 +44,13 @@ function App() {
   };
 
   useEffect(() => {
-    if (!token_key) {
+    if (token_key === null && token_key === "null") {
       return;
     }
-    if (token_key) {
+    if (token_key !== null && token_key !== "null") {
+      console.log("토큰 있음:" + token_key);
       dispatch(userActions.loginCheckDB(token_key));
-    }
+    }    
   }, []);
 
   return (
@@ -62,6 +68,9 @@ function App() {
         <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/notices" element={<NoticeListPage />} />
         <Route path="/notices/:id" element={<NoticeDetailPage />} />
+        <Route path="/faq" element={<FaqPage />} />
+        <Route path="/inquiry" element={<InquiryPage />} />
+        <Route path="/inquirywrite" element={<InquiryFormPage />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

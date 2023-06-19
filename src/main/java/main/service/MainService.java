@@ -3,8 +3,11 @@ package main.service;
 import java.util.List;
 import java.util.Map;
 
+import main.bean.CartDTO;
+import main.bean.FaqDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
+import main.bean.UserDTO;
 
 public interface MainService {
 
@@ -18,10 +21,28 @@ public interface MainService {
 
     List<MainDTO> oneday_product();
 
-    String product_number();
-
     List<NoticeDTO> getNoticeList(); // 수정된 부분
 
     NoticeDTO getNoticeDetail(int id); // 수정된 부분
+    
+	String product_number();
+
+	UserDTO login(Map map);
+
+	UserDTO check_login(Map map);
+
+	List<CartDTO> cart_list(Map map);
+
+	public void cart_delete(Map map);
+
+	public void cart_num_edit(Map map);
+
+	CartDTO check_cart(Map map);
+
+	public void cart_insert(Map map);
+
+	List<FaqDTO> getFaqList(); //수정된 부분
+
+
 }
 

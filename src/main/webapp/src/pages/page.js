@@ -10,5 +10,8 @@ import FindPwd from "./FindPwd";
 import FindId from "./FindId";
 import NoticeListPage from "./NoticeListPage";
 import NoticeDetailPage from "./NoticeDetailPage";
+import FaqPage from "./FaqPage";
+import InquiryPage from "./InquiryPage";
+import InquiryFormPage from "./InquiryFormPage";
 
-export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category, FindPwd, FindId, NoticeListPage, NoticeDetailPage };
+export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category, FindPwd, FindId, NoticeListPage, NoticeDetailPage, FaqPage, InquiryPage, InquiryFormPage };

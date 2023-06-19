@@ -11,6 +11,7 @@ public class MainDTO {
 	private String image;
 	private String title;
 	private String subtitle;
+	private String category;
 	private int price;
 	private int sale;
 	private String unit;
