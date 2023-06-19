@@ -19,6 +19,8 @@ import {
   Detail,
   FindPwd,
   FindId,
+  OrderList,
+  Payment,
 } from "../pages/page";
 
 function App() {
@@ -58,6 +60,9 @@ function App() {
         <Route path="/comment/write/:id" element={<CommentWrite />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
+        <Route path="*" element={<NotFound />} />
+        <Route path="/orderlist" element={<OrderList />} />
+        <Route path="/Payment" element={<Payment />} />
       </Routes>
     </div>
   );
