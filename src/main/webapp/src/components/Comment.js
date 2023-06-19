@@ -45,8 +45,8 @@ const Comment = (props) => {
         <CommentData
           style={{
             paddingLeft: "50px",
-            paddingRight: "250px",
-            width: "592px",
+            paddingRight: "75px",
+            width: "492px",
             textAlign: "left",
           }}
         >
