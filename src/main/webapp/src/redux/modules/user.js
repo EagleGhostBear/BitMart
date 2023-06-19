@@ -108,6 +108,11 @@ const loginDB = (username, password) => {
         id: username,
         pwd: password
       });
+      
+      if (login.data === null || login.data === '') {
+        window.alert("아이디와 비밀번호를 다시 확인해주세요.");
+        return;
+      }
 
       dispatch(setUser({ id: login.data.id, pwd: login.data.pwd, name: login.data.name }));
       localStorage.setItem("token", login.data.seq);
