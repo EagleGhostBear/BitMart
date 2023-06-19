@@ -1,28 +1,31 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
 
 const width = 500;
 const height = 400;
 
 const AddressForm = () => {
+  const [addr, setAddr] = useState(sessionStorage.getItem('address'));
+  const [buildingName, setBuildingName] = useState(sessionStorage.getItem('buildingName'));
+
   const onClickLink = useCallback(() => {
     /*global daum*/
     new daum.Postcode({
       oncomplete: function (data) {
-        const addr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
-        const buildingName = data.buildingName ? data.buildingName : '';
+        const selectedAddr = data.userSelectedType === 'R' ? data.roadAddress : data.jibunAddress;
+        const selectedBuildingName = data.buildingName ? data.buildingName : '';
 
-        sessionStorage.setItem('address', addr);
-        sessionStorage.setItem('buildingName', buildingName);
+        sessionStorage.setItem('address', selectedAddr);
+        sessionStorage.setItem('buildingName', selectedBuildingName);
+
+        setAddr(selectedAddr);
+        setBuildingName(selectedBuildingName);
       },
     }).open({
       left: Math.ceil((window.screen.width - width) / 2),
       top: Math.ceil((window.screen.height - height) / 2),
     });
   }, []);
-
-  let addr = sessionStorage.getItem('address');
-  let buildingName = sessionStorage.getItem('buildingName');
 
   return (
     <div className="w-r-28.4 px-8 py-9 border text-r-1.6 font-bold">
@@ -84,6 +87,7 @@ const AddressForm = () => {
 };
 
 export default AddressForm;
+
 
 
 
