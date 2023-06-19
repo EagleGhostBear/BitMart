@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import main.bean.CartDTO;
+import main.bean.CommentDTO;
 import main.bean.FaqDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
@@ -117,9 +118,16 @@ public class MainDAOMyBatis implements MainDAO {
 	public List<FaqDTO> getFaqList() {
 	    return sqlSession.selectList("mainSQL.getFaqList");
 	}
-
-
 	
+	@Override
+	public List<CommentDTO> comment_list(Map map) {
+		
+		return sqlSession.selectList("mainSQL.comment_list", map);
+	}
 	
-
+	@Override
+	public String comment_count(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.comment_count", map);
+	}
 }

@@ -8,8 +8,11 @@ import { actionCreators as commentActions } from "../redux/modules/comment";
 const Comment = (props) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user?.uid);
-  console.log(props.file);
+  const islogin = useSelector((state) => state.user.is_login);
+  const comment_list = props;
+  //console.log(props.file);
   const [clickComment, setClickComment] = useState(false);
+  console.log(comment_list);
 
   const deleteReview = () => {
     dispatch(commentActions.deleteCommentFB(props.commentId));
@@ -32,22 +35,22 @@ const Comment = (props) => {
       >
         <CommentData
           style={{
-            width: "65px",
+            width: "70px",
             textAlign: "center",
             paddingRight: "18px",
           }}
         >
-          {props.commentId}
+          {comment_list.seq}
         </CommentData>
         <CommentData
           style={{
             paddingLeft: "50px",
             paddingRight: "250px",
-            width: "300px",
+            width: "592px",
             textAlign: "left",
           }}
         >
-          {props.commentTitle}
+          {comment_list.title}
         </CommentData>
         <CommentData
           style={{
@@ -61,7 +64,7 @@ const Comment = (props) => {
             textAlign: "left",
           }}
         >
-          {props.nickname}
+          {comment_list.name}
         </CommentData>
         <CommentData
           style={{
@@ -70,7 +73,7 @@ const Comment = (props) => {
             textAlign: "center",
           }}
         >
-          {moment(props.createdAt).format("YYYY-MM-DD")}
+          {moment(comment_list.logtime).format("YYYY-MM-DD")}
         </CommentData>
         <CommentData
           style={{
@@ -79,7 +82,7 @@ const Comment = (props) => {
             textAlign: "center",
           }}
         >
-          {props.helpCount}
+          {props.helpCount}0
         </CommentData>
         <CommentData
           style={{
@@ -87,7 +90,7 @@ const Comment = (props) => {
             textAlign: "center",
           }}
         >
-          0
+          {comment_list.connect_count}
         </CommentData>
       </OneComment>
       {clickComment && (
