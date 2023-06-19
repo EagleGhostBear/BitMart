@@ -17,10 +17,13 @@ import {
   NotFound,
   CommentWrite,
   Detail,
+  Order,
+  Address,
   FindPwd,
   FindId,
   OrderList,
   Payment,
+  Category,
 } from "../pages/page";
 
 function App() {
@@ -58,9 +61,12 @@ function App() {
         <Route path="/detail/:seq" element={<Detail />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
+        <Route path="/*" element={<NotFound />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/address" element={<Address />} />
+        <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
-        <Route path="*" element={<NotFound />} />
         <Route path="/orderlist" element={<OrderList />} />
         <Route path="/Payment" element={<Payment />} />
       </Routes>

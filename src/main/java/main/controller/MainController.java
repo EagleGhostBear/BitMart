@@ -86,6 +86,13 @@ public class MainController {
 		return mainService.list(map);
 	}
 	
+	@PostMapping("/oneday_product")
+	@ResponseBody
+	public List<MainDTO> oneday_product(){
+		
+		return mainService.oneday_product();
+	}
+	
 	@PostMapping("/product_number")
 	@ResponseBody
 	public String product_number(){

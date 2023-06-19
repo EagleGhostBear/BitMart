@@ -23,6 +23,7 @@ const Header = (props) => {
   const handleSearchSubmit = () => {
     // 검색어 전달 및 검색 실행
     props.onSearchSubmit(searchValue);
+    navigate("/category/new"); window.scrollTo(0, 0);
   };
 
   return (
@@ -114,6 +115,7 @@ const UserMenu = styled.ul`
   height: 11px;
   color: #4c4c4c;
   font-size: 12px;
+  margin-top: 10px;
   & li {
     position: relative;
     color: #4c4c4c;
