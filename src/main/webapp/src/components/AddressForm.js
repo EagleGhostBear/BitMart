@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
 
+
 const width = 500;
 const height = 400;
 
@@ -34,7 +35,8 @@ const AddressForm = () => {
   let buildingName = sessionStorage.getItem('buildingName');
 
   return (
-    <div className="w-r-28.4 px-8 py-9 border text-r-1.6 font-bold">
+    <div className='rightContainer' style={rightContainerStyle}>
+    <div className="AddressInfo" style={AddressInfoStyle}>
       <p>
         <FaMapMarkerAlt className="inline-block mr-3" />
         배송지
@@ -52,41 +54,80 @@ const AddressForm = () => {
         </p>
       )}
 
-      <div className="delivery-type">
-        <span className="delivery-type-star">샛별배송</span>
+      <div className="delivery-type" style={deliveryStyle}>
+        <span className="delivery-type-star" style={StartStyle}>샛별배송</span>
       </div>
 
-      <p
-        onClick={onClickLink}
-        className="cursor-pointer mt-7 border rounded-r-0.4 border-kp-600 w-full h-14 text-r-1.2 text-kp-600 inline-block text-center leading-r-3.5 font-semibold"
-        style={{
-          color: 'rgb(95, 0, 128)',
-          backgroundColor: 'white',
-          border: '1px solid rgb(95, 0, 128)',
-          height: '36px',
-          margin: '25px 0px 0px', // Increased margin top
-          fontWeight: '800', // Bolder font
-          fontSize: '13px', // Increased font size
-          width: '100%',
-          borderRadius: '4px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-        }}
-      >
+    
         {addr === null ? (
           <>
-            <FaSearch className="inline-block mr-3" />
-            주소 검색
+            <button className="AddressButton" style={ AddressButton } onClick={onClickLink}>
+              <span style={buttonSpanStyle}>주소 검색</span>
+            </button>
           </>
         ) : (
           <span>배송지 변경</span>
         )}
-      </p>
+      
+    </div>
     </div>
   );
 };
+
+const rightContainerStyle = {
+  position: "relative",
+  width: "284px",
+  paddingTop: "60px"
+}
+
+const addressStyle = {
+  padding: "23px 19px 0px",
+  borderwidth: "1px 1px 0px",
+  bordertopstyle: "solid",
+  borderrightstyle: "solid",
+  borderleftstyle: "solid",
+  bordertopcolor: "rgb(242, 242, 242)",
+  borderrightcolor: "rgb(242, 242, 242)",
+  borderleftcolor: "rgb(242, 242, 242)",
+  borderimage: "initial",
+  borderbottomstyle: "initial",
+  borderbottomcolor: "initial"
+}
+
+const AddressInfoStyle = {
+  padding: "23px 19px 20px",
+  border: "1px solid #f2f2f2",
+  borderBottom: 0,
+}
+
+const AddressButton = {
+  display: "block",
+  padding: "0px 10px",
+  textAlign: "center",
+  overflow: "hidden",
+  width: "100%",
+  height: "36px",
+  borderRadius: "3px",
+  color: "rgb(95, 0, 128)",
+  backgroundColor: "rgb(255, 255, 255)",
+  border: "1px solid rgb(95, 0, 128)",
+};
+
+
+const buttonSpanStyle = {
+  fontsize: "12px",
+  fontweight: 500,
+}
+
+const deliveryStyle = {
+  padding: "7px 0px 12px",
+  fontsize: "14px"
+}
+
+const StartStyle = {
+  color: "rgb(95, 0, 128)",
+  fontSize: "14px"
+}
 
 export default AddressForm;
 
