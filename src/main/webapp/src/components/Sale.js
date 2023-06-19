@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Card from "./Card";
 import Slider from "react-slick";
 import settings from "./settings";
-
+import axios from 'axios';
 
 const Sale = (props) => { //부모 컴포넌트에서 받은 state와 method
 
 
   const all_list = useSelector((state) => state.post.list[3])
+  const [data, setData] = useState([]);
 
+  useEffect(() => {
+    axios.post('/product_card')
+      .then(response => setData(response.data));
+  }, []);
 
   return (
     < Wrap >
       <TitleWrap><span>최저가 상품</span></TitleWrap>
       <Slider {...settings}>
-        {all_list && all_list.map((data, i) => {
+        {data.map((item, i) => {
           return (
-            <Card key={i} data={data}></Card>
+            <Card key={i} data={item}></Card>
           );
         })}
       </Slider>

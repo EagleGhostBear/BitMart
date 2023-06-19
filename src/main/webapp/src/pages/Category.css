@@ -1,0 +1,306 @@
+/* *, ::after, ::before {
+    box-sizing: border-box;
+    margin: 0;
+}
+*, ::after, ::before, legend, td, th {
+    padding: 0px;
+} */
+html, button, input, select, textarea {
+    font-family: 'Noto Sans', 'malgun gothic', 'AppleGothic', dotum, sans-serif;
+}
+a {
+    background-color: transparent;
+    text-decoration: none;
+    color: inherit;
+}
+.css-1i60c0e {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    width: 1050px;
+    margin: 0px auto;
+}
+.css-pzlq5x {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    position: relative;
+    display: flex;
+    width: 1050px;
+    margin-top: 50px;
+    margin-bottom: 75px;
+}
+.css-1jgnig9 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    position: sticky;
+    width: 220px;
+    flex-shrink: 0;
+    height: 100%;
+    max-height: calc(100vh - 120px);
+    top: 80px;
+    margin-right: 47px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+    /* overflow: hidden scroll; */
+}
+.css-11y1fso {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    z-index: 20;
+    background-color: rgb(255, 255, 255);
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+    line-height: 20px;
+  }
+.css-wy76no {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    font-weight: 500;
+    font-size: 15px;
+    color: rgb(51, 51, 51);
+}
+.css-7pv5zq {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    pointer-events: none;
+}
+.css-16ixplb {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 100%;
+    height: 52px;
+    overflow: hidden;
+}
+.css-146937 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+.css-x67gaa {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    list-style: none;
+    margin-bottom: 18px;
+    /* display: inline-block;
+    margin-top: 9px; */
+}
+.css-s5xdrg {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    text-decoration: none;
+    background-color: transparent;
+    color: inherit;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+.css-11kh0cw {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 249px);
+    gap: 31px 18px;
+    width: 100%;
+}
+.css-1xyd46f {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    height: 538px;
+    color: rgb(51, 51, 51);
+    cursor: pointer;
+}
+.css-1kth2sq {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    overflow: hidden;
+    position: relative;
+    background-color: rgb(245, 245, 245);
+    width: 249px;
+    height: 320px;
+}
+.css-1kth2sq::before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    content: "";
+    position: absolute;
+    inset: 0px;
+}
+.e1c07x4813.css-1kth2sq.e3um3060 span {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    overflow: hidden;
+    background: none;
+    border: 0px;
+    inset: 0px;
+    display: block;
+    width: initial;
+    height: initial;
+    opacity: 1;
+    position: absolute;
+}
+.css-1kth2sq > span > img {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    transition: all 0.5s ease-in-out 0s;
+    vertical-align: top;
+    inset: 0px;
+    border: none;
+    margin: auto;
+    position: absolute;
+    display: block;
+    width: 0px;
+    height: 0px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+.css-c1cgl {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 14px 10px 0px 0px;
+}
+.css-1qd61ut {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    display: block;
+    padding-bottom: 2px;
+}
+.css-1vdqr5b {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    font-size: 14px;
+    color: rgb(153, 153, 153);
+    line-height: 19px;
+    letter-spacing: -0.5px;
+}
+.css-1dry2r1 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    max-height: 58px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: normal;
+    display: -webkit-box;
+    overflow: hidden;
+    word-break: break-all;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.css-1wejlc3 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    padding-top: 4px;
+    font-size: 12px;
+    color: rgb(153, 153, 153);
+    line-height: 18px;
+    letter-spacing: normal;
+    display: -webkit-box;
+    overflow: hidden;
+    word-break: break-all;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.css-1t4zbyd {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 8px;
+}  
+.css-1t4zbyd .discount-rate {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    margin-right: 7px;
+}
+.css-1t4zbyd .discount-rate, .css-1t4zbyd .sales-price {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    font-weight: 800;
+    font-size: 16px;
+    line-height: 24px;
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+}
+.css-19lkxd2 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    color: rgb(250, 98, 47);
+}
+.css-18tpqqq {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    color: rgb(51, 51, 51);
+    white-space: nowrap;
+}
+.css-1t4zbyd .dimmed-price {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    font-size: 14px;
+    color: rgb(181, 181, 181);
+    line-height: 20px;
+    text-decoration: line-through;
+}
+.css-1nwimb9 {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    padding-top: 8px;
+    font-weight: 500;
+    font-size: 12px;
+    color: rgb(153, 153, 153);
+    line-height: 17px;
+}
+.css-qb0iqo {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+    width: 15px;
+    height: 15px;
+    margin: 1px 2px 0px 0px;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +14,17 @@ const Header = (props) => {
     alert("로그아웃 되셨습니다!");
     navigate("/");
   };
+  const [searchValue, setSearchValue] = useState(""); // 검색어 상태
+  
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value); // 검색어 상태 업데이트
+  };
+
+  const handleSearchSubmit = () => {
+    // 검색어 전달 및 검색 실행
+    props.onSearchSubmit(searchValue);
+    navigate("/category/new"); window.scrollTo(0, 0);
+  };
 
   return (
     <React.Fragment>
@@ -23,14 +34,7 @@ const Header = (props) => {
           <React.Fragment>
             {!islogin && (
               <>
-                <li
-                  className="signup"
-                  onClick={() => {
-                    navigate("/signup");
-                  }}
-                >
-                  회원가입
-                </li>
+                <li className="signup" onClick={() => {navigate("/signup");}}>회원가입</li>
                 <li
                   onClick={() => {
                     navigate("/login");
@@ -68,13 +72,13 @@ const Header = (props) => {
           <HeaderCategory>
             <CategoryIcon></CategoryIcon>
             <li>전체 카테고리</li>
-            <li>신상품</li>
-            <li>베스트</li>
-            <li>알뜰쇼핑 </li>
-            <li> 특가/혜택</li>
+            <li onClick={() => {navigate("/category/new"); window.scrollTo(0, 0);}}>신상품</li>
+            <li onClick={() => {navigate("/category/best"); window.scrollTo(0, 0);}}>베스트</li>
+            <li onClick={() => {navigate("/category/sale"); window.scrollTo(0, 0);}}>특가/혜택 </li>
+            <li onClick={() => {navigate("/category/price"); window.scrollTo(0, 0);}}> 알뜰쇼핑</li>
             <SearchWrap>
-              <Search placeholder="검색어를 입력해주세요."></Search>
-              <SearchIcon></SearchIcon>
+              <Search placeholder="검색어를 입력해주세요." value={searchValue} onChange={handleSearchChange} />
+              <SearchIcon onClick={handleSearchSubmit} />
             </SearchWrap>
             <IconWrap>
               <LocationIcon />
@@ -107,6 +111,7 @@ const UserMenu = styled.ul`
   height: 11px;
   color: #4c4c4c;
   font-size: 12px;
+  margin-top: 10px;
   & li {
     position: relative;
     color: #4c4c4c;

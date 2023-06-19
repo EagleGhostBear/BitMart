@@ -21,6 +21,7 @@ const CommentList = (props) => {
 
   return (
     <>
+      <image src='https://img-cf.kurly.com/shop/data/goodsview/20230531/gv30000700801_1.jpg'></image>
       <CommentListWrap>
         {comment_list ? (
           <CommentBanner>후기 ({comment_list.length}) </CommentBanner>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from 'axios';
 
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
@@ -9,20 +10,27 @@ import { useParams } from "react-router-dom";
 
 const DetailItem = (props) => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.user);
+  const [data, setData] = useState([]);
 
-  const params = useParams();
-  const pid = params.id;
+  // const params = useParams();
+  const seq = props.seq;
   // console.log(pid);
 
   useEffect(() => {
-    dispatch(postActions.detailPostDB(pid));
-  }, []);
+    axios.get('/product_detail?seq=' + seq)
+      .then(response => setData(response.data));
+    }, []);
 
-  const data = useSelector((state) => state.post.detail_list);
-  // console.log(data);
+  // useEffect(() => {
+  //   dispatch(postActions.detailPostDB(pid));
+  // }, []);
 
-  const price = data.originalPrice;
-  const disconunt = data.discountedPrice;
+  // const data = useSelector((state) => state.post.detail_list);
+  // // console.log(data);
+
+  // const price = data.originalPrice;
+  // const disconunt = data.discountedPrice;
 
   // 처음 랜더링되고 유저에게 보이는 초기 값  useState(1) 로  초기 값 1로 설정
   const [count, setCount] = useState(1);
@@ -33,34 +41,35 @@ const DetailItem = (props) => {
   //onChange의 타켓으로 값을 바로 state에 넣어줄 경우 0은 string으로 인식 -> Number()을 사용해 숫자로 변경
 
   // 총 합계 금액 구하기
-  const setPrice = count * price;
-  const setDisconunt = count * disconunt;
+  // const setPrice = count * price;
+  // const setDisconunt = count * disconunt;
 
-  const addCart = () => {
-    let product_id = parseInt(pid);
-    dispatch(cartActions.addCartDB(product_id, count));
+  const addCart = (user_seq, product_seq) => {
+    axios.post('/check_cart', { user_seq: user_seq, product_seq: product_seq }).then(response => {
+      if(response.data === true) { axios.post('/cart_insert', { user_seq: user_seq, product_seq: product_seq }); alert("장바구니에 담겼습니다!") }
+      else { alert("이미 장바구니에 담긴 상품입니다!") }});
   };
 
   return (
     <SectionView>
       <ImgWrap>
-        <Img src={data.detailImageUrl}></Img>
+        <Img src={data.image}></Img>
         <TitleWrap>
-          <Name>{data.name}</Name>
+          <Name>{data.title}</Name>
           <Short>{data.shortDescription}</Short>
 
-          {data.discountPercent == 0 ? (
-            <Price>{Number(price).toLocaleString()}원</Price>
+          {data.sale == 0 ? (
+            <Price>{data.price}원</Price>
           ) : (
             <PriceWrap>
               <p>회원할인가</p>
               <Price>
-                {Number(disconunt).toLocaleString()}
+                {(1 - data.sale/100)*data.price}
                 <span>원</span>
               </Price>
-              <Disconunt>{data.discountPercent}%</Disconunt>
+              <Disconunt>{data.sale}%</Disconunt>
               <Original>
-                {Number(price).toLocaleString()}
+                {data.price}
                 <span>원</span>
               </Original>
             </PriceWrap>
@@ -69,7 +78,7 @@ const DetailItem = (props) => {
           <InfoWrap>
             <dl className="list">
               <dt className="tit">판매단위</dt>
-              <dd className="desc">{data.unitText}</dd>
+              <dd className="desc">{data.unit}</dd>
             </dl>
             <dl className="list">
               <dt className="tit">중량/용량</dt>
@@ -77,7 +86,7 @@ const DetailItem = (props) => {
             </dl>
             <dl className="list">
               <dt className="tit">배송구분</dt>
-              <dd className="desc">{data.deliveryTimeType}</dd>
+              <dd className="desc">{data.delivery}</dd>
             </dl>
             {/* <dl className="list">
                             <dt className="tit">원산지</dt>
@@ -85,7 +94,7 @@ const DetailItem = (props) => {
                         </dl> */}
             <dl className="list">
               <dt className="tit">포장타입</dt>
-              <dd className="desc">{data.packingType}</dd>
+              <dd className="desc">{data.packingtype}</dd>
             </dl>
             <dl className="list">
               <dt className="tit">알레르기정보</dt>
@@ -121,7 +130,7 @@ const DetailItem = (props) => {
         <Total>
           <div className="price">
             <strong>총 상품금액 :</strong>
-            <span className="num">{setPrice.toLocaleString()}</span>
+            {/* <span className="num">{setPrice.toLocaleString()}</span> */}
             {/* 금액 " , " 를 사용 : toLocalString() 사용 -> 주의점 : Number.prototype.toLocaleString() 이기때문에 꼭 Number()로 타입변경  */}
             <span className="won">원</span>
           </div>
@@ -130,15 +139,15 @@ const DetailItem = (props) => {
         <Total>
           <div className="price">
             <strong>총 상품금액 :</strong>
-            <span className="num">{setDisconunt.toLocaleString()}</span>
+            {/* <span className="num">{setDisconunt.toLocaleString()}</span> */}
             {/* 금액 " , " 를 사용 : toLocalString() 사용 -> 주의점 : Number.prototype.toLocaleString() 이기때문에 꼭 Number()로 타입변경  */}
-            <span className="won">원</span>
+            <span className="won">{((1 - data.sale / 100) * data.price) * count}원</span>
           </div>
         </Total>
       )}
 
       <BtnWrap>
-        <button className="btn" onClick={addCart}>
+        <button className="btn" onClick={() => user ? addCart(user.seq, data.seq) : alert("로그인 후 이용해주세요!")}>
           장바구니 담기
         </button>
       </BtnWrap>
