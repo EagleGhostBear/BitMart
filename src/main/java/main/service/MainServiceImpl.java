@@ -117,5 +117,11 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.getFaqList();
 	}
 
+	@Override
+	public UserDTO findId(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.findId(map);
+	}
+
 
 }

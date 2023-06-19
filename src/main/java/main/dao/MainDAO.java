@@ -43,4 +43,6 @@ public interface MainDAO {
 	
 	List<FaqDTO> getFaqList(); // 추가
 
+	UserDTO findId(Map map);
+
 }

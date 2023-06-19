@@ -118,6 +118,12 @@ public class MainDAOMyBatis implements MainDAO {
 	    return sqlSession.selectList("mainSQL.getFaqList");
 	}
 
+	@Override
+	public UserDTO findId(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.findId", map);
+	}
+
 
 	
 	

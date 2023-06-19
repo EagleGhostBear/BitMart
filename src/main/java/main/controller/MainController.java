@@ -119,11 +119,13 @@ public class MainController {
 	    return notice;
 	}
 
+	@PostMapping(value="/find_id")
+	@ResponseBody
+	public UserDTO findId(@RequestBody Map map) {
+		System.out.println(map);
+		return mainService.findId(map);
+	}
 
-
-
-
-	
 	@PostMapping(value = "login")
 	@ResponseBody
 	public UserDTO login(@RequestBody Map map) {

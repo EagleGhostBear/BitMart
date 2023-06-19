@@ -129,6 +129,32 @@ const loginDB = (username, password) => {
   };
 };
 
+const findIdDB = (name, email) => {
+  console.log("이름 : " + name);
+  console.log("이메일 : " + email);
+  axios({
+    method: "post",
+    url: "/find_id",
+    data: {
+      name: name,
+      email: email,
+      },
+  })
+  .then((res) => {
+    console.log(res.data);
+    if (!res.data) {
+      window.alert("아이디가 존재하지 않습니다!");
+    } else {
+      window.alert("아이디는 " + res.data.id + "입니다!");
+    }
+  })
+  .catch((err) => {
+    console.log("아이디 찾기", err);
+    window.alert("아이디 찾기에 문제가 생겼습니다!");
+  }
+  );
+}
+
 const loginCheckDB = (token_key) => {
   return async function (dispatch, getState, { history }) {
     try {
@@ -186,6 +212,7 @@ const actionCreators = {
   loginCheckDB,
   usernameCheckF,
   emailCheckF,
+  findIdDB
 };
 
 export { actionCreators };

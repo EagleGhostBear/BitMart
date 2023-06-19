@@ -43,6 +43,8 @@ public interface MainService {
 
 	List<FaqDTO> getFaqList(); //수정된 부분
 
+	UserDTO findId(Map map);
+
 
 }
 

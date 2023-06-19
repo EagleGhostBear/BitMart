@@ -15,7 +15,7 @@ const Payment = () => {
   }, []);
 
   const onClickPayment = () => {
-    const { IMP } = window;
+    const { IMP } = window; 
     IMP.init("imp84451835");
     const data = {
       pg: "html5_inicis",

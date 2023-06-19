@@ -101,4 +101,9 @@
 		SELECT * FROM faq
 	</select>
 	
+	<select id="findId" resultType="main.bean.UserDTO">
+		SELECT * FROM user WHERE name = #{name} AND CONCAT(email1, '@', email2) = #{email}
+	</select>
+	
+	
 </mapper>
