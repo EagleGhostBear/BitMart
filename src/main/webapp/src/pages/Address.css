@@ -1,0 +1,369 @@
+
+.MyPage {
+    box-sizing: border-box;
+    padding: 50px 0px 80px;
+    margin: 0px auto;
+    display: flex;
+    width: 1050px;
+    flex-direction: row;
+    justify-Content: space-between;
+    
+}
+
+
+.FindAddressBtn{
+    width: 15%;
+    height: 30px;
+    margin-left: 5%;
+    background: #ffffff;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 9pt;
+    font-weight: bold;
+    color: #5f0080;
+    border: 1px solid lightgrey;
+}
+
+
+/* 배송지 필드 유효성 검사 css */
+.addressField{
+    margin: 8px;
+    font-size: 9pt;
+    font-weight: bold;
+    color: #600080d3;
+}
+
+.Btn{
+    padding-top: 10px; 
+    display: flex; 
+    justify-content: center;
+    width:100%;
+}
+
+button#updateBtn{
+    background: #5f0080;  
+    color: white;
+    border: 0px;
+
+    width: 25%;
+    height: 45px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 11pt;
+    font-weight: bold;
+    
+}
+
+button.closeBtn{
+  width: 50%;
+  height: 45px;
+  background: #5f0080;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 11pt;
+  font-weight: bold;
+  color: white;
+  border: 0;
+  width: 25%;
+}
+
+button#xBtn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #5f0080; 
+
+
+}
+
+input {
+    width: 100%;
+    height: 38px;
+    margin-bottom: 1%;
+    border-radius: 3px;
+    border: 1px solid lightgrey
+}
+
+
+/* 좌측 네비게이션 바 */
+
+.NavHeader{
+    width: 200px;
+}
+
+.NavTitle{
+    margin: 0;
+    box-sizing: border-box;
+    padding: 5px 0px 35px 1px;
+    height: 75px;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px;
+    color: rgb(51, 51, 51);
+    letter-spacing: -1px;
+    
+}
+
+.NavMain{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+    background-color: transparent;
+    border: 1px solid rgb(242, 242, 242);
+    
+}   
+
+
+.NavDetail{
+    /* border: 2px solid grey; */
+    
+    /* border-bottom: 1px solid rgb(242, 242, 242); */
+}
+
+.NavDetail a{
+    text-decoration: none;
+    padding: 15px 13px 15px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    line-height: 19px;
+    letter-spacing: -0.3px;
+    font-size: 14px;
+    justify-content: space-between;
+    -webkit-box-align: center;
+
+    color: grey;
+    
+}
+
+#Arrow{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    
+}
+
+.NavDetail:hover #arrowIcon {
+    stroke: #5f0080;
+  }
+
+
+a.Address{
+    background-color: rgb(250, 250, 250);
+    color: rgb(95, 0, 128);
+    font-weight: 500;
+
+}
+
+
+.AddressMain-1{
+    padding: 0px;
+    margin: 0px;
+    width: 820px;
+/* border: navajowhite 2px solid */
+
+}
+
+.AddressMainTitle-1{
+    padding: 0px;
+    margin: 0px;
+    width: 820px;
+    border-bottom: 2px solid rgb(51, 51, 51);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-bottom: 20px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    
+}
+
+.NewAddressAdd{
+    flex: 1 1 0%;
+    text-align: right;
+    /* border: 2px solid blue; */   
+}
+
+button.NewAdressBtn{
+    /* box-sizing: border-box; */
+    /* font: inherit; */
+    /* margin: 0px; */
+    -webkit-tap-highlight-color: transparent;
+    text-transform: none;
+    appearance: button;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+    padding: 0px 10px;
+    overflow: hidden;
+    display: block;
+    text-align: center;
+    width: 100%;
+    height: 60px;
+    color: rgb(51, 51, 51);
+    background-color: rgb(255, 255, 255);
+    border: 0px;
+    
+}
+
+.NewAddressText{
+    padding: 0px;
+    margin: 0px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    
+}
+
+img.PlusBtn{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    max-width: 100%;
+    border: 0px;
+    display: inline-block;
+    margin-right: 4px;
+    width: 16px;
+    height: 16px;
+    margin-top: 5px;
+    vertical-align: top;
+       
+}
+
+.DivideLine{
+    /* border-bottom: 1px solid white; */
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    /* border: #c95bee 1px solid ; */
+    /* border:none; */
+}
+
+.IndexBar{
+    margin: 0px;
+    box-sizing: border-box;
+    padding: 20px 0px;
+    border-bottom: 1px solid rgb(51, 51, 51);
+    border-top:0px;
+    display: flex;
+    width: 100%;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: center;
+
+}
+
+.AddressList{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    margin: 0px;
+}
+
+li.AddressList-1{
+    border-bottom: 1px solid rgb(244, 244, 244);
+}
+
+#AddressList-1{
+    padding: 0px;
+    margin: 0px;
+    flex: 1 1 0%;
+    display: flex;
+    /* border:2px solid pink; */
+    flex: 1 1 0%;
+
+    align-items: center;
+    min-height: 49px;
+    letter-spacing: -0.3px;
+    justify-content: center;
+    text-align: center; 
+}
+
+div#checkBtn{
+    margin: 20px 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 49px;
+    /* color: rgb(51, 51, 51); */
+    letter-spacing: -0.3px;
+    flex-basis: 60px;
+
+}
+
+.addressDetail{
+    margin: 20px 0px;
+    flex: 1 1 0%;
+    display: flex;
+    align-items: center;
+    min-height: 49px;
+    letter-spacing: -0.3px;
+    justify-content: start;
+    font-size: 16px;
+    text-align: left;
+    /* border: 2px solid green; */
+    
+}
+
+.addressName{
+    /* font-size: 16px; */
+    flex-basis: 120px;
+}
+
+.addressPhone{
+    flex-basis: 100px;
+}
+
+.addressDel{
+    flex-basis: 60px;    
+}
+
+button#XBtn{
+    overflow: visible;
+    border: none;
+    background-color: transparent;
+    text-transform: none;
+    appearance: button;
+    cursor: pointer;
+    font-size: 14px;
+    color: rgb(51, 51, 51);
+    border-radius: 0px;
+    font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+    
+}
+
+
+
+
+li:hover {
+    background-color: rgb(250, 250, 250);
+  }
+
+li:hover a {
+color: rgb(95, 0, 128);
+}
+
+
+.myDiv {
+width: 200px;
+height: 200px;
+}
+
+.myDiv:hover {
+cursor: pointer;
+}
+
+#checkbox:hover {
+cursor: pointer;
+}

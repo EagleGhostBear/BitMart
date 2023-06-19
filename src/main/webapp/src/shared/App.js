@@ -19,6 +19,8 @@ import {
   NotFound,
   CommentWrite,
   Detail,
+  Order,
+  Address,
   FindPwd,
   FindId,
   Category,
@@ -61,6 +63,8 @@ function App() {
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/order" element={<Order />} />
+        <Route path="/address" element={<Address />} />
         <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
