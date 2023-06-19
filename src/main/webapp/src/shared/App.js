@@ -24,6 +24,7 @@ import {
   FindPwd,
   FindId,
   Category,
+  ConfirmPwd
 } from "../pages/page";
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
         <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
+        <Route path="/confirmPwd" element={<ConfirmPwd />} />
       </Routes>
     </div>
   );

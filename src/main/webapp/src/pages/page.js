@@ -12,4 +12,6 @@ import FindId from "./FindId";
 import Order from "./Order";
 import Address from "./Address";
 
-export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category, FindPwd, FindId, Order, Address };
+import ConfirmPwd from "./ConfirmPwd";
+
+export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category, FindPwd, FindId, Order, Address, ConfirmPwd };
