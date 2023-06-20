@@ -14,6 +14,7 @@ import main.bean.FaqDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
+import main.bean.ViewsDTO;
 
 @Repository
 @Transactional
@@ -129,5 +130,13 @@ public class MainDAOMyBatis implements MainDAO {
 	public String comment_count(Map map) {
 		
 		return sqlSession.selectOne("mainSQL.comment_count", map);
+	}
+	
+	@Override
+	public void views_update(Map map) {
+		
+		ViewsDTO viewsDTO = sqlSession.selectOne("mainSQL.views_check", map);
+		if(viewsDTO == null) {sqlSession.insert("mainSQL.views_insert", map);}
+		else {sqlSession.update("mainSQL.views_increase", map);}
 	}
 }

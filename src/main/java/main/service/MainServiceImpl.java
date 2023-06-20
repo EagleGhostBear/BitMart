@@ -129,4 +129,10 @@ public class MainServiceImpl implements MainService {
 		
 		return mainDAO.comment_count(map);
 	}
+	
+	@Override
+	public void views_update(Map map) {
+		
+		mainDAO.views_update(map);
+	}
 }

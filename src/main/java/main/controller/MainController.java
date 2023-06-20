@@ -199,6 +199,13 @@ public class MainController {
 		
 		return mainService.comment_count(map);
 	}
+	
+	@PostMapping(value = "views_update")
+	@ResponseBody
+	public void views_update(@RequestBody Map map) {
+		
+		mainService.views_update(map);
+	}
 }
 
 

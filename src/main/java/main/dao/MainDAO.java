@@ -47,4 +47,6 @@ public interface MainDAO {
 	List<CommentDTO> comment_list(Map map);
 
 	String comment_count(Map map);
+
+	public void views_update(Map map);
 }
