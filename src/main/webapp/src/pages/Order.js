@@ -1,9 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { actionCreators as orderActions } from '../redux/modules/order';
 
 import './Order.css';
 
+import { CartItem } from "../components/component";
+
 const Order = () => {
+
+  const dispatch = useDispatch();
+  const order_list = useSelector((state) => state.cart.list);
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState([]);
+
+  
+  useEffect(() => {
+    if (order_list) {
+      dispatch(orderActions.orderListDB());
+    }
+  }, []);
+  
+
+  
+  useEffect(() => {
+
+    console.log("token key: ", token_key)
+    axios.post('/order_list', {seq: token_key})
+        .then(response => setData(response.data));
+    
+    const jquery = document.createElement("script");
+    jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
+    const iamport = document.createElement("script");
+    iamport.src = "https://cdn.iamport.kr/js/iamport.payment-1.1.8.js";
+    document.head.appendChild(jquery);
+    document.head.appendChild(iamport);
+
+    return () => {
+      document.head.removeChild(jquery);
+      document.head.removeChild(iamport);
+    }
+  }, []);
+
+
     return (
         <>
           <div className='MyPage'> 
@@ -199,7 +239,7 @@ const Order = () => {
                     주문 내역
                   </h2>
                   <span className="OrderTitleSub2">
-                    최대 지난 3년간의 주문 내역까지 확인할 수 있어요
+                    최대 지난 1년간의 주문 내역까지 확인할 수 있어요
                   </span>
                 </div>
                 {/*}
@@ -355,6 +395,14 @@ const Order = () => {
                     height: "1px",
                   }}
                 />
+
+              <div style={{border:'2px solid skyblue'}}>
+                {data.map((item, i) => {
+                  return (
+                      <CartItem key={i} {...item} />
+                  )
+                })}
+              </div>
               </div>
             </div>
           </div>

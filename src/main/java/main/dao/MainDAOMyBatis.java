@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -129,5 +130,14 @@ public class MainDAOMyBatis implements MainDAO {
 	public String comment_count(Map map) {
 		
 		return sqlSession.selectOne("mainSQL.comment_count", map);
+	}
+
+	@Override
+	public List<CartDTO> order_list(Map map) {
+
+		List<CartDTO> list = sqlSession.selectList("mainSQL.order_list", map);
+		System.out.println("order_data:" + list);
+		
+		return list;
 	}
 }

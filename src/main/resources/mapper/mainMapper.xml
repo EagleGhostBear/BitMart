@@ -108,4 +108,14 @@
 	<select id="comment_count" parameterType="java.util.Map" resultType="String">
 		SELECT COUNT(*) AS count FROM comment WHERE product = #{product}
 	</select>
+
+
+	<select id ="order_list" parameterType="java.util.Map" resultType="main.bean.CartDTO">
+		SELECT product.seq, product.image, product.title, floor(product.price*(1-(sale*0.01))) as real_price, '배송 중' as deliverystate
+			FROM product
+			INNER JOIN cart ON cart.product = product.seq
+		WHERE cart.user = #{user}
+		GROUP BY product.seq, product.image, product.title;
+	</select>
+
 </mapper>
