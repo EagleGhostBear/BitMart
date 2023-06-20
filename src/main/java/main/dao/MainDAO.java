@@ -49,4 +49,6 @@ public interface MainDAO {
 	String comment_count(Map map);
 
 	List<CartDTO> order_list(Map map);
+	
+	public void views_update(Map map);
 }

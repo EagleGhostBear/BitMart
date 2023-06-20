@@ -206,6 +206,12 @@ public class MainController {
 	public List<CartDTO> order_list(@RequestBody Map map) {
 		
 		return mainService.order_list(map);
+	
+	@PostMapping(value = "views_update")
+	@ResponseBody
+	public void views_update(@RequestBody Map map) {
+		
+		mainService.views_update(map);
 	}
 }
 

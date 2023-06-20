@@ -9,10 +9,12 @@ import { useParams } from "react-router-dom";
 import DetailItem from "../components/DetailItem";
 import DetailImage from "../components/DetailImage";
 import { CommentList } from "../components/component";
+import axios from "axios";
 
 const Detail = (props) => {
   const dispatch = useDispatch();
-
+  const islogin = useSelector((state) => state.user.is_login);
+  const user = useSelector((state) => state.user.user);
   const params = useParams();
   const seq = params.seq;
   // const { seq } = params;
@@ -23,6 +25,17 @@ const Detail = (props) => {
   // useEffect(() => {
   //   dispatch(postActions.detailPostDB(pid));
   // }, []);
+
+  useEffect(() => {
+    if (islogin) {
+      console.log("로그인 되었습니다." + user.seq);
+      axios.post('/views_update', {
+        user: user.seq,
+        product: seq
+      })
+    }
+    else {console.log("조횟수가 집계되지 않습니다.(로그인 안됨)");}
+  }, []);
 
   return (
     <React.Fragment>

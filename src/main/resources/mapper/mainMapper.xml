@@ -109,7 +109,6 @@
 		SELECT COUNT(*) AS count FROM comment WHERE product = #{product}
 	</select>
 
-
 	<select id ="order_list" parameterType="java.util.Map" resultType="main.bean.CartDTO">
 		SELECT product.seq, product.image, product.title, floor(product.price*(1-(sale*0.01))) as real_price, '배송 중' as deliverystate
 			FROM product
@@ -117,5 +116,16 @@
 		WHERE cart.user = #{user}
 		GROUP BY product.seq, product.image, product.title;
 	</select>
-
+	
+	<select id="views_check" parameterType="java.util.Map" resultType="main.bean.ViewsDTO">
+		select * from views where user = #{user} and product = #{product}
+	</select>
+	
+	<insert id="views_insert" parameterType="java.util.Map">
+		insert into views(user, product, views, logtime) VALUES (#{user}, #{product}, 1, now())
+	</insert>
+	
+	<update id="views_increase" parameterType="java.util.Map">
+		UPDATE views SET views = views + 1, logtime = NOW() WHERE user = #{user} and product = #{product}
+	</update>
 </mapper>

@@ -134,5 +134,10 @@ public class MainServiceImpl implements MainService {
 	public List<CartDTO> order_list(Map map) {
 		// TODO Auto-generated method stub
 		return mainDAO.order_list(map);
+	
+	@Override
+	public void views_update(Map map) {
+		
+		mainDAO.views_update(map);
 	}
 }
