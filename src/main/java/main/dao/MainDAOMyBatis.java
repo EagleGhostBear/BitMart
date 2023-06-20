@@ -1,5 +1,6 @@
 package main.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -120,6 +121,37 @@ public class MainDAOMyBatis implements MainDAO {
 	public List<FaqDTO> getFaqList() {
 	    return sqlSession.selectList("mainSQL.getFaqList");
 	}
+
+	@Override
+	public UserDTO findId(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.findId", map);
+	}
+
+	@Override
+	public UserDTO checkUserId(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mainSQL.checkUserId", id);
+	}
+
+	@Override
+	public UserDTO checkEmail(String email) {
+		String[] parts = email.split("@"); // "@"를 기준으로 email을 나눔
+	    String email1 = parts[0]; // "@" 앞 부분
+	    String email2 = parts[1]; // "@" 뒷 부분
+	    Map<String, Object> map = new HashMap<>();
+		map.put("email1", email1);
+		map.put("email2", email2);
+		return sqlSession.selectOne("mainSQL.checkEmail", map);
+	}
+
+	@Override
+	public void signUp(Map<String, Object> map) {
+		
+		sqlSession.insert("mainSQL.signUp", map);
+	}
+
+
 	
 	@Override
 	public List<CommentDTO> comment_list(Map map) {

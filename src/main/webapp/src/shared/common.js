@@ -1,7 +1,7 @@
 // 아이디 형식: 최소 6자 이상, 알파벳 소문자(a~z), 숫자(0~9)를 포함
-export const usernameCheck = (username) => {
+export const userIdCheck = (userId) => {
   let _reg = /^(?!(?:[0-9]+)$)([a-zA-Z]|[0-9a-zA-Z]){6,}$/;
-  return _reg.test(username);
+  return _reg.test(userId);
 };
 
 //비번: 10자 이상, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자

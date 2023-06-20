@@ -117,7 +117,31 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return mainDAO.getFaqList();
 	}
-	
+
+	@Override
+	public UserDTO findId(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.findId(map);
+	}
+
+	@Override
+	public UserDTO checkUserId(String id) {
+		// TODO Auto-generated method stub
+		return mainDAO.checkUserId(id);
+	}
+
+	@Override
+	public UserDTO checkEmail(String email) {
+		// TODO Auto-generated method stub
+		return mainDAO.checkEmail(email);
+	}
+
+	@Override
+	public void signUp(Map<String, Object> map) {
+		
+		mainDAO.signUp(map);
+	}
+
 	@Override
 	public List<CommentDTO> comment_list(Map map) {
 		

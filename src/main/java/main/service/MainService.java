@@ -44,6 +44,14 @@ public interface MainService {
 
 	List<FaqDTO> getFaqList(); //수정된 부분
 
+	UserDTO findId(Map map);
+
+	UserDTO checkUserId(String id);
+
+	UserDTO checkEmail(String email);
+
+	void signUp(Map<String, Object> map);
+
 	List<CommentDTO> comment_list(Map map);
 
 	String comment_count(Map map);
