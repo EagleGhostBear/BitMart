@@ -295,7 +295,7 @@ div#checkBtn{
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 1%;
+    padding-top: -0.5px;
     min-height: 49px;
     /* color: rgb(51, 51, 51); */
     /* letter-spacing: -0.3px; */
@@ -341,7 +341,7 @@ button#XBtn{
     color: rgb(51, 51, 51);
     border-radius: 0px;
     font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
-    
+
 }
 
 

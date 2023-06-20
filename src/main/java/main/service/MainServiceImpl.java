@@ -129,6 +129,11 @@ public class MainServiceImpl implements MainService {
 		
 		return mainDAO.comment_count(map);
 	}
+
+	@Override
+	public List<CartDTO> order_list(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.order_list(map);
 	
 	@Override
 	public void views_update(Map map) {

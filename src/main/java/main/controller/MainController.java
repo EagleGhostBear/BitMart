@@ -199,6 +199,13 @@ public class MainController {
 		
 		return mainService.comment_count(map);
 	}
+
+
+	@PostMapping(value = "order_list")
+	@ResponseBody
+	public List<CartDTO> order_list(@RequestBody Map map) {
+		
+		return mainService.order_list(map);
 	
 	@PostMapping(value = "views_update")
 	@ResponseBody

@@ -48,6 +48,8 @@ public interface MainService {
 
 	String comment_count(Map map);
 
+    List<CartDTO> order_list(Map map);
+	
 	public void views_update(Map map);
 }
 
