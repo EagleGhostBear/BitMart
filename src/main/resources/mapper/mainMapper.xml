@@ -101,4 +101,11 @@
 		SELECT * FROM faq
 	</select>
 	
+	<select id="comment_list" parameterType="java.util.Map" resultType="main.bean.CommentDTO">
+		select * from comment where product = #{product}
+	</select>
+	
+	<select id="comment_count" parameterType="java.util.Map" resultType="String">
+		SELECT COUNT(*) AS count FROM comment WHERE product = #{product}
+	</select>
 </mapper>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import main.bean.CartDTO;
+import main.bean.CommentDTO;
 import main.bean.FaqDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
@@ -116,6 +117,16 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return mainDAO.getFaqList();
 	}
-
-
+	
+	@Override
+	public List<CommentDTO> comment_list(Map map) {
+		
+		return mainDAO.comment_list(map);
+	}
+	
+	@Override
+	public String comment_count(Map map) {
+		
+		return mainDAO.comment_count(map);
+	}
 }

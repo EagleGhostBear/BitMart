@@ -146,15 +146,11 @@ const CartList = (props) => {
           </ProductWrapper>
 
           <PriceWrapper>
-            <DeliveryArea>
+            {/* <DeliveryArea> */}
              
-             
-              <div>
-       
         <AddressForm />
-      </div>
       
-            </DeliveryArea>
+            {/* </DeliveryArea> */}
          
 
             <PriceArea>
