@@ -14,15 +14,40 @@ const PopupModal2 = ({ isOpen2, closeModal2 }) => {
 
   const customStyles2 = {
     content: {
+      // width: '18%', // Set the desired width
+      // height: '18%', // Set the desired height
+      // margin: 'auto', // Center the modal horizontally
+      // borderRadius: '8px',
+      // boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      // //textAlign: 'center',
+      // //padding: 'auto',
+      // fontFamily: 'NanumGothic',
+      // fontSize: '11pt',
+
+      border: "none",
+      background: "rgb(255, 255, 255)",
+      position: "relative",
+      boxSizing: "border-box",
+      flexDirection: "column",
+      justifyContent: "center",
       width: '18%', // Set the desired width
-      height: '18%', // Set the desired height
-      margin: 'auto', // Center the modal horizontally
+      height: '15%',
+      fontFamily: "inherit",
+      fontSize: "1rem",
+      WebkitTapHighlightColor: "transparent",
+      borderRadius: "12px",
+      padding: "0px",
+      maxWidth: "360px",
+      animation: "0s ease 0s 1 normal none running none",
+      margin: "auto",
+      display: "flex",
+      position: "absolute",
+      border: "1px solid #5f0080",
+
       borderRadius: '8px',
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
       //textAlign: 'center',
-      //padding: 'auto',
-      fontFamily: 'NanumGothic',
-      fontSize: '11pt',
+      padding: 'auto',
     },
   };
 
@@ -34,15 +59,39 @@ const PopupModal2 = ({ isOpen2, closeModal2 }) => {
         <div style={ {paddingTop: '6px',}}>
         <h2 style={{ textAlign:'center', fontSize:'15pt'}}>배송지 선택이 완료되었습니다</h2>
         <div className="CloseBtn" style={ {
-            paddingTop: '27px',
+            paddingTop: '22px',
             display: 'flex',
-            justifyContent: 'center',
+            //justifyContent: 'center',
+            justifyContent:'right',
+            marginRight:'4%',
 
         }}>
           &ensp;
           <button 
             className="closeBtn"
             onClick={closeModal2}
+            style={{
+              boxSizing: "border-box",
+              font: "inherit",
+              margin: "-5px",
+              WebkitTapHighlightColor: "transparent",
+              overflow: "visible",
+              textTransform: "none",
+              appearance: "button",
+              cursor: "pointer",
+              borderRadius: "0px",
+              fontFamily:
+                '"Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif',
+              border: "none",
+              padding: "0px 18px",
+              background: "transparent",
+              width: "auto",
+              height: "100%",
+              fontSize: "16px",
+              fontWeight: 600,
+              color: "rgb(95, 0, 128)",
+              backgroundColor: "transparent",
+            }}
           >확인</button>
         </div>      
       </div>
@@ -56,15 +105,45 @@ const PopupModal3 = ({ isOpen3, closeModal3 }) => {
 
   const customStyles3 = {
     content: {
+      // width: '18%', // Set the desired width
+      // height: '18%', // Set the desired height
+      // margin: 'auto', // Center the modal horizontally
+      // borderRadius: '8px',
+      // boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      // //textAlign: 'center',
+      // //padding: 'auto',
+      // //fontFamily: 'NanumGothic',
+      // fontSize: '11pt',
+
+      border: "none",
+      background: "rgb(255, 255, 255)",
+      position: "relative",
+      boxSizing: "border-box",
+      flexDirection: "column",
+      justifyContent: "center",
       width: '18%', // Set the desired width
-      height: '18%', // Set the desired height
-      margin: 'auto', // Center the modal horizontally
+      height: '15%',
+      fontFamily: "inherit",
+      fontSize: "1rem",
+      WebkitTapHighlightColor: "transparent",
+      borderRadius: "12px",
+      padding: "0px",
+      maxWidth: "360px",
+      animation: "0s ease 0s 1 normal none running none",
+      margin: "auto",
+      display: "flex",
+      position: "absolute",
+      //top: 500,
+      //left: 500,
+      //zIndex: 200,
+      border: "1px solid #5f0080",
+
       borderRadius: '8px',
       boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
       //textAlign: 'center',
-      //padding: 'auto',
-      fontFamily: 'NanumGothic',
-      fontSize: '11pt',
+      padding: 'auto',
+
+      
     },
   };
 
@@ -78,15 +157,40 @@ const PopupModal3 = ({ isOpen3, closeModal3 }) => {
       }}>
         <h2 style={{ textAlign:'center', fontSize:'16pt'}}>삭제하시겠습니까?</h2>
         <div className="CloseBtn" style={ {
-            paddingTop: '25px',
+            paddingTop: '22px',
             display: 'flex',
-            justifyContent: 'center',
+            //justifyContent: 'center',
+            justifyContent:'right',
+            marginRight:'5%',
 
         }}>
           &ensp;
         <button 
           className="closeBtn"
           onClick={closeModal3}
+          style={{
+              boxSizing: "border-box",
+              font: "inherit",
+              margin: "0px",
+              WebkitTapHighlightColor: "transparent",
+              overflow: "visible",
+              textTransform: "none",
+              appearance: "button",
+              cursor: "pointer",
+              borderRadius: "0px",
+              fontFamily:
+                '"Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif',
+              border: "none",
+              padding: "0px 18px",
+              background: "transparent",
+              width: "auto",
+              height: "100%",
+              fontSize: "16px",
+              fontWeight: 600,
+              color: "rgb(95, 0, 128)",
+              backgroundColor: "transparent",
+                    
+          }}
         >삭제</button>
         </div>      
       </div>
@@ -219,7 +323,7 @@ export default function Component() {
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
         //textAlign: 'center',
         //padding: 'auto',
-        fontFamily: 'NanumGothic',
+        //fontFamily: 'NanumGothic',
         fontSize: '11pt',
         outline: 'none',
         overflow: 'auto', // Hide the scrollbar
@@ -634,7 +738,7 @@ export default function Component() {
                       lineHeight: "20px",
                     }}
                   >
-                    배송지에 따라 상품정보 및 배송유형이 달라질 수 있습니다.
+                    배송지는 최대 5개까지 등록할 수 있어요
                   </span>
                 </div>
                 <div>
