@@ -1,31 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const InquiryList = ({ selectedInquiry }) => {
-  const [expanded, setExpanded] = useState(false);
+const InquiryList = () => {
+  const [inquiries, setInquiries] = useState([]);
+  const [selectedInquiry, setSelectedInquiry] = useState(null);
 
-  const handleToggle = () => {
-    setExpanded(!expanded);
+  useEffect(() => {
+    // Fetch the list of inquiries from the server (Spring Boot)
+    fetchInquiries();
+  }, []);
+
+  const fetchInquiries = async () => {
+    try {
+      const response = await axios.get('http://localhost:9000/inquiries');
+      setInquiries(response.data);
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
 
-  const handleTitleClick = () => {
-    setExpanded(true);
+  const handleToggleInquiry = (inquiry) => {
+    if (selectedInquiry && selectedInquiry.id === inquiry.id) {
+      setSelectedInquiry(null);
+    } else {
+      setSelectedInquiry(inquiry);
+    }
+  };
+
+  const handleDeleteInquiry = async (inquiryId) => {
+    try {
+      // Delete the inquiry with the specified ID from the server (Spring Boot)
+      await axios.delete(`http://localhost:8080/inquiries/${inquiryId}`);
+
+      // Fetch the updated list of inquiries
+      fetchInquiries();
+    } catch (error) {
+      console.log('Error:', error);
+    }
   };
 
   return (
     <div>
-      <div onClick={handleTitleClick}>
-        제목 작성일 답변상태
-      </div>
-      {expanded && selectedInquiry && (
-        <div>
-          <div>{selectedInquiry.selectedType} {selectedInquiry.selectedSubType}</div>
-          <div>{selectedInquiry.content}</div>
-          <button>수정</button>
-          <button>삭제</button>
-        </div>
-      )}
-      {/* Remove the onClick event from the button */}
-      <button onClick={handleToggle}>{expanded ? '접기' : '펼치기'}</button>
+      <h2>1:1 문의</h2>
+      <ul>
+        {inquiries.map((inquiry) => (
+          <li key={inquiry.id}>
+            <div
+              onClick={() => handleToggleInquiry(inquiry)}
+              style={{ cursor: 'pointer', fontWeight: 'bold' }}
+            >
+              {inquiry.title} - {inquiry.created_at} - {inquiry.status}
+            </div>
+            {selectedInquiry && selectedInquiry.id === inquiry.id && (
+              <div>
+                <p>유형: {inquiry.type}</p>
+                <p>상세 유형: {inquiry.subType}</p>
+                <p>내용: {inquiry.content}</p>
+                <div>
+                  <button onClick={() => handleDeleteInquiry(inquiry.id)}>삭제</button>
+                  <button>수정</button>
+                </div>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

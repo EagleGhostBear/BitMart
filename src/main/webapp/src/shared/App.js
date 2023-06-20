@@ -80,7 +80,7 @@ function App() {
         <Route path="/notices/:id" element={<NoticeDetailPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/inquiry" element={<InquiryPage />} />
-        <Route path="/inquiry/wri" element={<InquiryFormPage />} />
+        <Route path="/inquirywrite" element={<InquiryFormPage />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
