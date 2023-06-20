@@ -6,6 +6,7 @@ import java.util.Map;
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
 import main.bean.FaqDTO;
+import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
@@ -47,4 +48,14 @@ public interface MainDAO {
 	List<CommentDTO> comment_list(Map map);
 
 	String comment_count(Map map);
+	
+	List<InquiryDTO> getInquiryList(); //
+
+	public void insertInquiry(InquiryDTO inquiry); //
+
+	public void updateInquiry(InquiryDTO inquiry); //
+
+	public void deleteInquiry(int id); //
+
+
 }

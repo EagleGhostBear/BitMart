@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
 import main.bean.FaqDTO;
+import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
@@ -129,4 +130,31 @@ public class MainServiceImpl implements MainService {
 		
 		return mainDAO.comment_count(map);
 	}
+
+	@Override
+	public List<InquiryDTO> getInquiryList() {
+	    
+		return mainDAO.getInquiryList();
+	}
+
+	@Override
+    public void insertInquiry(InquiryDTO inquiry) {
+	     
+		mainDAO.insertInquiry(inquiry);
+	}
+
+	@Override
+	public void updateInquiry(InquiryDTO inquiry) {
+	     
+		mainDAO.updateInquiry(inquiry);
+	}
+
+	@Override
+	public void deleteInquiry(int id) {
+	    
+		mainDAO.deleteInquiry(id);
+	}
+
+
+	
 }

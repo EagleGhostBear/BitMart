@@ -108,4 +108,25 @@
 	<select id="comment_count" parameterType="java.util.Map" resultType="String">
 		SELECT COUNT(*) AS count FROM comment WHERE product = #{product}
 	</select>
+	
+<select id="getInquiryList" resultType="main.bean.InquiryDTO">
+    SELECT * FROM inquiry
+</select>
+
+<insert id="insertInquiry" parameterType="main.bean.InquiryDTO">
+    INSERT INTO inquiry (title, content, id, createdAt)
+    VALUES (#{title}, #{content}, #{id}, #{createdAt})
+</insert>
+
+<update id="updateInquiry" parameterType="main.bean.InquiryDTO">
+    UPDATE inquiry
+    SET title = #{title}, content = #{content}, id = #{id}, createdAt = #{createdAt}
+    WHERE id = #{id}
+</update>
+
+<delete id="deleteInquiry" parameterType="int">
+    DELETE FROM inquiry
+    WHERE id = #{id}
+</delete>
+
 </mapper>
