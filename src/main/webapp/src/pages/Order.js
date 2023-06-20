@@ -202,6 +202,7 @@ const Order = () => {
                     최대 지난 3년간의 주문 내역까지 확인할 수 있어요
                   </span>
                 </div>
+                {/*}
                 <div className="SelectDateBox">
                   <div className="OrderTitleDate">
                     <div>
@@ -210,8 +211,10 @@ const Order = () => {
                         <div
                           className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl jss1 css-eg1co4"
                         >
+                */}
 
                           {/* select box 셀렉트 박스 */}
+                          {/*
                           <select className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiMenu-paper MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-1g99zn8" tabIndex="-1" 
                           >
                                 <option key="3month"value="3month">3개월</option>
@@ -262,6 +265,7 @@ const Order = () => {
                     </div>
                   </div>
                 </div>
+              */}
               </div>
     
               <div className="DivideLine"/>

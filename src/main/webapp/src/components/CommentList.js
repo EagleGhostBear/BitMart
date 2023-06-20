@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import moment from "moment";
+import axios from "axios";
 
 import Comment from "./Comment";
 import { actionCreators as commentActions } from "../redux/modules/comment";
@@ -9,22 +11,33 @@ import { useNavigate } from "react-router-dom";
 const CommentList = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [data, setData] = React.useState([]);
+  const [count, setCount] = React.useState(0);
   const { pid } = props;
+  const seq = props.seq;
   const comment_list = useSelector((state) => state.comment.list);
   console.log(comment_list);
 
   const islogin = useSelector((state) => state.user.is_login);
 
   useEffect(() => {
-    dispatch(commentActions.getCommentFB(pid));
+    //dispatch(commentActions.getCommentFB(pid));
+    axios.post('/comment_list', { product: seq })
+      .then(response => setData(response.data));
+    axios.post('/comment_count', { product: seq })
+      .then(response => setCount(response.data));
   }, []);
+
+  useEffect(() => {
+    console.log("데이터값: " + JSON.stringify(data));
+  }, [data]);
 
   return (
     <>
       <image src='https://img-cf.kurly.com/shop/data/goodsview/20230531/gv30000700801_1.jpg'></image>
       <CommentListWrap>
-        {comment_list ? (
-          <CommentBanner>후기 ({comment_list.length}) </CommentBanner>
+        {data ? (
+          <CommentBanner>후기 ({count}) </CommentBanner>
         ) : (
           <CommentBanner>후기 (0)</CommentBanner>
         )}
@@ -116,9 +129,14 @@ const CommentList = (props) => {
             </Info>
           </HeaderInfo>
           {/* Commnet List */}
-          {comment_list &&
+          {/* {comment_list &&
             comment_list.map((c, i) => {
               return <Comment key={i} {...c} />;
+            })} */}
+          {data.map((item, i) => {
+              return (
+                <Comment key={i} {...item} />
+              );
             })}
           <ButtonWrap>
             {islogin ? (

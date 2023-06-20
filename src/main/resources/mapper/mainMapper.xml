@@ -118,4 +118,23 @@
 		values(#{id}, #{pwd}, #{name}, #{email1}, #{email2})
 	</insert>
 	
+	<select id="comment_list" parameterType="java.util.Map" resultType="main.bean.CommentDTO">
+		select * from comment where product = #{product}
+	</select>
+	
+	<select id="comment_count" parameterType="java.util.Map" resultType="String">
+		SELECT COUNT(*) AS count FROM comment WHERE product = #{product}
+	</select>
+	
+	<select id="views_check" parameterType="java.util.Map" resultType="main.bean.ViewsDTO">
+		select * from views where user = #{user} and product = #{product}
+	</select>
+	
+	<insert id="views_insert" parameterType="java.util.Map">
+		insert into views(user, product, views, logtime) VALUES (#{user}, #{product}, 1, now())
+	</insert>
+	
+	<update id="views_increase" parameterType="java.util.Map">
+		UPDATE views SET views = views + 1, logtime = NOW() WHERE user = #{user} and product = #{product}
+	</update>
 </mapper>

@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpSession;
 import main.bean.CartDTO;
+import main.bean.CommentDTO;
 import main.bean.FaqDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
@@ -237,7 +238,30 @@ public class MainController {
 	}
 	
 
+	}
 	
+	@PostMapping(value = "comment_list")
+	@ResponseBody
+	public List<CommentDTO> comment_list(@RequestBody Map map) {
+		
+		List<CommentDTO> list = mainService.comment_list(map);
+		System.out.println("코멘트: " + list);
+		return list;
+	}
+	
+	@PostMapping(value = "comment_count")
+	@ResponseBody
+	public String comment_count(@RequestBody Map map) {
+		
+		return mainService.comment_count(map);
+	}
+	
+	@PostMapping(value = "views_update")
+	@ResponseBody
+	public void views_update(@RequestBody Map map) {
+		
+		mainService.views_update(map);
+	}
 }
 
 
