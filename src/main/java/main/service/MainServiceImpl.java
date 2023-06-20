@@ -135,5 +135,11 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.checkEmail(email);
 	}
 
+	@Override
+	public void signUp(Map<String, Object> map) {
+		
+		mainDAO.signUp(map);
+	}
+
 
 }

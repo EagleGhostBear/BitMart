@@ -207,6 +207,35 @@ public class MainController {
 		return mainService.checkEmail(email);
 	}
 	
+	@PostMapping(value="signUp")
+	@ResponseBody
+	public void signUp(@RequestBody Map<String, Object> requestData) {
+		
+		String id = (String) requestData.get("id");
+		String pwd = (String)requestData.get("pwd");
+		String name = (String)requestData.get("name");
+		String email = (String)requestData.get("email");
+		
+		System.out.println("아이디는 " + id);
+		System.out.println("비밀번호 : " + pwd);
+		System.out.println("이름 : " + name);
+		System.out.println("이메일 : " + email);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("pwd", pwd);
+		map.put("name", name);
+		String[] parts = email.split("@"); // "@"를 기준으로 email을 나눔
+	    String email1 = parts[0]; // "@" 앞 부분
+	    String email2 = parts[1]; // "@" 뒷 부분
+	    System.out.println("email1 : " + email1);
+	    System.out.println("email2 : " + email2);
+	    map.put("email1", email1);
+	    map.put("email2", email2);
+	    
+	    mainService.signUp(map);
+	}
+	
 
 	
 }

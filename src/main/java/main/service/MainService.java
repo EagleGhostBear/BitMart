@@ -49,6 +49,8 @@ public interface MainService {
 
 	UserDTO checkEmail(String email);
 
+	void signUp(Map<String, Object> map);
+
 
 }
 

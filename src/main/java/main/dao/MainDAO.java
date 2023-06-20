@@ -49,4 +49,6 @@ public interface MainDAO {
 
 	UserDTO checkEmail(String email);
 
+	void signUp(Map<String, Object> map);
+
 }

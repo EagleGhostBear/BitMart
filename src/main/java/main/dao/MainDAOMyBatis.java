@@ -142,6 +142,12 @@ public class MainDAOMyBatis implements MainDAO {
 		return sqlSession.selectOne("mainSQL.checkEmail", map);
 	}
 
+	@Override
+	public void signUp(Map<String, Object> map) {
+		
+		sqlSession.insert("mainSQL.signUp", map);
+	}
+
 
 	
 	

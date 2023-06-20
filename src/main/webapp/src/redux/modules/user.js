@@ -64,20 +64,20 @@ const emailCheckF = (email) => {
   };
 };
 
-const signupDB = (username, password, passwordCheck, email, nickname) => {
+const signupDB = (userId, password, passwordCheck, email, nickname) => {
   return async function (dispatch, getState, { history }) {
     console.log(
-      "id : " + username,
+      "id : " + userId,
       "pwd : " + password,
       "nickname : " + nickname,
       "email : " + email
     );
     try {
-      const signup = await axios.post("http://3.38.153.67/api/user/signup", {
-        username: username,
-        password: password,
+      const signup = await axios.post("/signUp", {
+        id: userId,
+        pwd: password,
         passwordCheck: passwordCheck,
-        nickname: nickname,
+        name: nickname,
         email: email,
         //회원가입 시 서버로 해당 값들 보냄
       });
@@ -114,8 +114,8 @@ const loginDB = (username, password) => {
         return;
       }
 
-      dispatch(setUser({ id: login.data.id, pwd: login.data.pwd, name: login.data.name }));
-      localStorage.setItem("token", login.data.seq);
+      dispatch(setUser({ id: login.data.id, pwd: login.data.pwd, name: login.data.name })); // 로그인 성공 시 유저 정보 저장
+      localStorage.setItem("token", login.data.seq);  // 로그인 성공 시 토큰 저장
       window.alert("로그인 되었습니다!");
       window.location.replace("/");
 
