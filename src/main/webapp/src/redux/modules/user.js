@@ -15,19 +15,19 @@ const initialState = {
   is_login: false,
 };
 
-const usernameCheckF = (username) => {
+const userIdCheckF = (userId) => {
   return function (dispatch, getState) {
-    console.log(username);
+    console.log(userId);
     axios({
       method: "post",
-      url: "http://3.38.153.67/api/user/signup/username",
+      url: "/checkUserId",
       data: {
-        username: username,
-      },
+        id: userId,
+      }
     })
       .then((res) => {
         console.log(res.data);
-        if (!res.data) {
+        if (res.data === "") {
           window.alert("사용 가능한 아이디입니다!");
         } else {
           window.alert("이미 사용 중인 아이디입니다!");
@@ -45,7 +45,7 @@ const emailCheckF = (email) => {
     console.log(email);
     axios({
       method: "post",
-      url: "http://3.38.153.67/api/user/signup/email",
+      url: "/checkEmail",
       data: {
         email: email,
       },
@@ -64,20 +64,20 @@ const emailCheckF = (email) => {
   };
 };
 
-const signupDB = (username, password, passwordCheck, email, nickname) => {
+const signupDB = (userId, password, passwordCheck, email, nickname) => {
   return async function (dispatch, getState, { history }) {
     console.log(
-      "id : " + username,
+      "id : " + userId,
       "pwd : " + password,
       "nickname : " + nickname,
       "email : " + email
     );
     try {
-      const signup = await axios.post("http://3.38.153.67/api/user/signup", {
-        username: username,
-        password: password,
+      const signup = await axios.post("/signUp", {
+        id: userId,
+        pwd: password,
         passwordCheck: passwordCheck,
-        nickname: nickname,
+        name: nickname,
         email: email,
         //회원가입 시 서버로 해당 값들 보냄
       });
@@ -114,8 +114,8 @@ const loginDB = (username, password) => {
         return;
       }
 
-      dispatch(setUser({ id: login.data.id, pwd: login.data.pwd, name: login.data.name }));
-      localStorage.setItem("token", login.data.seq);
+      dispatch(setUser({ id: login.data.id, pwd: login.data.pwd, name: login.data.name })); // 로그인 성공 시 유저 정보 저장
+      localStorage.setItem("token", login.data.seq);  // 로그인 성공 시 토큰 저장
       window.alert("로그인 되었습니다!");
       window.location.replace("/");
 
@@ -128,6 +128,32 @@ const loginDB = (username, password) => {
     }
   };
 };
+
+const findIdDB = (name, email) => {
+  console.log("이름 : " + name);
+  console.log("이메일 : " + email);
+  axios({
+    method: "post",
+    url: "/find_id",
+    data: {
+      name: name,
+      email: email,
+      },
+  })
+  .then((res) => {
+    console.log(res.data);
+    if (!res.data) {
+      window.alert("아이디가 존재하지 않습니다!");
+    } else {
+      window.alert("아이디는 " + res.data.id + "입니다!");
+    }
+  })
+  .catch((err) => {
+    console.log("아이디 찾기", err);
+    window.alert("아이디 찾기에 문제가 생겼습니다!");
+  }
+  );
+}
 
 const loginCheckDB = (token_key) => {
   return async function (dispatch, getState, { history }) {
@@ -184,8 +210,9 @@ const actionCreators = {
   signupDB,
   loginDB,
   loginCheckDB,
-  usernameCheckF,
+  userIdCheckF,
   emailCheckF,
+  findIdDB
 };
 
 export { actionCreators };

@@ -101,6 +101,23 @@
 		SELECT * FROM faq
 	</select>
 	
+	<select id="findId" resultType="main.bean.UserDTO">
+		SELECT * FROM user WHERE name = #{name} AND CONCAT(email1, '@', email2) = #{email}
+	</select>
+	
+	<select id="checkUserId" resultType="main.bean.UserDTO" parameterType="String">
+		SELECT * FROM user where id=#{id}
+	</select>
+	
+	<select id="checkEmail" resultType="main.bean.UserDTO" parameterType="java.util.Map">
+		SELECT * FROM user where email1=#{email1} and email2=#{email2}
+	</select>
+	
+	<insert id="signUp" parameterType="java.util.Map">
+		INSERT INTO user (id, pwd, name, email1, email2)
+		values(#{id}, #{pwd}, #{name}, #{email1}, #{email2})
+	</insert>
+	
 	<select id="comment_list" parameterType="java.util.Map" resultType="main.bean.CommentDTO">
 		select * from comment where product = #{product}
 	</select>
@@ -109,24 +126,43 @@
 		SELECT COUNT(*) AS count FROM comment WHERE product = #{product}
 	</select>
 	
-<select id="getInquiryList" resultType="main.bean.InquiryDTO">
-    SELECT * FROM inquiry
-</select>
+	<select id="getInquiryList" resultType="main.bean.InquiryDTO">
+    	SELECT * FROM inquiry
+	</select>
 
-<insert id="insertInquiry" parameterType="main.bean.InquiryDTO">
-    INSERT INTO inquiry (title, content, id, createdAt)
-    VALUES (#{title}, #{content}, #{id}, #{createdAt})
-</insert>
+	<insert id="insertInquiry" parameterType="main.bean.InquiryDTO">
+   	 INSERT INTO inquiry (title, content, createdAt, replyStatus, type, subType)
+   	 VALUES (#{title}, #{content}, #{createdAt}, #{replyStatus}, #{type}, #{subType})
+	</insert>
 
-<update id="updateInquiry" parameterType="main.bean.InquiryDTO">
-    UPDATE inquiry
-    SET title = #{title}, content = #{content}, id = #{id}, createdAt = #{createdAt}
-    WHERE id = #{id}
-</update>
+	<update id="updateInquiry" parameterType="main.bean.InquiryDTO">
+    	UPDATE inquiry
+    	SET title = #{title}, content = #{content}, createdAt = #{createdAt}
+    	WHERE id = #{id}
+	</update>
 
-<delete id="deleteInquiry" parameterType="int">
-    DELETE FROM inquiry
-    WHERE id = #{id}
-</delete>
+	<delete id="deleteInquiry" parameterType="int">
+    	DELETE FROM inquiry
+    	WHERE id = #{id}
+	</delete>
 
+	<select id ="order_list" parameterType="java.util.Map" resultType="main.bean.CartDTO">
+		SELECT product.seq, product.image, product.title, floor(product.price*(1-(sale*0.01))) as real_price, '배송 중' as deliverystate
+			FROM product
+			INNER JOIN cart ON cart.product = product.seq
+		WHERE cart.user = #{user}
+		GROUP BY product.seq, product.image, product.title;
+	</select>
+	
+	<select id="views_check" parameterType="java.util.Map" resultType="main.bean.ViewsDTO">
+		select * from views where user = #{user} and product = #{product}
+	</select>
+	
+	<insert id="views_insert" parameterType="java.util.Map">
+		insert into views(user, product, views, logtime) VALUES (#{user}, #{product}, 1, now())
+	</insert>
+	
+	<update id="views_increase" parameterType="java.util.Map">
+		UPDATE views SET views = views + 1, logtime = NOW() WHERE user = #{user} and product = #{product}
+	</update>
 </mapper>

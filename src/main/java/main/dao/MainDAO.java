@@ -45,6 +45,14 @@ public interface MainDAO {
 	
 	List<FaqDTO> getFaqList(); // 추가
 
+	UserDTO findId(Map map);
+
+	UserDTO checkUserId(String id);
+
+	UserDTO checkEmail(String email);
+
+	void signUp(Map<String, Object> map);
+
 	List<CommentDTO> comment_list(Map map);
 
 	String comment_count(Map map);
@@ -58,4 +66,7 @@ public interface MainDAO {
 	public void deleteInquiry(int id); //
 
 
+	List<CartDTO> order_list(Map map);
+	
+	public void views_update(Map map);
 }

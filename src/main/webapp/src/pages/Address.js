@@ -57,7 +57,7 @@ const PopupModal2 = ({ isOpen2, closeModal2 }) => {
     <Modal isOpen={isOpen2} onRequestClose={closeModal2} style={customStyles2}>
       {/* Content of your modal */}
         <div style={ {paddingTop: '6px',}}>
-        <h2 style={{ textAlign:'center', fontSize:'15pt'}}>배송지 선택이 완료되었습니다</h2>
+        <h2 style={{ textAlign:'center', fontSize:'13.5pt'}}>배송지 선택이 완료되었습니다</h2>
         <div className="CloseBtn" style={ {
             paddingTop: '22px',
             display: 'flex',
@@ -155,7 +155,7 @@ const PopupModal3 = ({ isOpen3, closeModal3 }) => {
         <div style={ {paddingTop: '6px',
                  
       }}>
-        <h2 style={{ textAlign:'center', fontSize:'16pt'}}>삭제하시겠습니까?</h2>
+        <h2 style={{ textAlign:'center', fontSize:'13.5pt'}}>삭제하시겠습니까?</h2>
         <div className="CloseBtn" style={ {
             paddingTop: '22px',
             display: 'flex',

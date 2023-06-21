@@ -1,9 +1,11 @@
 package main.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +17,7 @@ import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
+import main.bean.ViewsDTO;
 
 @Repository
 @Transactional
@@ -119,6 +122,37 @@ public class MainDAOMyBatis implements MainDAO {
 	public List<FaqDTO> getFaqList() {
 	    return sqlSession.selectList("mainSQL.getFaqList");
 	}
+
+	@Override
+	public UserDTO findId(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.findId", map);
+	}
+
+	@Override
+	public UserDTO checkUserId(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mainSQL.checkUserId", id);
+	}
+
+	@Override
+	public UserDTO checkEmail(String email) {
+		String[] parts = email.split("@"); // "@"를 기준으로 email을 나눔
+	    String email1 = parts[0]; // "@" 앞 부분
+	    String email2 = parts[1]; // "@" 뒷 부분
+	    Map<String, Object> map = new HashMap<>();
+		map.put("email1", email1);
+		map.put("email2", email2);
+		return sqlSession.selectOne("mainSQL.checkEmail", map);
+	}
+
+	@Override
+	public void signUp(Map<String, Object> map) {
+		
+		sqlSession.insert("mainSQL.signUp", map);
+	}
+
+
 	
 	@Override
 	public List<CommentDTO> comment_list(Map map) {
@@ -152,4 +186,19 @@ public class MainDAOMyBatis implements MainDAO {
 	    sqlSession.delete("mainSQL.deleteInquiry", id);
 	}
 
+	public List<CartDTO> order_list(Map map) {
+
+		List<CartDTO> list = sqlSession.selectList("mainSQL.order_list", map);
+		System.out.println("order_data:" + list);
+		
+		return list;
+	}
+	
+	@Override
+	public void views_update(Map map) {
+		
+		ViewsDTO viewsDTO = sqlSession.selectOne("mainSQL.views_check", map);
+		if(viewsDTO == null) {sqlSession.insert("mainSQL.views_insert", map);}
+		else {sqlSession.update("mainSQL.views_increase", map);}
+	}
 }

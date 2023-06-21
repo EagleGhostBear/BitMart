@@ -47,7 +47,10 @@ const Header = (props) => {
             {islogin && (
               <>
                 <li onClick={logout}>로그아웃</li>
-                <li>마이페이지</li>
+                <li onClick={() => {
+                    navigate("/order");
+                  }}>
+              마이페이지</li>
               </>
             )}
             <li onClick={() => {

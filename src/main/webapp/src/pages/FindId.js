@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from "react-redux";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const FindId = () => {
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -62,6 +65,10 @@ const FindId = () => {
     setEmail('');
     setDeleteVisible1(false);
   };
+
+  const findId = () => {
+    dispatch(userActions.findIdDB(name, email));
+  }
 
   return (
     <React.Fragment>
@@ -132,7 +139,11 @@ const FindId = () => {
           </div>
         )}
         <ButtonContainer>
-        <ButtonFindId  style={{   
+        <ButtonFindId 
+         onClick={() => {
+            findId();
+         }}
+        style={{   
           backgroundColor: isValidEmail && isValidName ? "#5f0080" : "",   
           cursor: isValidEmail && isValidName ? "pointer" : "default"   
           }}   

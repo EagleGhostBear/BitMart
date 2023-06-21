@@ -123,7 +123,14 @@ public class MainController {
 	    System.out.println("notice = " + notice);
 	    return notice;
 	}
-	
+
+	@PostMapping(value="/find_id")
+	@ResponseBody
+	public UserDTO findId(@RequestBody Map map) {
+		System.out.println(map);
+		return mainService.findId(map);
+	}
+
 	@PostMapping(value = "login")
 	@ResponseBody
 	public UserDTO login(@RequestBody Map map) {
@@ -186,7 +193,55 @@ public class MainController {
 	   List<FaqDTO> faqs = mainService.getFaqList();
 	   System.out.println("list = " + faqs);
 	   return faqs;
+	    }
+	
+	@PostMapping(value="/checkUserId")
+	@ResponseBody
+	public UserDTO checkUserId(@RequestBody Map<String, String> requestData) {
+	    String id = requestData.get("id");
+	    System.out.println("아이디는 " + id);
+	    return mainService.checkUserId(id);
 	}
+	
+	@PostMapping(value="/checkEmail")
+	@ResponseBody
+	public UserDTO checkEmail(@RequestBody Map<String, String> requestData) {
+		String email = requestData.get("email");
+		System.out.println("이메일은 " + email);
+		
+		return mainService.checkEmail(email);
+	}
+	
+	@PostMapping(value="signUp")
+	@ResponseBody
+	public void signUp(@RequestBody Map<String, Object> requestData) {
+		
+		String id = (String) requestData.get("id");
+		String pwd = (String)requestData.get("pwd");
+		String name = (String)requestData.get("name");
+		String email = (String)requestData.get("email");
+		
+		System.out.println("아이디는 " + id);
+		System.out.println("비밀번호 : " + pwd);
+		System.out.println("이름 : " + name);
+		System.out.println("이메일 : " + email);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("pwd", pwd);
+		map.put("name", name);
+		String[] parts = email.split("@"); // "@"를 기준으로 email을 나눔
+	    String email1 = parts[0]; // "@" 앞 부분
+	    String email2 = parts[1]; // "@" 뒷 부분
+	    System.out.println("email1 : " + email1);
+	    System.out.println("email2 : " + email2);
+	    map.put("email1", email1);
+	    map.put("email2", email2);
+	    
+	    mainService.signUp(map);
+	}
+	
+
 	
 	@PostMapping(value = "comment_list")
 	@ResponseBody
@@ -203,54 +258,82 @@ public class MainController {
 		
 		return mainService.comment_count(map);
 	}
-    
-	 
-		@GetMapping("/api/inquiries")
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @ResponseBody
-	    public List<InquiryDTO> getInquiries() {
-	        List<InquiryDTO> inquiries = mainService.getInquiryList();
-	        System.out.println("list = " + inquiries);
-	        return inquiries;
-	    }
-
-	    @PostMapping("/api/inquiries")
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @ResponseBody
-	    public void insertInquiry(@RequestBody InquiryDTO inquiry) {
-	        String selectedType = inquiry.getType();
+	
+	@GetMapping("/api/inquiries")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public List<InquiryDTO> getInquiries() {
+	    List<InquiryDTO> inquiries = mainService.getInquiryList();
+	    for (InquiryDTO inquiry : inquiries) {
+	     String selectedType = inquiry.getType();
+       if (selectedType.equals("주문/결제/반품/교환문의") || selectedType.equals("상품문의")) {
 	        String selectedSubType = inquiry.getSubType();
-	    
-	        // 선택한 유형과 상세유형 설정
-	        if (selectedType.equals("주문/결제/반품/교환문의")) {
-	            // 상세유형 설정
-	            inquiry.setSubType(selectedSubType);
-	        } else if (selectedType.equals("상품문의")) {
-	            // 상세유형 설정
-	            inquiry.setSubType(selectedSubType);
+	        inquiry.setSubType(selectedSubType);
 	        }
+	    }
+	    return inquiries;
+	}
+
+	@PostMapping("/api/inquiries")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void insertInquiry(@RequestBody InquiryDTO inquiry) {
+	    String selectedType = inquiry.getType();
+	    String selectedSubType = inquiry.getSubType();
+
+	   
+	    if (selectedType.equals("주문/결제/반품/교환문의")) {
+	    	if (selectedSubType == null || selectedSubType.isEmpty()) {
+	            throw new IllegalArgumentException("상세 유형은 필수 입력입니다.");
+	        }
+	    } else if (selectedType.equals("상품문의")) {
+	       
+	        if (selectedSubType == null || selectedSubType.isEmpty()) {
+	            throw new IllegalArgumentException("상세 유형은 필수 입력입니다.");
+	        }
+	    } else if (selectedType.equals("기타문의")) {
 	        
-	        mainService.insertInquiry(inquiry);
+	        if (selectedSubType == null || selectedSubType.isEmpty()) {
+	            inquiry.setSubType(null);
+	        }
+	    } else {
+	        inquiry.setSubType(null);
 	    }
+	    if (selectedType == null && inquiry.getSubType() == null) {
+	        throw new IllegalArgumentException("유형은 필수 입력입니다.");
+	    }
+	    mainService.insertInquiry(inquiry);
+	}
 
-	    @PutMapping("/api/inquiries/{id}")
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @ResponseBody
-	    public void updateInquiry(@PathVariable("id") int id, @RequestBody InquiryDTO inquiry) {
-	        inquiry.setId(id);
-	        mainService.updateInquiry(inquiry);
-	    }
+	@PutMapping("/api/inquiries/{id}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void updateInquiry(@PathVariable("id") int id, @RequestBody InquiryDTO inquiry) {
+	    inquiry.setId(id);
+	    mainService.updateInquiry(inquiry);
+	}
 
-	    @DeleteMapping("/api/inquiries/{id}")
-	    @CrossOrigin(origins = "http://localhost:3000")
-	    @ResponseBody
-	    public void deleteInquiry(@PathVariable("id") int id) {
-	        mainService.deleteInquiry(id);
-	    }
+	@DeleteMapping("/api/inquiries/{id}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void deleteInquiry(@PathVariable("id") int id) {
+	    mainService.deleteInquiry(id);
+	}
+
+
+    @PostMapping(value = "order_list")
+	@ResponseBody
+	public List<CartDTO> order_list(@RequestBody Map map) {
+		
+		return mainService.order_list(map);
 	
-
-    
-	
+	}
+	@PostMapping(value = "views_update")
+	@ResponseBody
+	public void views_update(@RequestBody Map map) {
+		
+		mainService.views_update(map);
+	}
 }
 
 

@@ -5,7 +5,7 @@ import { Text, Button, Input } from "../elements/element";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import {
-  usernameCheck,
+  userIdCheck,
   pwdCheck,
   nicknameCheck,
   emailCheck,
@@ -15,42 +15,28 @@ const Signup = (props) => {
   const dispatch = useDispatch();
 
   //아이디, 비밀번호, 비밀번호 확인, 이름, 이메일 확인
-  const [username, setUsername] = React.useState("");
+  const [userId, setuserId] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordCheck, setPasswordCheck] = React.useState("");
   const [nickname, setNickname] = React.useState("");
   const [email, setEmail] = React.useState("");
 
   //아이디, 이메일 중복검사
-  const [username_check, setUsernameCheck] = React.useState(false);
+  const [userId_check, setuserIdCheck] = React.useState(false);
   const [email_check, setEmailCheck] = React.useState(false);
 
-  // const checkUsername = (e) => {
-  //   setUsername(e.target.value);
-  //   if (username_check) {
-  //     setUsernameCheck(false);
-  //   }
-  // };
-  // console.log("username : ", username);
-  // console.log("password: ", password);
-  // console.log("passwordCheck : ", passwordCheck);
-  // console.log("nickname: ", nickname);
-  // console.log("email: ", email);
-
-  // const checkEmail = (e) => {
-  //   setEmail(e.target.value);
-  //   if (email_check) {
-  //     setEmailCheck(false);
-  //   }
-  // };
-  // console.log("email_check : ", email_check);
-
-  const checkUsername = () => {
-    if (!usernameCheck(username)) {
+ 
+  
+  
+  const checkuserId = () => {
+    if (!userIdCheck(userId)) {
       alert("아이디 형식이 맞지 않습니다!");
       return;
     }
-    dispatch(userActions.usernameCheckF(username));
+    else{
+      dispatch(userActions.userIdCheckF(userId));
+    }
+    
   };
 
   const checkEmail = () => {
@@ -64,7 +50,7 @@ const Signup = (props) => {
   //회원가입 시 입력 누락된 내역 있을 시 alert 띄워줌
   const signup = () => {
     if (
-      username === "" ||
+      userId === "" ||
       password === "" ||
       passwordCheck === "" ||
       email === "" ||
@@ -74,13 +60,9 @@ const Signup = (props) => {
       return;
     }
 
-    // 아이디, 이메일 중복검사
-    // if (!username_check || !email_check) {
-    //   window.alert("아이디나 이메일의 중복검사가 되지 않았습니다!");
-    // }
-
+    
     //회원가입 시 아이디, 비밀번호, 비밀번호 확인, 이름, 이메일 유효성 검사
-    if (!usernameCheck(username)) {
+    if (!userIdCheck(userId)) {
       window.alert("아이디 형식이 맞지 않습니다!");
       return;
     }
@@ -107,7 +89,7 @@ const Signup = (props) => {
 
     //signupDB에 회원가입 시 입력한 내역들을 보내주기
     dispatch(
-      userActions.signupDB(username, password, passwordCheck, email, nickname)
+      userActions.signupDB(userId, password, passwordCheck, email, nickname)
     );
   };
 
@@ -132,7 +114,7 @@ const Signup = (props) => {
                 padding="14px"
                 width="332px"
                 _onChange={(e) => {
-                  setUsername(e.target.value);
+                  setuserId(e.target.value);
                 }}
               />
               <Button
@@ -143,18 +125,18 @@ const Signup = (props) => {
                 width="120px"
                 padding="13px 14px"
                 margin="8px"
-                disabled={username_check ? true : false}
-                _onClick={() => checkUsername()}
+                disabled={userId_check ? true : false}
+                _onClick={() => checkuserId()}
               >
                 중복확인
               </Button>
-              {username !== "" && !usernameCheck(username) && (
+              {userId !== "" && !userIdCheck(userId) && (
                 <InfoUl className="checkId">
                   <li>• 6자 이상의 영문 혹은 영문과 숫자를 조합</li>
                   <li>• 아이디 중복확인</li>
                 </InfoUl>
               )}
-              {username !== "" && usernameCheck(username) && (
+              {userId !== "" && userIdCheck(userId) && (
                 <InfoUl className="checkId">
                   <li>✓ 6자 이상의 영문 혹은 영문과 숫자를 조합</li>
                   <li>• 아이디 중복확인</li>
@@ -274,96 +256,7 @@ const Signup = (props) => {
             </td>
           </tr>
 
-          {/* 
-      <div className="username">
-        <input
-          label="아이디"
-          placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합"
-          onChange={(e) => {
-            setUsername(e.target.value);
-          }}
-        /> */}
-
-          {/* {username !== "" && !username(username) && (
-        <text color="red">아이디 형식이 올바르지 않습니다!</text>
-      )}
-      {username !== "" && username(username) && (
-        <text color="green">사용할 수 있는 아이디 형식입니다!</text>
-      )} */}
-
-          {/* <button
-          width="100px"
-          margin="0 0 0 10px"
-          disabled={username_check ? true : false}
-          onClick={() => checkUsername()}
-        >
-          중복확인
-        </button> */}
-
-          {/* <div className="password">
-        <input
-          label="비밀번호"
-          placeholder="비밀번호를 입력해주세요"
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-        /> */}
-          {/* {password !== "" && !pwdCheck(password) && (
-        <div color="red">
-          비밀번호는 최소 8자 이상으로 최소 하나의 문자, 하나의 숫자 및 하나의
-          특수 문자를 포함하여야 합니다.
-        </div>
-      )} */}
-          {/* {password !== "" && pwdCheck(password) && (
-        <div color="green">올바른 비밀번호 형식입니다.</div>
-      )} */}
-          {/* </div>
-      <div className="password-check">
-        <input
-          label="비밀번호 확인"
-          placeholder="비밀번호를 한번 더 입력해주세요"
-          type="password"
-          onChange={(e) => {
-            setPasswordCheck(e.target.value);
-          }}
-        />
-      </div> */}
-
-          {/* <div className="name">
-        <input
-          label="이름"
-          placeholder="이름을 입력해주세요"
-          onChange={(e) => {
-            setNickname(e.target.value);
-          }}
-        ></input>
-      </div> */}
-
-          {/* <div className="email">
-        <input
-          label="이메일"
-          placeholder="예: marketkurly@kurly.com"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        /> */}
-          {/* {username !== "" && !emailCheck(username) && (
-        <div color="red">이메일 형식이 올바르지 않습니다!</div>
-      )}
-      {username !== "" && emailCheck(username) && (
-        <div color="green">사용할 수 있는 이메일 형식입니다!</div>
-      )} */}
-          {/* <button
-          width="100px"
-          height="45px"
-          margin="0 0 0 10px"
-          disabled={email_check ? true : false}
-          onClick={() => checkEmail()}
-        >
-          중복확인
-        </button>
-      </div> */}
+          
         </tbody>
       </SignupTable>
       <Button width="240px" _onClick={() => signup()}>

@@ -1,5 +1,6 @@
 package main.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -118,7 +119,31 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return mainDAO.getFaqList();
 	}
-	
+
+	@Override
+	public UserDTO findId(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.findId(map);
+	}
+
+	@Override
+	public UserDTO checkUserId(String id) {
+		// TODO Auto-generated method stub
+		return mainDAO.checkUserId(id);
+	}
+
+	@Override
+	public UserDTO checkEmail(String email) {
+		// TODO Auto-generated method stub
+		return mainDAO.checkEmail(email);
+	}
+
+	@Override
+	public void signUp(Map<String, Object> map) {
+		
+		mainDAO.signUp(map);
+	}
+
 	@Override
 	public List<CommentDTO> comment_list(Map map) {
 		
@@ -137,11 +162,16 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.getInquiryList();
 	}
 
+	
 	@Override
-    public void insertInquiry(InquiryDTO inquiry) {
-	     
-		mainDAO.insertInquiry(inquiry);
+	public void insertInquiry(InquiryDTO inquiry) {
+	    // Set createdAt and replyStatus values
+	    inquiry.setCreatedAt(LocalDateTime.now());
+	    inquiry.setReplyStatus("Pending");
+	    
+	    mainDAO.insertInquiry(inquiry);
 	}
+
 
 	@Override
 	public void updateInquiry(InquiryDTO inquiry) {
@@ -155,6 +185,15 @@ public class MainServiceImpl implements MainService {
 		mainDAO.deleteInquiry(id);
 	}
 
+	public List<CartDTO> order_list(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.order_list(map);
+	}
+	@Override
+	public void views_update(Map map) {
+		
+		mainDAO.views_update(map);
+	}
 
-	
+
 }
