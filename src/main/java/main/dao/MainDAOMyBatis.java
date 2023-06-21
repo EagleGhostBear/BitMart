@@ -191,4 +191,6 @@ public class MainDAOMyBatis implements MainDAO {
 		if(viewsDTO == null) {sqlSession.insert("mainSQL.views_insert", map);}
 		else {sqlSession.update("mainSQL.views_increase", map);}
 	}
+
+	
 }
