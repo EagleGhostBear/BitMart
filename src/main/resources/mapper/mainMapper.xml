@@ -145,4 +145,6 @@
 	<update id="views_increase" parameterType="java.util.Map">
 		UPDATE views SET views = views + 1, logtime = NOW() WHERE user = #{user} and product = #{product}
 	</update>
+	
+	
 </mapper>
