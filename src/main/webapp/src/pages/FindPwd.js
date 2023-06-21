@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginBox } from "../elements/element";
 
 const FindPwd = () => {
+  const dispatch = useDispatch();
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -66,6 +67,10 @@ const FindPwd = () => {
     setEmail('');
     setDeleteVisible1(false);
   };
+
+  const findPwd = () => {
+    dispatch(userActions.findPwdDB(id, email));
+  }
 
   return (
     <React.Fragment>
@@ -138,6 +143,9 @@ const FindPwd = () => {
         )}
         <ButtonContainer>
           <ButtonFindPwd
+            onClick={() => {
+              findPwd();
+            }}
             style={{
               backgroundColor: isValidEmail && isValidId ? "#5f0080" : "",
               cursor: isValidEmail && isValidId ? "pointer" : "default"

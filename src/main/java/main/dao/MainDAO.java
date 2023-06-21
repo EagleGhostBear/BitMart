@@ -59,4 +59,8 @@ public interface MainDAO {
 	List<CartDTO> order_list(Map map);
 	
 	public void views_update(Map map);
+	
+	UserDTO checkName(String name);
+	
+	UserDTO findPwd(Map map);
 }

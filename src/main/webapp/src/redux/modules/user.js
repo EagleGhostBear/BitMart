@@ -206,6 +206,32 @@ export default handleActions(
   initialState
 );
 
+const findPwdDB = (id, email) => {
+  console.log("아이디 : " + id);
+  console.log("이메일 : " + email);
+  axios({
+    method: "post",
+    url: "/find_pwd",
+    data: {
+      id: id,
+      email: email,
+      },
+  })
+  .then((res) => {
+    console.log(res.data);
+    if (!res.data) {
+      window.alert("회원정보가 없습니다!");
+    } else {
+      window.alert("비밀번호는 " + res.data.pwd + "입니다!");
+    }
+  })
+  .catch((err) => {
+    console.log("비밀번호 찾기", err);
+    window.alert("비밀번호 찾기에 문제가 생겼습니다!");
+  }
+  );
+}
+
 const actionCreators = {
   setUser,
   outUser,
@@ -214,7 +240,8 @@ const actionCreators = {
   loginCheckDB,
   userIdCheckF,
   emailCheckF,
-  findIdDB
+  findIdDB,
+  findPwdDB
 };
 
 export { actionCreators };
