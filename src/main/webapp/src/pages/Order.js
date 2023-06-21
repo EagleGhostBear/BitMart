@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import { actionCreators as orderActions } from '../redux/modules/order';
+//import { actionCreators as orderActions } from '../redux/modules/order';
+import { actionCreators as cartActions } from '../redux/modules/cart';
 
 import './Order.css';
 
@@ -10,38 +11,8 @@ import { CartItem } from "../components/component";
 
 const Order = () => {
 
-  const dispatch = useDispatch();
-  const order_list = useSelector((state) => state.cart.list);
-  const token_key = `${localStorage.getItem("token")}`;
-  const [data, setData] = useState([]);
-
-  
-  useEffect(() => {
-    if (order_list) {
-      dispatch(orderActions.orderListDB());
-    }
-  }, []);
-  
-
-  
-  useEffect(() => {
-
-    console.log("token key: ", token_key)
-    axios.post('/order_list', {seq: token_key})
-        .then(response => setData(response.data));
-    
-    const jquery = document.createElement("script");
-    jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
-    const iamport = document.createElement("script");
-    iamport.src = "https://cdn.iamport.kr/js/iamport.payment-1.1.8.js";
-    document.head.appendChild(jquery);
-    document.head.appendChild(iamport);
-
-    return () => {
-      document.head.removeChild(jquery);
-      document.head.removeChild(iamport);
-    }
-  }, []);
+  //const express = require('express');
+  //const app = express();
 
 
     return (
@@ -322,6 +293,7 @@ const Order = () => {
 
                   <div className="OrderDetailItem" >
                     <div className="css-fhxb3m e1437c649">
+                      
                       <NavLink to={"../address"}>
                         <img
                           className="OrderItemImg"
@@ -396,13 +368,6 @@ const Order = () => {
                   }}
                 />
 
-              <div style={{border:'2px solid skyblue'}}>
-                {data.map((item, i) => {
-                  return (
-                      <CartItem key={i} {...item} />
-                  )
-                })}
-              </div>
               </div>
             </div>
           </div>

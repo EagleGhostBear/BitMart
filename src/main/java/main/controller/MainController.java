@@ -350,6 +350,8 @@ public class MainController {
 		
 		mainService.views_update(map);
 	}
+	
+	
 }
 
 

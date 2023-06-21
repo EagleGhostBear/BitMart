@@ -166,6 +166,7 @@
 		UPDATE views SET views = views + 1, logtime = NOW() WHERE user = #{user} and product = #{product}
 	</update>
 	
+	
 	<select id="findPwd" resultType="main.bean.UserDTO">
 		SELECT * FROM user WHERE id = #{id} AND CONCAT(email1, '@', email2) = #{email}
 	</select>
