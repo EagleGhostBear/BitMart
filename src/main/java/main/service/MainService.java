@@ -59,6 +59,7 @@ public interface MainService {
     List<CartDTO> order_list(Map map);
 	
 	public void views_update(Map map);
+
 	
 	UserDTO findPwd(Map map);
 	

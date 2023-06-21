@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import "../css/category.css";
 
 import { actionCreators as userActions } from "../redux/modules/user";
 
@@ -9,13 +10,23 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const islogin = useSelector((state) => state.user.is_login);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
+  const openCategory = () => {
+    setIsCategoryOpen(true);
+  };
+
+  const closeCategory = () => {
+    setIsCategoryOpen(false);
+  };
+
   const logout = () => {
     dispatch(userActions.outUser());
     alert("로그아웃 되셨습니다!");
     navigate("/");
   };
   const [searchValue, setSearchValue] = useState(""); // 검색어 상태
-  
+
   const handleSearchChange = (e) => {
     setSearchValue(e.target.value); // 검색어 상태 업데이트
   };
@@ -23,7 +34,8 @@ const Header = (props) => {
   const handleSearchSubmit = () => {
     // 검색어 전달 및 검색 실행
     props.onSearchSubmit(searchValue);
-    navigate("/category/new"); window.scrollTo(0, 0);
+    navigate("/category/new");
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -47,23 +59,23 @@ const Header = (props) => {
             {islogin && (
               <>
                 <li onClick={logout}>로그아웃</li>
-                <li onClick={() => {
+                <li
+                  onClick={() => {
                     navigate("/order");
-                  }}>
-              마이페이지</li>
+                  }}
+                >
+                  마이페이지
+                </li>
               </>
             )}
-            <li onClick={() => {
-              navigate("/notices");
-            }}
+            <li
+              onClick={() => {
+                navigate("/notices");
+              }}
             >
-              고객센터 ▼</li>
+              고객센터 ▼
+            </li>
           </React.Fragment>
-
-          {/* <React.Fragment>
-            <li>소진님</li>
-            <li>로그아웃</li>
-          </React.Fragment> */}
         </UserMenu>
 
         <LogoWrap>
@@ -79,11 +91,27 @@ const Header = (props) => {
         <div>
           <HeaderCategory>
             <CategoryIcon></CategoryIcon>
-            <li>전체 카테고리</li>
+            <li className="category" onMouseEnter={openCategory} onMouseLeave={closeCategory}>
+              전체 카테고리
+              {isCategoryOpen && (
+                <div className="dropdown-menu">
+                  <li onClick={() => {navigate("/category/new"); }}>수산물</li>
+                  <li onClick={() => {navigate("/category/best"); }}>육류</li>
+                  <li onClick={() => {navigate("/category/sale"); }}>야채 채소</li>
+                  <li onClick={() => {navigate("/category/price"); }}>과일</li>
+                  <li onClick={() => {navigate("/category/price"); }}>욕실 헤어 바디</li>
+                  <li onClick={() => {navigate("/category/price"); }}>주방용품</li>
+                  <li onClick={() => {navigate("/category/price"); }}>면류</li>
+                  <li onClick={() => {navigate("/category/price"); }}>간식류</li>
+                  <li onClick={() => {navigate("/category/price"); }}>건강식품</li>
+                  <li onClick={() => {navigate("/category/price"); }}>기타류</li>
+                </div>
+              )}
+            </li>
             <li onClick={() => {navigate("/category/new"); window.scrollTo(0, 0);}}>신상품</li>
             <li onClick={() => {navigate("/category/best"); window.scrollTo(0, 0);}}>베스트</li>
-            <li onClick={() => {navigate("/category/sale"); window.scrollTo(0, 0);}}>특가/혜택 </li>
-            <li onClick={() => {navigate("/category/price"); window.scrollTo(0, 0);}}> 알뜰쇼핑</li>
+            <li onClick={() => {navigate("/category/sale"); window.scrollTo(0, 0);}}>특가/혜택</li>
+            <li onClick={() => {navigate("/category/price"); window.scrollTo(0, 0);}}>알뜰쇼핑</li>
             <SearchWrap>
               <Search placeholder="검색어를 입력해주세요." value={searchValue} onChange={handleSearchChange} />
               <SearchIcon onClick={handleSearchSubmit} />
@@ -148,7 +176,6 @@ const DeliveryIcon = styled.span`
   background: url(https://res.kurly.com/pc/service/common/2011/delivery_210801.png)
     no-repeat;
   background-size: cover;
-
   left: 0;
 `;
 
@@ -230,22 +257,7 @@ const CartIcon = styled.div`
   }
 `;
 
-const Count = styled.span`
-  /* position: absolute;
-    left: 19px;
-    top: -1px;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 5px;
-    border: 2px solid #fff;
-    border-radius: 10px;
-    background-color: #5f0080;
-    font-size: 9px;
-    color: #fff;
-    line-height: 15px;
-    text-align: center;
-    white-space: nowrap; */
-`;
+const Count = styled.span``;
 
 const LocationIcon = styled.div`
   width: 36px;
