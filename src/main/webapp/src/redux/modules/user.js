@@ -29,9 +29,12 @@ const userIdCheckF = (userId) => {
         console.log(res.data);
         if (res.data === "") {
           window.alert("사용 가능한 아이디입니다!");
+          
         } else {
           window.alert("이미 사용 중인 아이디입니다!");
+          return;
         }
+        return res.data;
       })
       .catch((err) => {
         console.log("아이디 중복", err);
@@ -90,7 +93,6 @@ const signupDB = (userId, password, passwordCheck, email, nickname) => {
       } else if (signup.data.result === false) {
         window.alert(signup.data.errorMessage);
         window.location.replace("/signup");
-
         //회원가입 실패 시 다시 signup 페이지로 이동
       }
     } catch (err) {
@@ -204,6 +206,32 @@ export default handleActions(
   initialState
 );
 
+const findPwdDB = (id, email) => {
+  console.log("아이디 : " + id);
+  console.log("이메일 : " + email);
+  axios({
+    method: "post",
+    url: "/find_pwd",
+    data: {
+      id: id,
+      email: email,
+      },
+  })
+  .then((res) => {
+    console.log(res.data);
+    if (!res.data) {
+      window.alert("회원정보가 없습니다!");
+    } else {
+      window.alert("비밀번호는 " + res.data.pwd + "입니다!");
+    }
+  })
+  .catch((err) => {
+    console.log("비밀번호 찾기", err);
+    window.alert("비밀번호 찾기에 문제가 생겼습니다!");
+  }
+  );
+}
+
 const actionCreators = {
   setUser,
   outUser,
@@ -212,7 +240,8 @@ const actionCreators = {
   loginCheckDB,
   userIdCheckF,
   emailCheckF,
-  findIdDB
+  findIdDB,
+  findPwdDB
 };
 
 export { actionCreators };

@@ -126,6 +126,13 @@ public class MainController {
 		System.out.println(map);
 		return mainService.findId(map);
 	}
+	
+	@PostMapping(value="/find_pwd")
+	@ResponseBody
+	public UserDTO findPwd(@RequestBody Map map) {
+		System.out.println(map);
+		return mainService.findPwd(map);
+	}
 
 	@PostMapping(value = "login")
 	@ResponseBody
@@ -208,6 +215,15 @@ public class MainController {
 		return mainService.checkEmail(email);
 	}
 	
+	@PostMapping(value="/checkName")
+	@ResponseBody
+	public UserDTO checkName(@RequestBody Map<String, String> requestData) {
+		String name = requestData.get("name");
+		System.out.println("이름은 " + name);
+		
+		return mainService.checkName(name);
+	}
+	
 	@PostMapping(value="signUp")
 	@ResponseBody
 	public void signUp(@RequestBody Map<String, Object> requestData) {
@@ -254,7 +270,7 @@ public class MainController {
 	}
 
 
-	@PostMapping(value = "order_list")
+	@PostMapping(value="order_list")
 	@ResponseBody
 	public List<CartDTO> order_list(@RequestBody Map map) {
 		

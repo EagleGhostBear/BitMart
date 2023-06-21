@@ -127,6 +127,11 @@ public class MainDAOMyBatis implements MainDAO {
 		
 		return sqlSession.selectOne("mainSQL.findId", map);
 	}
+	
+	@Override
+	public UserDTO findPwd(Map map) {
+		return sqlSession.selectOne("mainSQL.findPwd", map);
+	}
 
 	@Override
 	public UserDTO checkUserId(String id) {
@@ -143,6 +148,11 @@ public class MainDAOMyBatis implements MainDAO {
 		map.put("email1", email1);
 		map.put("email2", email2);
 		return sqlSession.selectOne("mainSQL.checkEmail", map);
+	}
+	
+	@Override
+	public UserDTO checkName(String name) {
+		return sqlSession.selectOne("mainSQL.checkUserName", name);
 	}
 
 	@Override
