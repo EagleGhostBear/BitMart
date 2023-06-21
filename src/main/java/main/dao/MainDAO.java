@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import main.bean.CartDTO;
+import main.bean.CommentDTO;
 import main.bean.FaqDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
@@ -51,4 +52,11 @@ public interface MainDAO {
 
 	void signUp(Map<String, Object> map);
 
+	List<CommentDTO> comment_list(Map map);
+
+	String comment_count(Map map);
+
+	List<CartDTO> order_list(Map map);
+	
+	public void views_update(Map map);
 }

@@ -5,15 +5,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import main.bean.CartDTO;
+import main.bean.CommentDTO;
 import main.bean.FaqDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
+import main.bean.ViewsDTO;
 
 @Repository
 @Transactional
@@ -150,6 +153,31 @@ public class MainDAOMyBatis implements MainDAO {
 
 
 	
+	@Override
+	public List<CommentDTO> comment_list(Map map) {
+		
+		return sqlSession.selectList("mainSQL.comment_list", map);
+	}
 	
+	@Override
+	public String comment_count(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.comment_count", map);
+	}
 
+	@Override
+	public List<CartDTO> order_list(Map map) {
+
+		List<CartDTO> list = sqlSession.selectList("mainSQL.order_list", map);
+		System.out.println("order_data:" + list);
+		
+		return list;
+	
+	@Override
+	public void views_update(Map map) {
+		
+		ViewsDTO viewsDTO = sqlSession.selectOne("mainSQL.views_check", map);
+		if(viewsDTO == null) {sqlSession.insert("mainSQL.views_insert", map);}
+		else {sqlSession.update("mainSQL.views_increase", map);}
+	}
 }

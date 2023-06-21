@@ -69,15 +69,14 @@ button.closeBtn{
 
 button#xBtn{
     position: absolute;
-    top: 10px;
+    top: 7px;
     right: 10px;
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
     cursor: pointer;
     color: #5f0080; 
-
 
 }
 
@@ -268,6 +267,7 @@ img.PlusBtn{
     flex-direction: column;
     padding: 0px;
     margin: 0px;
+    line-height: 0.6em;
 }
 
 li.AddressList-1{
@@ -295,11 +295,11 @@ div#checkBtn{
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: -0.5px;
     min-height: 49px;
     /* color: rgb(51, 51, 51); */
-    letter-spacing: -0.3px;
+    /* letter-spacing: -0.3px; */
     flex-basis: 60px;
-
 }
 
 .addressDetail{
@@ -312,6 +312,7 @@ div#checkBtn{
     justify-content: start;
     font-size: 16px;
     text-align: left;
+    margin-left: 1.5%;
     /* border: 2px solid green; */
     
 }
@@ -340,7 +341,7 @@ button#XBtn{
     color: rgb(51, 51, 51);
     border-radius: 0px;
     font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
-    
+
 }
 
 
