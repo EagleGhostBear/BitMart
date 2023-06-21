@@ -29,9 +29,12 @@ const userIdCheckF = (userId) => {
         console.log(res.data);
         if (res.data === "") {
           window.alert("사용 가능한 아이디입니다!");
+          
         } else {
           window.alert("이미 사용 중인 아이디입니다!");
+          return;
         }
+        return res.data;
       })
       .catch((err) => {
         console.log("아이디 중복", err);
@@ -90,7 +93,6 @@ const signupDB = (userId, password, passwordCheck, email, nickname) => {
       } else if (signup.data.result === false) {
         window.alert(signup.data.errorMessage);
         window.location.replace("/signup");
-
         //회원가입 실패 시 다시 signup 페이지로 이동
       }
     } catch (err) {
