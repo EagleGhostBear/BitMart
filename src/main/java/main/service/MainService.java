@@ -60,5 +60,10 @@ public interface MainService {
 	
 	public void views_update(Map map);
 
+	
+	UserDTO findPwd(Map map);
+	
+	UserDTO checkName(String name);
+	
 }
 

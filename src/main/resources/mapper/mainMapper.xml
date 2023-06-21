@@ -147,4 +147,11 @@
 	</update>
 	
 	
+	<select id="findPwd" resultType="main.bean.UserDTO">
+		SELECT * FROM user WHERE id = #{id} AND CONCAT(email1, '@', email2) = #{email}
+	</select>
+	
+	<select id="checkName" resultType="main.bean.UserDTO" parameterType="String">
+		SELECT * FROM user where name=#{name}
+	</select>
 </mapper>
