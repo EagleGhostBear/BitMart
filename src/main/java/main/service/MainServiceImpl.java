@@ -175,4 +175,5 @@ public class MainServiceImpl implements MainService {
 		
 		mainDAO.views_update(map);
 	}
+
 }
