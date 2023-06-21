@@ -74,4 +74,6 @@ public interface MainDAO {
 	UserDTO checkName(String name);
 	
 	UserDTO findPwd(Map map);
+
+    public void delivery_insert(Map<String, String> map);
 }

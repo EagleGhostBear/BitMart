@@ -1,0 +1,401 @@
+.modalStyle {
+  position: absolute;
+  top: 100%;
+  padding: 10px;
+  background: white;
+}
+
+.modalStyle.hidden {
+  display: none;
+}
+
+.modal {
+  /* 모달창의 전체 창  */
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* border: 3px solid salmon; */
+}
+
+.modal button { 
+  /* 닫는 버튼들  */
+  outline: none;
+  cursor: pointer;
+  border: 0;
+  /* border: 3px solid palevioletred; */
+}
+
+.modal > section {
+  overflow: auto; 
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  height: 600px;
+  max-width: none;
+  border-radius: 12px;
+  margin: 0 auto;
+  border-radius: 0.3rem;
+  background-color: #fff;
+  /* 팝업이 열릴때 스르륵 열리는 효과 */
+  animation: modal-show 0.3s;
+  /* border: 3px solid lightgreen; */
+}
+
+
+/* 모달창 헤더쪽 부분 폰트도 같이 넣으면 됨  */
+.modal > section > header {
+  position: relative;
+  padding: 16px 64px 16px 16px;
+  background-color: #f1f1f1;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 30px;
+  /* border: 3px solid skyblue; */
+}
+
+
+.modal > section > header button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  font-size: 21px;
+  font-weight: 700;
+  text-align: center;
+  color: #999;
+  background-color: transparent;
+}
+
+
+.modal > section > main {
+  padding: 16px;
+  border-bottom: 1px solid #dee2e6;
+  border-top: 1px solid #dee2e6;
+}
+
+
+/* 리뷰창에 뜨는 제품명 */
+.productImage {
+  box-sizing: border-box;
+  gap: 20px;
+  border-bottom: 1px solid rgb(244, 244, 244);
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  color: rgb(153, 153, 153);
+  font: 14px / 19px "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+  line-height: 19px;
+}
+
+
+.productImage span:first-child {
+  overflow: hidden;
+  background: none;
+  box-sizing: border-box;
+  display: inline-block;
+  width: initial;
+  height: initial;
+  opacity: 1;
+  position: relative;
+  max-width: 100%;
+}
+
+.productImage span:first-child span {
+  display: block;
+}
+
+.productImage img.productImg {
+  vertical-align: top;
+  border-radius: 6px;
+  flex-shrink: 0;
+  object-fit: cover;
+  inset: 0px;
+  padding: 0px;
+  border: none;
+  margin: auto;
+  position: absolute;
+  box-sizing: border-box;
+  display: block;
+  width: 0px;
+  height: 0px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+}
+
+.productNameWrap {
+  gap: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  overflow: hidden;
+  white-space: normal;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
+  color: rgb(51, 51, 51);
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+
+}
+
+
+.review-container {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 30px;
+  border-bottom: 1px solid rgb(244, 244, 244);
+}
+
+.review-title {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  color: rgb(51, 51, 51);
+}
+
+
+.review-description {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  white-space: pre-line;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: rgb(128, 128, 128);
+  margin-top: 6px;
+}
+
+.highlighted-text {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: 500;
+  color: rgb(168, 100, 216);
+}
+
+.image-container {
+  padding: 0;
+  margin: 30px 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+}
+
+.image-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.image {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.image-description {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(128, 128, 128);
+}
+
+
+/* 내용 부분 */
+.textWrap {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  gap: 30px;
+  display: flex;
+  padding-top: 16px;
+}
+
+.textLabel{
+  position: relative;
+  width: 70px;
+  padding-top: 12px;
+  line-height: 19px;
+  color: rgb(51, 51, 51);
+}
+
+.sup{
+  font-size: 75%;
+  position: relative;
+  vertical-align: baseline;
+  top: -0.5em;
+  color: rgb(250, 98, 47);
+}
+
+.textcontentWrap{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.textContent {
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 205px;
+  background-color: rgb(255, 255, 255);
+}
+
+.textarea {
+  overflow: auto;
+  font: inherit;
+  font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  padding: 15px 16px;
+  background: none;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  display: block;
+  height: 100%;
+  font-size: 13px;
+  line-height: 21px;
+  word-break: break-all;
+  z-index: 1;
+  color: rgb(51, 51, 51);
+}
+
+
+/* 사진 업로드 부분 */
+.uploadWrap {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  gap: 30px;
+  display: flex;
+  padding-top: 16px;
+}
+
+.upload{
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  position: relative;
+  padding-left: 15px;
+  /* width: 70px;
+  padding-top: 12px;
+  line-height: 19px; */
+  color: rgb(51, 51, 51);
+}
+
+
+.photoUpload {
+  text-align: center;
+  width: 80px;
+  height: 80px;
+  margin: 10px 0;
+  border: 1px solid #dddfe1;
+  margin: 10px;
+  padding-bottom: 10px;
+  display: block;
+}
+
+.photoUpload input[type="file"] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* 푸터부분 */
+.modal > section > footer {
+  padding: 12px 16px;
+  text-align: center;
+}
+
+
+/* 모달창 버튼  */
+.modal > section > footer button {  
+  /* padding: 6px 12px;
+  color: #fff;
+  background-color: #6c757d;
+  border-radius: 5px;
+  font-size: 13px; */
+  box-sizing: border-box;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+  overflow: visible;
+  text-transform: none;
+  appearance: button;
+  cursor: pointer;
+  font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+  padding: 0px 10px;
+  border-radius: 3px;
+  border: 1px solid rgb(221, 221, 221);
+  width: 160px;
+  height: 56px;
+  text-align: center;
+  letter-spacing: 0px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  margin-top: 14px;
+  background-color: white;
+}
+
+.modal > section > footer button:hover {
+  background-color: lightgray;
+  color:white;
+}
+
+
+
+.modal.openModal {
+  display: flex;
+  align-items: center;
+  /* 팝업이 열릴때 스르륵 열리는 효과 */
+  animation: modal-bg-show 0.3s;
+}
+@keyframes modal-show {
+  from {
+    opacity: 0;
+    margin-top: -50px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+@keyframes modal-bg-show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
