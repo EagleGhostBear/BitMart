@@ -59,5 +59,7 @@ public interface MainService {
     List<CartDTO> order_list(Map map);
 	
 	public void views_update(Map map);
+
+	public void delivery_insert(Map<String, String> map);
 }
 

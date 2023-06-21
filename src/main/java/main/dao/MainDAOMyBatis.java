@@ -172,6 +172,7 @@ public class MainDAOMyBatis implements MainDAO {
 		System.out.println("order_data:" + list);
 		
 		return list;
+	}
 	
 	@Override
 	public void views_update(Map map) {
@@ -179,5 +180,10 @@ public class MainDAOMyBatis implements MainDAO {
 		ViewsDTO viewsDTO = sqlSession.selectOne("mainSQL.views_check", map);
 		if(viewsDTO == null) {sqlSession.insert("mainSQL.views_insert", map);}
 		else {sqlSession.update("mainSQL.views_increase", map);}
+	}
+
+	@Override
+	public void delivery_insert(Map<String, String> map) {
+		sqlSession.insert("mainSQL.delivery_insert", map);
 	}
 }

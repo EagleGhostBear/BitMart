@@ -145,4 +145,10 @@
 	<update id="views_increase" parameterType="java.util.Map">
 		UPDATE views SET views = views + 1, logtime = NOW() WHERE user = #{user} and product = #{product}
 	</update>
+
+	<insert id="delivery_insert" parameterType="java.util.Map">
+		INSERT INTO deliveryaddr (addr1, addr2, name, tel1, tel2, tel3)
+		values(#{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3})
+	</insert>
+
 </mapper>

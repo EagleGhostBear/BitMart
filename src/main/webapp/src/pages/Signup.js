@@ -1,50 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Text, Button, Input } from "../elements/element";
 
 import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
+import user, { actionCreators as userActions } from "../redux/modules/user";
 import {
   userIdCheck,
   pwdCheck,
   nicknameCheck,
   emailCheck,
 } from "../shared/common";
+import axios from "axios";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
 
   //아이디, 비밀번호, 비밀번호 확인, 이름, 이메일 확인
-  const [userId, setuserId] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [passwordCheck, setPasswordCheck] = React.useState("");
-  const [nickname, setNickname] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const [userId, setuserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [email, setEmail] = useState("");
 
   //아이디, 이메일 중복검사
-  const [userId_check, setuserIdCheck] = React.useState(false);
-  const [email_check, setEmailCheck] = React.useState(false);
+  const [userId_check, setuserIdCheck] = useState(false);
+  const [email_check, setEmailCheck] = useState(false);
 
- 
-  
-  
+  const [testId, setTestId] = useState("");
+  const [testEmail, setTestEmail] = useState("");
+
   const checkuserId = () => {
     if (!userIdCheck(userId)) {
       alert("아이디 형식이 맞지 않습니다!");
       return;
+    } else {
+      axios({
+        method: "post",
+        url: "/checkUserId",
+        data: {
+          id: userId,
+        }
+      })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data === "") {
+            window.alert("사용 가능한 아이디입니다!");
+            setTestId(userId);
+          } else {
+            window.alert("이미 사용 중인 아이디입니다!");
+            setTestId("");
+          }
+          return res.data;
+        }
+        )
     }
-    else{
-      dispatch(userActions.userIdCheckF(userId));
-    }
-    
   };
+  
 
   const checkEmail = () => {
     if (!emailCheck(email)) {
       alert("이메일 형식이 맞지 않습니다!");
       return;
     }
-    dispatch(userActions.emailCheckF(email));
+    axios({
+      method: "post",
+      url: "/checkEmail",
+      data: {
+        email: email,
+      },
+    })
+      .then((res) => {
+        if (!res.data) {
+          window.alert("사용 가능한 이메일입니다!");
+          setTestEmail(email);
+        } else {
+          window.alert("이미 사용 중인 이메일입니다!");
+          setTestEmail("");
+        }
+      }
+      )
+      .catch((err) => {
+        console.log("이메일 중복", err);
+        window.alert("이메일 중복확인에 문제가 생겼습니다!");
+      });
   };
 
   //회원가입 시 입력 누락된 내역 있을 시 alert 띄워줌
@@ -86,11 +124,39 @@ const Signup = (props) => {
       window.alert("잘못된 이메일 형식입니다!");
       return;
     }
+    if(userId !== testId){
+      window.alert("아이디 중복확인을 해주세요!");
+      return;
+    }
 
-    //signupDB에 회원가입 시 입력한 내역들을 보내주기
-    dispatch(
-      userActions.signupDB(userId, password, passwordCheck, email, nickname)
-    );
+    if(userId === testId && email === testEmail){
+      //signupDB에 회원가입 시 입력한 내역들을 보내주기
+      dispatch(
+        axios({
+          method: "post",
+          url: "/signUp",
+          data: {
+            id: userId,
+            pwd: password,
+            name: nickname,
+            email: email,
+          },
+        })
+          .then((res) => {
+            console.log(res.data);
+            window.alert("회원가입이 완료되었습니다!");
+            window.location.replace("/login");
+          })
+          .catch((err) => {
+            console.log("회원가입 오류", err);
+            window.alert("회원가입에 문제가 생겼습니다!");
+          })
+      );
+    }
+    else{
+      window.alert("아이디 또는 이메일 중복확인을 해주세요!");
+      return;
+    }
   };
 
   return (
@@ -117,6 +183,8 @@ const Signup = (props) => {
                   setuserId(e.target.value);
                 }}
               />
+              <text className="testIdplace" value={testId} type="hidden"/>
+
               <Button
                 bold
                 size="14px"
@@ -142,6 +210,7 @@ const Signup = (props) => {
                   <li>• 아이디 중복확인</li>
                 </InfoUl>
               )}
+              
             </td>
           </tr>
 
@@ -235,6 +304,7 @@ const Signup = (props) => {
                   setEmail(e.target.value);
                 }}
               />
+              <text className="testEmailplace" value={testEmail} type="hidden" />
               <Button
                 bold
                 size="14px"
