@@ -125,6 +125,11 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return mainDAO.findId(map);
 	}
+	
+	@Override
+	public UserDTO findPwd(Map map) {
+		return mainDAO.findPwd(map);
+	}
 
 	@Override
 	public UserDTO checkUserId(String id) {
@@ -136,6 +141,11 @@ public class MainServiceImpl implements MainService {
 	public UserDTO checkEmail(String email) {
 		// TODO Auto-generated method stub
 		return mainDAO.checkEmail(email);
+	}
+	
+	@Override
+	public UserDTO checkName(String name) {
+		return mainDAO.checkName(name);
 	}
 
 	@Override
@@ -189,6 +199,7 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		return mainDAO.order_list(map);
 	}
+	
 	@Override
 	public void views_update(Map map) {
 		

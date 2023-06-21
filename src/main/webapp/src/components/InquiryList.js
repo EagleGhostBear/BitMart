@@ -6,7 +6,14 @@ const InquiryList = () => {
   const [selectedInquiry, setSelectedInquiry] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [inquiriesPerPage] = useState(7);
-  
+  const [modalVisible, setModalVisible] = useState(false);
+  const [editedInquiry, setEditedInquiry] = useState({
+    type: '',
+    subType: '',
+    title: '',
+    content: ''
+  });
+  const [popupVisible, setPopupVisible] = useState(false);
 
   useEffect(() => {
     fetchInquiries();
@@ -29,12 +36,55 @@ const InquiryList = () => {
     }
   };
 
-  
-
   const handleDeleteInquiry = async (inquiryId) => {
     try {
       await axios.delete(`http://localhost:9000/api/inquiries/${inquiryId}`);
       fetchInquiries();
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
+
+  const handleUpdateInquiry = (inquiry) => {
+    setModalVisible(true);
+    setEditedInquiry(inquiry);
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+    setEditedInquiry({
+      type: '',
+      subType: '',
+      title: '',
+      content: ''
+    });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedInquiry((prevInquiry) => ({
+      ...prevInquiry,
+      [name]: value
+    }));
+  };
+
+  const handleModalSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.put(`http://localhost:9000/api/inquiries/${selectedInquiry.id}`, editedInquiry);
+      fetchInquiries();
+      setModalVisible(false);
+      setEditedInquiry({
+        type: '',
+        subType: '',
+        title: '',
+        content: ''
+      });
+      setPopupVisible(true); // 수정 완료 팝업 표시
+      setTimeout(() => {
+        setPopupVisible(false); // 일정 시간 후 팝업 닫기
+      }, 2000);
     } catch (error) {
       console.log('Error:', error);
     }
@@ -50,89 +100,157 @@ const InquiryList = () => {
   };
 
   return (
-    <div style={{ width: '800px', marginTop: '80px' }}>
+    <div style={{ width: '800px', marginTop: '-130px', marginLeft: '120px' }}>
       <h2 style={{ textAlign: 'left', marginTop: '0px' }}>1:1 문의</h2>
       <hr style={{ borderWidth: '1.5px', borderColor: 'black' }} />
-      <h2
-        style={{
-          textAlign: 'center',
-          marginBottom: '10px',
-          marginRight: '100px',
-          fontWeight: '350',
-          lineHeight: '20px',
-          fontSize: '15px',
-        }}
-      >
-        제목
-      </h2>
-      <hr style={{ borderWidth: '0.5px', borderColor: 'black', marginBottom: '10px' }} />
-      <ul style={{ listStyleType: 'none', padding: '0' }}>
-        {currentInquiries.map((inquiry) => (
-          <li key={inquiry.id} style={{ marginBottom: '20px', transition: 'margin-bottom 0.3s ease-in-out' }}>
-            <div
-              onClick={() => handleToggleInquiry(inquiry)}
-              style={{ cursor: 'pointer', fontWeight: 'bold', fontSize: '16px' }}
-            >
-              {inquiry.title} - {new Date(inquiry.created_at).toLocaleDateString()} - {inquiry.reply_status}
-            </div>
-            {selectedInquiry && selectedInquiry.id === inquiry.id && (
-              <div style={{ marginTop: '10px', backgroundColor: '#F5F5F5', padding: '10px' }}>
-                <p>유형: {inquiry.type}</p>
-                {inquiry.subType && <p>상세 유형: {inquiry.subType}</p>}
-                <p>내용: {inquiry.content}</p>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  <button
-                    style={{
-                      border: 'none',
-                      background: 'none',
-                      color: 'rgba(0, 0, 0, 0.5)',
-                      fontWeight: 'normal',
-                    }}
-                  >
-                    수정
-                  </button>
-                  <button
-                    onClick={() => handleDeleteInquiry(inquiry.id)}
-                    style={{
-                      marginRight: '10px',
-                      border: 'none',
-                      background: 'none',
-                      color: 'rgba(0, 0, 0, 0.5)',
-                      fontWeight: 'normal',
-                    }}
-                  >
-                    삭제
-                  </button>
-                </div>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th style={{ textAlign: 'left' }}>제목</th>
+          </tr>
+          <hr style={{ width: 800 }}></hr>
+        </thead>
+        <tbody>
+          {currentInquiries.map((inquiry) => (
+            <React.Fragment key={inquiry.id}>
+              <tr
+                onClick={() => handleToggleInquiry(inquiry)}
+                className={selectedInquiry && selectedInquiry.id === inquiry.id ? 'selected' : ''}
+              >
+                {selectedInquiry && selectedInquiry.id === inquiry.id ? (
+                  <>
+                    <td>{inquiry.title}</td>
+                  </>
+                ) : (
+                  <td colSpan="3">{inquiry.title}</td>
+                )}
+              </tr>
+              {selectedInquiry && selectedInquiry.id === inquiry.id && (
+                <tr>
+                  <td colSpan="5" style={{ backgroundColor: 'rgb(250, 250, 250)' }}>
+                    <p>
+                      <strong>유형:</strong> {inquiry.type} {'<'}
+                      <strong>상세 유형:</strong> {inquiry.subType}
+                    </p>
+                    <p>
+                      <strong>내용:</strong> {inquiry.content}
+                    </p>
+                    <button style={{ marginLeft: '710px', backgroundColor: 'rgb(95, 0, 128)',color: 'white', borderColor: 'none' }} onClick={() => handleUpdateInquiry(inquiry)}>
+                      수정
+                    </button>
+                    <button style={{  backgroundColor: 'rgb(95, 0, 128)',color: 'white', borderColor: 'none' }} onClick={() => handleDeleteInquiry(inquiry.id)}>삭제</button>
+                  </td>
+                </tr>
+              )}
+            </React.Fragment>
+          ))}
+        </tbody>
+      </table>
 
-      {/* Pagination */}
-      <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
-        {Array.from({ length: Math.ceil(inquiries.length / inquiriesPerPage) }, (_, index) => index + 1).map(
-          (pageNumber) => (
-            <button
-              key={pageNumber}
-              style={{
-                margin: '0 5px',
-                padding: '5px 10px',
-                backgroundColor: currentPage === pageNumber ? '#f5f5f5' : 'transparent',
-                border: 'none',
-                outline: 'none',
-              }}
-              onClick={() => paginate(pageNumber)}
-            >
-              {pageNumber}
-            </button>
-          )
-        )}
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+        <button disabled={currentPage === 1} onClick={() => paginate(currentPage - 1)}>
+          이전
+        </button>
+        {Array.from({ length: Math.ceil(inquiries.length / inquiriesPerPage) }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => paginate(index + 1)}
+            style={{ margin: '0 5px' }}
+            className={currentPage === index + 1 ? 'active' : ''}
+          >
+            {index + 1}
+          </button>
+        ))}
+        <button disabled={currentPage === Math.ceil(inquiries.length / inquiriesPerPage)} onClick={() => paginate(currentPage + 1)}>
+          다음
+        </button>
       </div>
+
+      {modalVisible && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>문의 수정</h3>
+            <form onSubmit={handleModalSubmit}>
+              <label>
+                유형:
+                <input type="text" name="type" value={editedInquiry.type} onChange={handleInputChange} />
+              </label>
+              <br />
+              <label>
+                하위 유형:
+                <input type="text" name="subType" value={editedInquiry.subType} onChange={handleInputChange} />
+              </label>
+              <br />
+              <label>
+                제목:
+                <input type="text" name="title" value={editedInquiry.title} onChange={handleInputChange} />
+              </label>
+              <br />
+              <label>
+                내용:
+                <input type="text" name="content" value={editedInquiry.content} onChange={handleInputChange} />
+              </label>
+              <br />
+              <button type="submit">수정하기</button> 
+            </form>
+            <button onClick={handleModalClose}>닫기</button>
+          </div>
+        </div>
+      )}
+
+      {popupVisible && (
+        <div className="popup">
+          <p>수정이 완료되었습니다.</p>
+        </div>
+      )}
+
+      <style>
+        {`
+          .modal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+          }
+
+          .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+          }
+
+          .popup {
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            max-width: 300px;
+            border-radius: 10px;
+            
+            
+          }
+        `}
+      </style>
     </div>
   );
 };
 
 export default InquiryList;
+
+
+
+
+
 
