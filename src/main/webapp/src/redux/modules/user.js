@@ -1,6 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
+import Modal from "../../components/ModalFind";
+import ReactDOM from 'react-dom';
 
 // 액션
 const SET_USER = "SET_USER";
@@ -220,17 +222,34 @@ const findPwdDB = (id, email) => {
   .then((res) => {
     console.log(res.data);
     if (!res.data) {
-      window.alert("회원정보가 없습니다!");
+      openModal("가입 시 입력하신 회원정보가 맞는지 다시 한번 확인해 주세요.");
     } else {
-      window.alert("비밀번호는 " + res.data.pwd + "입니다!");
+      openModal("비밀번호는 " + res.data.pwd + "입니다!" + "이메일로 인증번호를 발송하였습니다.");
     }
   })
   .catch((err) => {
     console.log("비밀번호 찾기", err);
-    window.alert("비밀번호 찾기에 문제가 생겼습니다!");
+    openModal("비밀번호 찾기에 문제가 생겼습니다!");
   }
   );
 }
+
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); // 새로운 div 요소 생성
+  document.body.appendChild(modalContainer); // body 요소에 새로운 div 요소 추가
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove(); // div 요소 삭제
+};
 
 const actionCreators = {
   setUser,
