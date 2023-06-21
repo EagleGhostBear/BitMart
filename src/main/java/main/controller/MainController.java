@@ -237,9 +237,6 @@ public class MainController {
 	    mainService.signUp(map);
 	}
 	
-
-	}
-	
 	@PostMapping(value = "comment_list")
 	@ResponseBody
 	public List<CommentDTO> comment_list(@RequestBody Map map) {
@@ -257,11 +254,12 @@ public class MainController {
 	}
 
 
-	@PostMapping(value = "order_list")
+	@PostMapping(value="order_list")
 	@ResponseBody
 	public List<CartDTO> order_list(@RequestBody Map map) {
 		
 		return mainService.order_list(map);
+	}
 	
 	@PostMapping(value = "views_update")
 	@ResponseBody

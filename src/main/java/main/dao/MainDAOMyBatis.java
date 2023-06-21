@@ -172,6 +172,7 @@ public class MainDAOMyBatis implements MainDAO {
 		System.out.println("order_data:" + list);
 		
 		return list;
+	}
 	
 	@Override
 	public void views_update(Map map) {
