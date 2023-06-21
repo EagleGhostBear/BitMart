@@ -177,7 +177,7 @@ const InquiryList = () => {
               </label>
               <br />
               <label>
-                하위 유형:
+                상세 유형:
                 <input type="text" name="subType" value={editedInquiry.subType} onChange={handleInputChange} />
               </label>
               <br />
