@@ -65,5 +65,7 @@ public interface MainService {
 	
 	UserDTO checkName(String name);
 	
+
+	public void delivery_insert(Map<String, String> map);
 }
 
