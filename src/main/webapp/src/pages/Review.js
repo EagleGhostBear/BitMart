@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import ReviewWrite from "../components/ModalReview";
 import styles from "../css/review.module.css";
 import Tab from "../elements/Tab";
+import axios from "axios";
 //import ReviewData from "../components/ReviewData";
+
 
 const Modal = ({ isOpen, content }) => {
   //탭 여닫는부분 스타일
@@ -28,6 +30,27 @@ const Modal = ({ isOpen, content }) => {
 
 const Mypage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios({ // 스프링에서의 ajax느낌
+      method: 'post', // post방식으로 보내겠다
+      url: 'order_history', //스프링부트의 Controller의 order_history로 가라
+      data: {
+        user: token_key,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      setData(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, []);
+  
+
 
   const openModal = () => {
     setModalOpen(true);
@@ -206,11 +229,11 @@ const Mypage = () => {
           <div className={styles.reviewContainer}>
             <div className={styles.reviewItem}>
               <div className={styles.imageContainer}>
-                <img className={styles.productImage} alt="상품명" src="" />
+                <img className={styles.productImage} alt=".." src={data[0].productImage} />
               </div>
               <div className={styles.productInfo}>
                 <a href="https://www.kurly.com/goods">
-                  <span className={styles.productName}>상품명</span>
+                  <span className={styles.productName}>{data[0].productTitle}</span>
                 </a>
                 <div className={styles.dateWrap}>
                   <span className={styles.date}>날짜</span>
