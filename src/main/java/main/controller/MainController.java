@@ -3,6 +3,7 @@ package main.controller;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import jakarta.servlet.http.HttpSession;
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
 import main.bean.FaqDTO;
+import main.bean.HistoryDTO;
 import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
@@ -349,6 +351,50 @@ public class MainController {
 	public void views_update(@RequestBody Map map) {
 		
 		mainService.views_update(map);
+	}
+	
+	@PostMapping(value="/Order_success")
+	@ResponseBody
+	public void order_success(@RequestBody Map map) {
+		
+		String user = (String) map.get("user");
+		ArrayList product = (ArrayList) map.get("products");
+		ArrayList number = (ArrayList) map.get("numbers");
+		
+		System.out.println("user = " + user);
+		System.out.println("product = " + product);
+		System.out.println("number = " + number);
+		map.put("product", product);
+		
+		
+		mainService.order_success(map);
+	}
+	
+	@PostMapping(value="mycartList")
+	@ResponseBody
+	public List<CartDTO>  mycartList(@RequestBody Map map) {
+		String user = (String) map.get("user");
+		System.out.println("user = " + user);
+		
+		return mainService.mycartList(map);
+	}
+	
+	@PostMapping(value="/cart_allDelete")
+	@ResponseBody
+	public void cart_allDelete(@RequestBody Map map) {
+		String user = (String) map.get("user");
+		System.out.println("user : " + user);
+		mainService.cart_allDelete(map);
+	}
+	
+	@PostMapping(value="order_history")
+	@ResponseBody
+	public List<HistoryDTO> order_history(@RequestBody Map map){
+		
+		String user = (String) map.get("user");
+		System.out.println("이것은 주문내역의 user값이여 : " + user);
+		
+		return mainService.order_history(map);
 	}
 	
 	

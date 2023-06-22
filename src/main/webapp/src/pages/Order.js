@@ -10,9 +10,28 @@ import './Order.css';
 import { CartItem } from "../components/component";
 
 const Order = () => {
+  const token_key = `${localStorage.getItem("token")}`;
 
   //const express = require('express');
   //const app = express();
+
+  useEffect(() => {
+    
+    axios({
+      method: 'post',
+      url: 'order_history',
+      data: {
+        user: token_key,
+      },
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
 
 
     return (

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import AddressForm from "../components/AddressForm";
+import { cart_list } from "../components/CartItem";
 
 import { actionCreators as cartActions } from "../redux/modules/cart";
 import { CartItem } from "../components/component";
@@ -73,7 +74,7 @@ const CartList = (props) => {
   const onClickPayment = () => {
     const { IMP } = window;
     IMP.init("imp84451835");
-    const data = {
+    const paymentdata = {
       pg: "html5_inicis",
       pay_method: "card",
       merchant_uid: String(new Date().getTime()),
@@ -82,19 +83,55 @@ const CartList = (props) => {
       custom_data: { name: '홍길동', tel: '010-1234-5678' },
       buyer_name: '홍길동',
       buyer_tel: '010-1234-5678',
-      buyer_email: 'dd1761@naver.com',
+      buyer_email: 'hong@naver.com',
       buyer_addr: '서울특별시 강남구 삼성동',
       buyer_postcode: '123-456',
     };
-    IMP.request_pay(data, callback);
+    IMP.request_pay(paymentdata, callback);
+    axios({
+      method: "post",
+      url: '/mycartList',
+      data: {
+        user: token_key
+      }
+    })
+      .then((res) => {
+        console.log(res.data);
+        const products = res.data.map((item) => item.product);
+        const numbers = res.data.map((item) => item.number);
+        console.log(products);
+        axios({
+          method: "post",
+          url: '/Order_success',
+          data: {
+            user: token_key,
+            products: products,
+            numbers: numbers
+          }
+        })
+          .then((res) => {
+            axios({
+              method: "post",
+              url: "/cart_allDelete",
+              data: {
+                user: token_key
+              }
+            })
+          })
+          
+      });
+      
   };
 
   const callback = (response) => {
     const { success, error_msg } = response;
     if (success) {
       alert("결제 성공");
+      console.log("결제 성공했는데 컨트롤러로 안감"); 
     } else {
       alert(`결제 실패: ${error_msg}`);
+      console.log("결제 안되는데 컨트롤러로도 안감");
+      
     }
   };
 
@@ -207,6 +244,7 @@ const CartList = (props) => {
             </PriceArea>
 
             <ButtonArea>
+              
               <button
                 type="button" // type 속성을 "button"으로 설정
                 onClick={onClickPayment}
