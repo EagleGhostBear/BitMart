@@ -290,7 +290,7 @@ const Order = () => {
                                 결제금액
                               </dt>
                               <dd className="ItemCol2 e1437c644">
-                              {(data[index].productPrice - (data[index].productPrice * (data[index].productSale * 0.01))).toLocaleString()}원
+                              {((data[index].productPrice - (data[index].productPrice * (data[index].productSale * 0.01))) * data[index].number).toLocaleString()}원
 
                               </dd>
                             </dl>
