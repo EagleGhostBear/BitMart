@@ -247,7 +247,7 @@ const Order = () => {
                     <div className='OrderDetailContent' key={index}>
                       <div className="OrderDetailSubject">
                         <span className="OrderDetailDate">
-                          {data[index].logTime.toString().substring(0, 10)}
+                          {data[index].logTime.toString().substring(0, 10)} 
                         </span>
                       </div> {/* OrderDetailSubject */}
 
