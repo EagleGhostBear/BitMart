@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -267,6 +268,18 @@ public class MainController {
 	public String comment_count(@RequestBody Map map) {
 		
 		return mainService.comment_count(map);
+	}
+	
+	@PostMapping("/api/reviews")
+	@ResponseBody
+	public ResponseEntity<String> createReview(@RequestBody Map<String, Object> requestData) {
+	    String content = (String) requestData.get("content");
+	    List<Map<String, Object>> images = (List<Map<String, Object>>) requestData.get("images");
+	    
+	    // 후기 제출 로직을 여기에 처리합니다
+	    // 후기 내용(content)과 이미지(images)를 원하는 저장소에 저장하거나 필요한 다른 작업을 수행합니다
+	    
+	    return ResponseEntity.ok("후기가 성공적으로 제출되었습니다");
 	}
 
 

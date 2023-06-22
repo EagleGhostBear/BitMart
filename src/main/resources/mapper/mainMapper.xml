@@ -158,5 +158,15 @@
 		INSERT INTO deliveryaddr (addr1, addr2, name, tel1, tel2, tel3)
 		values(#{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3})
 	</insert>
+	
+	<insert id="createReviewContent" parameterType="String">
+    INSERT INTO review_content (content) VALUES (#{content})
+	</insert>
+	
+	<insert id="createReviewImage" parameterType="java.util.Map">
+    INSERT INTO review_images (image_name, image_path) VALUES (#{imageName}, #{imagePath})
+	</insert>
+	
+	
 
 </mapper>

@@ -1,0 +1,23 @@
+INDEX VERSION 1.132
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4035386.index
+\aa\src
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2481384907.index
+\Chapter04_JPA\src\main\java
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3552380055.index
+\Chapter04_JPA-1111111\src\main\java
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2569882873.index
+\Chapter04_JPA\src\main\java
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\205364832.index
+\Chapter04_JPA-1111111\src\main\java
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\446343840.index
+\Hangeulum\src\main\java
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\276072738.index
+\Hangeulum\src\main\java
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\516036273.index
+\Chapter02_MySQL\src\main\java
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3465660867.index
+\CGVClone\src
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3521394367.index
+\CGVClone\src
+C:\BitMart\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2358842093.index
+\Chapter02_MySQL\src\main\java
