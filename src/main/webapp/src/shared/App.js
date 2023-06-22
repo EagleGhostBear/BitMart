@@ -90,7 +90,7 @@ function App() {
         <Route path="/inquirywrite" element={<InquiryFormPage />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/review" element={<Review />} />
-        <Route path="/resetpwd" element={<ResetPwd/>}/>
+        <Route path="/resetpwd" element={<ResetPwd/>}/> 
       </Routes>
     </div>
   );
