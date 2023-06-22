@@ -1,12 +1,11 @@
 
 // 주문 내역 리덕스
-
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import axios from "axios";
 
 // actions 
-const ORDER_LIST = "ODRER_LIST";
+const ORDER_LIST = "ORDER_LIST";
 
 // actions creators
 const orderList = createAction(ORDER_LIST, (order_data) => ({ order_data }));
@@ -27,11 +26,11 @@ const orderListDB = () => {
                 },
             })
             .then((res) => {
-                console.log("CARTLIST 서버 데이터 가져옴", res.data);
+                console.log("orderLIST 서버 데이터 가져옴", res.data);
                 dispatch(orderList(res.data));
             })
             .catch((err) => {
-                console.log("cartlist 조회 에러", err);
+                console.log("orderlist 조회 에러!!!", err);
         });
     };
 };
