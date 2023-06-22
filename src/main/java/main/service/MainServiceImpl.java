@@ -232,4 +232,10 @@ public class MainServiceImpl implements MainService {
 	}
 
 
+	
+	@Override
+	public void delivery_insert(Map<String, String> map) {
+		
+		mainDAO.delivery_insert(map);
+	}
 }

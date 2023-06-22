@@ -14,16 +14,6 @@ const PopupModal2 = ({ isOpen2, closeModal2 }) => {
 
   const customStyles2 = {
     content: {
-      // width: '18%', // Set the desired width
-      // height: '18%', // Set the desired height
-      // margin: 'auto', // Center the modal horizontally
-      // borderRadius: '8px',
-      // boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-      // //textAlign: 'center',
-      // //padding: 'auto',
-      // fontFamily: 'NanumGothic',
-      // fontSize: '11pt',
-
       border: "none",
       background: "rgb(255, 255, 255)",
       position: "relative",
@@ -105,16 +95,6 @@ const PopupModal3 = ({ isOpen3, closeModal3 }) => {
 
   const customStyles3 = {
     content: {
-      // width: '18%', // Set the desired width
-      // height: '18%', // Set the desired height
-      // margin: 'auto', // Center the modal horizontally
-      // borderRadius: '8px',
-      // boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-      // //textAlign: 'center',
-      // //padding: 'auto',
-      // //fontFamily: 'NanumGothic',
-      // fontSize: '11pt',
-
       border: "none",
       background: "rgb(255, 255, 255)",
       position: "relative",
@@ -201,7 +181,6 @@ const PopupModal3 = ({ isOpen3, closeModal3 }) => {
 
 
 export default function Component() {
-
 
   const [checkboxes, setCheckboxes] = useState(['checkbox1']);    // 초기값 설정
 
@@ -385,17 +364,12 @@ export default function Component() {
     
     {
       alert('배송지 정보를 모두 입력해주세요');
-
-      if (!address.streetNameAddress) {
-        setErrorMessage('배송지 주소를 입력해주세요.');
-      } else if (!address.detailedAddress) {
-        setErrorMessage('상세 주소를 입력해주세요.');
-      } else if (!address.name) {
-        setErrorMessage('이름을 입력해주세요.');
-      } else if (!address.phone) {
-        setErrorMessage('휴대폰 번호를 입력해주세요.');
-      }
       return;   // 유효성 검사 실패 시, 함수 종료 후 이후 동작 수행 X
+    }
+
+    if(!(/^010\d{8}$/.test(address.phone))){
+      alert('올바른 휴대폰 번호를 입력해주세요.')
+      return;
     }
 
     // 배송지 정보가 모두 입력되었을 때, 저장 버튼을 누른 후 수행할 동작

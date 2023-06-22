@@ -83,4 +83,5 @@ public interface MainDAO {
 	void cart_allDelete(Map map);
 
 	List<HistoryDTO> order_history(Map map);
+    public void delivery_insert(Map<String, String> map);
 }

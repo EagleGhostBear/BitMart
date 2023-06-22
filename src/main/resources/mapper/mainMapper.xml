@@ -191,4 +191,10 @@
 		
 	</select>
 	
+
+	<insert id="delivery_insert" parameterType="java.util.Map">
+		INSERT INTO deliveryaddr (addr1, addr2, name, tel1, tel2, tel3)
+		values(#{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3})
+	</insert>
+
 </mapper>
