@@ -279,6 +279,14 @@ const Order = () => {
                             </dl>
                             <dl className="ItemRow e1437c646">
                               <dt className="ItemCol1 e1437c645">
+                                수량
+                              </dt>
+                              <dd className="ItemCol2 e1437c644">
+                                {data[index].number} 개
+                              </dd>
+                            </dl>
+                            <dl className="ItemRow e1437c646">
+                              <dt className="ItemCol1 e1437c645">
                                 결제방법
                               </dt>
                               <dd className="ItemCol2 e1437c644">
