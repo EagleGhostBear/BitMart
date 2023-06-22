@@ -225,6 +225,7 @@ const findPwdDB = (id, email) => {
       openModal("가입 시 입력하신 회원정보가 맞는지 다시 한번 확인해 주세요.");
     } else {
       openModal("가입하신 이메일로 인증번호가 발송되었습니다. 메일을 받지 못하셨다면 스팸함을 확인해 보세요.");
+      window.location.replace("/findpwdcert");
     }
   })
   .catch((err) => {
