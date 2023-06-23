@@ -62,16 +62,18 @@ const Mypage = () => {
             <a className={styles["menu-a"]}>
               주문내역
               <svg
-                className={styles["menu-a-svg"]}
+                id="Arrow"
                 height="19"
                 width="19"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  id="gfk9q0rhta"
-                  d="M1.657 1.657L9.657 1.57 9.657 9.657"
-                ></path>
+                <defs>
+                  <path
+                    id="gfk9q0rhta"
+                    d="M1.657 1.657L9.657 1.657 9.657 9.657" /* 화살표 이미지 경로 */
+                  />
+                </defs>
                 <g fill="none" fillRule="evenodd">
                   <g>
                     <g>

@@ -208,7 +208,7 @@ public class MainServiceImpl implements MainService {
 	
 	@Override
 	public void delivery_insert(Map<String, String> map) {
-		
+		// TODO Auto-generated method stub
 		mainDAO.delivery_insert(map);
 	}
 }

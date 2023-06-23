@@ -393,7 +393,8 @@ public class MainController {
 	    map.put("tel2", tel2);
 		map.put("tel3", tel3);
 	    
-	    mainService.delivery_insert(map);
+	    mainService.delivery_insert(map);	
+
 	}
 }
 
