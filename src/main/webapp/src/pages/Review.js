@@ -5,7 +5,6 @@ import styles from "../css/review.module.css";
 import Tab from "../elements/Tab";
 import axios from "axios";
 
-
 const Modal = ({ isOpen, content }) => {
   //탭 여닫는부분 스타일
   const modalStyle = {
@@ -33,21 +32,22 @@ const Review = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios({
-      method:'post',
-      url: 'order_history',
+    axios({ // 스프링에서의 ajax느낌
+      method: 'post', // post방식으로 보내겠다
+      url: 'order_history', //스프링부트의 Controller의 order_history로 가라
       data: {
-        user:token_key,
+        user: token_key,
       },
     })
     .then((res) => {
-      console.log(res.data)
+      console.log(res.data);
       setData(res.data);
     })
     .catch((err) => {
       console.log(err);
     });
-  },[]);
+  }, []);
+  
 
 
   const openModal = () => {
@@ -227,11 +227,11 @@ const Review = () => {
           <div className={styles.reviewContainer}>
             <div className={styles.reviewItem}>
               <div className={styles.imageContainer}>
-                <img className={styles.productImage} alt="상품명" src="" />
+                <img className={styles.productImage} alt=".." src={data[0].productImage} />
               </div>
               <div className={styles.productInfo}>
                 <a href="https://www.kurly.com/goods">
-                  <span className={styles.productName}>상품명</span>
+                  <span className={styles.productName}>{data[0].productTitle}</span>
                 </a>
                 <div className={styles.dateWrap}>
                   <span className={styles.date}>날짜</span>

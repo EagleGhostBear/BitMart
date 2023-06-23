@@ -1,5 +1,6 @@
 package main.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
 import main.bean.FaqDTO;
+import main.bean.HistoryDTO;
+import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
@@ -165,6 +168,34 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public List<InquiryDTO> getInquiryList() {
+	    
+		return mainDAO.getInquiryList();
+	}
+
+	
+	@Override
+	public void insertInquiry(InquiryDTO inquiry) {
+	    // Set createdAt and replyStatus values
+	    inquiry.setCreatedAt(LocalDateTime.now());
+	    inquiry.setReplyStatus("Pending");
+	    
+	    mainDAO.insertInquiry(inquiry);
+	}
+
+
+	@Override
+	public void updateInquiry(InquiryDTO inquiry) {
+	     
+		mainDAO.updateInquiry(inquiry);
+	}
+
+	@Override
+	public void deleteInquiry(int id) {
+	    
+		mainDAO.deleteInquiry(id);
+	}
+
 	public List<CartDTO> order_list(Map map) {
 		// TODO Auto-generated method stub
 		return mainDAO.order_list(map);
@@ -177,8 +208,34 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
-	public void delivery_insert(Map<String, String> map) {
+	public void order_success(Map map) {
 		
+		mainDAO.order_success(map);
+	}
+
+	@Override
+	public List<CartDTO> mycartList(Map map) {
+		
+		return mainDAO.mycartList(map);
+	}
+
+	@Override
+	public void cart_allDelete(Map map) {
+		
+		mainDAO.cart_allDelete(map);
+	}
+
+	@Override
+	public List<HistoryDTO> order_history(Map map) {
+		
+		return mainDAO.order_history(map);
+	}
+
+
+	
+	@Override
+	public void delivery_insert(Map<String, String> map) {
+		// TODO Auto-generated method stub
 		mainDAO.delivery_insert(map);
 	}
 }

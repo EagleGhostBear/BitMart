@@ -2,19 +2,22 @@ package main.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +27,8 @@ import jakarta.servlet.http.HttpSession;
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
 import main.bean.FaqDTO;
+import main.bean.HistoryDTO;
+import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
@@ -254,6 +259,8 @@ public class MainController {
 	    mainService.signUp(map);
 	}
 	
+
+	
 	@PostMapping(value = "comment_list")
 	@ResponseBody
 	public List<CommentDTO> comment_list(@RequestBody Map map) {
@@ -270,16 +277,65 @@ public class MainController {
 		return mainService.comment_count(map);
 	}
 	
-	@PostMapping("/api/reviews")
+	@GetMapping("/api/inquiries")
+	@CrossOrigin(origins = "http://localhost:3000")
 	@ResponseBody
-	public ResponseEntity<String> createReview(@RequestBody Map<String, Object> requestData) {
-	    String content = (String) requestData.get("content");
-	    List<Map<String, Object>> images = (List<Map<String, Object>>) requestData.get("images");
-	    
-	    // 후기 제출 로직을 여기에 처리합니다
-	    // 후기 내용(content)과 이미지(images)를 원하는 저장소에 저장하거나 필요한 다른 작업을 수행합니다
-	    
-	    return ResponseEntity.ok("후기가 성공적으로 제출되었습니다");
+	public List<InquiryDTO> getInquiries() {
+	    List<InquiryDTO> inquiries = mainService.getInquiryList();
+	    for (InquiryDTO inquiry : inquiries) {
+	     String selectedType = inquiry.getType();
+       if (selectedType.equals("주문/결제/반품/교환문의") || selectedType.equals("상품문의")) {
+	        String selectedSubType = inquiry.getSubType();
+	        inquiry.setSubType(selectedSubType);
+	        }
+	    }
+	    return inquiries;
+	}
+
+	@PostMapping("/api/inquiries")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void insertInquiry(@RequestBody InquiryDTO inquiry) {
+	    String selectedType = inquiry.getType();
+	    String selectedSubType = inquiry.getSubType();
+
+	   
+	    if (selectedType.equals("주문/결제/반품/교환문의")) {
+	    	if (selectedSubType == null || selectedSubType.isEmpty()) {
+	            throw new IllegalArgumentException("상세 유형은 필수 입력입니다.");
+	        }
+	    } else if (selectedType.equals("상품문의")) {
+	       
+	        if (selectedSubType == null || selectedSubType.isEmpty()) {
+	            throw new IllegalArgumentException("상세 유형은 필수 입력입니다.");
+	        }
+	    } else if (selectedType.equals("기타문의")) {
+	        
+	        if (selectedSubType == null || selectedSubType.isEmpty()) {
+	            inquiry.setSubType(null);
+	        }
+	    } else {
+	        inquiry.setSubType(null);
+	    }
+	    if (selectedType == null && inquiry.getSubType() == null) {
+	        throw new IllegalArgumentException("유형은 필수 입력입니다.");
+	    }
+	    mainService.insertInquiry(inquiry);
+	}
+
+	@PutMapping("/api/inquiries/{id}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void updateInquiry(@PathVariable("id") int id, @RequestBody InquiryDTO inquiry) {
+	    inquiry.setId(id);
+	    mainService.updateInquiry(inquiry);
+	}
+
+	@DeleteMapping("/api/inquiries/{id}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void deleteInquiry(@PathVariable("id") int id) {
+	    mainService.deleteInquiry(id);
 	}
 
 
@@ -296,6 +352,52 @@ public class MainController {
 		
 		mainService.views_update(map);
 	}
+	
+	@PostMapping(value="/Order_success")
+	@ResponseBody
+	public void order_success(@RequestBody Map map) {
+		
+		String user = (String) map.get("user");
+		ArrayList product = (ArrayList) map.get("products");
+		ArrayList number = (ArrayList) map.get("numbers");
+		
+		System.out.println("user = " + user);
+		System.out.println("product = " + product);
+		System.out.println("number = " + number);
+		map.put("product", product);
+		
+		
+		mainService.order_success(map);
+	}
+	
+	@PostMapping(value="mycartList")
+	@ResponseBody
+	public List<CartDTO>  mycartList(@RequestBody Map map) {
+		String user = (String) map.get("user");
+		System.out.println("user = " + user);
+		
+		return mainService.mycartList(map);
+	}
+	
+	@PostMapping(value="/cart_allDelete")
+	@ResponseBody
+	public void cart_allDelete(@RequestBody Map map) {
+		String user = (String) map.get("user");
+		System.out.println("user : " + user);
+		mainService.cart_allDelete(map);
+	}
+	
+	@PostMapping(value="order_history")
+	@ResponseBody
+	public List<HistoryDTO> order_history(@RequestBody Map map){
+		
+		String user = (String) map.get("user");
+		System.out.println("이것은 주문내역의 user값이여 : " + user);
+		
+		return mainService.order_history(map);
+	}
+	
+	
 
 	@PostMapping(value="delivery_insert")
 	@ResponseBody
@@ -339,7 +441,8 @@ public class MainController {
 	    map.put("tel2", tel2);
 		map.put("tel3", tel3);
 	    
-	    mainService.delivery_insert(map);
+	    mainService.delivery_insert(map);	
+
 	}
 }
 

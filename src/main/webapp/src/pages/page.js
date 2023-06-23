@@ -19,5 +19,11 @@ import Order from "./Order";
 import Address from "./Address";
 import ConfirmPwd from "./ConfirmPwd";
 import Review from "./Review";
+import FindPwdCert from "./FindPwdCert";
+import ResetPwd from "./ResetPwd";
 
-export { Main, Login, Signup, CartList, CommentWrite, Detail, NotFound, Category, FindPwd, FindId, Order, Address, NoticeListPage, NoticeDetailPage, FaqPage, InquiryPage, InquiryFormPage, Payment, OrderList, ConfirmPwd, Review };
+export { Main, Login, Signup, CartList, 
+    CommentWrite, Detail, NotFound, Category, 
+    FindPwd, FindId, Order, Address, NoticeListPage, 
+    NoticeDetailPage, FaqPage, InquiryPage, InquiryFormPage, 
+    Payment, OrderList, ConfirmPwd, Review, FindPwdCert, ResetPwd };
