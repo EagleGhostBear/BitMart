@@ -38,7 +38,7 @@ function FaqPage() {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '150vh' }}>
+    <div style={{ display: 'flex', minHeight: '150vh', marginBottom: '200px' }}>
       <div style={{ flex: '3', marginTop: '40px', marginRight: '20px', paddingLeft: '220px' }}>
         <div style={{ fontSize: '28px', fontWeight: '700', border: '1px solid white', padding: '10px', marginBottom: '20px' }}>고객센터</div>
         <ul style={{ width: '200px', listStyleType: 'none', padding: 0, border: '1px solid lightgray', padding: '10px', backgroundColor: 'white' }}>
