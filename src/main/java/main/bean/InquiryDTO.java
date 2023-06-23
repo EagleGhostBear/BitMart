@@ -16,6 +16,4 @@ public class InquiryDTO {
 	 private String replyStatus;
 	 private String type;
 	 private String subType;
-		
-	
 }
