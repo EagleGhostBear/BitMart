@@ -209,7 +209,4 @@
 		select * from user where seq=#{seq}
 	</select>
 
-	<select id="mycartList" parameterType="java.util.Map" resultType="CartDTO">
-		SELECT * FROM cart where user = #{user}
-	</select>
 </mapper>

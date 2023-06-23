@@ -445,14 +445,14 @@ public class MainController {
 
 	}
 	
-	@PostMapping(value="review")
-	@ResponseBody
-	public List<HistoryDTO> review(@RequestBody Map<String, Object> map){
-		String user = (String) map.get("user");
-		
-		List<HistoryDTO> orderHistory = mainService.getOrderHistory(user);
-		return orderHistory; 
-	}
+//	@PostMapping(value="review")
+//	@ResponseBody
+//	public List<HistoryDTO> review(@RequestBody Map<String, Object> map){
+//		String user = (String) map.get("user");
+//		
+//		List<HistoryDTO> orderHistory = mainService.getOrderHistory(user);
+//		return orderHistory; 
+//	}
 	
 	@PostMapping(value = "checkInfo")
 	@ResponseBody
