@@ -73,7 +73,7 @@ const Comment = (props) => {
             textAlign: "center",
           }}
         >
-          {moment(comment_list.logtime).format("YYYY-MM-DD")}
+          {moment(comment_list.logtime).format("YY-MM-DD-HH:mm")}
         </CommentData>
         <CommentData
           style={{
