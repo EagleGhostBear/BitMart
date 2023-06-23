@@ -294,16 +294,5 @@ public class MainDAOMyBatis implements MainDAO {
 	}
 
 	
-	@Override
-	public UserDTO checkInfo(Map map) {
-		return sqlSession.selectOne("mainSQL.checkInfo", map);
-	}
-
-	@Override
-	public UserDTO userUpdate(Map map) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("mainSQL.userUpdate", map);
-	}
-
 	
 }
