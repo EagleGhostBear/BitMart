@@ -87,8 +87,6 @@ const InquiryPage = () => {
     </div>
   );
 };
-
 export default InquiryPage;
-
 
 

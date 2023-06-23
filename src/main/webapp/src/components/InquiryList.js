@@ -81,9 +81,9 @@ const InquiryList = () => {
         title: '',
         content: ''
       });
-      setPopupVisible(true); // 수정 완료 팝업 표시
+      setPopupVisible(true); // Display update completed popup
       setTimeout(() => {
-        setPopupVisible(false); // 일정 시간 후 팝업 닫기
+        setPopupVisible(false); // Close popup after a certain time
       }, 2000);
     } catch (error) {
       console.log('Error:', error);
@@ -108,9 +108,13 @@ const InquiryList = () => {
           <tr>
             <th style={{ textAlign: 'left' }}>제목</th>
           </tr>
-          <hr style={{ width: 800 }}></hr>
         </thead>
         <tbody>
+          <tr>
+            <td>
+              <hr style={{ width: 800 }} />
+            </td>
+          </tr>
           {currentInquiries.map((inquiry) => (
             <React.Fragment key={inquiry.id}>
               <tr
@@ -135,10 +139,23 @@ const InquiryList = () => {
                     <p>
                       <strong>내용:</strong> {inquiry.content}
                     </p>
-                    <button style={{ marginLeft: '710px', backgroundColor: 'rgb(95, 0, 128)',color: 'white', borderColor: 'none' }} onClick={() => handleUpdateInquiry(inquiry)}>
+                    <button
+                      style={{
+                        marginLeft: '710px',
+                        backgroundColor: 'rgb(95, 0, 128)',
+                        color: 'white',
+                        borderColor: 'none'
+                      }}
+                      onClick={() => handleUpdateInquiry(inquiry)}
+                    >
                       수정
                     </button>
-                    <button style={{  backgroundColor: 'rgb(95, 0, 128)',color: 'white', borderColor: 'none' }} onClick={() => handleDeleteInquiry(inquiry.id)}>삭제</button>
+                    <button
+                      style={{ backgroundColor: 'rgb(95, 0, 128)', color: 'white', borderColor: 'none' }}
+                      onClick={() => handleDeleteInquiry(inquiry.id)}
+                    >
+                      삭제
+                    </button>
                   </td>
                 </tr>
               )}
@@ -161,14 +178,17 @@ const InquiryList = () => {
             {index + 1}
           </button>
         ))}
-        <button disabled={currentPage === Math.ceil(inquiries.length / inquiriesPerPage)} onClick={() => paginate(currentPage + 1)}>
+        <button
+          disabled={currentPage === Math.ceil(inquiries.length / inquiriesPerPage)}
+          onClick={() => paginate(currentPage + 1)}
+        >
           다음
         </button>
       </div>
 
       {modalVisible && (
-        <div className="modal">
-          <div className="modal-content">
+        <div style={styles.modal}>
+          <div style={styles.modalContent}>
             <h3>문의 수정</h3>
             <form onSubmit={handleModalSubmit}>
               <label>
@@ -191,60 +211,51 @@ const InquiryList = () => {
                 <input type="text" name="content" value={editedInquiry.content} onChange={handleInputChange} />
               </label>
               <br />
-              <button type="submit">수정하기</button> 
+              <button type="submit" style={{ backgroundColor: 'rgb(95, 0, 128)', color: 'white', borderColor: 'none' }}>
+                수정 완료
+              </button>
+              <button onClick={handleModalClose} style={{ backgroundColor: 'rgb(95, 0, 128)', color: 'white', borderColor: 'none' }}>
+                취소
+              </button>
             </form>
-            <button onClick={handleModalClose}>닫기</button>
           </div>
         </div>
       )}
 
-      {popupVisible && (
-        <div className="popup">
-          <p>수정이 완료되었습니다.</p>
-        </div>
-      )}
-
-      <style>
-        {`
-          .modal {
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-          }
-
-          .modal-content {
-            background-color: white;
-            margin: 10% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-          }
-
-          .popup {
-            position: fixed;
-            z-index: 1;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 40px 30px;
-            max-width: 300px;
-            border-radius: 10px;
-            
-            
-          }
-        `}
-      </style>
+      {popupVisible && <div style={styles.popup}>수정이 완료되었습니다.</div>}
     </div>
   );
+};
+
+const styles = {
+  modal: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  modalContent: {
+    width: '300px',
+    padding: '20px',
+    backgroundColor: 'white',
+    borderRadius: '4px',
+    
+  },
+  popup: {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    padding: '10px',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    color: 'white',
+    borderRadius: '4px'
+  }
 };
 
 export default InquiryList;
