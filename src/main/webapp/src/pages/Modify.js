@@ -108,10 +108,7 @@ const Modify = (props) => {
         style={{ 
             display: 'flex',
             justifyContent: 'center',
-            height: '100vh',
-            maxWidth: '1200px',
-            marginLeft: '70px',
-            marginTop: '70px',
+            marginTop: '100px',
         }}
     >
 
@@ -287,11 +284,10 @@ Modify.defaultProps = {};
 
 const Container = styled.div`
   width: 640px;
-  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 0px 0px 120px 0px;
+  padding-left: 50px;
 `;
 
 const Title = styled.h3`
