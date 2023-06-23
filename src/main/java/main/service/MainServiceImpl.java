@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
+import main.bean.DeliveryDTO;
 import main.bean.FaqDTO;
 import main.bean.HistoryDTO;
 import main.bean.InquiryDTO;
@@ -238,6 +239,19 @@ public class MainServiceImpl implements MainService {
 		// TODO Auto-generated method stub
 		mainDAO.delivery_insert(map);
 	}
+
+	@Override
+	public List<DeliveryDTO> delivery_list(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.delivery_list(map);
+	}
+
+	@Override
+	public void delivery_delete(Map map) {
+		mainDAO.delivery_delete(map);
+	}
+
+
 	
 	@Override
 	public UserDTO checkInfo(Map map) {

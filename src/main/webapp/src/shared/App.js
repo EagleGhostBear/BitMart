@@ -25,8 +25,6 @@ import {
   Payment,
   Category,
   ConfirmPwd,
-  Modify,
-  Delete,
   notices,
   NoticeListPage,
   NoticeDetailPage,
@@ -36,6 +34,7 @@ import {
   Review,
   FindPwdCert,
   ResetPwd,
+  // Modify
 } from "../pages/page";
 
 function App() {
@@ -78,9 +77,6 @@ function App() {
         <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
-        <Route path="/ConfirmPwd" element={<ConfirmPwd />} />
-        <Route path="/Modify" element={<Modify />} />
-        <Route path="/Delete" element={<Delete />} />
         <Route path="/findPwdCert" element={<FindPwdCert/>}/>
         <Route path="/confirmPwd" element={<ConfirmPwd />} />
         <Route path="/orderlist" element={<OrderList />} />
@@ -93,6 +89,7 @@ function App() {
         <Route path="/*" element={<NotFound />} />
         <Route path="/review" element={<Review />} />
         <Route path="/resetpwd" element={<ResetPwd/>}/> 
+        {/* <Route path="/modify" element={<Modify/>}/> */}
       </Routes>
     </div>
   );
