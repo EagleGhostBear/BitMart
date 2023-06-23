@@ -453,8 +453,6 @@ public class MainController {
 		List<HistoryDTO> orderHistory = mainService.getOrderHistory(user);
 		return orderHistory; 
 	}
-	
-	
 }
 
 
