@@ -31,6 +31,9 @@ import {
   FaqPage,
   InquiryPage,
   InquiryFormPage,
+  Review,
+  FindPwdCert,
+  ResetPwd,
 } from "../pages/page";
 
 function App() {
@@ -73,6 +76,7 @@ function App() {
         <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
+        <Route path="/findPwdCert" element={<FindPwdCert/>}/>
         <Route path="/confirmPwd" element={<ConfirmPwd />} />
         <Route path="/orderlist" element={<OrderList />} />
         <Route path="/Payment" element={<Payment />} />
@@ -82,6 +86,8 @@ function App() {
         <Route path="/inquiry" element={<InquiryPage />} />
         <Route path="/inquirywrite" element={<InquiryFormPage />} />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/resetpwd" element={<ResetPwd/>}/> 
       </Routes>
     </div>
   );
