@@ -176,7 +176,8 @@
 	</select>
 	
 	<insert id="order_success" parameterType="java.util.Map">
-	  INSERT INTO order_history (order_num, user, product, number, logtime) VALUES (#{order_num}, #{user}, #{product}, #{number}, #{logtime})
+	  INSERT INTO order_history (order_num, user, product, number, delivery_state,logtime) 
+	  VALUES (#{order_num}, #{user}, #{product}, #{number}, #{delivery_state}, #{logtime})
 	</insert>
 
 	<select id="mycartList" parameterType="java.util.Map" resultType="CartDTO">
@@ -199,5 +200,6 @@
 		INSERT INTO deliveryaddr (addr1, addr2, name, tel1, tel2, tel3)
 		values(#{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3})
 	</insert>
-
+	
+	
 </mapper>

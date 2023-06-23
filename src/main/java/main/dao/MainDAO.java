@@ -83,4 +83,6 @@ public interface MainDAO {
 
 	List<HistoryDTO> order_history(Map map);
     public void delivery_insert(Map<String, String> map);
+
+	
 }
