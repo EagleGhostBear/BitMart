@@ -89,5 +89,11 @@ public interface MainService {
 	List<DeliveryDTO> delivery_list(Map map);
 
 	public void delivery_delete(Map map);
+	
+	UserDTO checkInfo(Map map);
+
+	UserDTO userUpdate(Map map);
+
+	
 }
 

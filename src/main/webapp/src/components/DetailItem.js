@@ -44,9 +44,9 @@ const DetailItem = (props) => {
   // const setPrice = count * price;
   // const setDisconunt = count * disconunt;
 
-  const addCart = (user_seq, product_seq) => {
-    axios.post('/check_cart', { user_seq: user_seq, product_seq: product_seq }).then(response => {
-      if(response.data === true) { axios.post('/cart_insert', { user_seq: user_seq, product_seq: product_seq }); alert("장바구니에 담겼습니다!") }
+  const addCart = (user_seq, product_seq, count) => {
+    axios.post('/check_cart', { user_seq: user_seq, product_seq: product_seq}).then(response => {
+      if(response.data === true) { axios.post('/cart_insert', { user_seq: user_seq, product_seq: product_seq, product_number: count }); alert("장바구니에 담겼습니다!") }
       else { alert("이미 장바구니에 담긴 상품입니다!") }});
   };
 
@@ -147,7 +147,7 @@ const DetailItem = (props) => {
       )}
 
       <BtnWrap>
-        <button className="btn" onClick={() => user ? addCart(user.seq, data.seq) : alert("로그인 후 이용해주세요!")}>
+        <button className="btn" onClick={() => user ? addCart(user.seq, data.seq, count) : alert("로그인 후 이용해주세요!")}>
           장바구니 담기
         </button>
       </BtnWrap>

@@ -252,4 +252,18 @@ public class MainServiceImpl implements MainService {
 	}
 
 
+	
+	@Override
+	public UserDTO checkInfo(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.checkInfo(map);
+	}
+
+	@Override
+	public UserDTO userUpdate(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.userUpdate(map);
+	}
+
+	
 }

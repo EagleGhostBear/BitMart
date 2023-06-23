@@ -13,6 +13,8 @@ const Order = () => {
   const token_key = `${localStorage.getItem("token")}`;
   const [data, setData] = useState([]);
 
+
+  
   //const express = require('express');
   //const app = express();
 
@@ -249,10 +251,27 @@ const Order = () => {
               ) : (
                 
                   data.map((item, index) => (
+                    
                     <div className='OrderDetailContent' key={index}>
                       <div className="OrderDetailSubject">
                         <span className="OrderDetailDate">
-                          {data[index].logTime.toString().substring(0, 10)} 
+                        {
+                          (() => {
+                            const dateString = item.logTime;
+                            const dateObj = new Date(dateString);
+                            const year = dateObj.getFullYear();
+                            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+                            const day = dateObj.getDate();
+                            const hours = dateObj.getHours();
+                            const minutes = dateObj.getMinutes();
+
+                            const formattedDate = `${year}-${month}-${day}`;
+                            const formattedTime = `${hours.toString().padStart(2, '0')}시 ${minutes.toString().padStart(2, '0')}분`;
+
+                            return `${formattedDate} (${formattedTime})`;
+                          })()
+                        }
+                          
                         </span>
                       </div> {/* OrderDetailSubject */}
 
@@ -312,7 +331,23 @@ const Order = () => {
 
                         <div className="DeliveryBox e1437c642">
                           <span className="DeliveryState e1437c641">
-                            배송완료
+                          {
+                            (() => {
+                              const dateString = item.logTime;
+                              const dateObj = new Date(dateString);
+                              const currentTime = new Date(); // 현재 시간을 가져옴
+
+                              // 구매 시간으로부터 경과한 시간(분) 계산
+                              const elapsedMinutes = Math.floor((currentTime - dateObj) / (1000 * 60));
+
+                              if (elapsedMinutes >= 3) {
+                                return '배송 완료';
+                              } else {
+                                return data[index].deliveryState; // 기존의 deliveryState 값 반환
+                              }
+                            })()
+                          }
+
                           </span>
                           <div className="ReviewBtnDiv e1437c640">
                             <Link to='/review'>
