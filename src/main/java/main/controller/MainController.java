@@ -444,16 +444,18 @@ public class MainController {
 	    mainService.delivery_insert(map);	
 
 	}
+	
+	@PostMapping(value="review")
+	@ResponseBody
+	public List<HistoryDTO> review(@RequestBody Map<String, Object> map){
+		String user = (String) map.get("user");
+		
+		List<HistoryDTO> orderHistory = mainService.getOrderHistory(user);
+		return orderHistory; 
+	}
+	
+	
 }
-
-
-
-
-
-
-
-
-
 
 
 
