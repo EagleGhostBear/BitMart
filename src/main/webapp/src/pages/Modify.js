@@ -248,12 +248,8 @@ const Modify = (props) => {
             </tr>
             </tbody>
         </SignupTable>
-        {/* <Button width="150px" _onClick={() => ()}>
-            탈퇴하기
-        </Button>
-        <Button width="150px" _onClick={() => Modify()}>
-            회원정보수정 
-        </Button> */}
+
+        {/* 개인정보수정 Form 하단의 버튼 Div */}
         <div
             className="formBtnDiv"
             style={formBtnDivStyle}
@@ -267,6 +263,7 @@ const Modify = (props) => {
                 탈퇴하기
                 </span>
             </button>
+            
             <button
                 className="modifiyBtn"
                 type="submit"
