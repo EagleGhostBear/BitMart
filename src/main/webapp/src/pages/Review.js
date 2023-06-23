@@ -229,11 +229,11 @@ const Mypage = () => {
           <div className={styles.reviewContainer}>
             <div className={styles.reviewItem}>
               <div className={styles.imageContainer}>
-                <img className={styles.productImage} alt=".." src={data[0].productImage} />
+                {/* <img className={styles.productImage} alt=".." src={data[0].productImage} /> */}
               </div>
               <div className={styles.productInfo}>
                 <a href="https://www.kurly.com/goods">
-                  <span className={styles.productName}>{data[0].productTitle}</span>
+                  {/* <span className={styles.productName}>{data[0].productTitle}</span> */}
                 </a>
                 <div className={styles.dateWrap}>
                   <span className={styles.date}>날짜</span>

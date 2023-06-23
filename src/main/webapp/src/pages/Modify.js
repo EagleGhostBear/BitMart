@@ -108,15 +108,15 @@ const Modify = (props) => {
         style={{ 
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
             height: '100vh',
             maxWidth: '1200px',
-            margin: '0 auto'
+            marginLeft: '70px',
+            marginTop: '70px',
         }}
     >
 
         {/* 네비게이션 바 */}
-        <div style={{ marginRight: '20px', marginTop: '-50px' }}>
+        <div style={{ marginRight: '20px'}}>
           <Navbar />
         </div>
 
@@ -289,10 +289,9 @@ const Container = styled.div`
   width: 640px;
   display: flex;
   align-items: center;
-  margin: 0 auto;
   justify-content: center;
   flex-direction: column;
-  padding: 5px 0px 120px 0px;
+  padding: 0px 0px 120px 0px;
 `;
 
 const Title = styled.h3`

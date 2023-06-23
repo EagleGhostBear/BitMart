@@ -81,13 +81,8 @@ const Modify = (props) => {
 
   return (
     <div className="mainContainer"
-        style={{ 
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '100vh',
-            maxWidth: '1200px',
-            margin: '0 auto'
+        style={{
+          margin: "50px"
         }}
     >
 

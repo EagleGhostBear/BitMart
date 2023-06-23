@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import moment from "moment";
 
 const NoticeListPage = () => {
   const [notices, setNotices] = useState([]);
@@ -32,8 +33,8 @@ const NoticeListPage = () => {
   };
 
   return (
-    <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '300px' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: '-400px', marginLeft: '-20px' }}>
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '300px', marginTop: "50px" }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: "15px" }}>
         <div style={{ fontSize: '28px', fontWeight: '700', border: '1px solid white', padding: '10px' }}>고객센터</div>
         <ul style={{ width: '200px', listStyleType: 'none', padding: 0, border: '1px solid lightgray', marginTop: '10px', padding: '10px', backgroundColor: 'white' }}>
           <li style={{ height: '32px' }}>
@@ -55,7 +56,7 @@ const NoticeListPage = () => {
           </li>
         </ul>
       </div>
-      <div style={{ width: '80%', maxWidth: '800px', marginTop: '125px', marginLeft: '40px' }}>
+      <div style={{ width: '80%', maxWidth: '800px', marginLeft: '40px' }}>
         <h1 style={{ fontSize: '25px', fontWeight: 'bold', marginBottom: '30px' }}>공지사항</h1>
         <p style={{ fontSize: '14px', opacity: '0.7' }}>컬리의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
         <div>
@@ -77,7 +78,7 @@ const NoticeListPage = () => {
                   <Link to={`/notices/${notice.id}`}>{notice.title}</Link>
                 </div>
                 <div style={{ flex: '2', textAlign: 'center' }}>{notice.author}</div>
-                <div style={{ flex: '2', textAlign: 'center' }}>{notice.date}</div>
+                <div style={{ flex: '2', textAlign: 'center' }}>{moment(notice.date).format("YY-MM-DD-HH:mm")}</div>
               </div>
             ))
           )}

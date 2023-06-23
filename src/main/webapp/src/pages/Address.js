@@ -7,6 +7,9 @@ import Modal from 'react-modal';
 import DaumPostcode from 'react-daum-postcode';
 
 import './Address.css';
+import { useDispatch } from "react-redux";
+import axios from "axios";
+//import { Address } from "./page";
 
 
 // 배송지 선택 확인 모달
@@ -91,7 +94,7 @@ const PopupModal2 = ({ isOpen2, closeModal2 }) => {
 
 
 // 삭제 확인 모달
-const PopupModal3 = ({ isOpen3, closeModal3 }) => {
+const PopupModal3 = ({ isOpen3, closeModal2, closeModal3 }) => {
 
   const customStyles3 = {
     content: {
@@ -130,7 +133,7 @@ const PopupModal3 = ({ isOpen3, closeModal3 }) => {
 
   return (
 
-    <Modal isOpen={isOpen3} onRequestClose={closeModal3} style={customStyles3}>
+    <Modal isOpen={isOpen3} onRequestClose={closeModal2} style={customStyles3}>
       {/* Content of your modal */}
         <div style={ {paddingTop: '6px',
                  
@@ -180,7 +183,12 @@ const PopupModal3 = ({ isOpen3, closeModal3 }) => {
 
 
 
-export default function Component() {
+const Address = () => {
+
+  const dispatch = useDispatch();
+
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState([]);
 
   const [checkboxes, setCheckboxes] = useState(['checkbox1']);    // 초기값 설정
 
@@ -205,6 +213,7 @@ export default function Component() {
 
   // 배송지 선택 확인 모달
   const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const [isModalOpen3, setIsModalOpen3] = useState(false);
 
   const openModal2 = () => {
     //setAddress1('');
@@ -213,18 +222,35 @@ export default function Component() {
 
   const closeModal2 = () => {
     setIsModalOpen2(false);
+    setIsModalOpen3(false);
   };
 
 
   //배송지 삭제 확인 모달
-  const [isModalOpen3, setIsModalOpen3] = useState(false);
+  
+  const [seq, setSeq] = useState('');
 
-  const openModal3 = () => {
+  const openModal3 = (seq) => {
     setIsModalOpen3(true);
+    setSeq(seq)
   };
 
   const closeModal3 = () => {
+    axios({
+      method:'post',
+      url:'delivery_delete',
+      data: {
+        user:token_key,
+        seq:seq.toString(),
+        },
+      })
+      .then((res) => {
+        console.log('삭제 성공!');
+      })
+      .catch((e) => console.log ('배송지 삭제 에러', e));
+
     setIsModalOpen3(false);
+    setSeq('');
   };
 
   
@@ -335,19 +361,6 @@ export default function Component() {
 `;
 
 
-  // 배송지 유효성 검사
-
-  // const [name, setName] = useState('');
-  // const [phone, setPhone] = useState('');
-
-
-  // const handleNameChange = (e) => {
-  //   setName(e.target.value);
-  // };
-
-  // const handlePhoneChange = (e) => {
-  //   setPhone(e.target.value);
-  // };
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -373,11 +386,47 @@ export default function Component() {
     }
 
     // 배송지 정보가 모두 입력되었을 때, 저장 버튼을 누른 후 수행할 동작
-    setErrorMessage('');
-    alert('배송지가 등록되었습니다.');
-    closeModal();
-  
+    else{
+      dispatch(
+        axios({
+          method:'post',
+          url:'/delivery_insert',
+          data: {
+            user: token_key,
+            addr1: address.streetNameAddress,
+            addr2: address.detailedAddress,
+            name: address.name,
+            phone: address.phone,
+          },
+        })
+          
+        .then((res) => {
+          setErrorMessage('');
+          alert('배송지가 등록되었습니다.');
+          console.log("주소추가 데이터:" , res.data)
+          
+          closeModal();
+        })
+        .catch((e) => {console.log('배송지 등록 에러!', e)})
+      )
+    }
   };
+
+  useEffect(() => {
+    axios({
+      method:'post',
+      url:'delivery_list',
+      data: {
+        user:token_key,
+      
+      },
+    })
+    .then((res) => {
+      console.log("데이터 리스트:" , res.data.length);
+      setData(res.data);
+    })
+    .catch((e) => console.log("배송지 리스트 에러: ", e));
+  }, []);
 
 
 
@@ -468,7 +517,7 @@ export default function Component() {
 
     <div> 
       {isModalOpen3 && (
-        <PopupModal3 isOpen3={isModalOpen3} closeModal3={closeModal3} />
+        <PopupModal3 isOpen3={isModalOpen3} closeModal2={closeModal2} closeModal3={closeModal3} />
       )}
     </div>
 
@@ -748,8 +797,7 @@ export default function Component() {
               </div>
             </div>
             
-            <div
-              className="IndexBar" >
+            <div className="IndexBar" >
               <div
                 className="css-wru9pk e1cucsfi0"
                 style={{
@@ -795,173 +843,99 @@ export default function Component() {
                 삭제
               </div>
             </div>
-            <ul
-              className="AddressList">
+
+            <ul className="AddressList">
+            {data.length === 0 ? (
               <li className="AddressList-1">
-                <div id="AddressList-1">
+              <div id="AddressList-1" >
+                <div className="noDataMessage" style={{fontSize:'11pt'}}>등록된 배송지가 없습니다.</div>
+              </div>
+            </li>
+          ) : (
+                data.map((item, index) => (
+                  <li className="AddressList-1" key={index}>
+                    <div id="AddressList-1">
 
-                    <div id="checkBtn">
+                        <div id="checkBtn">
 
-                    <label htmlFor="checkbox">
-                      <div>
-                        
-                      <input 
-                            type="checkbox"
-                            value="checkbox1"
-                            id="checkbox"
+                        <label htmlFor="checkbox">
+                          <div>
                             
-                            checked={checkboxes.includes('checkbox1')}
-                            onChange={ () => handleCheckboxChange('checkbox1') }
+                          <input 
+                                type="checkbox"
+                                value="checkbox1"
+                                id="checkbox"
+                                
+                                checked={checkboxes.includes('checkbox1')}
+                                onChange={ () => handleCheckboxChange('checkbox1') }
 
-                            onClick={openModal2}
+                                onClick={openModal2}
 
-                            style={{
-                              width:"22px",
-                              height:"22px",
-                              accentColor:"#5f0080",
-                            }}
-                            
-                      />
+                                style={{
+                                  width:"22px",
+                                  height:"22px",
+                                  accentColor:"#5f0080",
+                                }}
+                                
+                          />
+                          </div>
+                        </label>
                       </div>
-                    </label>
-                  </div>
 
-                  <div className="addressDetail">
-                    <div
-                      style={{
-                        padding: "0px",
-                        margin: "0px",
-                        boxSizing: "border-box",
-                      }}
-                    >
-                    
-                      경기 성남시 분당구 미금로 215 (청솔마을) 807-1704
-                    </div>
-                  </div>
-                  <div className="addressName">
-                    최현주
-                  </div>
-                  <div className="addressPhone">
-                    010-6563-0571
-                  </div>
-                  
-                  {/* 주소 삭제 이미지 */}
-                  <div className="addressDel">
-                    {/* <Link to='/update'> */}
-                    <button 
-                      id="XBtn"
-                      onClick={openModal3}>
-                      <svg
-                        height="24"
-                        width="24"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style={{
-                          overflow: "hidden",
-                        }}
-                      >
-                        <g
-                          fill="none"
-                          fillRule="evenodd">
-                          <path
-                            d="M0 0h24v24H0z"
-                            fill="none" />
-                          <path
-                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
-                            stroke="#ccc"
-                            strokeWidth="1.5"/>
-                        </g>
-                      </svg>
-                    </button>
-                    {/* </Link> */}
-                  </div>
-                </div>
-              </li>
-
-              <li className="AddressList-1">
-                <div id="AddressList-1">
-
-                  <div id="checkBtn">
-                    <label htmlFor="checkbox">
-                      <div>
-                        
-                      <input 
-                            type="checkbox"
-                            value="checkbox2"
-                            id="checkbox"
-                            
-                            checked={checkboxes.includes('checkbox2')}
-                            onChange={() => handleCheckboxChange('checkbox2')}
-                            
-                            onClick={openModal2}
-                            
-                            style={{
-                              width:"22px",
-                              height:"22px",
-                              accentColor:"#5f0080",
-                              //borderRadius:"",
-                            }}
-                      />
-                      </div>
-                    </label>
-                  </div>
-
-                  <div className="addressDetail">
-                    <div
-                      style={{
-                        padding: "0px",
-                        margin: "0px",
-                        boxSizing: "border-box",
-                      }}
-                    >
-                      부산 금정구 부산대학로63번길 46-5 다인빌 101호
-                    </div>
-                  </div>
-                  <div className="addressName">
-                    최현주
-                  </div>
-                  <div className="addressPhone">
-                    010-6563-0571
-                  </div>
-
-                  {/* 주소 삭제 이미지 */}
-                  <div className="addressDel">
-
-                    {/* 주소 삭제 이미지 */}
-                    {/* <Link to='/update'> */}
-                      <button 
-                        id="XBtn"
-                        onClick={openModal3}
-                      >
-                        <svg
-                          height="24"
-                          width="24"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
+                      <div className="addressDetail">
+                        <div
                           style={{
-                            overflow: "hidden",
+                            padding: "0px",
+                            margin: "0px",
+                            boxSizing: "border-box",
                           }}
                         >
-                          <g
-                            fill="none"
-                            fillRule="evenodd"
+                          {data[index].addr1}&ensp;{data[index].addr2}
+                        </div>
+                      </div>
+                      <div className="addressName">
+                        
+                        {data[index].name}
+                      </div>
+                      <div className="addressPhone">
+                        {data[index].tel1}-{data[index].tel2}-{data[index].tel3}
+                      </div>
+                      
+                      {/* 주소 삭제 이미지 */}
+                      <div className="addressDel">
+                        {/* <Link to='/update'> */}
+                        <button 
+                          id="XBtn"
+                          onClick={() => openModal3(data[index].seq)}>
+                          <svg
+                            height="24"
+                            width="24"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style={{
+                              overflow: "hidden",
+                            }}
                           >
-                            <path
-                              d="M0 0h24v24H0z"
+                            <g
                               fill="none"
-                            />
-                            <path
-                              d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
-                              stroke="#ccc"
-                              strokeWidth="1.5"
-                            />
-                          </g>
-                        </svg>
-                      </button>
-                    {/* </Link> */}
-                  </div>
-                </div>
-              </li>
+                              fillRule="evenodd">
+                              <path
+                                d="M0 0h24v24H0z"
+                                fill="none" />
+                              <path
+                                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
+                                stroke="#ccc"
+                                strokeWidth="1.5"/>
+                            </g>
+                          </svg>
+                        </button>
+                        {/* </Link> */}
+                      </div>
+                    </div>
+                  
+                  </li>
+                ))
+              )}
             </ul>
           </div>
         </div>
@@ -1000,3 +974,6 @@ export default function Component() {
     </>
   );
 }
+
+
+export default Address;

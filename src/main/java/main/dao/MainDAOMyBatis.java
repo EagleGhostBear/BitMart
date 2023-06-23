@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
+import main.bean.DeliveryDTO;
 import main.bean.FaqDTO;
 import main.bean.HistoryDTO;
 import main.bean.InquiryDTO;
@@ -269,6 +270,29 @@ public class MainDAOMyBatis implements MainDAO {
 	public void delivery_insert(Map<String, String> map) {
 		sqlSession.insert("mainSQL.delivery_insert", map);
 	}
+	
+	@Override
+	public UserDTO checkInfo(Map map) {
+		return sqlSession.selectOne("mainSQL.checkInfo", map);
+	}
+
+	@Override
+	public UserDTO userUpdate(Map map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mainSQL.userUpdate", map);
+	}
+
+	@Override
+	public List<DeliveryDTO> delivery_list(Map map) {
+
+		return sqlSession.selectList("mainSQL.delivery_list", map);
+	}
+
+	@Override
+	public void delivery_delete(Map map) {
+		sqlSession.delete("mainSQL.delivery_delete", map);
+	}
+
 	
 	@Override
 	public UserDTO checkInfo(Map map) {
