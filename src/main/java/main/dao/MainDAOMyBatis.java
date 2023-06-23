@@ -1,6 +1,8 @@
 package main.dao;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -233,10 +235,11 @@ public class MainDAOMyBatis implements MainDAO {
 	        int order_num = random.nextInt(900000000) + 100000000;
 	        map.put("order_num", order_num);
 	        
-	        // 현재 시간 추가
-	        Date currentTime = new Date();
-	        Timestamp timestamp = new Timestamp(currentTime.getTime());
-	        map.put("logtime", timestamp);
+	        LocalDateTime currentTime = LocalDateTime.now();
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+	        String formattedTime = currentTime.format(formatter);
+	        System.out.println(formattedTime);
+	        map.put("logtime", formattedTime);
 	        
 	        sqlSession.insert("mainSQL.order_success", map);
 	    }

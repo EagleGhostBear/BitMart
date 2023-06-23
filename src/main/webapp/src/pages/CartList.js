@@ -131,6 +131,37 @@ const CartList = (props) => {
     } else {
       alert(`결제 실패: ${error_msg}`);
       console.log("결제 안되는데 컨트롤러로도 안감");
+      axios({
+        method: "post",
+        url: '/mycartList',
+        data: {
+          user: token_key
+        }
+      })
+        .then((res) => {
+          console.log(res.data);
+          const products = res.data.map((item) => item.product);
+          const numbers = res.data.map((item) => item.number);
+          console.log(products);
+          axios({
+            method: "post",
+            url: '/Order_success',
+            data: {
+              user: token_key,
+              products: products,
+              numbers: numbers
+            }
+          })
+            .then((res) => {
+              axios({
+                method: "post",
+                url: "/cart_allDelete",
+                data: {
+                  user: token_key
+                }
+              })
+            })
+        });
     }
   };
 
