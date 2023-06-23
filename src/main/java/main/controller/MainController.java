@@ -481,6 +481,22 @@ public class MainController {
 	}
 	*/
 	
+	@PostMapping(value = "checkInfo")
+	@ResponseBody
+	public UserDTO checkInfo(@RequestBody Map map) {
+		
+		UserDTO userDTO = mainService.checkInfo(map);
+		System.out.println("sfd:" + userDTO);
+		return userDTO;
+	}
+	
+	@PostMapping(value="userUpdate")
+	@ResponseBody
+	public UserDTO userUpdate(@RequestBody Map map) {
+		
+		System.out.println("여기까지 오나?");
+		return mainService.userUpdate(map); 
+	}
 }
 
 
