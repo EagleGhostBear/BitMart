@@ -11,6 +11,7 @@ const Header = (props) => {
   const navigate = useNavigate();
   const islogin = useSelector((state) => state.user.is_login);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const token_key = `${localStorage.getItem("token")}`;
 
   const openCategory = () => {
     setIsCategoryOpen(true);
@@ -121,7 +122,13 @@ const Header = (props) => {
               <HeartIcon />
               <CartIcon
                 onClick={() => {
-                  navigate("/cart");
+                  if(token_key === "null"){
+                    alert('로그인 후 이용해주세요!')
+                    navigate("/login")
+                  }
+                  else{ 
+                    navigate("/cart");
+                  }
                 }}
               />
               <Count></Count>

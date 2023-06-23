@@ -33,6 +33,9 @@ import {
   FaqPage,
   InquiryPage,
   InquiryFormPage,
+  Review,
+  FindPwdCert,
+  ResetPwd,
 } from "../pages/page";
 
 function App() {
@@ -78,14 +81,18 @@ function App() {
         <Route path="/ConfirmPwd" element={<ConfirmPwd />} />
         <Route path="/Modify" element={<Modify />} />
         <Route path="/Delete" element={<Delete />} />
+        <Route path="/findPwdCert" element={<FindPwdCert/>}/>
+        <Route path="/confirmPwd" element={<ConfirmPwd />} />
         <Route path="/orderlist" element={<OrderList />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/notices" element={<NoticeListPage />} />
         <Route path="/notices/:id" element={<NoticeDetailPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/inquiry" element={<InquiryPage />} />
-        <Route path="/inquiry/wri" element={<InquiryFormPage />} />
+        <Route path="/inquirywrite" element={<InquiryFormPage />} />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/resetpwd" element={<ResetPwd/>}/> 
       </Routes>
     </div>
   );

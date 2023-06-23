@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FindPwdCert = () => {
@@ -39,10 +40,46 @@ const FindPwdCert = () => {
             </DeleteButton>
           )}
         </PwdCertWrapper>
+        <ButtonContainer>
+          <ButtonFindPwd
+            style={{
+              backgroundColor: "#5f0080",
+              cursor: "pointer"
+            }}
+          > 
+          <Link to="/resetpwd">
+            확인
+            </Link>
+          </ButtonFindPwd>
+        </ButtonContainer>
       </FindPwdCertWrap>
     </React.Fragment>
   );
 };
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ButtonFindPwd = styled.button`
+  display: inline-block;
+  padding: 0 10px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 530;
+  overflow: hidden;
+  width: 100%;
+  height: 52px;
+  border-radius: 4px;
+  color: #fff;
+  border: 0 none;
+  background-color: #ddd;
+  margin-top: 20px;
+  justify-content: center;
+  place-items: center;
+`;
 
 const FindPwdCertWrap = styled.div`
 max-width: 400px;

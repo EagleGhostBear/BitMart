@@ -6,6 +6,8 @@ import java.util.Map;
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
 import main.bean.FaqDTO;
+import main.bean.HistoryDTO;
+import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
@@ -56,20 +58,36 @@ public interface MainService {
 
 	String comment_count(Map map);
 
+	List<InquiryDTO> getInquiryList();
+
+    public void insertInquiry(InquiryDTO inquiry);
+
+    public void updateInquiry(InquiryDTO inquiry);
+
+    public void deleteInquiry(int id);
+
     List<CartDTO> order_list(Map map);
 	
 	public void views_update(Map map);
 
-	
 	UserDTO findPwd(Map map);
 	
 	UserDTO checkName(String name);
-	
 
+	void order_success(Map map);
+
+	List<CartDTO> mycartList(Map map);
+
+	void cart_allDelete(Map map);
+
+	List<HistoryDTO> order_history(Map map);
+	
 	public void delivery_insert(Map<String, String> map);
 	
 	UserDTO checkInfo(Map map);
 
 	UserDTO userUpdate(Map map);
+
+	List<HistoryDTO> getOrderHistory(String user); //리뷰추가
 }
 

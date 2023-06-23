@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import ReviewWrite from "../components/ModalReview";
 import styles from "../css/review.module.css";
 import Tab from "../elements/Tab";
-//import ReviewData from "../components/ReviewData";
+import axios from "axios";
 
 const Modal = ({ isOpen, content }) => {
   //탭 여닫는부분 스타일
@@ -26,8 +26,28 @@ const Modal = ({ isOpen, content }) => {
   );
 };
 
-const Mypage = () => {
+const Review = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios({
+      // 스프링에서의 ajax느낌
+      method: "post", // post방식으로 보내겠다
+      url: "order_history", //스프링부트의 Controller의 order_history로 가라
+      data: {
+        user: token_key,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const openModal = () => {
     setModalOpen(true);
@@ -62,16 +82,18 @@ const Mypage = () => {
             <a className={styles["menu-a"]}>
               주문내역
               <svg
-                className={styles["menu-a-svg"]}
+                id="Arrow"
                 height="19"
                 width="19"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  id="gfk9q0rhta"
-                  d="M1.657 1.657L9.657 1.57 9.657 9.657"
-                ></path>
+                <defs>
+                  <path
+                    id="gfk9q0rhta"
+                    d="M1.657 1.657L9.657 1.657 9.657 9.657" /* 화살표 이미지 경로 */
+                  />
+                </defs>
                 <g fill="none" fillRule="evenodd">
                   <g>
                     <g>
@@ -203,12 +225,18 @@ const Mypage = () => {
         {modalOpen1 ? (
           <div className={styles.reviewContainer}>
             <div className={styles.reviewItem}>
-              <div className={styles.imageContainer}>
-                <img className={styles.productImage} alt="상품명" src="" />
-              </div>
+              {/* <div className={styles.imageContainer}>
+                <img
+                  className={styles.productImage}
+                  alt=".."
+                  src={data[0].productImage}
+                />
+              </div> */}
               <div className={styles.productInfo}>
                 <a href="https://www.kurly.com/goods">
-                  <span className={styles.productName}>상품명</span>
+                  <span className={styles.productName}>
+                    {/* {data[0].productTitle} */}
+                  </span>
                 </a>
                 <div className={styles.dateWrap}>
                   <span className={styles.date}>날짜</span>
@@ -232,4 +260,4 @@ const Mypage = () => {
     </div>
   );
 };
-export default Mypage;
+export default Review;

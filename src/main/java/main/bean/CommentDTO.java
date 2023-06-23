@@ -1,6 +1,6 @@
 package main.bean;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
@@ -13,6 +13,7 @@ public class CommentDTO {
 	private int product;
 	private String title;
 	private String name;
-	private Date logtime;
+	private LocalDateTime logtime;
 	private int connect_count;
+	
 }

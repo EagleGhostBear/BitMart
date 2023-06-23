@@ -58,11 +58,13 @@ border-radius: 0px 0px 20px 20px;
 border-top: 1px solid #f7f7f7; 
 padding: 0px 20px;
 margin-top: 0px;
+cursor: pointer;
 `;
 
 const Check = styled.div`
 justify-content: center;
 text-align: center;
+cursor: pointer;
 `;
 
 export default Modal;
