@@ -197,36 +197,6 @@ public class MainDAOMyBatis implements MainDAO {
 		sqlSession.insert("mainSQL.delivery_insert", map);
 	}
 
-	@Override
-	public void createReview(Map<String, Object> requestData) {
+
 		
-		String content = (String)requestData.get("content");
-		List<Map<String, Object>>images = (List<Map<String, Object>>)requestData.get("images");
-		try {
-	        // 후기 내용(content)를 데이터베이스에 저장하는 예시
-	        sqlSession.insert("mainSQL.createReviewContent", content);
-	        
-	        // 후기 이미지(images)를 데이터베이스에 저장하는 예시
-	        for (Map<String, Object> image : images) {
-	            String imageName = (String) image.get("name");
-	            String imagePath = (String) image.get("path");
-	            
-	            Map<String, Object> imageMap = new HashMap<>();
-	            imageMap.put("imageName", imageName);
-	            imageMap.put("imagePath", imagePath);
-	            
-	            sqlSession.insert("mainSQL.createReviewImage", imageMap);
-	        }
-	        
-	        sqlSession.commit(); // 트랜잭션 커밋
-	        
-	        System.out.println("후기가 성공적으로 제출되었습니다.");
-	    } catch (Exception e) {
-	        sqlSession.rollback(); // 트랜잭션 롤백
-	        System.out.println("후기 제출 중 오류가 발생하였습니다.");
-	        e.printStackTrace();
-	    }
-	}
-		
-	
 }

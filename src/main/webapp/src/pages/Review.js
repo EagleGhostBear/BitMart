@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import ReviewWrite from "../components/ModalReview";
 import styles from "../css/review.module.css";
 import Tab from "../elements/Tab";
-//import ReviewData from "../components/ReviewData";
+import axios from "axios";
+
 
 const Modal = ({ isOpen, content }) => {
   //탭 여닫는부분 스타일
@@ -26,8 +27,28 @@ const Modal = ({ isOpen, content }) => {
   );
 };
 
-const Mypage = () => {
+const Review = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios({
+      method:'post',
+      url: 'order_history',
+      data: {
+        user:token_key,
+      },
+    })
+    .then((res) => {
+      console.log(res.data)
+      setData(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },[]);
+
 
   const openModal = () => {
     setModalOpen(true);
@@ -234,4 +255,4 @@ const Mypage = () => {
     </div>
   );
 };
-export default Mypage;
+export default Review;

@@ -15,4 +15,5 @@ public class CommentDTO {
 	private String name;
 	private Date logtime;
 	private int connect_count;
+	
 }
