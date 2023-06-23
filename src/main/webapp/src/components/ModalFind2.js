@@ -1,14 +1,19 @@
 import React from 'react';
 import styled from "styled-components";
 
-const Modal = ({isOpen, closeModal, message}) => {
+const Modal1 = ({isOpen, closeModal, message}) => {
+  const handleConfirm = () => {
+    closeModal();
+    window.location.replace("/findpwdcert");
+  };
+
   return (
     <ModalContainer style={{ display: isOpen ? "block" : "none" }}>
       <Modal2>
         <ModalContent>
           {message}
         </ModalContent>
-        <ModalFooter onClick={closeModal}><Check
+        <ModalFooter onClick={handleConfirm}><Check
         >확인</Check></ModalFooter>
       </Modal2>
     </ModalContainer>
@@ -67,4 +72,4 @@ text-align: center;
 cursor: pointer;
 `;
 
-export default Modal;
+export default Modal1;
