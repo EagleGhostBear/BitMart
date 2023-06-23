@@ -1,6 +1,6 @@
 package main.bean;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
@@ -12,5 +12,5 @@ public class ViewsDTO {
 	private int user;
 	private int product;
 	private int views;
-	private Date logtime;
+	private LocalDateTime logtime;
 }

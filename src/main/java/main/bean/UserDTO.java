@@ -1,6 +1,6 @@
 package main.bean;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
@@ -21,5 +21,5 @@ public class UserDTO {
 	private String zipcode;
 	private String addr1;
 	private String addr2;
-	private Date logtime;
+	private LocalDateTime logtime;
 }
