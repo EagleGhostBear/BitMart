@@ -109,6 +109,7 @@ const Modify = (props) => {
             display: 'flex',
             justifyContent: 'center',
             marginTop: '100px',
+            marginRight: '100px',
         }}
     >
 
