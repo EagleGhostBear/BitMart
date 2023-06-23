@@ -235,11 +235,11 @@ public class MainDAOMyBatis implements MainDAO {
 	        int order_num = random.nextInt(900000000) + 100000000;
 	        map.put("order_num", order_num);
 	        
+	        String delivery_state = "배송중";
+	        map.put("delivery_state", delivery_state);
+	        
 	        LocalDateTime currentTime = LocalDateTime.now();
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-	        String formattedTime = currentTime.format(formatter);
-	        System.out.println(formattedTime);
-	        map.put("logtime", formattedTime);
+	        map.put("logtime", currentTime);
 	        
 	        sqlSession.insert("mainSQL.order_success", map);
 	    }
