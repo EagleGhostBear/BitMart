@@ -15,5 +15,4 @@ public class CommentDTO {
 	private String name;
 	private LocalDateTime logtime;
 	private int connect_count;
-	
 }

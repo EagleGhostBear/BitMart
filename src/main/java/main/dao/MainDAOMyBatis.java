@@ -245,6 +245,8 @@ public class MainDAOMyBatis implements MainDAO {
 	    }
 	}
 
+
+
 	@Override
 	public List<CartDTO> mycartList(Map map) {
 
@@ -268,9 +270,5 @@ public class MainDAOMyBatis implements MainDAO {
 		sqlSession.insert("mainSQL.delivery_insert", map);
 	}
 
-	@Override
-	public List<HistoryDTO> getOrderHistory(String user) {
-		
-		return sqlSession.selectList("mainSQL.order_history",user);
-	}
+	
 }
