@@ -231,13 +231,15 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.order_history(map);
 	}
 
-
-	
 	@Override
 	public void delivery_insert(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		mainDAO.delivery_insert(map);
 	}
 
-	
+	@Override
+	public List<HistoryDTO> getOrderHistory(String user) {
+		
+		return mainDAO.getOrderHistory(user);
+	}
 }

@@ -70,7 +70,6 @@ public interface MainService {
 	
 	public void views_update(Map map);
 
-	
 	UserDTO findPwd(Map map);
 	
 	UserDTO checkName(String name);
@@ -85,6 +84,6 @@ public interface MainService {
 	
 	public void delivery_insert(Map<String, String> map);
 
-	
+	List<HistoryDTO> getOrderHistory(String user); //리뷰추가
 }
 
