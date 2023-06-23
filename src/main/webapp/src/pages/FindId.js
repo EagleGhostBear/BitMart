@@ -68,6 +68,7 @@ const FindId = () => {
 
   const findId = () => {
     dispatch(userActions.findIdDB(name, email));
+    console.log('데이터')
   }
 
   return (
