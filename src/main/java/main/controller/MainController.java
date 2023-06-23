@@ -3,6 +3,7 @@ package main.controller;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.servlet.http.HttpSession;
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
+import main.bean.DeliveryDTO;
 import main.bean.FaqDTO;
+import main.bean.HistoryDTO;
 import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
@@ -350,15 +353,68 @@ public class MainController {
 		
 		mainService.views_update(map);
 	}
-
-	@PostMapping(value="delivery_insert")
+	
+	@PostMapping(value="/Order_success")
 	@ResponseBody
-	public void delivery_insert(@RequestBody Map<String, String> requestData){
+	public void order_success(@RequestBody Map map) {
+		
+		String user = (String) map.get("user");
+		ArrayList product = (ArrayList) map.get("products");
+		ArrayList number = (ArrayList) map.get("numbers");
+		
+		System.out.println("user = " + user);
+		System.out.println("product = " + product);
+		System.out.println("number = " + number);
+		map.put("product", product);
+		
+		
+		mainService.order_success(map);
+	}
+	
+	@PostMapping(value="mycartList")
+	@ResponseBody
+	public List<CartDTO>  mycartList(@RequestBody Map map) {
+		String user = (String) map.get("user");
+		System.out.println("user = " + user);
+		
+		return mainService.mycartList(map);
+	}
+	
+	@PostMapping(value="/cart_allDelete")
+	@ResponseBody
+	public void cart_allDelete(@RequestBody Map map) {
+		String user = (String) map.get("user");
+		System.out.println("user : " + user);
+		mainService.cart_allDelete(map);
+	}
+	
+	@PostMapping(value="order_history")
+	@ResponseBody
+	public List<HistoryDTO> order_history(@RequestBody Map map){
+		
+		String user = (String) map.get("user");
+		System.out.println("이것은 주문내역의 user값이여 : " + user);
+		
+		return mainService.order_history(map);
+	}
+	
+	
+
+	
+	@PostMapping(value="/delivery_insert")
+	@ResponseBody
+	public void delivery_insert(@RequestBody Map requestData){
+		
+		
+		String user = (String) requestData.get("user");
 		String addr1 = (String) requestData.get("addr1");
 		String addr2 = (String)requestData.get("addr2");
 		String name = (String)requestData.get("name");
 		String phone = (String)requestData.get("phone");
+
+		//System.out.println("딜리버리 유저: "+ user);
 		
+		System.out.println("유저 값: " + user);
 		System.out.println("주소1 : " + addr1);
 		System.out.println("주소2 : " + addr2);
 		System.out.println("이름 : " + name);
@@ -366,23 +422,19 @@ public class MainController {
 		
 		Map<String, String> map = new HashMap<>();
 
+		map.put("user", user);
 		map.put("addr1", addr1);
 		map.put("addr2", addr2);
 		map.put("name", name);
-		
 
 		String[] parts = new String[3];
 
         parts[0] = phone.substring(0, 3);     // "010"
         parts[1] = phone.substring(3, 7);     // "1234"
         parts[2] = phone.substring(7);        // "5678"
-        
-        System.out.println(parts[0]);
-        System.out.println(parts[1]);
-        System.out.println(parts[2]);
 
-	    String tel1 = parts[0]; // "@" 앞 부분
-	    String tel2 = parts[1]; // "@" 뒷 부분
+	    String tel1 = parts[0]; 
+	    String tel2 = parts[1]; 
 		String tel3 = parts[2];
 
 	    System.out.println("tel1 : " + tel1);
@@ -393,7 +445,54 @@ public class MainController {
 	    map.put("tel2", tel2);
 		map.put("tel3", tel3);
 	    
-	    mainService.delivery_insert(map);
+	    mainService.delivery_insert(map);	
+		
+	}
+
+	@PostMapping(value="delivery_list")
+	@ResponseBody
+	public List<DeliveryDTO> delivery_list(@RequestBody Map map){
+		System.out.println("배송지 리스트 서버 왔다 !");
+		return mainService.delivery_list(map);
+	}
+
+	@PostMapping(value="delivery_delete")
+	@ResponseBody
+	public void delivery_delete(@RequestBody Map map){
+
+		System.out.println("배송지 삭제 서버 왔다!");
+		String user = (String) map.get("user");
+		String seq = (String) map.get("seq");
+
+		System.out.println("user: "+ user + " seq: " + seq);
+
+		mainService.delivery_delete(map);
+	}
+	
+//	@PostMapping(value="review")
+//	@ResponseBody
+//	public List<HistoryDTO> review(@RequestBody Map<String, Object> map){
+//		String user = (String) map.get("user");
+//		
+//		List<HistoryDTO> orderHistory = mainService.getOrderHistory(user);
+//		return orderHistory; 
+//	}
+	
+	@PostMapping(value = "checkInfo")
+	@ResponseBody
+	public UserDTO checkInfo(@RequestBody Map map) {
+		
+		UserDTO userDTO = mainService.checkInfo(map);
+		System.out.println("sfd:" + userDTO);
+		return userDTO;
+	}
+	
+	@PostMapping(value="userUpdate")
+	@ResponseBody
+	public UserDTO userUpdate(@RequestBody Map map) {
+		
+		System.out.println("여기까지 오나?");
+		return mainService.userUpdate(map); 
 	}
 }
 

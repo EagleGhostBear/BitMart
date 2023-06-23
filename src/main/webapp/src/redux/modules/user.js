@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import axios from "axios";
 import Modal from "../../components/ModalFind";
+import Modal1 from "../../components/ModalFind2";
 import ReactDOM from 'react-dom';
 
 // 액션
@@ -147,14 +148,14 @@ const findIdDB = (name, email) => {
   .then((res) => {
     console.log(res.data);
     if (!res.data) {
-      window.alert("아이디가 존재하지 않습니다!");
+      openModal("아이디가 존재하지 않습니다!");
     } else {
-      window.alert("아이디는 " + res.data.id + "입니다!");
+      openModal("아이디는 " + res.data.id + "입니다!");
     }
   })
   .catch((err) => {
     console.log("아이디 찾기", err);
-    window.alert("아이디 찾기에 문제가 생겼습니다!");
+    openModal("아이디 찾기에 문제가 생겼습니다!");
   }
   );
 }
@@ -224,7 +225,7 @@ const findPwdDB = (id, email) => {
     if (!res.data) {
       openModal("가입 시 입력하신 회원정보가 맞는지 다시 한번 확인해 주세요.");
     } else {
-      openModal("비밀번호는 " + res.data.pwd + "입니다!" + "이메일로 인증번호를 발송하였습니다.");
+      openModal1("가입하신 이메일로 인증번호가 발송되었습니다. 메일을 받지 못하셨다면 스팸함을 확인해 보세요.");
     }
   })
   .catch((err) => {
@@ -250,6 +251,22 @@ const closeModal = (modalContainer) => {
   ReactDOM.unmountComponentAtNode(modalContainer);
   modalContainer.remove(); // div 요소 삭제
 };
+
+const openModal1 = (message) => {
+  const modalContainer = document.createElement("div");
+  document.body.appendChild(modalContainer);
+
+  const closeModal1 = () => {
+    ReactDOM.unmountComponentAtNode(modalContainer);
+    modalContainer.remove();
+  };
+
+  ReactDOM.render(
+    <Modal1 isOpen={true} closeModal={closeModal1} message={message} />,
+    modalContainer
+  );
+};
+
 
 const actionCreators = {
   setUser,

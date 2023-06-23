@@ -10,9 +10,32 @@ import './Order.css';
 import { CartItem } from "../components/component";
 
 const Order = () => {
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState([]);
 
+
+  
   //const express = require('express');
   //const app = express();
+
+  useEffect(() => {
+    
+    axios({
+      method: 'post',
+      url: 'order_history',
+      data: {
+        user: token_key,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      setData(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
 
 
     return (
@@ -213,152 +236,140 @@ const Order = () => {
                     최대 지난 1년간의 주문 내역까지 확인할 수 있어요
                   </span>
                 </div>
-                {/*}
-                <div className="SelectDateBox">
-                  <div className="OrderTitleDate">
-                    <div>
-                      <div
-                        className="MuiFormControl-root css-tzsjye">
-                        <div
-                          className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl jss1 css-eg1co4"
-                        >
-                */}
-
-                          {/* select box 셀렉트 박스 */}
-                          {/*
-                          <select className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiMenu-paper MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation8 MuiPopover-paper css-1g99zn8" tabIndex="-1" 
-                          >
-                                <option key="3month"value="3month">3개월</option>
-                                <option key="6month" value="6month">6개월</option>
-                                <option key="1year" value="1year">1년</option>
-                            </select>
-
-                          <input
-                            className="MuiSelect-nativeInput css-1k3x8v3"
-                            defaultValue="3"
-                            aria-hidden="true"
-                            tabIndex="-1"
-                          
-                          />
-                          <svg
-                            className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiSelect-icon MuiSelect-iconOutlined css-1636szt"
-                            aria-hidden="true"
-                            focusable="false"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M7 10l5 5 5-5z"/>
-                          </svg>
-                          <fieldset
-                            className="MuiOutlinedInput-notchedOutline css-igs3ac"
-                            aria-hidden="true"
-                          >
-                            <legend
-                              className="css-nnbavb"
-                              style={{
-                                margin: "0px",
-                                boxSizing: "border-box",
-                                //border: "2px solid blue",
-                                verticalAlign: "top",
-                                padding: "0px",
-                                transition:
-                                  "width 150ms cubic-bezier(0, 0, 0.2, 1) 0ms",
-                                cssFloat: "unset",
-                                lineHeight: "11px",
-                              }}
-                            >
-                              <span className="notranslate">
-                                ​
-                              </span>
-                            </legend>
-                          </fieldset>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              */}
+                
               </div>
     
               <div className="DivideLine"/>
+
     
               <div className="OrderDetail">
-                {/* 동적 처리 */}
-                {/*주문 내역 상품별로 데이터 바뀌는 곳(back-end)*/}
-                <div className="OrderDetailContent">
-                  <div className="OrderDetailSubject" >
-                    <span className="OrderDetailDate">
-                      2023.06.02 (17시 13분)
-                    </span> 
+
+                {data.length === 0 ? (
+                  <div id="OrderDetail">
+                    <div className="noDataMessage" style={{fontSize:'12pt', textAlign:'center', marginTop:'2%'}}>지난 1년 내 주문 내역이 없습니다.</div>
                   </div>
+              ) : (
+                
+                  data.map((item, index) => (
+                    
+                    <div className='OrderDetailContent' key={index}>
+                      <div className="OrderDetailSubject">
+                        <span className="OrderDetailDate">
+                        {
+                          (() => {
+                            const dateString = item.logTime;
+                            const dateObj = new Date(dateString);
+                            const year = dateObj.getFullYear();
+                            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+                            const day = dateObj.getDate();
+                            const hours = dateObj.getHours();
+                            const minutes = dateObj.getMinutes();
 
-                  <div className="OrderDetailItem" >
-                    <div className="css-fhxb3m e1437c649">
-                      
-                      <NavLink to={"../address"}>
-                        <img
-                          className="OrderItemImg"
-                          alt="[아티제] 버터롤 상품 이미지"
-                          src="https://img-cf.kurly.com/shop/data/goods/1653038714146l0.jpeg"  
-                        />
-                      </NavLink>
-                      <div className="OrderItemDescript">
-                        <dl className="ItemRow e1437c646">
-                          <dt className="ItemCol1 e1437c645">
-                            상품명
-                          </dt>
-                          <dd className="ItemCol2 e1437c643">
-                            [아티제] 버터롤
-                          </dd>
-                        </dl>
-                        <dl className="ItemRow e1437c646">
-                          <dt className="ItemCol1 e1437c645">
-                            주문번호
-                          </dt>
-                          <dd className="ItemCol2 e1437c644">
-                            2307417130098
-                          </dd>
-                        </dl>
+                            const formattedDate = `${year}-${month}-${day}`;
+                            const formattedTime = `${hours.toString().padStart(2, '0')}시 ${minutes.toString().padStart(2, '0')}분`;
 
-                        <dl className="ItemRow e1437c646">
-                          <dt className="ItemCol1 e1437c645">
-                            결제방법
-                          </dt>
-                          <dd className="ItemCol2 e1437c644">
-                            신용카드
-                          </dd>
-                        </dl>
-                        <dl className="ItemRow e1437c646">
-                          <dt className="ItemCol1 e1437c645">
-                            결제금액
-                          </dt>
-                          <dd className="ItemCol2 e1437c644">
-                            2,500원
-                          </dd>
-                        </dl>
-                      </div>
-                    </div>
+                            return `${formattedDate} (${formattedTime})`;
+                          })()
+                        }
+                          
+                        </span>
+                      </div> {/* OrderDetailSubject */}
 
-                    <div className="DeliveryBox e1437c642">
-                      <span className="DeliveryState e1437c641">
-                        배송완료
-                      </span>
-                      <div className="ReviewBtnDiv e1437c640">
-                        <Link to='/review'>
-                        <button
-                          className="ReviewBtn e4nu7ef3"
-                          type="button"
-                          height="36"
-                          radius="3"
-                        >
-                          <span className="WriteReview e4nu7ef1">
-                            후기작성
+                      <div className="OrderDetailItem">
+                        <div className="css-fhxb3m e1437c649">
+                          <NavLink to={"../address"}>
+                            <img
+                              className="OrderItemImg"
+                              alt="상품 이미지"
+                              src={data[index].productImage}
+                            />
+                          </NavLink>
+                          <div className="OrderItemDescript">
+                            <dl className="ItemRow e1437c646">
+                              <dt className="ItemCol1 e1437c645">
+                                상품명
+                              </dt>
+                              <dd className="ItemCol2 e1437c643">
+                                {data[index].productTitle}
+                              </dd>
+                            </dl>
+                            <dl className="ItemRow e1437c646">
+                              <dt className="ItemCol1 e1437c645">
+                                주문번호
+                              </dt>
+                              <dd className="ItemCol2 e1437c644">
+                                {data[index].orderNum}
+                              </dd>
+                            </dl>
+                            <dl className="ItemRow e1437c646">
+                              <dt className="ItemCol1 e1437c645">
+                                수량
+                              </dt>
+                              <dd className="ItemCol2 e1437c644">
+                                {data[index].number} 개
+                              </dd>
+                            </dl>
+                            <dl className="ItemRow e1437c646">
+                              <dt className="ItemCol1 e1437c645">
+                                결제방법
+                              </dt>
+                              <dd className="ItemCol2 e1437c644">
+                                신용카드
+                              </dd>
+                            </dl>
+                            <dl className="ItemRow e1437c646">
+                              <dt className="ItemCol1 e1437c645">
+                                결제금액
+                              </dt>
+                              <dd className="ItemCol2 e1437c644">
+                              {((data[index].productPrice - (data[index].productPrice * (data[index].productSale * 0.01))) * data[index].number).toLocaleString()}원
+
+                              </dd>
+                            </dl>
+                          </div> {/* OrderItemDescript */}
+                        </div>  {/* css-fhxb3m e1437c649 */}
+
+                        <div className="DeliveryBox e1437c642">
+                          <span className="DeliveryState e1437c641">
+                          {
+                            (() => {
+                              const dateString = item.logTime;
+                              const dateObj = new Date(dateString);
+                              const currentTime = new Date(); // 현재 시간을 가져옴
+
+                              // 구매 시간으로부터 경과한 시간(분) 계산
+                              const elapsedMinutes = Math.floor((currentTime - dateObj) / (1000 * 60));
+
+                              if (elapsedMinutes >= 3) {
+                                return '배송 완료';
+                              } else {
+                                return data[index].deliveryState; // 기존의 deliveryState 값 반환
+                              }
+                            })()
+                          }
+
                           </span>
-                        </button>
-                        </Link>
-                      </div>
+                          <div className="ReviewBtnDiv e1437c640">
+                            <Link to='/review'>
+                            <button
+                              className="ReviewBtn e4nu7ef3"
+                              type="button"
+                              height="36"
+                              radius="3"
+                            >
+                              <span className="WriteReview e4nu7ef1">
+                                후기작성
+                              </span>
+                            </button>
+                            </Link>
+                          </div>
+                        </div>
+                      </div> {/* OrderDetailItem */}
                     </div>
-                  </div>
-                </div>
+                  ))
+                )}
+
+              
                 
                 <div
                   className="css-bx0kqw e1mkosgq0"

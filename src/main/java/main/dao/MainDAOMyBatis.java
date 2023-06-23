@@ -1,8 +1,14 @@
 package main.dao;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionException;
@@ -12,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
+import main.bean.DeliveryDTO;
 import main.bean.FaqDTO;
+import main.bean.HistoryDTO;
 import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
@@ -213,7 +221,78 @@ public class MainDAOMyBatis implements MainDAO {
 	}
 
 	@Override
+	public void order_success(Map map) {
+	    ArrayList<Integer> products = (ArrayList) map.get("products");
+	    ArrayList<Integer> numbers = (ArrayList) map.get("numbers");
+	    
+	    for (int i = 0; i < products.size(); i++) {
+	        int product = products.get(i);
+	        int number = numbers.get(i);
+	        
+	        map.put("product", product);
+	        map.put("number", number);
+	        
+	        Random random = new Random();
+	        int order_num = random.nextInt(900000000) + 100000000;
+	        map.put("order_num", order_num);
+	        
+	        String delivery_state = "배송중";
+	        map.put("delivery_state", delivery_state);
+	        
+	        LocalDateTime currentTime = LocalDateTime.now();
+	        map.put("logtime", currentTime);
+	        
+	        sqlSession.insert("mainSQL.order_success", map);
+	    }
+	}
+
+
+
+	@Override
+	public List<CartDTO> mycartList(Map map) {
+
+		return sqlSession.selectList("mainSQL.mycartList", map);
+	}
+
+	@Override
+	public void cart_allDelete(Map map) {
+		
+		sqlSession.delete("mainSQL.cart_allDelete", map);
+	}
+
+	@Override
+	public List<HistoryDTO> order_history(Map map) {
+		
+		return sqlSession.selectList("mainSQL.order_history", map);
+	}
+
+	
 	public void delivery_insert(Map<String, String> map) {
 		sqlSession.insert("mainSQL.delivery_insert", map);
 	}
+	
+	@Override
+	public UserDTO checkInfo(Map map) {
+		return sqlSession.selectOne("mainSQL.checkInfo", map);
+	}
+
+	@Override
+	public UserDTO userUpdate(Map map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("mainSQL.userUpdate", map);
+	}
+
+	@Override
+	public List<DeliveryDTO> delivery_list(Map map) {
+
+		return sqlSession.selectList("mainSQL.delivery_list", map);
+	}
+
+	@Override
+	public void delivery_delete(Map map) {
+		sqlSession.delete("mainSQL.delivery_delete", map);
+	}
+
+	
+	
 }

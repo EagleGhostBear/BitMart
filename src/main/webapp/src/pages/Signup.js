@@ -210,14 +210,6 @@ const Signup = (props) => {
                   <li>• 아이디 중복확인</li>
                 </InfoUl>
               )}
-              {
-                userId !== "" && userIdCheck(userId) && (
-                  <InfoUl className="checkId">
-                    <li>✓ 6자 이상의 영문 혹은 영문과 숫자를 조합</li>
-                    <li>✓ 아이디 중복확인</li>
-                  </InfoUl>
-                )
-              }
               
             </td>
           </tr>

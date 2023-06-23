@@ -5,7 +5,9 @@ import java.util.Map;
 
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
+import main.bean.DeliveryDTO;
 import main.bean.FaqDTO;
+import main.bean.HistoryDTO;
 import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
@@ -70,10 +72,28 @@ public interface MainDAO {
 	
 	public void views_update(Map map);
 
-	
 	UserDTO checkName(String name);
 	
 	UserDTO findPwd(Map map);
 
+	void order_success(Map map);
+
+	List<CartDTO> mycartList(Map map);
+
+	void cart_allDelete(Map map);
+
+	List<HistoryDTO> order_history(Map map);
+
     public void delivery_insert(Map<String, String> map);
+    
+	UserDTO checkInfo(Map map);
+
+	UserDTO userUpdate(Map map); 
+
+	List<DeliveryDTO> delivery_list(Map map);
+
+	public void delivery_delete(Map map);
+    
+
+	
 }

@@ -86,7 +86,7 @@
 	</select>
 	
 	<insert id="cart_insert" parameterType="java.util.Map">
-		insert into cart(user, product, number) values(#{user_seq}, #{product_seq}, 1)
+		insert into cart(user, product, number) values(#{user_seq}, #{product_seq}, #{product_number})
 	</insert>
 
 	<select id="getNoticeList" resultType="main.bean.NoticeDTO">
@@ -174,10 +174,48 @@
 	<select id="checkName" resultType="main.bean.UserDTO" parameterType="String">
 		SELECT * FROM user where name=#{name}
 	</select>
-
-	<insert id="delivery_insert" parameterType="java.util.Map">
-		INSERT INTO deliveryaddr (addr1, addr2, name, tel1, tel2, tel3)
-		values(#{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3})
+	
+	<insert id="order_success" parameterType="java.util.Map">
+	  INSERT INTO order_history (order_num, user, product, number, delivery_state,logtime) 
+	  VALUES (#{order_num}, #{user}, #{product}, #{number}, #{delivery_state}, #{logtime})
 	</insert>
 
+	<delete id="cart_allDelete" parameterType="java.util.Map">
+	  DELETE FROM cart WHERE user = #{user}
+	</delete>
+	
+	<select id="order_history" parameterType="java.util.Map" resultType="main.bean.HistoryDTO">
+		SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.logtime AS logTime,
+       	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
+		FROM order_history OH
+		JOIN product P ON P.seq = OH.product
+		WHERE OH.user = #{user}
+	</select>
+	
+	<insert id="delivery_insert" parameterType="java.util.Map">
+		INSERT INTO deliveryaddr ( user, addr1, addr2, name, tel1, tel2, tel3)
+		values(#{user}, #{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3})
+	</insert>
+	
+	<select id="checkInfo" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where id=#{id} and pwd=#{pwd}
+	</select>
+	
+	<select id="userUpdate" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where seq=#{seq}
+	</select>
+
+	<select id="delivery_list" parameterType="java.util.Map" resultType="main.bean.DeliveryDTO">
+		select * from deliveryaddr where user=#{user};
+	</select>
+
+	<delete id="delivery_delete" parameterType="java.util.Map">
+		delete from deliveryaddr where seq = #{seq}
+	</delete>
+<!--	<select id="delivery_delete" parameterType="java.util.Map" resultType="main.bean.DeliveryDTO">-->
+<!--		select * from deliveryaddr where user=#{user};-->
+<!--	</select>-->
+	<select id="mycartList" parameterType="java.util.Map" resultType="CartDTO">
+		SELECT * FROM cart where user = #{user}
+	</select>
 </mapper>

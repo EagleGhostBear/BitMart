@@ -13,5 +13,5 @@ public class NoticeDTO {
     private String title;
     private String content;
     private String author;
-    private java.sql.Date date;
+    private Date date;
 }

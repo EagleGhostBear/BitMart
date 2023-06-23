@@ -38,7 +38,7 @@ const Main = (props) => {
         <Kurlyonly></Kurlyonly>
         <MiddleBanner></MiddleBanner>
         <Sale></Sale>
-        <MD></MD>
+        {/* <MD></MD> */}
       </Wrap>
     </HeaderContainer>
   );

@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
+import main.bean.DeliveryDTO;
 import main.bean.FaqDTO;
+import main.bean.HistoryDTO;
 import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
@@ -205,10 +207,62 @@ public class MainServiceImpl implements MainService {
 		
 		mainDAO.views_update(map);
 	}
+
+	@Override
+	public void order_success(Map map) {
+		
+		mainDAO.order_success(map);
+	}
+
+	@Override
+	public List<CartDTO> mycartList(Map map) {
+		
+		return mainDAO.mycartList(map);
+	}
+
+	@Override
+	public void cart_allDelete(Map map) {
+		
+		mainDAO.cart_allDelete(map);
+	}
+
+	@Override
+	public List<HistoryDTO> order_history(Map map) {
+		
+		return mainDAO.order_history(map);
+	}
+
+
 	
 	@Override
 	public void delivery_insert(Map<String, String> map) {
-		
+		// TODO Auto-generated method stub
 		mainDAO.delivery_insert(map);
 	}
+	
+	@Override
+	public UserDTO checkInfo(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.checkInfo(map);
+	}
+
+	@Override
+	public UserDTO userUpdate(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.userUpdate(map);
+	}
+
+	@Override
+	public List<DeliveryDTO> delivery_list(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.delivery_list(map);
+	}
+
+	@Override
+	public void delivery_delete(Map map) {
+		mainDAO.delivery_delete(map);
+	}
+
+
+	
 }
