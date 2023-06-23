@@ -86,7 +86,7 @@
 	</select>
 	
 	<insert id="cart_insert" parameterType="java.util.Map">
-		insert into cart(user, product, number) values(#{user_seq}, #{product_seq}, 1)
+		insert into cart(user, product, number) values(#{user_seq}, #{product_seq}, #{product_number})
 	</insert>
 
 	<select id="getNoticeList" resultType="main.bean.NoticeDTO">
