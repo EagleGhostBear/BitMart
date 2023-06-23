@@ -25,8 +25,6 @@ import {
   Payment,
   Category,
   ConfirmPwd,
-  Modify,
-  Delete,
   notices,
   NoticeListPage,
   NoticeDetailPage,
@@ -78,9 +76,6 @@ function App() {
         <Route path="/category/:tag" element={<Category searchValue={searchValue} />} />
         <Route path="/FindPwd" element={<FindPwd />} />
         <Route path="/FindId" element={<FindId />} />
-        <Route path="/ConfirmPwd" element={<ConfirmPwd />} />
-        <Route path="/Modify" element={<Modify />} />
-        <Route path="/Delete" element={<Delete />} />
         <Route path="/findPwdCert" element={<FindPwdCert/>}/>
         <Route path="/confirmPwd" element={<ConfirmPwd />} />
         <Route path="/orderlist" element={<OrderList />} />
