@@ -238,11 +238,16 @@ const Order = () => {
               </div>
     
               <div className="DivideLine"/>
+
     
               <div className="OrderDetail">
-                {/* 동적 처리 */}
-                {/*주문 내역 상품별로 데이터 바뀌는 곳(back-end)*/}
-                {
+
+                {data.length === 0 ? (
+                  <div id="OrderDetail">
+                    <div className="noDataMessage" style={{fontSize:'12pt', textAlign:'center', marginTop:'2%'}}>지난 1년 내 주문 내역이 없습니다.</div>
+                  </div>
+              ) : (
+                
                   data.map((item, index) => (
                     <div className='OrderDetailContent' key={index}>
                       <div className="OrderDetailSubject">
@@ -327,83 +332,9 @@ const Order = () => {
                       </div> {/* OrderDetailItem */}
                     </div>
                   ))
-                }
+                )}
 
-                {/* <div className="OrderDetailContent">
-                  <div className="OrderDetailSubject" >
-                    <span className="OrderDetailDate">
-                      2023.06.02 (17시 13분)
-                    </span> 
-                  </div>
-
-                  <div className="OrderDetailItem" >
-                    <div className="css-fhxb3m e1437c649">
-                      
-                      <NavLink to={"../address"}>
-                        <img
-                          className="OrderItemImg"
-                          alt="[아티제] 버터롤 상품 이미지"
-                          src="https://img-cf.kurly.com/shop/data/goods/1653038714146l0.jpeg"  
-                        />
-                      </NavLink>
-                      <div className="OrderItemDescript">
-                        <dl className="ItemRow e1437c646">
-                          <dt className="ItemCol1 e1437c645">
-                            상품명
-                          </dt>
-                          <dd className="ItemCol2 e1437c643">
-                            [아티제] 버터롤
-                          </dd>
-                        </dl>
-                        <dl className="ItemRow e1437c646">
-                          <dt className="ItemCol1 e1437c645">
-                            주문번호
-                          </dt>
-                          <dd className="ItemCol2 e1437c644">
-                            2307417130098
-                          </dd>
-                        </dl>
-
-                        <dl className="ItemRow e1437c646">
-                          <dt className="ItemCol1 e1437c645">
-                            결제방법
-                          </dt>
-                          <dd className="ItemCol2 e1437c644">
-                            신용카드
-                          </dd>
-                        </dl>
-                        <dl className="ItemRow e1437c646">
-                          <dt className="ItemCol1 e1437c645">
-                            결제금액
-                          </dt>
-                          <dd className="ItemCol2 e1437c644">
-                            2,500원
-                          </dd>
-                        </dl>
-                      </div>
-                    </div>
-
-                    <div className="DeliveryBox e1437c642">
-                      <span className="DeliveryState e1437c641">
-                        배송완료
-                      </span>
-                      <div className="ReviewBtnDiv e1437c640">
-                        <Link to='/review'>
-                        <button
-                          className="ReviewBtn e4nu7ef3"
-                          type="button"
-                          height="36"
-                          radius="3"
-                        >
-                          <span className="WriteReview e4nu7ef1">
-                            후기작성
-                          </span>
-                        </button>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
+              
                 
                 <div
                   className="css-bx0kqw e1mkosgq0"
