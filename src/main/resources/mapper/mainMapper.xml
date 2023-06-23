@@ -180,10 +180,6 @@
 	  VALUES (#{order_num}, #{user}, #{product}, #{number}, #{delivery_state}, #{logtime})
 	</insert>
 
-	<select id="mycartList" parameterType="java.util.Map" resultType="CartDTO">
-	  SELECT * FROM cart WHERE user = #{user}
-	</select>
-
 	<delete id="cart_allDelete" parameterType="java.util.Map">
 	  DELETE FROM cart WHERE user = #{user}
 	</delete>
