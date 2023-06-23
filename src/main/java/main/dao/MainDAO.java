@@ -94,9 +94,6 @@ public interface MainDAO {
 
 	public void delivery_delete(Map map);
     
-	UserDTO checkInfo(Map map);
-
-	UserDTO userUpdate(Map map); 
 
 	
 }
