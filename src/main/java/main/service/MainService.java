@@ -67,5 +67,9 @@ public interface MainService {
 	
 
 	public void delivery_insert(Map<String, String> map);
+	
+	UserDTO checkInfo(Map map);
+
+	UserDTO userUpdate(Map map);
 }
 
