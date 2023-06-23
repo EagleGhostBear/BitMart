@@ -269,4 +269,6 @@ public class MainDAOMyBatis implements MainDAO {
 	public void delivery_insert(Map<String, String> map) {
 		sqlSession.insert("mainSQL.delivery_insert", map);
 	}
+
+	
 }
