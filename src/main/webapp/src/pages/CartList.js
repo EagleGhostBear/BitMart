@@ -7,7 +7,7 @@ import { cart_list } from "../components/CartItem";
 
 import { actionCreators as cartActions } from "../redux/modules/cart";
 import { CartItem } from "../components/component";
-import axios from "axios";
+import axios from 'axios';
 
 const CartList = (props) => {
   const dispatch = useDispatch();
@@ -55,10 +55,9 @@ const CartList = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log("token_key: ", token_key);
-    axios
-      .post("/cart_list", { seq: token_key })
-      .then((response) => setData(response.data));
+    console.log("token_key: ", token_key)
+    axios.post('/cart_list', { seq: token_key })
+      .then(response => setData(response.data));
 
     const jquery = document.createElement("script");
     jquery.src = "https://code.jquery.com/jquery-1.12.4.min.js";
@@ -80,15 +79,17 @@ const CartList = (props) => {
       pay_method: "card",
       merchant_uid: String(new Date().getTime()),
       name: "Bit-Kurly 상품구매",
-      amount: now_price - discount_price + delivery_price,
-      custom_data: { name: "홍길동", tel: "010-1234-5678" },
-      buyer_name: "홍길동",
-      buyer_tel: "010-1234-5678",
-      buyer_email: "hong@naver.com",
-      buyer_addr: "서울특별시 강남구 삼성동",
-      buyer_postcode: "123-456",
+      amount: (now_price - discount_price + delivery_price),
+      custom_data: { name: '홍길동', tel: '010-1234-5678' },
+      buyer_name: '홍길동',
+      buyer_tel: '010-1234-5678',
+      buyer_email: 'hong@naver.com',
+      buyer_addr: '서울특별시 강남구 삼성동',
+      buyer_postcode: '123-456',
     };
     IMP.request_pay(paymentdata, callback);
+    
+      
   };
 
   const callback = (response) => {
@@ -202,20 +203,22 @@ const CartList = (props) => {
               })} */}
             {data.map((item, i) => {
               now_price += item.price * item.number;
-              discount_price += (item.sale / 100) * item.price * item.number;
-              if (now_price - discount_price < 40000) {
-                delivery_price = 3000;
-              } else delivery_price = 0;
-              return <CartItem key={i} {...item} />;
+              discount_price += ((item.sale/100) * item.price * item.number);
+              if( (now_price - discount_price) < 40000 ) {delivery_price=3000}
+              else delivery_price=0;
+              return (
+                <CartItem key={i} {...item} />
+              );
             })}
           </ProductWrapper>
 
           <PriceWrapper>
             {/* <DeliveryArea> */}
-
-            <AddressForm />
-
+             
+        <AddressForm />
+      
             {/* </DeliveryArea> */}
+         
 
             <PriceArea>
               <PriceDetail>
@@ -229,9 +232,7 @@ const CartList = (props) => {
               <PriceDetail>
                 <div className="discount-area">
                   <p className="discount">상품할인금액</p>
-                  <p className="discount-price">
-                    {discount_price.toLocaleString("ko-KR")}원
-                  </p>
+                  <p className="discount-price">{discount_price.toLocaleString("ko-KR")}원</p>
                 </div>
               </PriceDetail>
               <PriceDetail>
@@ -259,10 +260,7 @@ const CartList = (props) => {
                     float: "right",
                   }}
                 >
-                  {(now_price - discount_price + delivery_price).toLocaleString(
-                    "ko-KR"
-                  )}
-                  원
+                  {(now_price - discount_price + delivery_price).toLocaleString("ko-KR")}원
                 </p>
               </PriceDetail>
               <Point>
@@ -276,6 +274,7 @@ const CartList = (props) => {
             </PriceArea>
 
             <ButtonArea>
+              
               <button
                 type="button" // type 속성을 "button"으로 설정
                 onClick={onClickPayment}
@@ -511,6 +510,7 @@ const PriceDetail = styled.div`
   .discount {
     float: left;
     margin: 0;
+   
   }
   .discount-price {
     float: right;
@@ -535,6 +535,7 @@ const PriceDetail = styled.div`
   .discount-area {
     height: 36.5px;
     padding-top: 11px;
+
   }
 `;
 
@@ -594,3 +595,5 @@ const Notice = styled.div`
     }
   }
 `;
+
+

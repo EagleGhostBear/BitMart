@@ -64,12 +64,13 @@ public interface MainDAO {
 
 	public void updateInquiry(InquiryDTO inquiry); //
 
-	public void deleteInquiry(int id);
+	public void deleteInquiry(int id); //
+
 
 	List<CartDTO> order_list(Map map);
 	
 	public void views_update(Map map);
-	
+
 	UserDTO checkName(String name);
 	
 	UserDTO findPwd(Map map);
@@ -81,8 +82,7 @@ public interface MainDAO {
 	void cart_allDelete(Map map);
 
 	List<HistoryDTO> order_history(Map map);
-
     public void delivery_insert(Map<String, String> map);
 
-	List<HistoryDTO> getOrderHistory(String user);
+	
 }

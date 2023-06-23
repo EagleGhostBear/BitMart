@@ -141,6 +141,36 @@ const ModalReview = (props) => {
           </main>
           {/* 사진 업로드시작 */}
 
+          <div className="uploadWrap">
+            <label className="upload">사진 첨부</label>
+            {/* <span className="imgUpload"></span> */}
+            <label className="photoUpload">
+              <img
+                src="https://res.kurly.com/pc/ico/1806/img_add_thumb_x2.png"
+                style={{
+                  width: "20px",
+                  marginTop: "33px",
+                  color: "#e2e2e2",
+                }}
+              />
+              <input
+                type="file"
+                id="photoUpload"
+                accept="image/*"
+                multiple
+                onChange={handlePhotoUpload}
+                //ref={fileInput}
+                // disabled={uploading}
+              />
+            </label>
+            {/* <input
+                  type="file"
+                  id="photoUpload"
+                  accept="image/*"
+                  multiple
+                  onChange={handlePhotoUpload}
+                /> */}
+          </div>
 
           <footer>
             <button className="close" onClick={close}>
