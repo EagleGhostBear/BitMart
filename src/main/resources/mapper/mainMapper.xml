@@ -180,10 +180,6 @@
 	  VALUES (#{order_num}, #{user}, #{product}, #{number}, #{delivery_state}, #{logtime})
 	</insert>
 
-	<select id="mycartList" parameterType="java.util.Map" resultType="CartDTO">
-	  SELECT * FROM cart WHERE user = #{user}
-	</select>
-
 	<delete id="cart_allDelete" parameterType="java.util.Map">
 	  DELETE FROM cart WHERE user = #{user}
 	</delete>
@@ -193,12 +189,12 @@
        	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
 		FROM order_history OH
 		JOIN product P ON P.seq = OH.product
-		WHERE OH.user = #{user};
+		WHERE OH.user = #{user}
 	</select>
 	
 	<insert id="delivery_insert" parameterType="java.util.Map">
-		INSERT INTO deliveryaddr (addr1, addr2, name, tel1, tel2, tel3)
-		values(#{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3})
+		INSERT INTO deliveryaddr ( user, addr1, addr2, name, tel1, tel2, tel3)
+		values(#{user}, #{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3})
 	</insert>
 	
 	<select id="checkInfo" parameterType="java.util.Map" resultType="main.bean.UserDTO">
@@ -209,4 +205,17 @@
 		select * from user where seq=#{seq}
 	</select>
 
+	<select id="delivery_list" parameterType="java.util.Map" resultType="main.bean.DeliveryDTO">
+		select * from deliveryaddr where user=#{user};
+	</select>
+
+	<delete id="delivery_delete" parameterType="java.util.Map">
+		delete from deliveryaddr where seq = #{seq}
+	</delete>
+<!--	<select id="delivery_delete" parameterType="java.util.Map" resultType="main.bean.DeliveryDTO">-->
+<!--		select * from deliveryaddr where user=#{user};-->
+<!--	</select>-->
+	<select id="mycartList" parameterType="java.util.Map" resultType="CartDTO">
+		SELECT * FROM cart where user = #{user}
+	</select>
 </mapper>
