@@ -125,6 +125,26 @@
 	<select id="comment_count" parameterType="java.util.Map" resultType="String">
 		SELECT COUNT(*) AS count FROM comment WHERE product = #{product}
 	</select>
+	
+	<select id="getInquiryList" resultType="main.bean.InquiryDTO">
+    	SELECT * FROM inquiry
+	</select>
+
+	<insert id="insertInquiry" parameterType="main.bean.InquiryDTO">
+   	 INSERT INTO inquiry (title, content, createdAt, replyStatus, type, subType)
+   	 VALUES (#{title}, #{content}, #{createdAt}, #{replyStatus}, #{type}, #{subType})
+	</insert>
+
+	<update id="updateInquiry" parameterType="main.bean.InquiryDTO">
+    	UPDATE inquiry
+    	SET title = #{title}, content = #{content}, createdAt = #{createdAt}
+    	WHERE id = #{id}
+	</update>
+
+	<delete id="deleteInquiry" parameterType="int">
+    	DELETE FROM inquiry
+    	WHERE id = #{id}
+	</delete>
 
 	<select id ="order_list" parameterType="java.util.Map" resultType="main.bean.CartDTO">
 		SELECT product.seq, product.image, product.title, floor(product.price*(1-(sale*0.01))) as real_price, '배송 중' as deliverystate

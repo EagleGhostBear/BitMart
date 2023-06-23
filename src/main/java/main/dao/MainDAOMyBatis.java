@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
 import main.bean.FaqDTO;
+import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
@@ -176,6 +177,25 @@ public class MainDAOMyBatis implements MainDAO {
 	}
 
 	@Override
+	public List<InquiryDTO> getInquiryList() {
+	    return sqlSession.selectList("mainSQL.getInquiryList");
+	}
+
+	@Override
+	public void insertInquiry(InquiryDTO inquiry) {
+	    sqlSession.insert("mainSQL.insertInquiry", inquiry);
+	}
+
+	@Override
+	public void updateInquiry(InquiryDTO inquiry) {
+	    sqlSession.update("mainSQL.updateInquiry", inquiry);
+	}
+
+	@Override
+	public void deleteInquiry(int id) {
+	    sqlSession.delete("mainSQL.deleteInquiry", id);
+	}
+
 	public List<CartDTO> order_list(Map map) {
 
 		List<CartDTO> list = sqlSession.selectList("mainSQL.order_list", map);

@@ -2,6 +2,7 @@ package main.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +26,7 @@ import jakarta.servlet.http.HttpSession;
 import main.bean.CartDTO;
 import main.bean.CommentDTO;
 import main.bean.FaqDTO;
+import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
@@ -253,6 +257,8 @@ public class MainController {
 	    mainService.signUp(map);
 	}
 	
+
+	
 	@PostMapping(value = "comment_list")
 	@ResponseBody
 	public List<CommentDTO> comment_list(@RequestBody Map map) {
@@ -267,6 +273,67 @@ public class MainController {
 	public String comment_count(@RequestBody Map map) {
 		
 		return mainService.comment_count(map);
+	}
+	
+	@GetMapping("/api/inquiries")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public List<InquiryDTO> getInquiries() {
+	    List<InquiryDTO> inquiries = mainService.getInquiryList();
+	    for (InquiryDTO inquiry : inquiries) {
+	     String selectedType = inquiry.getType();
+       if (selectedType.equals("주문/결제/반품/교환문의") || selectedType.equals("상품문의")) {
+	        String selectedSubType = inquiry.getSubType();
+	        inquiry.setSubType(selectedSubType);
+	        }
+	    }
+	    return inquiries;
+	}
+
+	@PostMapping("/api/inquiries")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void insertInquiry(@RequestBody InquiryDTO inquiry) {
+	    String selectedType = inquiry.getType();
+	    String selectedSubType = inquiry.getSubType();
+
+	   
+	    if (selectedType.equals("주문/결제/반품/교환문의")) {
+	    	if (selectedSubType == null || selectedSubType.isEmpty()) {
+	            throw new IllegalArgumentException("상세 유형은 필수 입력입니다.");
+	        }
+	    } else if (selectedType.equals("상품문의")) {
+	       
+	        if (selectedSubType == null || selectedSubType.isEmpty()) {
+	            throw new IllegalArgumentException("상세 유형은 필수 입력입니다.");
+	        }
+	    } else if (selectedType.equals("기타문의")) {
+	        
+	        if (selectedSubType == null || selectedSubType.isEmpty()) {
+	            inquiry.setSubType(null);
+	        }
+	    } else {
+	        inquiry.setSubType(null);
+	    }
+	    if (selectedType == null && inquiry.getSubType() == null) {
+	        throw new IllegalArgumentException("유형은 필수 입력입니다.");
+	    }
+	    mainService.insertInquiry(inquiry);
+	}
+
+	@PutMapping("/api/inquiries/{id}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void updateInquiry(@PathVariable("id") int id, @RequestBody InquiryDTO inquiry) {
+	    inquiry.setId(id);
+	    mainService.updateInquiry(inquiry);
+	}
+
+	@DeleteMapping("/api/inquiries/{id}")
+	@CrossOrigin(origins = "http://localhost:3000")
+	@ResponseBody
+	public void deleteInquiry(@PathVariable("id") int id) {
+	    mainService.deleteInquiry(id);
 	}
 
 
