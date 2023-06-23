@@ -34,6 +34,7 @@ import {
   Review,
   FindPwdCert,
   ResetPwd,
+  // Modify
 } from "../pages/page";
 
 function App() {
@@ -88,6 +89,7 @@ function App() {
         <Route path="/*" element={<NotFound />} />
         <Route path="/review" element={<Review />} />
         <Route path="/resetpwd" element={<ResetPwd/>}/> 
+        {/* <Route path="/modify" element={<Modify/>}/> */}
       </Routes>
     </div>
   );
