@@ -293,6 +293,12 @@ public class MainDAOMyBatis implements MainDAO {
 		sqlSession.delete("mainSQL.delivery_delete", map);
 	}
 
+	@Override
+	public List<HistoryDTO> getOrderHistory(String user) {
+		
+		return sqlSession.selectList("mainSQL.getOrderHistory", user);
+	}
+
 	
 	
 }

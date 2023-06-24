@@ -6,7 +6,6 @@ import Tab from "../elements/Tab";
 import axios from "axios";
 //import ReviewData from "../components/ReviewData";
 
-
 const Modal = ({ isOpen, content }) => {
   //탭 여닫는부분 스타일
   const modalStyle = {
@@ -34,23 +33,22 @@ const Mypage = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios({ // 스프링에서의 ajax느낌
-      method: 'post', // post방식으로 보내겠다
-      url: 'order_history', //스프링부트의 Controller의 order_history로 가라
+    axios({
+      // 스프링에서의 ajax느낌
+      method: "post", // post방식으로 보내겠다
+      url: "order_history", //스프링부트의 Controller의 order_history로 가라
       data: {
         user: token_key,
       },
     })
-    .then((res) => {
-      console.log(res.data);
-      setData(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
-  
-
 
   const openModal = () => {
     setModalOpen(true);
@@ -82,7 +80,7 @@ const Mypage = () => {
         {/* 메뉴바 시작 */}
         <ul className={styles["menu-ul"]}>
           <li className={styles["menu-ul-li"]}>
-            <a className={styles["menu-a"]}>
+            <a className={styles["menu-a"]} href="/order">
               주문내역
               <svg
                 id="Arrow"
@@ -115,7 +113,7 @@ const Mypage = () => {
             </a>
           </li>
           <li className={styles["menu-ul-li"]}>
-            <a className={styles["menu-a"]}>
+            <a className={styles["menu-a"]} href="/address">
               배송지 관리
               <svg
                 className={styles["menu-a-svg"]}
@@ -142,7 +140,7 @@ const Mypage = () => {
             </a>
           </li>
           <li className={styles["menu-ul-li"]}>
-            <a className={styles["menu-a"]}>
+            <a className={styles["menu-a"]} href="/review">
               상품후기
               <svg
                 className={styles["menu-a-svg"]}
@@ -169,7 +167,7 @@ const Mypage = () => {
             </a>
           </li>
           <li className={styles["menu-ul-li"]}>
-            <a className={styles["menu-a"]}>
+            <a className={styles["menu-a"]} href="/ConfirmPwd">
               개인정보수정
               <svg
                 className={styles["menu-a-svg"]}
@@ -225,34 +223,46 @@ const Mypage = () => {
 
           {modalOpen2 ? <Modal isOpen={modalOpen2} content="" /> : null}
         </div>
-        {modalOpen1 ? (
-          <div className={styles.reviewContainer}>
-            <div className={styles.reviewItem}>
-              <div className={styles.imageContainer}>
-                {/* <img className={styles.productImage} alt=".." src={data[0].productImage} /> */}
-              </div>
-              <div className={styles.productInfo}>
-                <a href="https://www.kurly.com/goods">
-                  {/* <span className={styles.productName}>{data[0].productTitle}</span> */}
-                </a>
-                <div className={styles.dateWrap}>
-                  <span className={styles.date}>날짜</span>
+        {modalOpen1
+          ? data.map((item, index) => (
+              <div className={styles.reviewContainer}>
+                <div className={styles.reviewItem}>
+                  <div className={styles.imageContainer}>
+                    <img
+                      className={styles.productImage}
+                      alt="상품이미지"
+                      src={data[index].productImage}
+                    />
+                  </div>
+                  <div className={styles.productInfo}>
+                    <a href="https://www.kurly.com/goods">
+                      <span className={styles.productName}>
+                        {data[index].productTitle}
+                      </span>
+                    </a>
+                    <div className={styles.dateWrap}>
+                      <span className={styles.date}>{data[index].logTime}</span>
+                    </div>
+                  </div>
+                  <React.Fragment>
+                    <button
+                      onClick={() => openModal(data)}
+                      data={data}
+                      className={styles.modalButton}
+                    >
+                      후기 작성
+                    </button>
+                    <ReviewWrite
+                      open={modalOpen}
+                      close={closeModal}
+                      header="후기"
+                    ></ReviewWrite>
+                  </React.Fragment>
+                  <div className={styles.contentWrap}></div>
                 </div>
               </div>
-              <React.Fragment>
-                <button onClick={openModal} className={styles.modalButton}>
-                  후기 작성
-                </button>
-                <ReviewWrite
-                  open={modalOpen}
-                  close={closeModal}
-                  header="후기"
-                ></ReviewWrite>
-              </React.Fragment>
-              <div className={styles.contentWrap}></div>
-            </div>
-          </div>
-        ) : null}
+            ))
+          : null}
       </div>
     </div>
   );

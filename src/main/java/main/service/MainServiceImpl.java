@@ -263,6 +263,12 @@ public class MainServiceImpl implements MainService {
 		mainDAO.delivery_delete(map);
 	}
 
+	@Override
+	public List<HistoryDTO> getOrderHistory(String user) {
+		// TODO Auto-generated method stub
+		return mainDAO.getOrderHistory(user);
+	}
+
 
 	
 }
