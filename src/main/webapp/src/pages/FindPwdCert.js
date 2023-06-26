@@ -1,12 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FindPwdCert = () => {
   const [cert, setCert] = useState("");
   const [isDeleteVisible, setDeleteVisible] = useState(false);
   const [isCertMatching, setCertMatching] = useState(null);
+  const [mailCert, setMailCert] = useState('');
+  const navigate = useNavigate();
   const handleDelete = () => {
     setCert('');
     setDeleteVisible(false);
@@ -19,7 +21,6 @@ const FindPwdCert = () => {
     setCertMatching(null);
   };
 
-  const [mailCert, setMailCert] = useState('');
 
   useEffect(() => {
     axios.post('/api/sendMail')
@@ -70,7 +71,7 @@ const FindPwdCert = () => {
             </DeleteButton>
           )}
         </PwdCertWrapper>
-        {isCertMatching === true && (
+        {isCertMatching === true && cert !== '' && mailCert !== '' && (
           <MatchingMessage style={{ color: 'green' }}>인증번호가 일치합니다</MatchingMessage>
         )}
         {isCertMatching === false && (
@@ -80,13 +81,13 @@ const FindPwdCert = () => {
         <ButtonContainer>
           <ButtonFindPwd
             style={{
-              backgroundColor: "#5f0080",
-              cursor: "pointer"
+              backgroundColor: isCertMatching === true && cert !== '' && mailCert !== '' ? "#5f0080" : "#999",
+              cursor: isCertMatching === true && cert !== '' && mailCert !== '' ? "pointer" : "default"
             }}
-          > 
-          <Link to="/resetpwd">
+            disabled={isCertMatching === false}
+            onClick={() => navigate('/resetpwd')}
+          >
             확인
-            </Link>
           </ButtonFindPwd>
         </ButtonContainer>
       </FindPwdCertWrap>
@@ -104,7 +105,6 @@ const PwdCert = styled.div`
 position: relative;
 height: 48px;
 font-size: 16px;
-display: none;
 `;
 
 const ButtonContainer = styled.div`
