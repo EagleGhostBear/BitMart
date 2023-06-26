@@ -33,6 +33,7 @@ import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
+import main.service.MailService;
 import main.service.MainService;
 
 @Controller
@@ -494,6 +495,7 @@ public class MainController {
 		System.out.println("여기까지 오나?");
 		return mainService.userUpdate(map); 
 	}
+	
 }
 
 
