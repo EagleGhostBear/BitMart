@@ -278,7 +278,6 @@ public class MainDAOMyBatis implements MainDAO {
 
 	@Override
 	public UserDTO userUpdate(Map map) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mainSQL.userUpdate", map);
 	}
 
@@ -294,6 +293,27 @@ public class MainDAOMyBatis implements MainDAO {
 	}
 
 	@Override
+	public UserDTO getId(Map map) {
+		return sqlSession.selectOne("mainSQL.getId", map);
+	}
+
+	@Override
+	public void modifyMember(Map map) {
+		String email = (String) map.get("email");
+		String[] parts = email.split("@"); // "@"를 기준으로 email을 나눔
+	    String email1 = parts[0]; // "@" 앞 부분
+	    String email2 = parts[1]; // "@" 뒷 부분
+	    map.put("email1", email1);
+	    map.put("email2", email2);
+	    System.out.println("email1의 값 = "+ email1);
+	    System.out.println("email2의 값 = " + email2);
+		sqlSession.update("mainSQL.modifyMember", map);
+	}
+	
+	@Override
+	public void deleteUser(Map map) {
+		sqlSession.delete("mainSQL.deleteUser", map);
+	}
 	public List<HistoryDTO> getOrderHistory(String user) {
 		
 		return sqlSession.selectList("mainSQL.getOrderHistory", user);
@@ -306,6 +326,8 @@ public class MainDAOMyBatis implements MainDAO {
 		sqlSession.insert("mainSQL.ReviewSubmit", reviewData);
 		
 		
+	public void update_checked(Map map) {
+		sqlSession.update("mainSQL.update_checked", map);
 	}
 
 	

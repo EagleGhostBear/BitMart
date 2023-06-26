@@ -94,9 +94,15 @@ public interface MainDAO {
 
 	public void delivery_delete(Map map);
 
+	UserDTO getId(Map map);
+
+	public void modifyMember(Map map);
+	
+	public void deleteUser(Map map);
 	List<HistoryDTO> getOrderHistory(String user);
 
 	void ReviewSubmit(Map reviewData);
+    public void update_checked(Map map);
     
 
 	

@@ -97,7 +97,13 @@ public interface MainService {
 	List<HistoryDTO> getOrderHistory(String user);
 
 	void ReviewSubmit(Map reviewData);
+    public void update_checked(Map map);
 	
 
+	UserDTO getId(Map map);
+
+	void modifyMember(Map map);
+	
+	public void deleteUser(Map map);
 }
 

@@ -51,16 +51,8 @@ const Review = () => {
       });
   }, []);
 
-  // useEffect(() => {
-  //   axios({
-  //     method: "post",
-  //     url: "comment",
-  //     data: {},
-  //   });
-  // });
-
-  const openModal = () => {
-    setModalOpen(true);
+  const openModal = (data) => {
+    setModalOpen(true, data);
   };
 
   const closeModal = () => {
@@ -277,8 +269,7 @@ const Review = () => {
                   </div>
                   <React.Fragment>
                     <button
-                      onClick={() =>
-                        openModal(data)}
+                      onClick={() => openModal(data)}
                       data={data}
                       className={styles.modalButton}
                     >

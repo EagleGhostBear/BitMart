@@ -3,7 +3,7 @@ import "../css/modalReview.css";
 import axios from "axios";
 
 const ModalReview = (props) => {
-  console.log(props.productInfo)  
+  console.log(props.productInfo);
 
   // 열기, 닫기, 작성, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header, id } = props;

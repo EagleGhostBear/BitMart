@@ -218,7 +218,7 @@ const findPwdDB = (id, email) => {
     data: {
       id: id,
       email: email,
-      },
+    },
   })
   .then((res) => {
     console.log(res.data);
@@ -231,8 +231,7 @@ const findPwdDB = (id, email) => {
   .catch((err) => {
     console.log("비밀번호 찾기", err);
     openModal("비밀번호 찾기에 문제가 생겼습니다!");
-  }
-  );
+  });
 }
 
 // 모달 창 열기

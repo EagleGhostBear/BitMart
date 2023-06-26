@@ -33,6 +33,7 @@ import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
+import main.service.MailService;
 import main.service.MainService;
 
 @Controller
@@ -411,6 +412,7 @@ public class MainController {
 		String addr2 = (String)requestData.get("addr2");
 		String name = (String)requestData.get("name");
 		String phone = (String)requestData.get("phone");
+		String checked = requestData.get("checked").toString();
 
 		//System.out.println("딜리버리 유저: "+ user);
 		
@@ -419,6 +421,7 @@ public class MainController {
 		System.out.println("주소2 : " + addr2);
 		System.out.println("이름 : " + name);
 		System.out.println("폰 : " + phone);
+		System.out.println("체크 유무 : " + checked);
 		
 		Map<String, String> map = new HashMap<>();
 
@@ -426,6 +429,7 @@ public class MainController {
 		map.put("addr1", addr1);
 		map.put("addr2", addr2);
 		map.put("name", name);
+		map.put("checked", checked);
 
 		String[] parts = new String[3];
 
@@ -454,6 +458,11 @@ public class MainController {
 	@ResponseBody
 	public List<DeliveryDTO> delivery_list(@RequestBody Map map){
 		System.out.println("배송지 리스트 서버 왔다 !");
+
+		String user = (String) map.get("user");
+
+		System.out.println("user: "+ user);
+
 		return mainService.delivery_list(map);
 	}
 
@@ -467,7 +476,10 @@ public class MainController {
 
 		System.out.println("user: "+ user + " seq: " + seq);
 
-		mainService.delivery_delete(map);
+		System.out.println("데이터 길이: " + map.size()); 
+
+		mainService.delivery_delete(map); 
+
 	}
 	
 	@PostMapping(value="review")
@@ -500,10 +512,11 @@ public class MainController {
 	public UserDTO checkInfo(@RequestBody Map map) {
 		
 		UserDTO userDTO = mainService.checkInfo(map);
-		System.out.println("sfd:" + userDTO);
+		System.out.println("checkInfo:" + userDTO);
 		return userDTO;
 	}
 	
+	//회원 정보 수정 페이지에서 변경할 회원 정보 가져오기
 	@PostMapping(value="userUpdate")
 	@ResponseBody
 	public UserDTO userUpdate(@RequestBody Map map) {
@@ -514,6 +527,42 @@ public class MainController {
 	
 	
 	
+
+
+	@PostMapping(value="/update_checked")
+	@ResponseBody
+	public void update_checked(@RequestBody Map map){
+		mainService.update_checked(map);
+	}
+	
+	@PostMapping(value="getId")
+	@ResponseBody
+	public UserDTO getId(@RequestBody Map map) {
+		return mainService.getId(map);
+	}
+	
+	//회원 정보 수정
+	@PostMapping(value = "modifyMember")
+	@ResponseBody
+	public void modifyMember(@RequestBody Map map) {
+		String email = (String) map.get("email");
+		String seq = (String) map.get("seq");
+		String user = (String) map.get("id");
+		String pwd = (String) map.get("pwd");
+		System.out.println("user의 값은 = " + user);
+		System.out.println("pwd값은 = " + pwd);
+		System.out.println("email값은 = " + email);
+		System.out.println("seq값은 = " + seq);
+		mainService.modifyMember(map);
+	}
+	
+	//회원 탈퇴
+	@PostMapping(value="deleteUser")
+	@ResponseBody
+	public void deleteUser(@RequestBody Map map){
+		System.out.println("delete 서버 성공");
+		mainService.deleteUser(map);
+	}
 	
 	
 }
