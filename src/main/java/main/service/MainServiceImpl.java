@@ -242,13 +242,11 @@ public class MainServiceImpl implements MainService {
 	
 	@Override
 	public UserDTO checkInfo(Map map) {
-		// TODO Auto-generated method stub
 		return mainDAO.checkInfo(map);
 	}
 
 	@Override
 	public UserDTO userUpdate(Map map) {
-		// TODO Auto-generated method stub
 		return mainDAO.userUpdate(map);
 	}
 
@@ -263,6 +261,19 @@ public class MainServiceImpl implements MainService {
 		mainDAO.delivery_delete(map);
 	}
 
+	@Override
+	public UserDTO getId(Map map) {
+		return mainDAO.getId(map);
+	}
 
+	@Override
+	public void modifyMember(Map map) {
+		mainDAO.modifyMember(map);
+	}
+	
+	@Override
+	public void deleteUser(Map map) {
+		mainDAO.deleteUser(map);
+	}
 	
 }

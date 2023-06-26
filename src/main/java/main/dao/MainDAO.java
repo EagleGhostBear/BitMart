@@ -93,6 +93,12 @@ public interface MainDAO {
 	List<DeliveryDTO> delivery_list(Map map);
 
 	public void delivery_delete(Map map);
+
+	UserDTO getId(Map map);
+
+	public void modifyMember(Map map);
+	
+	public void deleteUser(Map map);
     
 
 	

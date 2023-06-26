@@ -478,15 +478,16 @@ public class MainController {
 //		return orderHistory; 
 //	}
 	
-	@PostMapping(value = "checkInfo")
+	@PostMapping(value="checkInfo")
 	@ResponseBody
 	public UserDTO checkInfo(@RequestBody Map map) {
 		
 		UserDTO userDTO = mainService.checkInfo(map);
-		System.out.println("sfd:" + userDTO);
+		System.out.println("checkInfo:" + userDTO);
 		return userDTO;
 	}
 	
+	//회원 정보 수정 페이지에서 변경할 회원 정보 가져오기
 	@PostMapping(value="userUpdate")
 	@ResponseBody
 	public UserDTO userUpdate(@RequestBody Map map) {
@@ -494,6 +495,37 @@ public class MainController {
 		System.out.println("여기까지 오나?");
 		return mainService.userUpdate(map); 
 	}
+	
+	@PostMapping(value="getId")
+	@ResponseBody
+	public UserDTO getId(@RequestBody Map map) {
+		return mainService.getId(map);
+	}
+	
+	//회원 정보 수정
+	@PostMapping(value = "modifyMember")
+	@ResponseBody
+	public void modifyMember(@RequestBody Map map) {
+		String email = (String) map.get("email");
+		String seq = (String) map.get("seq");
+		String user = (String) map.get("id");
+		String pwd = (String) map.get("pwd");
+		System.out.println("user의 값은 = " + user);
+		System.out.println("pwd값은 = " + pwd);
+		System.out.println("email값은 = " + email);
+		System.out.println("seq값은 = " + seq);
+		mainService.modifyMember(map);
+	}
+	
+	//회원 탈퇴
+	@PostMapping(value="deleteUser")
+	@ResponseBody
+	public void deleteUser(@RequestBody Map map){
+		System.out.println("delete 서버 성공");
+		mainService.deleteUser(map);
+	}
+	
+	
 }
 
 
