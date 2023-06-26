@@ -61,7 +61,7 @@ const Login = () => {
 
         <div
           style={{
-            width: "27%",
+            width: "17%",
             margin: "10px auto",
             display: "flex",
             justifyContent: "space-between",
@@ -145,7 +145,7 @@ const FindStyle = styled.ul`
 
 const ButtonLogin = styled.button`
   margin: 10px auto;
-  width: 27%;
+  width: 17%;
   height: 54px;
   border-radius: 3px;
   border: 1px solid #5f0081;
@@ -158,7 +158,7 @@ const ButtonLogin = styled.button`
 
 const ButtonSignup = styled.button`
   margin: 10px auto;
-  width: 27%;
+  width: 17%;
   height: 54px;
   border-radius: 3px;
   border: 1px solid #5f0081;
