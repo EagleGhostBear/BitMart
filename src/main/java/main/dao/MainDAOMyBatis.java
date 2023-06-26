@@ -319,6 +319,11 @@ public class MainDAOMyBatis implements MainDAO {
 		return sqlSession.selectList("mainSQL.getOrderHistory", user);
 	}
 
+	@Override
+	public void update_checked(Map map) {
+		sqlSession.update("mainSQL.update_checked", map);
+	}
+
 	
 	
 }

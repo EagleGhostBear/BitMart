@@ -38,9 +38,6 @@ const Modify = (props) => {
         setUsername(res.data);
         setGetname(res.data.name);
       })
-      .catch((error) => {
-        console.error("사용자 데이터 에러:", error)
-      });
   }, []);
 
   //회원탈퇴 페이지로 이동 
@@ -53,8 +50,7 @@ const Modify = (props) => {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordCheck, setPasswordCheck] = React.useState("");
-  // const [nickname, setNickname] = React.useState("");
-  const [nickname, setNickname] = React.useState(data.name);
+  const [nickname, setNickname] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [getName, setGetname] = React.useState("");
 
@@ -112,6 +108,11 @@ const Modify = (props) => {
       return;
     }
 
+    // if (!nicknameCheck(nickname)) {
+    //   window.alert("이름 형식이 맞지 않습니다");
+    //   return;
+    // }
+
     if (!emailCheck(email)) {
       window.alert("잘못된 이메일 형식입니다");
       return;
@@ -143,6 +144,24 @@ const Modify = (props) => {
     }
     else {
       window.alert("이메일 중복 확인을 해주세요.");
+      return;
+    }
+  };
+
+  //회원 탈퇴
+  const handleDeleteUser = (e) => {
+    e.preventDefault();;
+    if (window.confirm('확인 버튼을 누르면 회원 정보가 삭제됩니다.')) { 
+      axios
+        .delete(
+          
+        ).then(() => {
+          localStorage.clear();
+          alert('그동안 이용해주셔서 감사합니다.');
+          navigate('/');
+        })
+        .catch((err) => alert(err.response.data.message));
+    } else {
       return;
     }
   };
@@ -234,7 +253,6 @@ const Modify = (props) => {
                   이름<CheckSpan></CheckSpan>
                 </td>
                 <td>
-                {/* 이름 직접 입력 */}
                 {/* <input
                     id="nickname"
                     name="nickname"
@@ -243,11 +261,9 @@ const Modify = (props) => {
                 /> */}
                 {/* 회원정보 수정할 회원 이름 가져오기 */}
                 <input
-                  id="nickname"
-                  name="nickname"
-                  // type="text"
+                  id="username"
+                  name="username"
                   value={data.name}
-                  onChange={(e) => setNickname(e.target.value)}
                   style={inputStyle}
                 />
                 </td>

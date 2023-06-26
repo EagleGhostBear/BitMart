@@ -270,6 +270,11 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.getOrderHistory(user);
 	}
 
+	@Override
+	public void update_checked(Map map) {
+		mainDAO.update_checked(map);
+	}
+
 
 	@Override
 	public void modifyMember(Map map) {

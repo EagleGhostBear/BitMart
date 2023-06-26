@@ -100,6 +100,8 @@ public interface MainDAO {
 	
 	public void deleteUser(Map map);
 	List<HistoryDTO> getOrderHistory(String user);
+
+    public void update_checked(Map map);
     
 
 	

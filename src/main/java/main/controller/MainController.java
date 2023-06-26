@@ -412,6 +412,7 @@ public class MainController {
 		String addr2 = (String)requestData.get("addr2");
 		String name = (String)requestData.get("name");
 		String phone = (String)requestData.get("phone");
+		String checked = requestData.get("checked").toString();
 
 		//System.out.println("딜리버리 유저: "+ user);
 		
@@ -420,6 +421,7 @@ public class MainController {
 		System.out.println("주소2 : " + addr2);
 		System.out.println("이름 : " + name);
 		System.out.println("폰 : " + phone);
+		System.out.println("체크 유무 : " + checked);
 		
 		Map<String, String> map = new HashMap<>();
 
@@ -427,6 +429,7 @@ public class MainController {
 		map.put("addr1", addr1);
 		map.put("addr2", addr2);
 		map.put("name", name);
+		map.put("checked", checked);
 
 		String[] parts = new String[3];
 
@@ -455,6 +458,11 @@ public class MainController {
 	@ResponseBody
 	public List<DeliveryDTO> delivery_list(@RequestBody Map map){
 		System.out.println("배송지 리스트 서버 왔다 !");
+
+		String user = (String) map.get("user");
+
+		System.out.println("user: "+ user);
+
 		return mainService.delivery_list(map);
 	}
 
@@ -468,7 +476,10 @@ public class MainController {
 
 		System.out.println("user: "+ user + " seq: " + seq);
 
-		mainService.delivery_delete(map);
+		System.out.println("데이터 길이: " + map.size()); 
+
+		mainService.delivery_delete(map); 
+
 	}
 	
 	@PostMapping(value="review")
@@ -496,6 +507,13 @@ public class MainController {
 		
 		System.out.println("여기까지 오나?");
 		return mainService.userUpdate(map); 
+	}
+
+
+	@PostMapping(value="/update_checked")
+	@ResponseBody
+	public void update_checked(@RequestBody Map map){
+		mainService.update_checked(map);
 	}
 	
 	@PostMapping(value="getId")
