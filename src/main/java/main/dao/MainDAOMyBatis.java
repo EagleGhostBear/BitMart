@@ -324,6 +324,7 @@ public class MainDAOMyBatis implements MainDAO {
 		LocalDateTime currentTime = LocalDateTime.now();
         reviewData.put("logtime", currentTime);
 		sqlSession.insert("mainSQL.ReviewSubmit", reviewData);
+	}
 		
 		
 	public void update_checked(Map map) {
