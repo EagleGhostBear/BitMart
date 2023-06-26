@@ -218,7 +218,7 @@ const findPwdDB = (id, email) => {
     data: {
       id: id,
       email: email,
-      },
+    },
   })
   .then((res) => {
     console.log(res.data);
@@ -226,27 +226,12 @@ const findPwdDB = (id, email) => {
       openModal("가입 시 입력하신 회원정보가 맞는지 다시 한번 확인해 주세요.");
     } else {
       openModal1("가입하신 이메일로 인증번호가 발송되었습니다. 메일을 받지 못하셨다면 스팸함을 확인해 보세요.");
-      sendMail();
     }
   })
   .catch((err) => {
     console.log("비밀번호 찾기", err);
     openModal("비밀번호 찾기에 문제가 생겼습니다!");
-  }
-  );
-}
-
-// 메일 전송
-const sendMail = () => {
-  axios.get("/api/sendMail")
-    .then((res) => {
-      console.log(res.data);
-      // 성공적으로 메일이 전송됨
-    })
-    .catch((err) => {
-      console.log("메일 전송 실패", err);
-      // 메일 전송 실패
-    });
+  });
 }
 
 // 모달 창 열기

@@ -97,5 +97,10 @@ public interface MainService {
 	List<HistoryDTO> getOrderHistory(String user);
 	
 
+	UserDTO getId(Map map);
+
+	void modifyMember(Map map);
+	
+	public void deleteUser(Map map);
 }
 

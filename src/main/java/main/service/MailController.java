@@ -12,16 +12,16 @@ public class MailController {
 	@Autowired
 	private MailService mailService;
 	
-	@GetMapping("/mailCert")
-    public String getMailCert() {
-        return mailService.getMailCert();
-    }
-	
 	@PostMapping("/sendMail")
 	public String sendMail() {
 		
 		mailService.sendMail("awesomecreative@naver.com", "비트마트 인증번호");
 		return "Mail sent successfully";
 	}
+	
+	@GetMapping("/mailCert")
+    public String getMailCert() {
+        return mailService.getMailCert();
+    }
 	
 }

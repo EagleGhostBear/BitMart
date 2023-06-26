@@ -5,16 +5,33 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import Navbar from "../components/NavigationBar";
 
 const ConfirmPwd = () => {
+  const token_key = `${localStorage.getItem("token")}`;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [data, setData] = React.useState([]);
 
+  useEffect(() => {
+    axios({
+      method: "post",
+      url: "/getId",
+      data: {
+        seq: token_key
+      }
+    })
+    .then((res) => {
+      console.log(res.data);
+      setData(res.data);
+      setUsername(res.data);
+    })
+  }, []);
+
   const changeUsername = (e) => {
-    setUsername(e);
+    setUsername(data.id)
   };
 
   const changePassword = (e) => {
@@ -22,25 +39,13 @@ const ConfirmPwd = () => {
   };
 
   const checkInfo = () => {
-    axios({
-      method: "post",
-      url: "/checkInfo",
-      data: {
-        id: username,
-        pwd: password
-      }
-    })
-    .then(response => setData(response.data));
-  }
-
-  useEffect(() => {
-    if (data.id === username) {
-        navigate("/modify");
+    if(data.pwd === password){
+      navigate('/modify')
     }
-    else 
-    {console.log("로그인 실패");} // 에러창 띄우기
-  }, [data]);
-
+    else{
+      alert('비밀번호를 확인해주세요.');
+    }
+  }
 
   // checkInfo 함수 실행 
   const login = () => {
@@ -53,8 +58,8 @@ const ConfirmPwd = () => {
   };
 
   return (
+    
     <React.Fragment>
-      <div className="mainContainer">
         <LoginWrap>
           <Text
             bold
@@ -73,14 +78,13 @@ const ConfirmPwd = () => {
             </DescriptionWrap>
           </SubtitleWrap>
 
-          <LoginBox
+          <input
               id="username"
               name="username"
-            value={username}
-            placeholder="아이디를 입력해주세요"
-            _onChange={(e) => {
-              changeUsername(e.target.value);
-            }}
+              type="text"
+              value={data.id}
+              readOnly
+              style={inputStyle}
           />
 
           <LoginBox
@@ -94,14 +98,12 @@ const ConfirmPwd = () => {
             }}
           />
 
-          {/* checkInfo 함수 실행 */}
-          <ButtonSignup onClick={checkInfo}>
+          <ButtonConfirm onClick={checkInfo}>
             <Text color="#ffffff" size="16px" margin="1px 0 0 0">
               확인
             </Text>
-          </ButtonSignup>
+          </ButtonConfirm>
         </LoginWrap>
-      </div>
     </React.Fragment>
   );
 };
@@ -125,9 +127,9 @@ const DescriptionWrap = styled.div`
   font-size: 12px;
 `;
 
-const ButtonSignup = styled.button`
+const ButtonConfirm = styled.button`
   margin: 10px auto;
-  width: 27%;
+  width: 17%;
   height: 54px;
   border-radius: 3px;
   border: 1px solid #5f0081;
@@ -137,5 +139,24 @@ const ButtonSignup = styled.button`
   overflow: hidden;
   text-align: center;
 `;
+
+const inputStyle = {
+  margin: "10px auto",
+  display: "block",
+  borderRadius: "3px",
+  border: "1px solid #e0dede",
+  width: "17%",
+  maxWidth: "100%",
+  height: "54px",
+  padding: "0px 19px",
+  boxSizing: "border-box",
+  letterSpacing: "-0.05em",
+  display: "flex",
+  justifyContent: "center",
+  backgroundColor: "#fff",
+  fontSize: "14px",
+  lineHeight: "20px",
+  outline: "none",
+}
 
 export default ConfirmPwd;
