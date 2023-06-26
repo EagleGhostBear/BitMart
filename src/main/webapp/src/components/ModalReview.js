@@ -146,7 +146,7 @@ const ModalReview = (props) => {
             <form>
               <div className="textWrap">
                 <label className="textLabel">
-                  제목
+                  제목 
                   <sup className="sup">*</sup>
                 </label>
                 <div className="Content">

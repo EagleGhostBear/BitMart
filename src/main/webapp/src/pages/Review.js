@@ -50,8 +50,8 @@ const Mypage = () => {
       });
   }, []);
 
-  const openModal = () => {
-    setModalOpen(true);
+  const openModal = (data) => {
+    setModalOpen(true, data);
   };
 
   const closeModal = () => {
