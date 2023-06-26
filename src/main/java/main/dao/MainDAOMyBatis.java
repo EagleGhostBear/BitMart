@@ -299,6 +299,15 @@ public class MainDAOMyBatis implements MainDAO {
 		return sqlSession.selectList("mainSQL.getOrderHistory", user);
 	}
 
+	@Override
+	public void ReviewSubmit(Map reviewData) {
+		LocalDateTime currentTime = LocalDateTime.now();
+        reviewData.put("logtime", currentTime);
+		sqlSession.insert("mainSQL.ReviewSubmit", reviewData);
+		
+		
+	}
+
 	
 	
 }

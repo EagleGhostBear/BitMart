@@ -95,6 +95,8 @@ public interface MainService {
 	public void delivery_delete(Map map);
 
 	List<HistoryDTO> getOrderHistory(String user);
+
+	void ReviewSubmit(Map reviewData);
 	
 
 }

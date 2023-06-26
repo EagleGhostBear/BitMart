@@ -3,6 +3,8 @@ import "../css/modalReview.css";
 import axios from "axios";
 
 const ModalReview = (props) => {
+  console.log(props.productInfo)  
+
   // 열기, 닫기, 작성, 모달 헤더 텍스트를 부모로부터 받아옴
   const { open, close, header, id } = props;
   const [reviewContent, setReviewContent] = useState("");
@@ -10,19 +12,32 @@ const ModalReview = (props) => {
   const token_key = `${localStorage.getItem("token")}`;
   const [data, setData] = useState();
   const [title, setTitle] = useState();
+  const [contents, setContents] = useState();
 
   const handleReviewSubmit = () => {
     axios({
       method: "post",
       url: "/ReviewSubmit",
       data: {
+        user: token_key,
+        // product: ,
         name: data.name,
-        title: data.title,
+        title: title,
+        content: contents,
       },
-    });
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    close();
   };
 
+  /*
   useEffect(() => {
+    
     axios({
       method: "post",
       url: "userUpdate",
@@ -38,7 +53,7 @@ const ModalReview = (props) => {
         console.log(err);
       });
   }, []);
-
+*/
   const handleReviewChange = (event) => {
     setReviewContent(event.target.value);
   };
@@ -146,21 +161,19 @@ const ModalReview = (props) => {
             <form>
               <div className="textWrap">
                 <label className="textLabel">
-                  제목
+                  제목{props.product}
                   <sup className="sup">*</sup>
                 </label>
                 <div className="Content">
-                    <textarea
-                      className="textarea"
-                      id="title"
-                      inputMode="text"
-                      placeholder="제목을 입력하세요"
-                      _onChange={(e) => {
-                        setTitle(e.target.value);
-                      }}
-                    >
-                    </textarea>
-
+                  <textarea
+                    className="textTitle"
+                    id="title"
+                    inputMode="text"
+                    placeholder="제목을 입력하세요"
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                    }}
+                  ></textarea>
                 </div>
               </div>
               <div className="textWrap">
@@ -177,6 +190,9 @@ const ModalReview = (props) => {
                       aria-label="textarea-message"
                       inputMode="text"
                       placeholder="상품 특성에 맞는 후기를 작성해주세요. 예)레시피, 겉포장 속 실제 구성품사진, 플레이팅, 화장품 사용자의 피부타입 등(최소 10자 이상)"
+                      onChange={(e) => {
+                        setContents(e.target.value);
+                      }}
                     ></textarea>
                   </div>
                 </div>

@@ -27,10 +27,11 @@ const Modal = ({ isOpen, content }) => {
   );
 };
 
-const Mypage = () => {
+const Review = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const token_key = `${localStorage.getItem("token")}`;
   const [data, setData] = useState([]);
+  const [modalOpenArray, setModalOpenArray] = useState([]);
 
   useEffect(() => {
     axios({
@@ -49,6 +50,14 @@ const Mypage = () => {
         console.log(err);
       });
   }, []);
+
+  // useEffect(() => {
+  //   axios({
+  //     method: "post",
+  //     url: "comment",
+  //     data: {},
+  //   });
+  // });
 
   const openModal = () => {
     setModalOpen(true);
@@ -204,25 +213,47 @@ const Mypage = () => {
         {/* 클릭하면 동작하는 모달창 */}
 
         <div className={styles["tabList"]}>
-          {/* <Tab text="작성가능후기" onClick={handleButtonClick} />
-            {modalOpen1 ? "" : ""}
-            <Modal
-              isOpen={modalOpen1}
-              content="작성할 후기가 없습니다."
-            /> */}
-
-          {/* <Tab text="작성한 후기" onClick={handleButtonClick2} />
-            {modalOpen2 ? "" : ""}
-            <Modal isOpen={modalOpen2} content={ReviewData.map((item)=> `${item.productName}: ${item.date}: ${item.content}`).join("\n")} />
-            </div>
-            </div> */}
-
           <Tab text="작성가능 후기" onClick={handleButtonClick} />
 
           <Tab text="작성한 후기" onClick={handleButtonClick2} />
-
-          {modalOpen2 ? <Modal isOpen={modalOpen2} content="" /> : null}
         </div>
+
+        {modalOpen2 ? (
+          <div className={styles.reviewContainer}>
+            {data.map((item, index) => (
+              <div className={styles.reviewItem} key={index}>
+                <div className={styles.imageContainer}>
+                  <img className={styles.productImage} alt="상품이미지" />
+                </div>
+                <div className={styles.productInfo}>
+                  <a href="">
+                    <span className={styles.productName}>상품명</span>
+                  </a>
+                  <div className={styles.dateWrap}>
+                    <span className={styles.date}>날짜</span>
+                  </div>
+                  <div className="content">후기내용</div>
+                </div>
+                <React.Fragment>
+                  <button
+                    onClick={() => openModal(item)}
+                    data={item}
+                    className={styles.modalButton}
+                  >
+                    후기 수정
+                  </button>
+                  <ReviewWrite
+                    open={modalOpen}
+                    close={closeModal}
+                    header="후기"
+                  ></ReviewWrite>
+                </React.Fragment>
+                <div className={styles.contentWrap}></div>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
         {modalOpen1
           ? data.map((item, index) => (
               <div className={styles.reviewContainer}>
@@ -235,7 +266,7 @@ const Mypage = () => {
                     />
                   </div>
                   <div className={styles.productInfo}>
-                    <a href="https://www.kurly.com/goods">
+                    <a href="">
                       <span className={styles.productName}>
                         {data[index].productTitle}
                       </span>
@@ -246,12 +277,14 @@ const Mypage = () => {
                   </div>
                   <React.Fragment>
                     <button
-                      onClick={() => openModal(data)}
+                      onClick={() =>
+                        openModal(data)}
                       data={data}
                       className={styles.modalButton}
                     >
                       후기 작성
                     </button>
+
                     <ReviewWrite
                       open={modalOpen}
                       close={closeModal}
@@ -267,4 +300,4 @@ const Mypage = () => {
     </div>
   );
 };
-export default Mypage;
+export default Review;

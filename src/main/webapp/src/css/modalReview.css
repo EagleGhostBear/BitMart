@@ -22,7 +22,7 @@
   /* border: 3px solid salmon; */
 }
 
-.modal button { 
+.modal button {
   /* 닫는 버튼들  */
   outline: none;
   cursor: pointer;
@@ -31,7 +31,7 @@
 }
 
 .modal > section {
-  overflow: auto; 
+  overflow: auto;
   display: flex;
   flex-direction: column;
   width: 700px;
@@ -46,7 +46,6 @@
   /* border: 3px solid lightgreen; */
 }
 
-
 /* 모달창 헤더쪽 부분 폰트도 같이 넣으면 됨  */
 .modal > section > header {
   position: relative;
@@ -57,7 +56,6 @@
   line-height: 30px;
   /* border: 3px solid skyblue; */
 }
-
 
 .modal > section > header button {
   position: absolute;
@@ -71,13 +69,11 @@
   background-color: transparent;
 }
 
-
 .modal > section > main {
   padding: 16px;
   border-bottom: 1px solid #dee2e6;
   border-top: 1px solid #dee2e6;
 }
-
 
 /* 리뷰창에 뜨는 제품명 */
 .productImage {
@@ -93,7 +89,6 @@
   font: 14px / 19px "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
   line-height: 19px;
 }
-
 
 .productImage span:first-child {
   overflow: hidden;
@@ -148,9 +143,7 @@
   word-break: break-all;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
-
 }
-
 
 .review-container {
   margin: 0;
@@ -169,7 +162,6 @@
   text-align: center;
   color: rgb(51, 51, 51);
 }
-
 
 .review-description {
   padding: 0;
@@ -223,7 +215,6 @@
   color: rgb(128, 128, 128);
 }
 
-
 /* 내용 부분 */
 .textWrap {
   padding: 0px;
@@ -234,7 +225,7 @@
   padding-top: 16px;
 }
 
-.textLabel{
+.textLabel {
   position: relative;
   width: 70px;
   padding-top: 12px;
@@ -242,7 +233,7 @@
   color: rgb(51, 51, 51);
 }
 
-.sup{
+.sup {
   font-size: 75%;
   position: relative;
   vertical-align: baseline;
@@ -250,11 +241,21 @@
   color: rgb(250, 98, 47);
 }
 
-.textcontentWrap{
+.textcontentWrap {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
   width: 100%;
+}
+
+.textTitle {
+  border: 1px solid rgb(221, 221, 221);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  height: 30px;
+  
+  
 }
 
 .textContent {
@@ -286,7 +287,6 @@
   color: rgb(51, 51, 51);
 }
 
-
 /* 사진 업로드 부분 */
 .uploadWrap {
   padding: 0px;
@@ -297,7 +297,7 @@
   padding-top: 16px;
 }
 
-.upload{
+.upload {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
@@ -308,7 +308,6 @@
   line-height: 19px; */
   color: rgb(51, 51, 51);
 }
-
 
 .photoUpload {
   text-align: center;
@@ -338,9 +337,8 @@
   text-align: center;
 }
 
-
 /* 모달창 버튼  */
-.modal > section > footer button {  
+.modal > section > footer button {
   /* padding: 6px 12px;
   color: #fff;
   background-color: #6c757d;
@@ -370,10 +368,8 @@
 
 .modal > section > footer button:hover {
   background-color: lightgray;
-  color:white;
+  color: white;
 }
-
-
 
 .modal.openModal {
   display: flex;

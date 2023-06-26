@@ -479,6 +479,22 @@ public class MainController {
 		return orderHistory; 
 	}
 	
+	
+	@PostMapping("/ReviewSubmit")
+	@ResponseBody
+	public void ReviewSubmit(@RequestBody Map reviewData) {
+	    String name = (String) reviewData.get("name");
+	    String title = (String) reviewData.get("title");
+	    String content = (String) reviewData.get("content");
+	    
+	    System.out.println("이름" + name);
+	    System.out.println("title = " + title);
+	    System.out.println("content = " + content);
+	    
+	    mainService.ReviewSubmit(reviewData);
+	}
+	
+	
 	@PostMapping(value = "checkInfo")
 	@ResponseBody
 	public UserDTO checkInfo(@RequestBody Map map) {
@@ -495,6 +511,11 @@ public class MainController {
 		System.out.println("여기까지 오나?");
 		return mainService.userUpdate(map); 
 	}
+	
+	
+	
+	
+	
 }
 
 

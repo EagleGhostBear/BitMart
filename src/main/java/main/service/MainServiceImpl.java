@@ -269,6 +269,13 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.getOrderHistory(user);
 	}
 
+	@Override
+	public void ReviewSubmit(Map reviewData) {
+		// TODO Auto-generated method stub
+		mainDAO.ReviewSubmit(reviewData);
+		
+	}
+
 
 	
 }
