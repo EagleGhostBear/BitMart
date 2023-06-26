@@ -6,6 +6,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import GenderRadioButton from "./GenderRadioButton";
 import Navbar from "../components/NavigationBar";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 import {
   userIdCheck,
@@ -15,12 +16,14 @@ import {
 } from "../shared/common";
 
 
-
 const Modify = (props) => {
   const dispatch = useDispatch();
+
   const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = React.useState([]);
 
 
+  //로그인 되어 있는 아이디 값 불러오기
   useEffect(() => {
     axios({
       method: 'post',
@@ -30,53 +33,75 @@ const Modify = (props) => {
       },
     })
       .then((res)=>{
-        // console.log(res)
-        const { username } = res.data;
-        setUsername(username);
+        console.log(res.data)
+        setData(res.data);
+        setUsername(res.data);
+        setGetname(res.data.name);
       })
       .catch((error) => {
-        console.error("error:", error);
+        console.error("사용자 데이터 에러:", error)
       });
   }, []);
 
+  //회원탈퇴 페이지로 이동 
+  const navigate = useNavigate();
+  const handleDeleteClick = () => {
+    navigate('/delete');
+  };
 
   //아이디, 비밀번호, 비밀번호 확인, 이름, 이메일 확인
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordCheck, setPasswordCheck] = React.useState("");
-  const [nickname, setNickname] = React.useState("");
+  // const [nickname, setNickname] = React.useState("");
+  const [nickname, setNickname] = React.useState(data.name);
   const [email, setEmail] = React.useState("");
+  const [getName, setGetname] = React.useState("");
 
-  //이메일 중복검사
+  //이메일 중복 확인
   const [email_check, setEmailCheck] = React.useState(false);
-
+  const [testEmail, setTestEmail] = useState("");
+  
   const checkEmail = () => {
     if (!emailCheck(email)) {
-      alert("이메일 형식이 맞지 않습니다");
+      alert("이메일 형식이 맞지 않습니다.");
       return;
     }
-    dispatch(userActions.emailCheckF(email));
-  };
+  axios({
+    method: "post",
+    url: "/checkEmail",
+    data: {
+      email: email,
+    },
+  })
+    .then((res) => {
+      if (!res.data) {
+        window.alert("사용 가능한 이메일입니다.");
+        setTestEmail(email);
+      } else {
+        window.alert("이미 사용 중인 이메일입니다.");
+        setTestEmail("");
+      }
+    })
+    .catch((err) => {
+      console.log("이메일 중복", err);
+      window.alert("이메일 중복 확인에 문제가 발생했습니다.");
+    });
+};
 
   //회원 정보 변경 시, 빈 칸이 있을 경우 alert 띄우기
-  const Modify = () => {
+  const updateBtn = () => {
     if (
-      username === "" ||
       password === "" ||
       passwordCheck === "" ||
-      email === "" ||
-      nickname === ""
+      email === "" //||
+      // nickname === ""
     ) {
       window.alert("빈 칸을 모두 입력해 주세요");
       return;
     }
 
-    //회원가입 시 아이디, 비밀번호, 비밀번호 확인, 이름, 이메일 유효성 검사
-    if (!userIdCheck(username)) {
-      window.alert("아이디 형식이 맞지 않습니다");
-      return;
-    }
-
+    //비밀번호, 비밀번호 확인, 이름, 이메일 유효성 검사
     if (!pwdCheck(password)) {
       window.alert("비밀번호 형식이 맞지 않습니다");
       return;
@@ -87,25 +112,44 @@ const Modify = (props) => {
       return;
     }
 
-    if (!nicknameCheck(nickname)) {
-      window.alert("이름 형식이 맞지 않습니다");
-      return;
-    }
-
     if (!emailCheck(email)) {
       window.alert("잘못된 이메일 형식입니다");
       return;
     }
 
-    //signupDB에 회원가입 시 입력한 내역들을 보내주기
-    dispatch(
-      userActions.signupDB(username, password, passwordCheck, email, nickname)
-    );
+
+    if(email === testEmail){
+      dispatch(
+        axios({
+          method: "post",
+          url: "/modifyMember",
+          data: {
+            seq: token_key,
+            pwd: password,
+            name: nickname,
+            email: email,
+          },
+        })
+          .then((res) => {
+            console.log(res.data);
+            window.alert("회원 정보가 수정되었습니다.");
+            window.location.replace("/confirmPwd");
+          })
+          .catch((err) => {
+            console.log("회원정보수정 실패", err);
+            // window.alert("회원 정보 수정 실패");
+          })
+      );
+    }
+    else {
+      window.alert("이메일 중복 확인을 해주세요.");
+      return;
+    }
   };
 
   return (
     <div className="mainContainer"
-        style={{ 
+        style={{
             display: 'flex',
             justifyContent: 'center',
             marginTop: '100px',
@@ -122,7 +166,7 @@ const Modify = (props) => {
         <Title>개인 정보 수정</Title>
         <RequiredBox>
             <Text size="13px" color="#666666">
-            <CheckSpan> * </CheckSpan>필수 입력사항
+              <CheckSpan> * </CheckSpan>필수 입력사항
             </Text>
         </RequiredBox>
         <Line />
@@ -130,25 +174,22 @@ const Modify = (props) => {
             <tbody>
             <tr>
                 <td>
-                아이디
+                  아이디
                 </td>
                 <td>
                 <input
+                  id="username"
+                  name="username"
                   type="text"
-                  value={username}
-                    placeholder=""
-                    padding="14px"
-                    width="332px"
-                    readOnly
-                    _onChange={(e) => {
-                    setUsername(e.target.value);
-                    }}
+                  value={data.id}
+                  readOnly
+                  style={inputStyle}
                 />
                 </td>
             </tr>
             <tr>
                 <td>
-                새 비밀번호<CheckSpan>*</CheckSpan>
+                  새 비밀번호<CheckSpan>*</CheckSpan>
                 </td>
                 <td>
                 <Input
@@ -169,7 +210,7 @@ const Modify = (props) => {
             </tr>
             <tr>
                 <td>
-                새 비밀번호 확인<CheckSpan>*</CheckSpan>
+                  새 비밀번호 확인<CheckSpan>*</CheckSpan>
                 </td>
                 <td>
                 <Input
@@ -190,26 +231,34 @@ const Modify = (props) => {
             </tr>
             <tr>
                 <td>
-                이름<CheckSpan>*</CheckSpan>
+                  이름<CheckSpan></CheckSpan>
                 </td>
                 <td>
-                <Input
-                    placeholder="이름을 입력해 주세요"
-                    padding="14px"
-                    width="332px"
-                    _onChange={(e) => {
-                    setNickname(e.target.value);
-                    }}
+                {/* 이름 직접 입력 */}
+                {/* <input
+                    id="nickname"
+                    name="nickname"
+                    _onChange={(e) => setNickname(e.target.value)}
+                    style={inputStyle}
+                /> */}
+                {/* 회원정보 수정할 회원 이름 가져오기 */}
+                <input
+                  id="nickname"
+                  name="nickname"
+                  // type="text"
+                  value={data.name}
+                  onChange={(e) => setNickname(e.target.value)}
+                  style={inputStyle}
                 />
                 </td>
             </tr>
             <tr>
                 <td>
-                이메일<CheckSpan> * </CheckSpan>
+                  이메일<CheckSpan>*</CheckSpan>
                 </td>
                 <td>
                 <Input
-                    placeholder="예: marketkurly@kurly.com"
+                    placeholder="예: bitkurly@kurly.com"
                     padding="14px"
                     width="332px"
                     _onChange={(e) => {
@@ -238,7 +287,7 @@ const Modify = (props) => {
             </tr>
             <tr>
                 <td>
-                성별<CheckSpan>*</CheckSpan>
+                  성별
                 </td>
                 <td>
                     <GenderRadioButton />
@@ -246,12 +295,6 @@ const Modify = (props) => {
             </tr>
             </tbody>
         </SignupTable>
-        {/* <Button width="150px" _onClick={() => ()}>
-            탈퇴하기
-        </Button>
-        <Button width="150px" _onClick={() => Modify()}>
-            회원정보수정 
-        </Button> */}
         <div
             className="formBtnDiv"
             style={formBtnDivStyle}
@@ -260,6 +303,7 @@ const Modify = (props) => {
                 className="deleteBtn"
                 type="button"
                 style={buttonStyle}
+                onClick={handleDeleteClick}
             >
                 <span className="BtnText">
                 탈퇴하기
@@ -268,7 +312,7 @@ const Modify = (props) => {
             <button
                 className="modifiyBtn"
                 type="submit"
-                // onClick={}
+                onClick={() => updateBtn()}
                 style={modifyBtnStyle}
             >
                 <span className="BtnText">
@@ -387,5 +431,24 @@ const modifyBtnStyle = {
   color: "rgb(255, 255, 255)",
 };
 
+const inputStyle= {
+  margin: "10px auto",
+  display: "block",
+  borderRadius: "3px",
+  border: "1px solid #e0dede",
+  width: "332px",
+  height: "38px",
+  float: "left",
+  maxWidth: "100%",
+  padding: "0px 19px",
+  boxSizing: "border-box",
+  letterSpacing: "-0.05em",
+  display: "flex",
+  justifyContent: "center",
+  backgroundColor: "#fff",
+  fontSize: "14px",
+  lineHeight: "20px",
+  outline: "none",
+};
 
 export default Modify;

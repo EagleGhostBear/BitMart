@@ -32,7 +32,7 @@ const ElLoginBox = styled.input`
   display: block;
   border-radius: 3px;
   border: 1px solid #e0dede;
-  width: 27%;
+  width: 17%;
   max-width: 100%;
   height: 54px;
   padding: 0px 19px;

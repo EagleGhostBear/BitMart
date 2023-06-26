@@ -210,6 +210,18 @@
 	<select id="mycartList" parameterType="java.util.Map" resultType="CartDTO">
 		SELECT * FROM cart where user = #{user}
 	</select>
+		
+	<select id="getId" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where seq = #{seq}
+	</select>
+
+	<update id="modifyMember" parameterType="java.util.Map">
+		update user set pwd=#{pwd}, name=#{name}, email1=#{email1}, email2=#{email2} where seq=#{seq}
+	</update>
+
+	<delete id="deleteUser" parameterType="java.util.Map">
+		delete from user where seq=#{seq} 
+	</delete>
 	
 	<select id="getOrderHistory" resultType="main.bean.HistoryDTO">
 	SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.logtime AS logTime,
