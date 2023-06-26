@@ -1,18 +1,43 @@
 import React, { useEffect, useState } from "react";
 import "../css/modalReview.css";
+import axios from "axios";
 
 const ModalReview = (props) => {
   // 열기, 닫기, 작성, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header } = props;
+  const { open, close, header, id } = props;
   const [reviewContent, setReviewContent] = useState("");
   const [showImages, setShowImages] = useState([]);
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState();
+  const [title, setTitle] = useState();
 
-  const handleReviewSubmit = (e) => {
-    e.preventDefault();
-    // 후기 작성 처리 로직
-    // reviewContent를 서버로 전송 또는 상태 관리하여 저장
-    close(); //모달닫기
+  const handleReviewSubmit = () => {
+    axios({
+      method: "post",
+      url: "/ReviewSubmit",
+      data: {
+        name: data.name,
+        title: data.title,
+      },
+    });
   };
+
+  useEffect(() => {
+    axios({
+      method: "post",
+      url: "userUpdate",
+      data: {
+        seq: token_key,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const handleReviewChange = (event) => {
     setReviewContent(event.target.value);
@@ -121,6 +146,25 @@ const ModalReview = (props) => {
             <form>
               <div className="textWrap">
                 <label className="textLabel">
+                  제목
+                  <sup className="sup">*</sup>
+                </label>
+                <div className="Content">
+                    <textarea
+                      className="textarea"
+                      id="title"
+                      inputMode="text"
+                      placeholder="제목을 입력하세요"
+                      _onChange={(e) => {
+                        setTitle(e.target.value);
+                      }}
+                    >
+                    </textarea>
+
+                </div>
+              </div>
+              <div className="textWrap">
+                <label className="textLabel">
                   내용
                   <sup className="sup">*</sup>
                 </label>
@@ -143,7 +187,7 @@ const ModalReview = (props) => {
 
           <div className="uploadWrap">
             <label className="upload">사진 첨부</label>
-            {/* <span className="imgUpload"></span> */}
+
             <label className="photoUpload">
               <img
                 src="https://res.kurly.com/pc/ico/1806/img_add_thumb_x2.png"
@@ -159,24 +203,17 @@ const ModalReview = (props) => {
                 accept="image/*"
                 multiple
                 onChange={handlePhotoUpload}
-                //ref={fileInput}
-                // disabled={uploading}
               />
             </label>
-            {/* <input
-                  type="file"
-                  id="photoUpload"
-                  accept="image/*"
-                  multiple
-                  onChange={handlePhotoUpload}
-                /> */}
           </div>
 
           <footer>
             <button className="close" onClick={close}>
               닫기
             </button>
-            <button className="write">등록</button>
+            <button className="write" onClick={handleReviewSubmit}>
+              등록
+            </button>
           </footer>
         </section>
       ) : null}
