@@ -313,6 +313,7 @@ public class MainDAOMyBatis implements MainDAO {
 	@Override
 	public void deleteUser(Map map) {
 		sqlSession.delete("mainSQL.deleteUser", map);
+	}
 	public List<HistoryDTO> getOrderHistory(String user) {
 		
 		return sqlSession.selectList("mainSQL.getOrderHistory", user);
