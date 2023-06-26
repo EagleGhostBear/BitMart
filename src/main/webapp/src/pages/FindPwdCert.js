@@ -23,15 +23,9 @@ const FindPwdCert = () => {
 
 
   useEffect(() => {
-    axios.post('/api/sendMail')
+    axios.get('/api/mailCert')
       .then(response => {
-        axios.get('/api/mailCert')
-          .then(response => {
-            setMailCert(response.data);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
+        setMailCert(response.data);
       })
       .catch(error => {
         console.error('Error:', error);

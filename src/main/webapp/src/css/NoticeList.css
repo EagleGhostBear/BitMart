@@ -1,0 +1,67 @@
+.notice-list-container {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .notice-list-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .notice-list-divider {
+    border-top: 2px solid #000;
+    margin-bottom: 10px;
+  }
+  
+  .notice-list-header {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .notice-list-header-item {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .notice-list-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 500ms, transform 500ms;
+  }
+  
+  .notice-list-item-number {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .notice-list-item-title {
+    flex: 5;
+    text-align: center;
+  }
+  
+  .notice-list-item-title a {
+    color: #000;
+    text-decoration: none;
+    transition: color 200ms;
+  }
+  
+  .notice-list-item-title a:hover {
+    color: #ff00ff;
+  }
+  
+  .notice-list-item-author {
+    flex: 2;
+    text-align: center;
+  }
+  
+  .notice-list-item-date {
+    flex: 2;
+    text-align: center;
+  }
+  

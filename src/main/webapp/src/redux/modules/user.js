@@ -225,7 +225,23 @@ const findPwdDB = (id, email) => {
     if (!res.data) {
       openModal("가입 시 입력하신 회원정보가 맞는지 다시 한번 확인해 주세요.");
     } else {
-      openModal1("가입하신 이메일로 인증번호가 발송되었습니다. 메일을 받지 못하셨다면 스팸함을 확인해 보세요.");
+      // 두 번째 요청: /sendMail
+      axios({
+        method: "post",
+        url: "/api/sendMail",
+        data: {
+          id: id,
+          email: email,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        openModal1("가입하신 이메일로 인증번호가 발송되었습니다. 메일을 받지 못하셨다면 스팸함을 확인해 보세요.");
+      })
+      .catch((err) => {
+        console.log("이메일 발송 실패", err);
+        openModal("이메일 발송에 실패했습니다!");
+      });
     }
   })
   .catch((err) => {
