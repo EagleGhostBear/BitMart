@@ -94,6 +94,9 @@ public interface MainService {
 
 	public void delivery_delete(Map map);
 
+	List<HistoryDTO> getOrderHistory(String user);
+	
+
 	UserDTO getId(Map map);
 
 	void modifyMember(Map map);

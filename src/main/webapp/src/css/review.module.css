@@ -1,259 +1,251 @@
 .containerWrap {
-    box-sizing: border-box;
-    padding: 50px 0px 80px;
-    margin: 0px auto;
-    display: flex;
-    width: 1050px;
-    flex-direction: row;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-  }
-  
+  box-sizing: border-box;
+  padding: 50px 0px 80px;
+  margin: 0px auto;
+  display: flex;
+  width: 1050px;
+  flex-direction: row;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
 
-  .mykurly {
-    margin: 0;
-    width: 200px;
-    box-sizing: border-box;
-    padding: 5px 0px 35px 1px;
-    height: 75px;
-    font-weight: 500;
-    font-size: 28px;
-    line-height: 35px;
-    color: rgb(51, 51, 51);
-    letter-spacing: -1px;
-  }
+.mykurly {
+  margin: 0;
+  width: 200px;
+  box-sizing: border-box;
+  padding: 5px 0px 35px 1px;
+  height: 75px;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 35px;
+  color: rgb(51, 51, 51);
+  letter-spacing: -1px;
+}
 
-  .menu-ul {
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-    list-style-type: none;
-    border: 1px solid rgb(242, 242, 242);
-    
-    }
-    
-    .menu-ul li {
-    box-sizing: border-box;
-    }
-    
-    .menu-a {
-    box-sizing: border-box;
-    text-decoration: none;
-    background-color: transparent;
-    border-bottom: 1px solid rgb(242, 242, 242);
-    padding: 15px 13px 15px 20px;
-    cursor: pointer;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    align-items: center;
-    line-height: 19px;
-    letter-spacing: -0.3px;
-    font-size: 14px;
-    color: rgb(102, 102, 102);
-    }
-    
-    .menu-a svg {
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
-    overflow: hidden;
-    }
+.menu-ul {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  list-style-type: none;
+  border: 1px solid rgb(242, 242, 242);
+}
 
-  
-    .menu-a svg use {
-    stroke: #999;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 1.8;
-    transform: rotate(45deg);
-    }
+.menu-ul li {
+  box-sizing: border-box;
+}
 
-    /* ====================================== */
-    .logoWrap {
-      padding: 0px;
-      margin: 0px;
-      box-sizing: border-box;
-      position: relative;
-      width: 100%;
-      height: 100%;
-      padding-left: 30px;
-    }
+.menu-a {
+  box-sizing: border-box;
+  text-decoration: none;
+  background-color: transparent;
+  border-bottom: 1px solid rgb(242, 242, 242);
+  padding: 15px 13px 15px 20px;
+  cursor: pointer;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  line-height: 19px;
+  letter-spacing: -0.3px;
+  font-size: 14px;
+  color: rgb(102, 102, 102);
+}
 
-    .logoStyle {
-      padding: 0px;
-      margin: 0px;
-      box-sizing: border-box;
-      width: 500px;
-      height: 50px;
-      display: flex;
-      flex-direction: row;
-      padding-bottom: 27px;
-      -webkit-box-pack: justify;
-      justify-content: space-between;   
-    }
+.menu-a svg {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
 
-    .productLogo {
-      padding: 0px;
-      margin: 0px;
-      box-sizing: border-box;
-      font-weight: 500;
-      font-size: 24px;
-      color: rgb(51, 51, 51);
-      letter-spacing: -0.5px;
-      line-height: 48px;
-    }
-    
-    .tabList {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      box-sizing: border-box;
-      flex-wrap: nowrap;
-      width: 100%;
-      height: 60px;
-    }
-    
-    .tabList .tab:hover {
-      background-color: lightgray;
-      color: black;
-    }
+.menu-a svg use {
+  stroke: #999;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  transform: rotate(45deg);
+}
 
+/* ====================================== */
+.logoWrap {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-left: 30px;
+}
 
-    .reviewContainer {
-      border-top: 1px solid rgb(51, 51, 51);
-      margin-top: 30px;
-    }
+.logoStyle {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 27px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+}
 
-  
+.productLogo {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+  font-weight: 500;
+  font-size: 24px;
+  color: rgb(51, 51, 51);
+  letter-spacing: -0.5px;
+  line-height: 48px;
+}
 
-    .reviewItem {
-      margin: 0;
-      box-sizing: border-box;
-      padding: 20px 30px 20px 20px;
-      border-bottom: 1px solid rgb(244, 244, 244);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    
-    .imageContainer {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      position: relative;
-    }
-    
-    .productImage {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      max-width: 100%;
-      border: 0;
-      vertical-align: top;
-      border-radius: 6px;
-      width: 72px;
-      height: 72px;
-      object-fit: cover;
-    }
-    
-    .productInfo {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .productName {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      overflow: hidden;
-      white-space: normal;
-      max-width: 400px;
-      padding-top: 1px;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 21px;
-      display: -webkit-box;
-      word-break: break-all;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-    }
-    
-    .dateWrap {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      padding-top: 3px;
-    }
-    
-    .date {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      font-size: 14px;
-      line-height: 19px;
-      color: rgb(153, 153, 153);
-      margin-left: 0;
-    }
-    
-    .modalButton {
-      padding: 0;
-      box-sizing: border-box;
-      font: inherit;
-      margin: 0;
-      -webkit-tap-highlight-color: transparent;
-      overflow: visible;
-      background-color: transparent;
-      text-transform: none;
-      appearance: button;
-      cursor: pointer;
-      color: rgb(51, 51, 51);
-      font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
-      border-radius: 3px;
-      border: 1px solid rgb(221, 221, 221);
-      width: 96px;
-      height: 36px;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 16px;
-      text-align: center;
-    }
-    
-    .contentWrap {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      margin-top: 14px;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 21px;
-    }
-    
-    .reviewContent {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-      overflow: hidden;
-      white-space: pre-line;
-      height: auto;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 21px;
-      color: rgb(51, 51, 51);
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      word-break: break-all;
-    }
-    
+.tabList {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 60px;
+}
+
+.tabList .tab:hover {
+  background-color: lightgray;
+  color: black;
+}
+
+.reviewContainer {
+  margin-top: 30px;
+}
+
+.reviewItem {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 20px 30px 20px 20px;
+  border-bottom: 1px solid rgb(244, 244, 244);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.imageContainer {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.productImage {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  max-width: 100%;
+  border: 0;
+  vertical-align: top;
+  border-radius: 6px;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+}
+
+.productInfo {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: normal;
+  max-width: 400px;
+  padding-top: 1px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 21px;
+  display: -webkit-box;
+  word-break: break-all;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.dateWrap {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding-top: 3px;
+}
+
+.date {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 19px;
+  color: rgb(153, 153, 153);
+  margin-left: 0;
+}
+
+.modalButton {
+  padding: 0;
+  box-sizing: border-box;
+  font: inherit;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+  overflow: visible;
+  background-color: transparent;
+  text-transform: none;
+  appearance: button;
+  cursor: pointer;
+  color: rgb(51, 51, 51);
+  font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+  border-radius: 3px;
+  border: 1px solid rgb(221, 221, 221);
+  width: 96px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.contentWrap {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.reviewContent {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: pre-line;
+  height: auto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  color: rgb(51, 51, 51);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}

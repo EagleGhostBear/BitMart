@@ -230,4 +230,13 @@
 	<delete id="deleteUser" parameterType="java.util.Map">
 		delete from user where seq=#{seq} 
 	</delete>
+	
+	<select id="getOrderHistory" resultType="main.bean.HistoryDTO">
+	SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.logtime AS logTime,
+       	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
+		FROM order_history OH
+		JOIN product P ON P.seq = OH.product
+		WHERE OH.user = #{user}
+	</select>
+	
 </mapper>

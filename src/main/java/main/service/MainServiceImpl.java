@@ -265,6 +265,11 @@ public class MainServiceImpl implements MainService {
 	public UserDTO getId(Map map) {
 		return mainDAO.getId(map);
 	}
+	public List<HistoryDTO> getOrderHistory(String user) {
+		// TODO Auto-generated method stub
+		return mainDAO.getOrderHistory(user);
+	}
+
 
 	@Override
 	public void modifyMember(Map map) {

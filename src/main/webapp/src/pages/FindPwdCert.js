@@ -1,20 +1,50 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const FindPwdCert = () => {
   const [cert, setCert] = useState("");
   const [isDeleteVisible, setDeleteVisible] = useState(false);
+  const [isCertMatching, setCertMatching] = useState(null);
   const handleDelete = () => {
     setCert('');
     setDeleteVisible(false);
+    setCertMatching(null);
   };
   const handleCertChange = (event) => {
     const certValue = event.target.value.trim();
     setCert(certValue);
     setDeleteVisible(certValue !== '');
+    setCertMatching(null);
   };
+
+  const [mailCert, setMailCert] = useState('');
+
+  useEffect(() => {
+    axios.post('/api/sendMail')
+      .then(response => {
+        axios.get('/api/mailCert')
+          .then(response => {
+            setMailCert(response.data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }, []);
   
+  useEffect(() => {
+    if (cert == mailCert) {
+      setCertMatching(true);
+    } else if (cert !== '') {
+      setCertMatching(false);
+    }
+  }, [cert, mailCert]);
+
   return (
     <React.Fragment>
       <FindPwdCertWrap>
@@ -40,6 +70,13 @@ const FindPwdCert = () => {
             </DeleteButton>
           )}
         </PwdCertWrapper>
+        {isCertMatching === true && (
+          <MatchingMessage style={{ color: 'green' }}>인증번호가 일치합니다</MatchingMessage>
+        )}
+        {isCertMatching === false && (
+          <MatchingMessage style={{ color: 'red' }}>인증번호가 일치하지 않습니다</MatchingMessage>
+        )}
+        <PwdCert>인증번호 : {mailCert}</PwdCert>
         <ButtonContainer>
           <ButtonFindPwd
             style={{
@@ -56,6 +93,19 @@ const FindPwdCert = () => {
     </React.Fragment>
   );
 };
+
+const MatchingMessage = styled.div`
+position: relative;
+font-size: 13px;
+padding-top: 3px;
+`;
+
+const PwdCert = styled.div`
+position: relative;
+height: 48px;
+font-size: 16px;
+display: none;
+`;
 
 const ButtonContainer = styled.div`
   display: flex;

@@ -33,6 +33,7 @@ import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
+import main.service.MailService;
 import main.service.MainService;
 
 @Controller
@@ -443,7 +444,8 @@ public class MainController {
 
 	    map.put("tel1", tel1);
 	    map.put("tel2", tel2);
-		map.put("tel3", tel3);
+		
+	    map.put("tel3", tel3);
 	    
 	    mainService.delivery_insert(map);	
 		
@@ -469,14 +471,14 @@ public class MainController {
 		mainService.delivery_delete(map);
 	}
 	
-//	@PostMapping(value="review")
-//	@ResponseBody
-//	public List<HistoryDTO> review(@RequestBody Map<String, Object> map){
-//		String user = (String) map.get("user");
-//		
-//		List<HistoryDTO> orderHistory = mainService.getOrderHistory(user);
-//		return orderHistory; 
-//	}
+	@PostMapping(value="review")
+	@ResponseBody
+	public List<HistoryDTO> review(@RequestBody Map<String, Object> map){
+		String user = (String) map.get("user");
+		
+		List<HistoryDTO> orderHistory = mainService.getOrderHistory(user);
+		return orderHistory; 
+	}
 	
 	@PostMapping(value="checkInfo")
 	@ResponseBody

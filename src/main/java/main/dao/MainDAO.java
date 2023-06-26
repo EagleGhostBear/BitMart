@@ -99,6 +99,7 @@ public interface MainDAO {
 	public void modifyMember(Map map);
 	
 	public void deleteUser(Map map);
+	List<HistoryDTO> getOrderHistory(String user);
     
 
 	
