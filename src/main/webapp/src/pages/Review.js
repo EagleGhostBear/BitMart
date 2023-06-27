@@ -4,7 +4,7 @@ import ReviewWrite from "../components/ModalReview";
 import styles from "../css/review.module.css";
 import Tab from "../elements/Tab";
 import axios from "axios";
-//import ReviewData from "../components/ReviewData";
+
 
 const Modal = ({ isOpen, content }) => {
   //탭 여닫는부분 스타일
@@ -31,7 +31,7 @@ const Review = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const token_key = `${localStorage.getItem("token")}`;
   const [data, setData] = useState([]);
-  const [modalOpenArray, setModalOpenArray] = useState([]);
+  
 
   useEffect(() => {
     axios({
@@ -51,8 +51,8 @@ const Review = () => {
       });
   }, []);
 
-  const openModal = (data) => {
-    setModalOpen(true, data);
+  const openModal = () => {
+    setModalOpen(true);
   };
 
   const closeModal = () => {
@@ -72,6 +72,7 @@ const Review = () => {
     setModalOpen1(false); // modalOpen1을 닫음
     setModalOpen2(true);
   };
+
 
   return (
     <div className={styles.containerWrap}>
@@ -235,6 +236,7 @@ const Review = () => {
                     후기 수정
                   </button>
                   <ReviewWrite
+                   content={item}
                     open={modalOpen}
                     close={closeModal}
                     header="후기"
@@ -277,6 +279,7 @@ const Review = () => {
                     </button>
 
                     <ReviewWrite
+                    content={item}
                       open={modalOpen}
                       close={closeModal}
                       header="후기"

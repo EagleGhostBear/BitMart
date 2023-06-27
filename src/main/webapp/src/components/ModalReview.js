@@ -20,7 +20,7 @@ const ModalReview = (props) => {
       url: "/ReviewSubmit",
       data: {
         user: token_key,
-        // product: ,
+        product: 1,
         name: data.name,
         title: title,
         content: contents,
@@ -35,7 +35,7 @@ const ModalReview = (props) => {
     close();
   };
 
-  /*
+  
   useEffect(() => {
     
     axios({
@@ -53,7 +53,7 @@ const ModalReview = (props) => {
         console.log(err);
       });
   }, []);
-*/
+
   const handleReviewChange = (event) => {
     setReviewContent(event.target.value);
   };
