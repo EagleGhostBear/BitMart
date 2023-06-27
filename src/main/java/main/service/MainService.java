@@ -84,7 +84,7 @@ public interface MainService {
 
 	List<HistoryDTO> order_history(Map map);
 	
-	public void delivery_insert(Map<String, String> map);
+	public void delivery_insert(Map<String, Object> map);
 	
 	UserDTO checkInfo(Map map);
 
@@ -105,5 +105,7 @@ public interface MainService {
 	void modifyMember(Map map);
 	
 	public void deleteUser(Map map);
+
+	public void useraddr_update(Map<String, Object> map);
 }
 

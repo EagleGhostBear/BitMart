@@ -84,7 +84,7 @@ public interface MainDAO {
 
 	List<HistoryDTO> order_history(Map map);
 
-    public void delivery_insert(Map<String, String> map);
+    public void delivery_insert(Map<String, Object> map);
     
 	UserDTO checkInfo(Map map);
 
@@ -103,7 +103,7 @@ public interface MainDAO {
 
 	void ReviewSubmit(Map reviewData);
     public void update_checked(Map map);
-    
 
-	
+
+	public void useraddr_update(Map<String, Object> map);
 }
