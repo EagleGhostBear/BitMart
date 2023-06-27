@@ -271,6 +271,12 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public void ReviewSubmit(Map reviewData) {
+		// TODO Auto-generated method stub
+		mainDAO.ReviewSubmit(reviewData);
+		
+	}
+
 	public void update_checked(Map map) {
 		mainDAO.update_checked(map);
 	}

@@ -10,60 +10,136 @@ const InquiryPage = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minHeight: '100vh', marginBottom: '200px' }}>
-      <div style={{ marginTop: '40px', marginRight: '20px', paddingRight: '830px' }}>
-        <div style={{ fontSize: '28px', fontWeight: '700', border: '1px solid white', padding: '10px', marginBottom: '20px', marginLeft: '-10px' }}>고객센터</div>
-        <ul style={{ borderColor: '#E9ECEF', width: '175px', listStyleType: 'none', padding: 0, border: '1px solid lightgray', padding: '10px', backgroundColor: 'white' }}>
-          <li style={{ height: '32px', marginBottom: '5px' }}>
-            <Link
-              to="/notices"
-              style={{
-                color: activeTab === 'notices' ? 'purple' : 'rgba(0, 0, 0, 0.4)',
-                textDecoration: 'none',
-                fontSize: '14px',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-              onClick={() => handleTabClick('notices')}
+    <div style={{ minHeight: '1300px' }}>
+    <div style={{ marginLeft: '230px', marginTop: '60px'}} className="NavHeader">
+    <div className="NavTitle">
+      고객센터
+    </div>
+    <ul className="NavMain">
+      <li className="NavDetail" >
+        <a href="/notices" className="Notice">
+         공지사항
+          <svg
+            id="Arrow"
+            height="19"
+            width="19"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs >
+              <path
+                id="gfk9q0rhta"
+                d="M1.657 1.657L9.657 1.657 9.657 9.657"
+              />
+            </defs>
+            <g
+              fill="none"
+              fillRule="evenodd"
             >
-              공지사항<span style={{ marginLeft: '5px' }}>{activeTab === 'notices' ? '>' : ''}</span>
-            </Link>
-          </li>
-          <hr style={{ margin: '5px 0' }} />
-          <li style={{ height: '32px', marginBottom: '5px' }}>
-            <Link
-              to="/faq"
-              style={{
-                color: activeTab === 'faq' ? 'purple' : 'rgba(0, 0, 0, 0.4)',
-                textDecoration: 'none',
-                fontSize: '14px',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-              onClick={() => handleTabClick('faq')}
+              
+              <g
+                transform="translate(-339 -398) translate(0 386) translate(339 12) translate(4.69 6.343)"
+              >
+                <use
+                  id="arrowIcon"
+                  stroke="#999"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.8"
+                  transform="rotate(45 5.657 5.657)"
+                  xlinkHref="#gfk9q0rhta"
+                />
+              </g>
+                
+            </g>
+          </svg>
+        </a>
+      </li>
+      
+      
+      <li className="NavDetail" >
+        <a href="/faq" className="Faq">
+         자주하는 질문
+          <svg
+            id="Arrow"
+            height="19"
+            width="19"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs >
+              <path
+                id="gfk9q0rhta"
+                d="M1.657 1.657L9.657 1.657 9.657 9.657"
+              />
+            </defs>
+            <g
+              fill="none"
+              fillRule="evenodd"
             >
-              자주하는 질문<span style={{ marginLeft: '5px' }}>{activeTab === 'faq' ? '>' : ''}</span>
-            </Link>
-          </li>
-          <hr style={{ margin: '5px 0' }} />
-          <li style={{ height: '32px', marginBottom: '5px' }}>
-            <Link
-              to="/inquiry"
-              style={{
-                color: activeTab === 'inquiry' ? 'purple' : 'rgba(0, 0, 0, 0.4)',
-                textDecoration: 'none',
-                fontSize: '14px',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-              onClick={() => handleTabClick('inquiry')}
+              
+              <g
+                transform="translate(-339 -398) translate(0 386) translate(339 12) translate(4.69 6.343)"
+              >
+                <use
+                  id="arrowIcon"
+                  stroke="#999"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.8"
+                  transform="rotate(45 5.657 5.657)"
+                  xlinkHref="#gfk9q0rhta"
+                />
+              </g>
+                
+            </g>
+          </svg>
+        </a>
+      </li>
+      <li className="NavDetail">
+        <a href="/inquiry" className="Inquiry"
+            style={{
+              color:'#5f0080',
+            }}>
+          1:1 문의
+          
+          {/* svg, g태그 : 이미지 사용할때! => 화살표 태그 이미지 삽입 */}
+          <svg
+            id="Arrow"
+            height="19"
+            width="19"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <path
+                id="gfk9q0rhta"
+                d="M1.657 1.657L9.657 1.657 9.657 9.657"      /* 화살표 이미지 경로 */
+              />
+            </defs>
+            <g
+              fill="none"
+              fillRule="evenodd"
             >
-              1:1 문의<span style={{ marginLeft: '5px' }}>{activeTab === 'inquiry' ? '>' : ''}</span>
-            </Link>
-          </li>
-        </ul>
-      </div>
-      <div style={{ marginTop: '-100px', marginLeft: '150px' }}>
+              <g
+                transform="translate(-339 -398) translate(0 386) translate(339 12) translate(4.69 6.343)"
+              >
+                <use
+                  id="arrowIcon"
+                  stroke="#5f0080"          // 화살표 색상
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.8"
+                  transform="rotate(45 5.657 5.657)"
+                  xlinkHref="#gfk9q0rhta"
+              />
+              </g>
+            </g>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+      <div style={{ marginTop: '-100px', marginLeft: '350px', marginTop: '-220px' }}>
         <InquiryList />
       </div>
       <div style={{ marginTop: '20px' }}>
@@ -78,7 +154,7 @@ const InquiryPage = () => {
             justifyContent: 'center',
             alignItems: 'center',
             textDecoration: 'none',
-            marginLeft: '950px',
+            marginLeft: '1150px',
           }}
         >
           문의하기
@@ -87,8 +163,6 @@ const InquiryPage = () => {
     </div>
   );
 };
-
 export default InquiryPage;
-
 
 

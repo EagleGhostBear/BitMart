@@ -250,4 +250,8 @@
 	</update>
 
 	
+	<insert id="ReviewSubmit" parameterType="java.util.Map">
+		insert into comment(product,title, name,logtime,content) values(#{product},#{title},#{name},#{logtime},#{content})
+	</insert>
+	
 </mapper>

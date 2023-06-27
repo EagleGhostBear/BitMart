@@ -31,35 +31,74 @@ const NoticeDetail = () => {
   }
 
   return (
-    <div>
-      <hr style={{ borderTop: '2px solid #000', marginBottom: '10px' }} />
-      <h1 style={{ fontSize: '15px' }}>{notice.title}</h1>
-      <p>작성자: {notice.author}</p>
-      <p>작성일: {notice.date}</p>
-      <hr style={{ borderTop: '1px solid rgba(0, 0, 0, 0.2)', marginBottom: '10px' }} />
-      <p>{notice.content}</p>
-      <hr style={{ borderTop: '1px solid rgba(0, 0, 0, 0.5)', marginBottom: '10px' }} />
-      <button
-        style={{
-          padding: '0px 10px',
-          width: '150px',
-          height: '42px',
-          backgroundColor: 'rgb(95, 0, 128)',
-          marginLeft: '700px',
-          overflow: 'hidden',
-          textAlign: 'center',
-          display: 'block',
-          borderRadius: '0px',
-          color: 'white',
-          border: '0px',
-          fontSize: '14px',
-        }}
-        onClick={handleGoBack}
-      >
+    <div style={styles.container}>
+      <hr style={styles.hr} />
+      <h1 style={styles.title}>{notice.title}</h1>
+      <p style={styles.text}>작성자: {notice.author}</p>
+      <p style={styles.text}>작성일: {notice.date}</p>
+      <hr style={styles.hr} />
+      <p style={styles.content}>{notice.content}</p>
+      <hr style={styles.hr} />
+      <button style={styles.button} onClick={handleGoBack}>
         목록
       </button>
     </div>
   );
+};
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+    background: 'rgba(248, 249, 250, 0.8)',
+    borderRadius: '8px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    marginTop: '-980px',
+    width: '1000px',
+    height: '500px',
+  },
+  hr: {
+    width: '100%',
+    height: '2px',
+    margin: '10px 0',
+    backgroundColor: '#FFB3D1',
+    border: 'none',
+  },
+  title: {
+    fontSize: '28px',
+    fontWeight: 'bold',
+    marginBottom: '10px',
+    color: '#663399',
+    fontFamily: 'Arial, sans-serif',
+  },
+  text: {
+    fontSize: '16px',
+    marginBottom: '4px',
+    color: '#993366',
+    fontFamily: 'Arial, sans-serif',
+  },
+  content: {
+    fontSize: '18px',
+    lineHeight: '1.5',
+    marginBottom: '10px',
+    color: '#663399',
+    fontFamily: 'Arial, sans-serif',
+    
+  },
+  button: {
+    padding: '8px 16px',
+    backgroundColor: 'purple',
+    color: '#FFFFFF',
+    border: 'none',
+    borderRadius: '9999px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    fontFamily: 'Arial, sans-serif',
+  },
 };
 
 export default NoticeDetail;

@@ -225,12 +225,49 @@ const findPwdDB = (id, email) => {
     if (!res.data) {
       openModal("가입 시 입력하신 회원정보가 맞는지 다시 한번 확인해 주세요.");
     } else {
-      openModal1("가입하신 이메일로 인증번호가 발송되었습니다. 메일을 받지 못하셨다면 스팸함을 확인해 보세요.");
+      sendMail(id, email);
+      resetPwd(id);
     }
   })
   .catch((err) => {
     console.log("비밀번호 찾기", err);
     openModal("비밀번호 찾기에 문제가 생겼습니다!");
+  });
+}
+
+const sendMail = (id, email) => {
+  axios({
+    method: "post",
+    url: "/api/sendMail",
+    data: {
+      id: id,
+      email: email,
+    },
+  })
+  .then((res) => {
+    console.log(res.data);
+    openModal1("가입하신 이메일로 인증번호가 발송되었습니다. 메일을 받지 못하셨다면 스팸함을 확인해 보세요.");
+  })
+  .catch((err) => {
+    console.log("이메일 발송 실패", err);
+    openModal("이메일 발송에 실패했습니다!");
+  });
+}
+const resetPwd = (id) => {
+  axios({
+    method: "post",
+    url: `/resetpwd/${id}`,
+    data: {
+      id: id
+    },
+  })
+  .then((res) => {
+    console.log("데이터가 보내졌습니다.", res.data);
+    console.log(id)
+  })
+  .catch((err) => {
+    console.log("데이터 발송 실패", err);
+    console.log(id)
   });
 }
 
