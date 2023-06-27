@@ -94,8 +94,6 @@ public interface MainService {
 
 	public void delivery_delete(Map map);
 
-	List<HistoryDTO> getOrderHistory(String user);
-
 	void ReviewSubmit(Map reviewData);
     public void update_checked(Map map);
 	
@@ -105,5 +103,9 @@ public interface MainService {
 	void modifyMember(Map map);
 	
 	public void deleteUser(Map map);
+
+	List<HistoryDTO> getOrderHistory(Map map);
+
+	CommentDTO comment_detail(Map map);
 }
 

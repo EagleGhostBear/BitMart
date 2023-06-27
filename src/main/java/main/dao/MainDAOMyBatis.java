@@ -263,7 +263,8 @@ public class MainDAOMyBatis implements MainDAO {
 	@Override
 	public List<HistoryDTO> order_history(Map map) {
 		
-		return sqlSession.selectList("mainSQL.order_history", map);
+		return sqlSession.selectList("mainSQL.getOrderHistory", map);
+//		return sqlSession.selectList("mainSQL.order_history", map);
 	}
 
 	
@@ -314,9 +315,10 @@ public class MainDAOMyBatis implements MainDAO {
 	public void deleteUser(Map map) {
 		sqlSession.delete("mainSQL.deleteUser", map);
 	}
-	public List<HistoryDTO> getOrderHistory(String user) {
+	
+	public List<HistoryDTO> getOrderHistory(Map map) {
 		
-		return sqlSession.selectList("mainSQL.getOrderHistory", user);
+		return sqlSession.selectList("mainSQL.getOrderHistory", map);
 	}
 
 	@Override
@@ -330,7 +332,10 @@ public class MainDAOMyBatis implements MainDAO {
 	public void update_checked(Map map) {
 		sqlSession.update("mainSQL.update_checked", map);
 	}
-
 	
-	
+	@Override
+	public CommentDTO comment_detail(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.comment_detail", map);
+	}
 }

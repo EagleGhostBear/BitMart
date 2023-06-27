@@ -272,6 +272,15 @@ public class MainController {
 		return list;
 	}
 	
+	@PostMapping(value = "comment_detail")
+	@ResponseBody
+	public CommentDTO comment_detail(@RequestBody Map map) {
+		System.out.println("comment:" + map);
+		CommentDTO commentDTO = mainService.comment_detail(map);
+		System.out.println("comment detail:"  + commentDTO);
+		return commentDTO;
+	}
+	
 	@PostMapping(value = "comment_count")
 	@ResponseBody
 	public String comment_count(@RequestBody Map map) {
@@ -392,11 +401,10 @@ public class MainController {
 	@PostMapping(value="order_history")
 	@ResponseBody
 	public List<HistoryDTO> order_history(@RequestBody Map map){
-		
-		String user = (String) map.get("user");
-		System.out.println("이것은 주문내역의 user값이여 : " + user);
-		
-		return mainService.order_history(map);
+		System.out.println("order호출");
+		List<HistoryDTO> list = mainService.order_history(map);
+		System.out.println(list);
+		return list;
 	}
 	
 	
@@ -484,10 +492,9 @@ public class MainController {
 	
 	@PostMapping(value="review")
 	@ResponseBody
-	public List<HistoryDTO> review(@RequestBody Map<String, Object> map){
-		String user = (String) map.get("user");
+	public List<HistoryDTO> review(@RequestBody Map map){
 		
-		List<HistoryDTO> orderHistory = mainService.getOrderHistory(user);
+		List<HistoryDTO> orderHistory = mainService.getOrderHistory(map);
 		return orderHistory; 
 	}
 	

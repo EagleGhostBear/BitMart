@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import ReviewWrite from "../components/ModalReview";
+
 import styles from "../css/review.module.css";
 import Tab from "../elements/Tab";
 import axios from "axios";
-
+import { useRef } from "react";
 
 const Modal = ({ isOpen, content }) => {
   //탭 여닫는부분 스타일
@@ -31,27 +32,20 @@ const Review = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const token_key = `${localStorage.getItem("token")}`;
   const [data, setData] = useState([]);
-  
+  const [select, setSelect] = useState(true);
+  const selectProduct = useRef(0);
 
   useEffect(() => {
-    axios({
-      // 스프링에서의 ajax느낌
-      method: "post", // post방식으로 보내겠다
-      url: "order_history", //스프링부트의 Controller의 order_history로 가라
-      data: {
+    axios
+      .post("/order_history", {
         user: token_key,
-      },
-    })
-      .then((res) => {
-        console.log(res.data);
-        setData(res.data);
+        review: "n",
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((response) => setData(response.data));
   }, []);
 
-  const openModal = () => {
+  const openModal = (seq) => {
+    selectProduct.current = seq;
     setModalOpen(true);
   };
 
@@ -64,15 +58,24 @@ const Review = () => {
   let [modalOpen2, setModalOpen2] = useState(false);
 
   const handleButtonClick = () => {
-    setModalOpen1(true);
-    setModalOpen2(false);
+    setSelect(true);
+    axios
+      .post("/order_history", {
+        user: token_key,
+        review: "n",
+      })
+      .then((response) => setData(response.data));
   };
 
   const handleButtonClick2 = () => {
-    setModalOpen1(false); // modalOpen1을 닫음
-    setModalOpen2(true);
+    setSelect(false);
+    axios
+      .post("/order_history", {
+        user: token_key,
+        review: "y",
+      })
+      .then((response) => setData(response.data));
   };
-
 
   return (
     <div className={styles.containerWrap}>
@@ -206,12 +209,61 @@ const Review = () => {
         {/* 클릭하면 동작하는 모달창 */}
 
         <div className={styles["tabList"]}>
-          <Tab text="작성가능 후기" onClick={handleButtonClick} />
+          <Tab
+            text="작성가능 후기"
+            onClick={handleButtonClick}
+            style={{ color: select ? "red" : "black" }}
+          />
 
-          <Tab text="작성한 후기" onClick={handleButtonClick2} />
+          <Tab
+            text="작성한 후기"
+            onClick={handleButtonClick2}
+            style={{ color: select ? "black" : "red" }}
+          />
         </div>
 
-        {modalOpen2 ? (
+        {data.map((item, index) => (
+          <div className={styles.reviewContainer}>
+            <div className={styles.reviewItem}>
+              <div className={styles.imageContainer}>
+                <img
+                  className={styles.productImage}
+                  alt="상품이미지"
+                  src={data[index].productImage}
+                />
+              </div>
+              <div className={styles.productInfo}>
+                <a href="">
+                  <span className={styles.productName}>
+                    {data[index].productTitle}
+                  </span>
+                </a>
+                <div className={styles.dateWrap}>
+                  <span className={styles.date}>{data[index].logTime}</span>
+                </div>
+              </div>
+              <React.Fragment>
+                <button
+                  onClick={() => openModal(item.productSeq)}
+                  className={styles.modalButton}
+                >
+                  후기 작성
+                </button>
+              </React.Fragment>
+              <div className={styles.contentWrap}></div>
+            </div>
+          </div>
+        ))}
+
+        <ReviewWrite
+          seq={selectProduct.current}
+          //content={item}
+          open={modalOpen}
+          close={closeModal}
+          header="후기"
+        />
+
+        {/* {modalOpen2 ? (
           <div className={styles.reviewContainer}>
             {data.map((item, index) => (
               <div className={styles.reviewItem} key={index}>
@@ -236,7 +288,7 @@ const Review = () => {
                     후기 수정
                   </button>
                   <ReviewWrite
-                   content={item}
+                    content={item}
                     open={modalOpen}
                     close={closeModal}
                     header="후기"
@@ -279,7 +331,8 @@ const Review = () => {
                     </button>
 
                     <ReviewWrite
-                    content={item}
+                      product_seq={item.productSeq}
+                      content={item}
                       open={modalOpen}
                       close={closeModal}
                       header="후기"
@@ -289,7 +342,7 @@ const Review = () => {
                 </div>
               </div>
             ))
-          : null}
+          : null} */}
       </div>
     </div>
   );

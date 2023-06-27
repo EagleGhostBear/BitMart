@@ -20,5 +20,6 @@ public class HistoryDTO {
     private int product;
     private int number;
     private String deliveryState;
+    private String review;
     private LocalDateTime logTime;
 }
