@@ -1,37 +1,34 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from "styled-components";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const ResetPwd = () => {
+  const dispatch = useDispatch();
   const [pwd, setPwd] = useState("");
-  const [pwd1, setPwd1] = useState("");
+  const [pwdCheck, setPwdCheck] = useState("");
   const [isDeleteVisible, setDeleteVisible] = useState(false);
   const [isDeleteVisible1, setDeleteVisible1] = useState(false);
-  const [inputPwdValue, setInputPwdValue] = useState('');
-  const [inputPwd1Value, setInputPwd1Value] = useState('');
   
   const handlePwdChange = (event) => {
-    const pwdValue = event.target.value.trim();
-    setPwd(pwdValue);
-    setDeleteVisible(pwdValue !== '');
-    setInputPwdValue(pwdValue);
+    const pwd = event.target.value.trim();
+    setPwd(pwd);
+    setDeleteVisible(pwd !== '');
   };
   
   const handlePwd1Change = (event) => {
-    const pwd1Value = event.target.value.trim();
-    setPwd1(pwd1Value);
-    setDeleteVisible1(pwd1Value !== '');
-    setInputPwd1Value(pwd1Value);
+    const pwdCheck = event.target.value.trim();
+    setPwdCheck(pwdCheck);
+    setDeleteVisible1(pwdCheck !== '');
   };
 
   const handleDeletePwd = () => {
     setPwd('');
-    setInputPwdValue('');
     setDeleteVisible(false);
   };
 
   const handleDeletePwd1 = () => {
-    setPwd1('');
-    setInputPwd1Value('');
+    setPwdCheck('');
     setDeleteVisible1(false);
   };
   
@@ -45,11 +42,14 @@ const ResetPwd = () => {
     const validateElement1 = document.getElementById("validate");
     validateElement1.style.display = "block";
   }
-  const isLengthValid = inputPwdValue.length >= 10;
-  const isCombinationValid = /^(?=.*[A-Za-z])(?=.*\d)|(?=.*[A-Za-z])(?=.*[@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`])|(?=.*\d)(?=.*[@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`])/.test(inputPwdValue);
-  const isConsecutiveValid = !/(\d)\1{2,}/g.test(inputPwdValue);
-  const isPasswordMatch = inputPwdValue.length > 0 && inputPwd1Value.length > 0 && inputPwdValue === inputPwd1Value;
+  const isLengthValid = pwd.length >= 10;
+  const isCombinationValid = /^(?=.*[A-Za-z])(?=.*\d)|(?=.*[A-Za-z])(?=.*[@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`])|(?=.*\d)(?=.*[@#$%^&*()_+\-=[\]{};':"\\|,.<>/?~`])/.test(pwd);
+  const isConsecutiveValid = !/(\d)\1{2,}/g.test(pwd);
+  const isPasswordMatch = pwd.length > 0 && pwd.length > 0 && pwd === pwdCheck;
 
+  const resetPwd = () => {
+    dispatch(userActions.resetPwdDB(pwd, pwdCheck))
+  }
   return (
     <React.Fragment>
       <ResetPwdWrap>
@@ -59,7 +59,7 @@ const ResetPwd = () => {
         <Input
         type="password"
         className="ResetPwd"
-        value={inputPwdValue}
+        value={pwd}
         placeholder="새 비밀번호를 입력해 주세요"
         onChange={handlePwdChange}
         onFocus={handleFocus1}
@@ -94,7 +94,7 @@ const ResetPwd = () => {
         <Input
         type="password"
         className="CheckPwd"
-        value={inputPwd1Value}
+        value={pwdCheck}
         placeholder="새 비밀번호를 한 번 더 입력해 주세요"
         onChange={handlePwd1Change}
         onFocus={handleFocus}
@@ -123,6 +123,10 @@ const ResetPwd = () => {
             style={{
               backgroundColor: isLengthValid && isCombinationValid && isConsecutiveValid && isPasswordMatch ? "#5f0080" : "",
               cursor: isLengthValid && isCombinationValid && isConsecutiveValid && isPasswordMatch ? "pointer" : "default"
+            }}
+            disabled={!isPasswordMatch}
+            onClick={()=>{
+              resetPwd()
             }}
           >
             확인
