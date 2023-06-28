@@ -94,11 +94,9 @@ public interface MainService {
 
 	public void delivery_delete(Map map);
 
-	List<HistoryDTO> getOrderHistory(String user);
-
 	void ReviewSubmit(Map reviewData);
+
     public void update_checked(Map map);
-	
 
 	UserDTO getId(Map map);
 
@@ -106,6 +104,11 @@ public interface MainService {
 	
 	public void deleteUser(Map map);
 
+	List<HistoryDTO> getOrderHistory(Map map);
+
+	CommentDTO comment_detail(Map map);
 	public void useraddr_update(Map<String, Object> map);
+
+	public List<UserDTO> cart_delivery(String user);
 }
 

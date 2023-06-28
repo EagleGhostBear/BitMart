@@ -6,6 +6,8 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Navbar from "../components/NavigationBar";
+import Modal from "../components/ModalConfirm";
+import ReactDOM from 'react-dom';
 
 const ConfirmPwd = () => {
   const token_key = `${localStorage.getItem("token")}`;
@@ -43,14 +45,14 @@ const ConfirmPwd = () => {
       navigate('/modify')
     }
     else{
-      alert('비밀번호를 확인해주세요.');
+      openModal('비밀번호를 확인해주세요.');
     }
   }
 
   // checkInfo 함수 실행 
   const login = () => {
     if (username === "" || password === "") {
-      window.alert("아이디와 비밀번호를 입력해주세요.");
+      openModal('아이디와 비밀번호를 입력해주세요.');
       return;
     } else {
       dispatch(userActions.loginDB(username, password));
@@ -58,12 +60,27 @@ const ConfirmPwd = () => {
   };
 
   return (
-    
     <React.Fragment>
+
+    <div className="mainContainer"
+        style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '100px',
+            marginRight: '100px',
+        }}
+    >
+
+        {/* 네비게이션 바 */}
+        <div style={{ marginRight: '20px'}}>
+          <Navbar />
+        </div>
+      
+        <Container>
         <LoginWrap>
           <Text
             bold
-            margin="70px auto 34px"
+            margin="10px auto 34px"
             size="22px"
             width="100%"
             center="center"
@@ -77,6 +94,8 @@ const ConfirmPwd = () => {
               회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.
             </DescriptionWrap>
           </SubtitleWrap>
+
+          <Line />
 
           <input
               id="username"
@@ -104,9 +123,36 @@ const ConfirmPwd = () => {
             </Text>
           </ButtonConfirm>
         </LoginWrap>
+        </Container>
+        </div>
     </React.Fragment>
   );
 };
+
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); 
+  document.body.appendChild(modalContainer);
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove();
+};
+
+const Container = styled.div`
+  width: 640px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 50px;
+`;
 
 const LoginWrap = styled.div`
   margin: 0px auto 100px 0px;
@@ -117,19 +163,23 @@ const LoginWrap = styled.div`
 const SubtitleWrap = styled.div`
   margin: 0px auto 40px 0px;
   justify-content: center;
-  text-align: center;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 700;
 `;
 
 const DescriptionWrap = styled.div`
   margin: 0px auto 40px 0px;
   justify-content: center;
-  text-align: center;
-  font-size: 12px;
+  text-align: left;
+  font-size: 13px;
+  margin-top: 5px;
+  color: gray;
 `;
 
 const ButtonConfirm = styled.button`
   margin: 10px auto;
-  width: 17%;
+  width: 350px;
   height: 54px;
   border-radius: 3px;
   border: 1px solid #5f0081;
@@ -140,12 +190,22 @@ const ButtonConfirm = styled.button`
   text-align: center;
 `;
 
+const Line = styled.span`
+  display: block;
+  width: 100%;
+  height: 1.5px;
+  background-color: #333333;
+  margin-top: -20px;
+  margin-bottom: 20px;
+`;
+
 const inputStyle = {
   margin: "10px auto",
   display: "block",
   borderRadius: "3px",
   border: "1px solid #e0dede",
-  width: "17%",
+  // width: "25%",
+  width: "350px",
   maxWidth: "100%",
   height: "54px",
   padding: "0px 19px",

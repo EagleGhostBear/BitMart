@@ -15,6 +15,18 @@ const Modal = ({isOpen, closeModal, message}) => {
   );
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
 const ModalContainer = styled.div`
 position: fixed;
 top: 0;
