@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Text, Button, Input } from "../elements/element";
 import { useDispatch } from "react-redux";
 import user, { actionCreators as userActions } from "../redux/modules/user";
+import ReactDOM from 'react-dom';
 import {
   userIdCheck,
   pwdCheck,
@@ -10,6 +11,8 @@ import {
   emailCheck,
 } from "../shared/common";
 import axios from "axios";
+import Modal from "../components/ModalFind";
+import Modal2 from "../components/ModalFind3";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -30,7 +33,7 @@ const Signup = (props) => {
 
   const checkuserId = () => {
     if (!userIdCheck(userId)) {
-      alert("아이디 형식이 맞지 않습니다!");
+      openModal("아이디 형식이 맞지 않습니다!");
       return;
     } else {
       axios({
@@ -43,10 +46,10 @@ const Signup = (props) => {
         .then((res) => {
           console.log(res.data);
           if (res.data === "") {
-            window.alert("사용 가능한 아이디입니다!");
+            openModal("사용 가능한 아이디입니다!");
             setTestId(userId);
           } else {
-            window.alert("이미 사용 중인 아이디입니다!");
+            openModal("이미 사용 중인 아이디입니다!");
             setTestId("");
           }
           return res.data;
@@ -70,17 +73,17 @@ const Signup = (props) => {
     })
       .then((res) => {
         if (!res.data) {
-          window.alert("사용 가능한 이메일입니다!");
+          openModal("사용 가능한 이메일입니다!");
           setTestEmail(email);
         } else {
-          window.alert("이미 사용 중인 이메일입니다!");
+          openModal("이미 사용 중인 이메일입니다!");
           setTestEmail("");
         }
       }
       )
       .catch((err) => {
         console.log("이메일 중복", err);
-        window.alert("이메일 중복확인에 문제가 생겼습니다!");
+        openModal("이메일 중복확인에 문제가 생겼습니다!");
       });
   };
 
@@ -93,38 +96,38 @@ const Signup = (props) => {
       email === "" ||
       nickname === ""
     ) {
-      window.alert("입력하지 않은 칸이 있습니다!!");
+      openModal("입력하지 않은 칸이 있습니다!!");
       return;
     }
 
     
     //회원가입 시 아이디, 비밀번호, 비밀번호 확인, 이름, 이메일 유효성 검사
     if (!userIdCheck(userId)) {
-      window.alert("아이디 형식이 맞지 않습니다!");
+      openModal("아이디 형식이 맞지 않습니다!");
       return;
     }
 
     if (!pwdCheck(password)) {
-      window.alert("비밀번호 형식이 맞지 않습니다!");
+      openModal("비밀번호 형식이 맞지 않습니다!");
       return;
     }
 
     if (password !== passwordCheck) {
-      window.alert("비밀번호와 비밀번호 확인이 일치하지 않습니다!");
+      openModal("비밀번호와 비밀번호 확인이 일치하지 않습니다!");
       return;
     }
 
     if (!nicknameCheck(nickname)) {
-      window.alert("이름 형식이 맞지 않습니다!");
+      openModal("이름 형식이 맞지 않습니다!");
       return;
     }
 
     if (!emailCheck(email)) {
-      window.alert("잘못된 이메일 형식입니다!");
+      openModal("잘못된 이메일 형식입니다!");
       return;
     }
     if(userId !== testId){
-      window.alert("아이디 중복확인을 해주세요!");
+      openModal("아이디 중복확인을 해주세요!");
       return;
     }
 
@@ -143,17 +146,16 @@ const Signup = (props) => {
         })
           .then((res) => {
             console.log(res.data);
-            window.alert("회원가입이 완료되었습니다!");
-            window.location.replace("/login");
+            openModal2("회원가입이 완료되었습니다!");
           })
           .catch((err) => {
             console.log("회원가입 오류", err);
-            window.alert("회원가입에 문제가 생겼습니다!");
+            openModal("회원가입에 문제가 생겼습니다!");
           })
       );
     }
     else{
-      window.alert("아이디 또는 이메일 중복확인을 해주세요!");
+      openModal("아이디 또는 이메일 중복확인을 해주세요!");
       return;
     }
   };
@@ -401,5 +403,37 @@ const InfoUl = styled.ul`
   list-style: none;
   margin-top: 4px;
 `;
+
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); // 새로운 div 요소 생성
+  document.body.appendChild(modalContainer); // body 요소에 새로운 div 요소 추가
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove(); // div 요소 삭제
+};
+
+const openModal2 = (message) => {
+  const modalContainer = document.createElement("div");
+  document.body.appendChild(modalContainer);
+
+  const closeModal2 = () => {
+    ReactDOM.unmountComponentAtNode(modalContainer);
+    modalContainer.remove();
+  };
+
+  ReactDOM.render(
+    <Modal2 isOpen={true} closeModal={closeModal2} message={message} />,
+    modalContainer
+  );
+};
 
 export default Signup;

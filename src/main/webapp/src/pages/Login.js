@@ -4,7 +4,9 @@ import { Text, LoginBox } from "../elements/element";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Link, useNavigate } from "react-router-dom";
+import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Modal from "../components/ModalFind";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ const Login = () => {
 
   const login = () => {
     if (username === "" || password === "") {
-      window.alert("아이디와 비밀번호를 입력해주세요.");
+      openModal("아이디와 비밀번호를 입력해주세요.");
       return;
     } else {
       dispatch(userActions.loginDB(username, password));
@@ -120,6 +122,23 @@ const Login = () => {
       </LoginWrap>
     </React.Fragment>
   );
+};
+
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); // 새로운 div 요소 생성
+  document.body.appendChild(modalContainer); // body 요소에 새로운 div 요소 추가
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove(); // div 요소 삭제
 };
 
 const LoginWrap = styled.div`

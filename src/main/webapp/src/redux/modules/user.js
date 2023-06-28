@@ -5,6 +5,7 @@ import Modal from "../../components/ModalFind";
 import Modal1 from "../../components/ModalFind2";
 import ReactDOM from 'react-dom';
 import Modal2 from "../../components/ModalFind3";
+import Modal3 from "../../components/ModalFind4";
 
 // 액션
 const SET_USER = "SET_USER";
@@ -32,17 +33,17 @@ const userIdCheckF = (userId) => {
       .then((res) => {
         console.log(res.data);
         if (res.data === "") {
-          window.alert("사용 가능한 아이디입니다!");
+          openModal("사용 가능한 아이디입니다!");
           
         } else {
-          window.alert("이미 사용 중인 아이디입니다!");
+          openModal("이미 사용 중인 아이디입니다!");
           return;
         }
         return res.data;
       })
       .catch((err) => {
         console.log("아이디 중복", err);
-        window.alert("아이디 중복확인에 문제가 생겼습니다!");
+        openModal("아이디 중복확인에 문제가 생겼습니다!");
       });
   };
 };
@@ -59,14 +60,14 @@ const emailCheckF = (email) => {
     })
       .then((res) => {
         if (!res.data) {
-          window.alert("사용 가능한 이메일입니다!");
+          openModal("사용 가능한 이메일입니다!");
         } else {
-          window.alert("이미 사용 중인 이메일입니다!");
+          openModal("이미 사용 중인 이메일입니다!");
         }
       })
       .catch((err) => {
         console.log("이메일 중복", err);
-        window.alert("이메일 중복확인에 문제가 생겼습니다!");
+        openModal("이메일 중복확인에 문제가 생겼습니다!");
       });
   };
 };
@@ -91,11 +92,10 @@ const signupDB = (userId, password, passwordCheck, email, nickname) => {
       console.log(signup);
 
       if (signup.data.result === true) {
-        window.alert("성공적으로 회원가입하셨습니다!");
-        window.location.replace("/login");
+        openModal2("성공적으로 회원가입하셨습니다!");
         //회원가입 완료 시 login 페이지로 이동
       } else if (signup.data.result === false) {
-        window.alert(signup.data.errorMessage);
+        openModal(signup.data.errorMessage);
         window.location.replace("/signup");
         //회원가입 실패 시 다시 signup 페이지로 이동
       }
@@ -116,20 +116,19 @@ const loginDB = (username, password) => {
       });
       
       if (login.data === null || login.data === '') {
-        window.alert("아이디와 비밀번호를 다시 확인해주세요.");
+        openModal("아이디와 비밀번호를 다시 확인해주세요.");
         return;
       }
 
       dispatch(setUser({ id: login.data.id, pwd: login.data.pwd, name: login.data.name })); // 로그인 성공 시 유저 정보 저장
       localStorage.setItem("token", login.data.seq);  // 로그인 성공 시 토큰 저장
-      window.alert("로그인 되었습니다!");
-      window.location.replace("/");
+      openModal3("로그인 되었습니다!");
 
       // 로그인 성공 시 메인으로 이동
 
       // 회원가입 시 설정한 값을 localStorage에 저장
     } catch (err) {
-      window.alert("아이디와 비밀번호를 다시 확인해주세요.");
+      openModal("아이디와 비밀번호를 다시 확인해주세요.");
       console.log(err);
     }
   };
@@ -322,6 +321,20 @@ const openModal2 = (message) => {
   );
 };
 
+const openModal3 = (message) => {
+  const modalContainer = document.createElement("div");
+  document.body.appendChild(modalContainer);
+
+  const closeModal3 = () => {
+    ReactDOM.unmountComponentAtNode(modalContainer);
+    modalContainer.remove();
+  };
+
+  ReactDOM.render(
+    <Modal3 isOpen={true} closeModal={closeModal3} message={message} />,
+    modalContainer
+  );
+};
 
 const resetPwdDB = (seq, pwd, pwdcheck) => {
   console.log();
