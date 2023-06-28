@@ -253,5 +253,9 @@
 	<insert id="ReviewSubmit" parameterType="java.util.Map">
 		insert into comment(product,title, name,logtime,content) values(#{product},#{title},#{name},#{logtime},#{content})
 	</insert>
+
+	<select id="cart_delivery" resultType="main.bean.UserDTO">
+		select addr1, addr2 from user where seq=#{user};
+	</select>
 	
 </mapper>

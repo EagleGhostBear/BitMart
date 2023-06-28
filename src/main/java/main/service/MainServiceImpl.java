@@ -297,4 +297,9 @@ public class MainServiceImpl implements MainService {
 		mainDAO.useraddr_update(map);
 	}
 
+	@Override
+	public List<UserDTO> cart_delivery(String user) {
+		return mainDAO.cart_delivery(user);
+	}
+
 }

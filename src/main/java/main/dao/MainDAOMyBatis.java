@@ -336,5 +336,10 @@ public class MainDAOMyBatis implements MainDAO {
 		sqlSession.update("mainSQL.useraddr_update", map);
 	}
 
+	@Override
+	public List<UserDTO> cart_delivery(String user) {
+		return sqlSession.selectList("mainSQL.cart_delivery", user);
+	}
+
 
 }

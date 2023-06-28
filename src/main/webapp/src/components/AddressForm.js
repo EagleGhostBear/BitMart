@@ -1,12 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
+import axios from 'axios';
+import { useDispatch } from "react-redux";
 
 const width = 500;
 const height = 400;
 
 const AddressForm = () => {
-  const [addr, setAddr] = useState(sessionStorage.getItem('address'));
-  const [buildingName, setBuildingName] = useState(sessionStorage.getItem('buildingName'));
+  const [addr, setAddr] = useState(null);
+  const [buildingName, setBuildingName] = useState(null);
+  //const [addr, setAddr] = useState(sessionStorage.getItem('address'));
+  //const [buildingName, setBuildingName] = useState(sessionStorage.getItem('buildingName'));
 
   const onClickLink = useCallback(() => {
     /*global daum*/
@@ -27,13 +31,35 @@ const AddressForm = () => {
     });
   }, []);
 
-  return (
+  // 기본 배송지 등록
+  const dispatch = useDispatch();
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState([]);
+
+
+  useEffect(() => {
+    axios({
+      method:'post',
+      url:'cart_delivery',
+      data:{
+        user:token_key,
+      },
+    })
+    .then((res) => {
+      console.log('유저 배송지 주소: ', res.data);
+      setData(res.data);
+    })
+    .catch((e) => console.log('주소 가져오기 에러: ', e));
+  }, []);
+
+
+    return (
     <div className="address-form-container">
       <p>
         <FaMapMarkerAlt className="marker-icon" />
         배송지
       </p>
-      {addr === null && (
+      {addr === null && data === null && (
         <div>
           <p>
             <span className="delivery-message">배송지를 등록하고</span>
@@ -48,6 +74,15 @@ const AddressForm = () => {
           <span>{`${addr} ${buildingName && '(' + buildingName + ')'}`}</span>
           <span className="block-message"></span>
         </p>
+      )}
+
+      {data !== null && addr === null &&
+        (data.map((item, index) => (
+          <p className="delivery-address">
+            <span> {data[index].addr1}&ensp;{data[index].addr2}</span>
+            <span className="block-message"></span>
+          </p>
+        ))
       )}
 
       <div className="delivery-type">
