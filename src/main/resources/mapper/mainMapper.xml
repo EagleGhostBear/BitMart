@@ -40,7 +40,7 @@
 				WHEN 'sale' THEN sale
 				WHEN 'price' THEN price
 				ELSE seq
-			END DESC LIMIT #{endNum} OFFSET #{startNum}
+			END ASC LIMIT #{endNum} OFFSET #{startNum}
 	</select>
 	
 	<select id="oneday_product" resultType="main.bean.MainDTO">
@@ -255,11 +255,24 @@
 
 	
 	<insert id="ReviewSubmit" parameterType="java.util.Map">
-		insert into comment(product,title, name,logtime,content) values(#{product},#{title},#{name},#{logtime},#{content})
+		insert into comment(product, title, name, logtime ,content, user) values(#{product}, #{title}, #{name}, now(), #{content}, #{user})
 	</insert>
 
 	<select id="cart_delivery" resultType="main.bean.UserDTO">
 		select addr1, addr2 from user where seq=#{user}
 	</select>
+	
+	<select id="resetfindId" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where id=#{id}
+	</select>
+	
+	<update id="resetpwd" parameterType="java.util.Map">
+		update user set pwd=#{pwd} where seq=#{seq}
+	</update>
+	
+
+	<update id="Review_y"  parameterType="java.util.Map">
+		update order_history set review = 'y' where user = #{user} and product = #{product}
+	</update>
 	
 </mapper>

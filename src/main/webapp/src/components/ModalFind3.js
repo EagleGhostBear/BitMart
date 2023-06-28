@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from "styled-components";
 
-const Modal1 = ({id, isOpen, closeModal, message}) => {
+const Modal2 = ({isOpen, closeModal, message}) => {
   const handleConfirm = () => {
     closeModal();
-    window.location.replace(`/findpwdcert?id=${id}`);
+    window.location.replace("/login");
   };
 
   return (
     <ModalContainer style={{ display: isOpen ? "block" : "none" }}>
-      <Modal2>
+      <Modal3>
         <ModalContent>
           {message}
         </ModalContent>
         <ModalFooter onClick={handleConfirm}><Check
         >확인</Check></ModalFooter>
-      </Modal2>
+      </Modal3>
     </ModalContainer>
   );
 };
@@ -30,7 +30,7 @@ overflow: none;
 background-color: rgba(0,0,0,0.4);
 `;
 
-const Modal2 = styled.div`
+const Modal3 = styled.div`
 position: absolute;
 top: 50%;
 left: 50%;
@@ -72,4 +72,4 @@ text-align: center;
 cursor: pointer;
 `;
 
-export default Modal1;
+export default Modal2;

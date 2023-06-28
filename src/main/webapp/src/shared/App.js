@@ -7,6 +7,7 @@ import '../App.css';
 
 // Components
 import { Header } from '../components/component';
+import { Footer } from '../components/component';
 
 // Pages
 import {
@@ -94,6 +95,7 @@ function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/resetpwd" element={<ResetPwd/>}/> 
       </Routes>
+      <Footer />
     </div>
   );
 }

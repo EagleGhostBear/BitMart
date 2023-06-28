@@ -69,7 +69,7 @@ function Faq({ faq }) {
             paddingLeft: '1rem',
           }}
         >
-          <p style={{ color: '#666666' }}>{faq.content}</p>
+          <p style={{ color: '#666666', fontWeight: 'bold' }}>{faq.content}</p>
         </div>
       )}
     </div>

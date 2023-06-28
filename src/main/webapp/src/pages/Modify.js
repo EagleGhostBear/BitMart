@@ -117,6 +117,8 @@ const Modify = (props) => {
 
 
     if(email === testEmail){
+      // console.log(name);
+      console.log(nickname);
       dispatch(
         axios({
           method: "post",
@@ -124,7 +126,7 @@ const Modify = (props) => {
           data: {
             seq: token_key,
             pwd: password,
-            name: nickname,
+            name: getName,
             email: email,
           },
         })
