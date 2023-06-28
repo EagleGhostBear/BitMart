@@ -406,10 +406,7 @@ public class MainController {
 		System.out.println(list);
 		return list;
 	}
-	
-	
 
-	
 	@PostMapping(value="/delivery_insert")
 	@ResponseBody
 	public void delivery_insert(@RequestBody Map requestData){

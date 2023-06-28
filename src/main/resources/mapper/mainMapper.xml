@@ -259,7 +259,7 @@
 	</insert>
 
 	<select id="cart_delivery" resultType="main.bean.UserDTO">
-		select addr1, addr2 from user where seq=#{user};
+		select addr1, addr2 from user where seq=#{user}
 	</select>
 	
 </mapper>
