@@ -1,6 +1,10 @@
 import React from 'react';
 
 const FooterLeft = () => {
+  const handleKakaoTalkInquiry = () => {
+    window.location.href = 'https://accounts.kakao.com/login/?continue=http%3A%2F%2Fpf.kakao.com%2F_xcSDxjxl%2Fchat#login';
+  };
+
   return (
     <div className="w-2/4 pt-6 pb-8" style={{ marginTop: '-220px', marginBottom: '160px' }}>
       <h2 className="font-bold text-r-2">고객행복센터</h2>
@@ -12,7 +16,7 @@ const FooterLeft = () => {
       <dl className="flex flex-shrink-0 pt-8">
         <dt className="mr-7 w-64">
           <p className="h-16 border border-solid border-kmmd-100 text-center leading-4">
-            <button style={{ display: 'block', width: '140px', height: '40px', border: '1px solid #e2e2e2', borderRadius: '3px', lineHeight: '39px', textAlign: 'center', marginRight: '16px', marginBottom: '16px', backgroundColor: 'white' }}>카카오톡 문의</button>
+            <button onClick={handleKakaoTalkInquiry} style={{ display: 'block', width: '140px', height: '40px', border: '1px solid #e2e2e2', borderRadius: '3px', lineHeight: '39px', textAlign: 'center', marginRight: '16px', marginBottom: '16px', backgroundColor: 'white' }}>카카오톡 문의</button>
           </p>
         </dt>
         <dd>
@@ -37,3 +41,4 @@ const FooterLeft = () => {
 };
 
 export default FooterLeft;
+
