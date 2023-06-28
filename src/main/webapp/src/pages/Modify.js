@@ -7,6 +7,8 @@ import GenderRadioButton from "./GenderRadioButton";
 import Navbar from "../components/NavigationBar";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Modal from "../components/ModalConfirm";
+import ReactDOM from 'react-dom';
 
 import {
   userIdCheck,
@@ -60,7 +62,7 @@ const Modify = (props) => {
   
   const checkEmail = () => {
     if (!emailCheck(email)) {
-      alert("이메일 형식이 맞지 않습니다.");
+      openModal("이메일 형식이 맞지 않습니다.");
       return;
     }
   axios({
@@ -72,16 +74,16 @@ const Modify = (props) => {
   })
     .then((res) => {
       if (!res.data) {
-        window.alert("사용 가능한 이메일입니다.");
+        openModal("사용 가능한 이메일입니다.");
         setTestEmail(email);
       } else {
-        window.alert("이미 사용 중인 이메일입니다.");
+        openModal("이미 사용 중인 이메일입니다.");
         setTestEmail("");
       }
     })
     .catch((err) => {
       console.log("이메일 중복", err);
-      window.alert("이메일 중복 확인에 문제가 발생했습니다.");
+      openModal("이메일 중복 확인에 문제가 발생했습니다.");
     });
 };
 
@@ -93,28 +95,23 @@ const Modify = (props) => {
       email === "" //||
       // nickname === ""
     ) {
-      window.alert("빈 칸을 모두 입력해 주세요");
+      openModal("빈 칸을 모두 입력해주세요.")
       return;
     }
 
     //비밀번호, 비밀번호 확인, 이름, 이메일 유효성 검사
     if (!pwdCheck(password)) {
-      window.alert("비밀번호 형식이 맞지 않습니다");
+      openModal("비밀번호 형식이 맞지 않습니다.");
       return;
     }
 
     if (password !== passwordCheck) {
-      window.alert("동일한 비밀번호를 입력해주세요.");
+      openModal("동일한 비밀번호를 입력해주세요.");
       return;
     }
 
-    // if (!nicknameCheck(nickname)) {
-    //   window.alert("이름 형식이 맞지 않습니다");
-    //   return;
-    // }
-
     if (!emailCheck(email)) {
-      window.alert("잘못된 이메일 형식입니다");
+      openModal("잘못된 이메일 형식입니다.");
       return;
     }
 
@@ -135,7 +132,7 @@ const Modify = (props) => {
         })
           .then((res) => {
             console.log(res.data);
-            window.alert("회원 정보가 수정되었습니다.");
+            openModal("회원 정보가 수정되었습니다.");
             window.location.replace("/confirmPwd");
           })
           .catch((err) => {
@@ -145,28 +142,11 @@ const Modify = (props) => {
       );
     }
     else {
-      window.alert("이메일 중복 확인을 해주세요.");
+      openModal("이메일 중복 확인을 해주세요.");
       return;
     }
   };
 
-  //회원 탈퇴
-  const handleDeleteUser = (e) => {
-    e.preventDefault();;
-    if (window.confirm('확인 버튼을 누르면 회원 정보가 삭제됩니다.')) { 
-      axios
-        .delete(
-          
-        ).then(() => {
-          localStorage.clear();
-          alert('그동안 이용해주셔서 감사합니다.');
-          navigate('/');
-        })
-        .catch((err) => alert(err.response.data.message));
-    } else {
-      return;
-    }
-  };
 
   return (
     <div className="mainContainer"
@@ -178,10 +158,10 @@ const Modify = (props) => {
         }}
     >
 
-        {/* 네비게이션 바 */}
-        <div style={{ marginRight: '20px'}}>
-          <Navbar />
-        </div>
+      {/* 네비게이션 바 */}
+      <div style={{ marginRight: '20px'}}>
+        <Navbar />
+      </div>
 
         <Container>
         <Title>개인 정보 수정</Title>
@@ -191,7 +171,7 @@ const Modify = (props) => {
             </Text>
         </RequiredBox>
         <Line />
-        <SignupTable>
+        <ModifyTable>
             <tbody>
             <tr>
                 <td>
@@ -224,7 +204,8 @@ const Modify = (props) => {
                 />
                 {password !== "" && !pwdCheck(password) && (
                     <InfoUl className="checkPw">
-                    <a> 10자 이상 입력</a>
+                    <li> 영문/숫자/특수문자 포함 (공백 제외)</li>
+                    <li> 10자 이상 입력 </li>
                     </InfoUl>
                 )}
                 </td>
@@ -245,7 +226,7 @@ const Modify = (props) => {
                 />
                 {password !== "" && !pwdCheck(passwordCheck) && (
                     <InfoUl className="ReCheckPw">
-                    <a>동일한 비밀번호를 입력해주세요.</a>
+                    <li>동일한 비밀번호를 입력해주세요.</li>
                     </InfoUl>
                 )}
                 </td>
@@ -255,12 +236,7 @@ const Modify = (props) => {
                   이름<CheckSpan></CheckSpan>
                 </td>
                 <td>
-                {/* <input
-                    id="nickname"
-                    name="nickname"
-                    _onChange={(e) => setNickname(e.target.value)}
-                    style={inputStyle}
-                /> */}
+                  
                 {/* 회원정보 수정할 회원 이름 가져오기 */}
                 <input
                   id="username"
@@ -293,7 +269,7 @@ const Modify = (props) => {
                     margin="8px"
                     _onClick={() => {
                     if (!emailCheck(email)) {
-                        alert("잘못된 이메일 형식입니다");
+                        openModal("잘못된 이메일 형식입니다.");
                         return false;
                     }
                     checkEmail();
@@ -312,7 +288,7 @@ const Modify = (props) => {
                 </td>
             </tr>
             </tbody>
-        </SignupTable>
+        </ModifyTable>
         <div
             className="formBtnDiv"
             style={formBtnDivStyle}
@@ -344,6 +320,23 @@ const Modify = (props) => {
 };
 
 Modify.defaultProps = {};
+
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); 
+  document.body.appendChild(modalContainer);
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove();
+};
 
 const Container = styled.div`
   width: 640px;
@@ -377,9 +370,9 @@ const Line = styled.span`
   margin-top: -2px;
 `;
 
-const SignupTable = styled.table`
+const ModifyTable = styled.table`
   margin-top: 10px;
-  padding-bottom: 49px;
+  padding-bottom: 30px;
   width: 100%;
   & tr {
     text-align: left;
@@ -399,7 +392,7 @@ const SignupTable = styled.table`
 `;
 
 const InfoUl = styled.ul`
-  font-size: 14px;
+  font-size: 12px;
   color: red;
   position: relative;
   left: -37px;
@@ -410,7 +403,7 @@ const InfoUl = styled.ul`
 
 const formBtnDivStyle = {
   padding: "0px",
-  margin: "0px",
+  margin: "20px 0px 50px",
   boxSizing: "border-box",
   borderTop: "1px solid rgb(244, 244, 244)",
   display: "flex",

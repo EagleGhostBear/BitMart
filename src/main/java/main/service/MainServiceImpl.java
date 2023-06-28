@@ -265,9 +265,14 @@ public class MainServiceImpl implements MainService {
 	public UserDTO getId(Map map) {
 		return mainDAO.getId(map);
 	}
-	public List<HistoryDTO> getOrderHistory(String user) {
+	public List<HistoryDTO> getOrderHistory(Map map) {
 		// TODO Auto-generated method stub
-		return mainDAO.getOrderHistory(user);
+		return mainDAO.getOrderHistory(map);
+	}
+
+	@Override
+	public CommentDTO comment_detail(Map map) {
+		return mainDAO.comment_detail(map);
 	}
 
 	@Override
@@ -291,6 +296,7 @@ public class MainServiceImpl implements MainService {
 	public void deleteUser(Map map) {
 		mainDAO.deleteUser(map);
 	}
+	
 
 	@Override
 	public void useraddr_update(Map<String, Object> map) {
@@ -298,6 +304,10 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public List<UserDTO> cart_delivery(String user) {
+		return mainDAO.cart_delivery(user);
+	}
+
 	public UserDTO resetfindId(Map map) {
 		// TODO Auto-generated method stub
 		return mainDAO.resetfindId(map);
@@ -306,7 +316,6 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public void resetpwd(Map map) {
 		mainDAO.resetpwd(map);
-		
 	}
 
 }

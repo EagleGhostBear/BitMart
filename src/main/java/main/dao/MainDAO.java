@@ -99,8 +99,13 @@ public interface MainDAO {
 	public void modifyMember(Map map);
 	
 	public void deleteUser(Map map);
-	List<HistoryDTO> getOrderHistory(String user);
 
+	List<HistoryDTO> getOrderHistory(Map map);
+
+	public List<UserDTO> cart_delivery(String user);
+
+	CommentDTO comment_detail(Map map);
+	
 	public void ReviewSubmit(Map reviewData);
 	
     public void update_checked(Map map);
