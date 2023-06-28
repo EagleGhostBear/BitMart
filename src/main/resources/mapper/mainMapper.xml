@@ -118,6 +118,10 @@
 		values(#{id}, #{pwd}, #{name}, #{email1}, #{email2})
 	</insert>
 	
+	<select id="comment_detail" parameterType="java.util.Map" resultType="main.bean.CommentDTO">
+		select * from comment where user = #{user} and product = #{product}
+	</select>
+	
 	<select id="comment_list" parameterType="java.util.Map" resultType="main.bean.CommentDTO">
 		select * from comment where product = #{product}
 	</select>
@@ -223,12 +227,12 @@
 		delete from user where seq=#{seq} 
 	</delete>
 	
-	<select id="getOrderHistory" resultType="main.bean.HistoryDTO">
-	SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.logtime AS logTime,
+	<select id="getOrderHistory" parameterType="java.util.Map" resultType="main.bean.HistoryDTO">
+	SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.review AS review, OH.logtime AS logTime,
        	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
 		FROM order_history OH
 		JOIN product P ON P.seq = OH.product
-		WHERE OH.user = #{user}
+		WHERE OH.user = #{user} and OH.review = #{review}
 	</select>
 
 	<update id="update_checked" parameterType="java.util.Map">
