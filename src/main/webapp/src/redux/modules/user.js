@@ -342,6 +342,7 @@ const resetPwdDB = (seq, pwd, pwdcheck) => {
     console.log(pwd);
     alert("비밀번호가 변경되었습니다.");
     window.location.replace("/");
+    localStorage.removeItem("id");
   })
   .catch((err) => {
     console.log("데이터 발송 실패", err);
