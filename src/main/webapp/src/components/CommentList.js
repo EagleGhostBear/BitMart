@@ -139,7 +139,7 @@ const CommentList = (props) => {
               );
             })}
           <ButtonWrap>
-            {islogin ? (
+            {/* {islogin ? (
               <ReviewButton
                 onClick={() => {
                   navigate(`/comment/write/${pid}`);
@@ -158,7 +158,7 @@ const CommentList = (props) => {
               >
                 후기쓰기
               </ReviewButton>
-            )}
+            )} */}
           </ButtonWrap>
         </TableHeader>
       </CommentListWrap>
