@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { actionCreators as userActions } from "../redux/modules/user";
 
-const ResetPwd = () => {
+const ResetPwd = (props) => {
+
+  useEffect(() => {
+    console.log(props);
+  }, []);
+
   const dispatch = useDispatch();
   const [pwd, setPwd] = useState("");
   const [pwdCheck, setPwdCheck] = useState("");

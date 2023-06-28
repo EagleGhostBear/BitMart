@@ -255,6 +255,7 @@ const sendMail = (id, email) => {
   });
 }
 const resetPwd = (id) => {
+  console.log(id);
   axios({
     method: "post",
     url: '/resetpwd',
