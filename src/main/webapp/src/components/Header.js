@@ -118,7 +118,17 @@ const Header = (props) => {
               <SearchIcon onClick={handleSearchSubmit} />
             </SearchWrap>
             <IconWrap>
-              <LocationIcon />
+              <LocationIcon 
+                onClick={() => {
+                  if(token_key === "null"){
+                    alert('로그인 후 이용해주세요!')
+                    navigate("/login")
+                  }
+                  else{
+                    navigate("/address");
+                  }
+                }}
+              />
               <HeartIcon />
               <CartIcon
                 onClick={() => {
