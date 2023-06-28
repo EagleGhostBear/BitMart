@@ -390,7 +390,7 @@ const Address = () => {
       const updatedCheckboxes = checkboxes.includes(value)
           ? checkboxes.filter((item) => item !== value)
           : [...checkboxes, value];
-      setCheckboxes(updatedCheckboxes);
+      
 
 
       const updatedData = data.map(item => {
@@ -399,6 +399,8 @@ const Address = () => {
           }
           return item;
       });
+
+      setCheckboxes(updatedCheckboxes);
 
       axios({
           method:'post',
@@ -1135,7 +1137,7 @@ const Address = () => {
                                 
                           />
                           </div>
-                          {`checkbox${data[index].checked}`}
+                          {/* {`checkbox${data[index].checked}`} */}
                         </label>
 
                       </div>
@@ -1166,7 +1168,10 @@ const Address = () => {
                         <button 
                           id="XBtn"
                           onClick={() => {
-                              if (data.length === 1) {
+                              if (data[index].checked === 1) {
+                                  window.alert('기본배송지로 선택된 배송지는 삭제할 수 없어요');
+                              }
+                              else if (data.length === 1) {
                                 openModal4();
                               } else {
                                 openModal3(data[index].seq);

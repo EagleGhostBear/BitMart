@@ -271,6 +271,11 @@ public class MainServiceImpl implements MainService {
 	}
 
 	@Override
+	public CommentDTO comment_detail(Map map) {
+		return mainDAO.comment_detail(map);
+	}
+
+	@Override
 	public void ReviewSubmit(Map reviewData) {
 		// TODO Auto-generated method stub
 		mainDAO.ReviewSubmit(reviewData);
@@ -292,20 +297,15 @@ public class MainServiceImpl implements MainService {
 		mainDAO.deleteUser(map);
 	}
 	
-	@Override
-	public CommentDTO comment_detail(Map map) {
-		
-		return mainDAO.comment_detail(map);
-	}
-	
 
 	@Override
 	public void useraddr_update(Map<String, Object> map) {
 		mainDAO.useraddr_update(map);
 	}
 
-
-
-	
+	@Override
+	public List<UserDTO> cart_delivery(String user) {
+		return mainDAO.cart_delivery(user);
+	}
 
 }

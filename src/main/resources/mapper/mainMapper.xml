@@ -257,6 +257,10 @@
 	<insert id="ReviewSubmit" parameterType="java.util.Map">
 		insert into comment(product, title, name, logtime ,content, user) values(#{product}, #{title}, #{name}, now(), #{content}, #{user})
 	</insert>
+
+	<select id="cart_delivery" resultType="main.bean.UserDTO">
+		select addr1, addr2 from user where seq=#{user}
+	</select>
 	
 	<update id="Review_y"  parameterType="java.util.Map">
 		update order_history set review = 'y' where user = #{user} and product = #{product}

@@ -406,10 +406,7 @@ public class MainController {
 		System.out.println(list);
 		return list;
 	}
-	
-	
 
-	
 	@PostMapping(value="/delivery_insert")
 	@ResponseBody
 	public void delivery_insert(@RequestBody Map requestData){
@@ -531,33 +528,6 @@ public class MainController {
 		return mainService.userUpdate(map); 
 	}
 	
-	
-	
-
-/*
-	@PostMapping(value="/update_checked")
-	@ResponseBody
-	public void update_checked(@RequestBody Map map){
-		String checked = (String)map.get("checked");
-		String user = (String) map.get("user");
-
-		System.out.println("update user: " + user);
-		System.out.println("update checked: " + checked);
-
-		if (checked.equals("checkboxfalse")){
-			checked = 0+"";
-		}
-		else checked= 1+"";
-
-		int checkedInt = Integer.parseInt(checked);
-		
-		System.out.println("change checked: " + checked);
-		System.out.println("change checkedInt: " + checkedInt);
-
-		mainService.update_checked(map);
-	}
-
- */
 
 	@PostMapping(value="/update_checked")
 	@ResponseBody
@@ -671,6 +641,16 @@ public class MainController {
 //	    mainService.ReviewUpdate(map);
 //	
 //	}
+
+	// 장바구니 페이지 기본배송지 등록
+	@PostMapping(value="cart_delivery")
+	@ResponseBody
+	public List<UserDTO> cart_delivery(@RequestBody Map map){
+		String user = (String) map.get("user");
+		System.out.println("장바구니 유저 값: " + user);
+
+		return mainService.cart_delivery(user);
+	}
 	
 }
 

@@ -2,18 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Text, Button, Input } from "../elements/element";
 import { useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
 import DeleteCheckbox from "./DeleteCheckbox";
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 import axios from 'axios';
+import Modal from "../components/ModalConfirm";
+import ReactDOM from 'react-dom';
 
-import {
-  userIdCheck,
-  pwdCheck,
-  nicknameCheck,
-  emailCheck,
-} from "../shared/common";
 
 const Delete = (props) => {
   const dispatch = useDispatch();
@@ -24,10 +19,8 @@ const Delete = (props) => {
     navigate('/confirmPwd');
   };
 
-  //수정 중인 코드
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-
   const [data, setData] = React.useState([]);
 
   useEffect(() => {
@@ -46,7 +39,7 @@ const Delete = (props) => {
 
   const checkInfo = () => {
     if(data.pwd === password) {
-      alert('회원탈퇴가 완료되었습니다. 그동안 이용해주셔서 감사합니다.');
+      openModal('회원탈퇴가 완료되었습니다. 그동안 이용해 주셔서 감사합니다.');
       axios({
         method: "post",
         url: "/deleteUser",
@@ -59,7 +52,7 @@ const Delete = (props) => {
     })
     }
     else {
-      alert('비밀번호를 확인해주세요.')
+      openModal('비밀번호를 확인해주세요.');
     }
   }
 
@@ -83,13 +76,13 @@ const Delete = (props) => {
                     <br/>
                     <p 
                       style={{ 
-                        color: 'purple',
+                        color: '#5F0080',
                         marginTop: '30px',
                         marginBottom: '30px'
                         }}>
                         아울러 회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다.
                     </p>
-                    1. 회원 탈퇴 시 고객님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한 고객정보 보호정책에 따라 관리 됩니다.
+                    1. 회원 탈퇴 시 고객님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한 고객정보 보호정책에 따라 관리됩니다.
                     <br/>
                     2. 회원 탈퇴 시 고객님께서 보유하셨던 적립금은 모두 삭제 됩니다.
                     <br/>
@@ -103,7 +96,7 @@ const Delete = (props) => {
                     </td>
                     <td>
                     <Input
-                        placeholder="현재 비밀번호를 입력해 주세요"
+                        placeholder="현재 비밀번호를 입력해 주세요"label
                         type="password"
                         padding="14px"
                         width="332px"
@@ -117,38 +110,62 @@ const Delete = (props) => {
                     <td>
                     무엇이 불편하였나요?
                     </td>
+                    {/* 체크박스 */}
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div className="checkBoxDiv">
+                        <div className="checkboxDiv">
                             <DeleteCheckbox />
                         </div>
                         <div className="checkboxText" 
                              style={{  
                                 marginLeft: '20px',
-                                marginRight: '50px' }}>
+                                marginRight: '70px',
+                                marginBottom: '10px' }}>
                             고객 서비스 불만
                         </div>
-                        <div className="checkBoxDiv">
+                        <div className="checkboxDiv">
                             <DeleteCheckbox />
                         </div>
-                        <div className="checkboxText" style={{ marginLeft: '20px' }}>
+                        <div className="checkboxText" 
+                             style={{ marginLeft: '20px', marginBottom: '10px' }}>
                             교환/환불/반품 불만
                         </div>   
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <div className="checkBoxDiv">
+                        <div className="checkboxDiv">
                             <DeleteCheckbox />
                         </div>
                         <div className="checkboxText" 
                              style={{  
                                 marginLeft: '20px',
-                                marginRight: '50px' }}>
+                                marginRight: '70px', 
+                                marginBottom: '10px' }}>
                              방문 빈도가 낮음
                         </div>
-                        <div className="checkBoxDiv">
+                        <div className="checkboxDiv">
                             <DeleteCheckbox />
                         </div>
-                        <div className="checkboxText" style={{ marginLeft: '20px' }}>
+                        <div className="checkboxText" 
+                             style={{ marginLeft: '20px', marginBottom: '10px' }}>
                             개인정보 유출 우려
+                        </div>   
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div className="checkboxDiv">
+                            <DeleteCheckbox />
+                        </div>
+                        <div className="checkboxText" 
+                             style={{  
+                                marginLeft: '20px',
+                                marginRight: '70px', 
+                                marginBottom: '10px' }}>
+                            쇼핑몰 기능 불만
+                        </div>
+                        <div className="checkboxDiv">
+                            <DeleteCheckbox />
+                        </div>
+                        <div className="checkboxText" 
+                             style={{ marginLeft: '20px', marginBottom: '10px' }}>
+                            상품 가격 불만
                         </div>   
                     </div>
                 </tr>
@@ -217,7 +234,7 @@ const DeleteTable = styled.table`
   width: 100%;
   & tr {
     text-align: left;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
   }
   & td {
@@ -228,15 +245,10 @@ const DeleteTable = styled.table`
     box-sizing: border-box;
     padding: 15px 0px 0px 18px;
     width: 152px;
-    width: 250px;
+    width: 230px;
     vertical-align: top;
   }
 `;
-
-const checkboxTestStyle = {
-  marginLeft: '20px',
-  marginRight: '50px'
-};
 
 const formBtnDivStyle = {
   padding: "0px",
@@ -279,5 +291,21 @@ const deleteBtnStyle = {
   color: "rgb(255, 255, 255)",
 };
 
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); 
+  document.body.appendChild(modalContainer);
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove();
+};
 
 export default Delete;
