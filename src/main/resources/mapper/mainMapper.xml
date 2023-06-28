@@ -190,7 +190,7 @@
 	
 	<insert id="delivery_insert" parameterType="java.util.Map">
 		INSERT INTO deliveryaddr (user, addr1, addr2, name, tel1, tel2, tel3, checked)
-		values(#{user}, #{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3},	1)
+		values(#{user}, #{addr1}, #{addr2}, #{name}, #{tel1}, #{tel2}, #{tel3},	0)
 	</insert>
 	
 	<select id="checkInfo" parameterType="java.util.Map" resultType="main.bean.UserDTO">
@@ -236,8 +236,23 @@
 	</select>
 
 	<update id="update_checked" parameterType="java.util.Map">
-		UPDATE deliveryaddr SET checked = case when checked = 1 then 0 else 1 end WHERE user=#{user} and seq=#{seq};
+		<![CDATA[
+			UPDATE deliveryaddr
+			SET checked = CASE
+				WHEN seq = #{seq} THEN 1
+				ELSE 0
+			END
+			WHERE user = #{user}
+		]]>
 	</update>
+
+	<update id="useraddr_update" parameterType="java.util.Map">
+		UPDATE user
+		JOIN deliveryaddr ON user.seq = deliveryaddr.user
+		SET user.addr1 = #{addr1}, user.addr2 = #{addr2}
+		WHERE deliveryaddr.user = #{user} AND deliveryaddr.checked = 1
+	</update>
+
 	
 	<insert id="ReviewSubmit" parameterType="java.util.Map">
 		insert into comment(product,title, name,logtime,content) values(#{product},#{title},#{name},#{logtime},#{content})

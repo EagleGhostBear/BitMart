@@ -420,7 +420,7 @@ public class MainController {
 		String addr2 = (String)requestData.get("addr2");
 		String name = (String)requestData.get("name");
 		String phone = (String)requestData.get("phone");
-		String checked = requestData.get("checked").toString();
+		int checked = (int) requestData.get("checked");
 
 		//System.out.println("딜리버리 유저: "+ user);
 		
@@ -431,7 +431,7 @@ public class MainController {
 		System.out.println("폰 : " + phone);
 		System.out.println("체크 유무 : " + checked);
 		
-		Map<String, String> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 
 		map.put("user", user);
 		map.put("addr1", addr1);
@@ -535,10 +535,67 @@ public class MainController {
 	
 	
 
-
+/*
 	@PostMapping(value="/update_checked")
 	@ResponseBody
 	public void update_checked(@RequestBody Map map){
+		String checked = (String)map.get("checked");
+		String user = (String) map.get("user");
+
+		System.out.println("update user: " + user);
+		System.out.println("update checked: " + checked);
+
+		if (checked.equals("checkboxfalse")){
+			checked = 0+"";
+		}
+		else checked= 1+"";
+
+		int checkedInt = Integer.parseInt(checked);
+		
+		System.out.println("change checked: " + checked);
+		System.out.println("change checkedInt: " + checkedInt);
+
+		mainService.update_checked(map);
+	}
+
+ */
+
+	@PostMapping(value="/update_checked")
+	@ResponseBody
+	public void update_checked(@RequestBody Map requestData){
+		String checked = (String)requestData.get("checked");
+		String user = (String) requestData.get("user");
+		String seq = (String) requestData.get("seq");
+
+		System.out.println("데이터 길이: "+ requestData.size());
+		System.out.println("data: " + requestData);
+
+		System.out.println();
+		System.out.println("update user: " + user);
+		System.out.println("update seq: " + seq);
+		System.out.println("update checked: " + checked);
+
+		if (checked.equals("checkbox1")){
+			checked = 0+"";
+		}
+		else checked= 1+"";
+
+		int checkedInt = checked.equals("checkbox1") ? 0 : 1;
+		boolean checkedValue = checked.equals("checkbox1") ? false : true;
+
+
+		System.out.println();
+		System.out.println("change checked: " + checked);
+		System.out.println("change checkedInt: " + checkedInt);
+		System.out.println("change checkedValue: " + checkedValue);
+
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("user", user);
+		map.put("seq", seq);
+		map.put("checked", checkedInt);
+		//map.put("checked", checkedValue);
+
 		mainService.update_checked(map);
 	}
 	
@@ -569,6 +626,31 @@ public class MainController {
 	public void deleteUser(@RequestBody Map map){
 		System.out.println("delete 서버 성공");
 		mainService.deleteUser(map);
+	}
+
+	// 유저 테이블 기본 배송지 설정
+	@PostMapping(value="useraddr_update")
+	@ResponseBody
+	public void useraddr_update(@RequestBody Map requestData){
+		String user = (String) requestData.get("user");
+		String checked = (String) requestData.get("checked");
+		String addr1 = (String) requestData.get("addr1");
+		String addr2 = (String) requestData.get("addr2");
+
+
+		System.out.println();
+		System.out.println("updateD user: " + user);
+		System.out.println("updateD checked: " + checked);
+		System.out.println("updateD addr1: " + addr1);
+		System.out.println("updateD addr2: " + addr2);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("user", user);
+		map.put("addr1", addr1);
+		map.put("addr2", addr2);
+		map.put("checked", checked);
+
+		mainService.useraddr_update(map);
 	}
 	
 	

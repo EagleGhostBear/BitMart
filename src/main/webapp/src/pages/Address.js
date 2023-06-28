@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from "react";
-//import { Link } from "react-router-dom";
-//import NewAddress from "./NewAddress";
-//import PopupDom from './NewAddress';
 import Modal from 'react-modal';
-
 import DaumPostcode from 'react-daum-postcode';
-
 import './Address.css';
 import { useDispatch } from "react-redux";
 import axios from "axios";
-//import { Address } from "./page";
+
 
 
 // 배송지 선택 확인 모달
@@ -182,16 +177,7 @@ const PopupModal3 = ({ isOpen3, closeModal2, closeModal3 }) => {
 };
 
 // 삭제 불가 모달
-const PopupModal4 = ({ data, isOpen4, closeModal2, closeModal4 }) => {
-
-  // let message;
-  // if (data.length < 1) {
-  //   message = "기본 배송지가 하나 이상 등록되어야 해요";
-  // } else if (data.length >= 5) {
-  //   message = "배송지는 5개까지 등록 가능해요";
-  // }
-
-
+const PopupModal4 = ({ isOpen4, closeModal2, closeModal4 }) => {
 
   const customStyles4 = {
     content: {
@@ -239,7 +225,99 @@ const PopupModal4 = ({ data, isOpen4, closeModal2, closeModal4 }) => {
         paddingTop: '6px',
 
       }}>
-        <h2 style={{ textAlign: 'center', fontSize: '13.5pt' }}>배송지가 하나 이상 등록되어야 합니다</h2>
+        <h2 style={{ textAlign: 'center', fontSize: '13.5pt' }}>배송지가 하나 이상 등록되어야 해요</h2>
+        <div className="CloseBtn" style={{
+          paddingTop: '22px',
+          display: 'flex',
+          //justifyContent: 'center',
+          justifyContent: 'right',
+          marginRight: '5%',
+
+        }}>
+          &ensp;
+          <button
+            className="closeBtn"
+            onClick={closeModal4}
+            style={{
+              boxSizing: "border-box",
+              font: "inherit",
+              margin: "0px",
+              WebkitTapHighlightColor: "transparent",
+              overflow: "visible",
+              textTransform: "none",
+              appearance: "button",
+              cursor: "pointer",
+              borderRadius: "0px",
+              fontFamily:
+                '"Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif',
+              border: "none",
+              padding: "0px 18px",
+              background: "transparent",
+              width: "auto",
+              height: "100%",
+              fontSize: "16px",
+              fontWeight: 600,
+              color: "rgb(95, 0, 128)",
+              backgroundColor: "transparent",
+
+            }}
+          >닫기</button>
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
+// 추가 불가 모달
+const PopupModal5 = ({ isOpen5, closeModal2, closeModal4 }) => {
+
+  const customStyles5 = {
+    content: {
+      border: "none",
+      background: "rgb(255, 255, 255)",
+      position: "relative",
+      boxSizing: "border-box",
+      flexDirection: "column",
+      justifyContent: "center",
+      width: '18%', // Set the desired width
+      height: '15%',
+      fontFamily: "inherit",
+      fontSize: "1rem",
+      WebkitTapHighlightColor: "transparent",
+      borderRadius: "12px",
+      padding: "0px",
+      maxWidth: "360px",
+      animation: "0s ease 0s 1 normal none running none",
+      margin: "auto",
+      display: "flex",
+      position: "absolute",
+      //top: 500,
+      //left: 500,
+      //zIndex: 200,
+      border: "1px solid #5f0080",
+
+      borderRadius: '8px',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      //textAlign: 'center',
+      padding: 'auto',
+
+
+    },
+
+    
+  };
+
+
+  return (
+
+    <Modal isOpen={isOpen5} onRequestClose={closeModal2} style={customStyles5}>
+      
+      {/* Content of your modal */}
+      <div style={{
+        paddingTop: '6px',
+
+      }}>
+        <h2 style={{ textAlign: 'center', fontSize: '13.5pt' }}>배송지는 5개까지 등록할 수 있어요</h2>
         <div className="CloseBtn" style={{
           paddingTop: '22px',
           display: 'flex',
@@ -284,8 +362,6 @@ const PopupModal4 = ({ data, isOpen4, closeModal2, closeModal4 }) => {
 
 
 
-
-
 const Address = () => {
 
   const dispatch = useDispatch();
@@ -293,72 +369,87 @@ const Address = () => {
   const token_key = `${localStorage.getItem("token")}`;
   const [data, setData] = useState([]);
 
+  
   const [checkboxes, setCheckboxes] = useState([]);    // 초기값 설정
 
   // Load the saved checkbox values from localStorage on initial render
-  useEffect(() => {
-    const savedCheckboxes = localStorage.getItem('checkboxes');
-    if (savedCheckboxes) {
-      setCheckboxes(savedCheckboxes);
-    }
-  }, []);
+    useEffect(() => {
+        const savedData = JSON.parse(localStorage.getItem("data")) || [];
+        const savedCheckboxes = JSON.parse(localStorage.getItem("checkboxes")) || [];
+        setData(savedData);
+        setCheckboxes(savedCheckboxes);
+    }, []);
 
-  const handleCheckboxChange = (value) => {
+    // Save checkboxes to localStorage whenever they change
+    useEffect(() => {
+        localStorage.setItem("checkboxes", JSON.stringify(checkboxes));
+    }, [checkboxes]);
 
-    setCheckboxes(value);
+  const handleCheckboxChange = (value, seq) => {
 
-    // const updatedCheckboxes = checkboxes.includes(value)
-   
-    // ? checkboxes.filter((item) => item !== value)
-    // : [...checkboxes, value];
-    // setCheckboxes(updatedCheckboxes);
+      const updatedCheckboxes = checkboxes.includes(value)
+          ? checkboxes.filter((item) => item !== value)
+          : [...checkboxes, value];
+      setCheckboxes(updatedCheckboxes);
 
-  };
 
-  // Save the checkbox values to localStorage whenever the checkboxes state changes
-  useEffect(() => {
-    localStorage.setItem('checkboxes', checkboxes);
-    // axios.post('update_checked', {
-    //   checkboxes: checkboxes.map((item) => item.slice(-1)), // 'checkbox1' -> '1'
-    // })
-    //   .then((res) => {
-    //     console.log('체크박스 업데이트 성공:', res.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log('체크박스 업데이트 실패:', error);
-    //   });
+      const updatedData = data.map(item => {
+          if (item.seq === seq) {
+              return { ...item, checked: updatedCheckboxes.includes(value) ? 1 : 0 };
+          }
+          return item;
+      });
 
       axios({
-        method:'post',
-        url:'update_checked',
-        data: {
-          user:token_key,
-          seq:seq.toString(),
+          method:'post',
+          url:'update_checked',
+          data: {
+              user:token_key,
+              seq:seq.toString(),
+              //checked:value,
+              checked: (updatedData.find(item => item.seq === seq)?.checked).toString(),
           },
         })
-        .then((res) => {
-          console.log('체크박스 업데이트 성공:', res.data);
-        })
-        .catch((e) => console.log('체크박스 업데이트 실패:', e));
+          .then((res) => {
+              console.log("check boxs: ", updatedCheckboxes);
+              //window.location.reload();
+              console.log('체크박스 업데이트 성공');
+              axios({
+                  method:'post',
+                  url:'useraddr_update',
+                  data:{
+                      user:token_key,
+                      checked: (updatedData.find(item => item.seq === seq)?.checked).toString(),
+                      addr1: updatedData.find((item) => item.seq === seq)?.addr1,
+                      addr2: updatedData.find((item) => item.seq === seq)?.addr2,
+                  }
+              })
+          })
+          .catch((e) => console.log('체크박스 업데이트 실패:', e));
 
-  }, [checkboxes]);
-
+  };
 
 
   // 배송지 선택 확인 모달
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [isModalOpen3, setIsModalOpen3] = useState(false);
   const [isModalOpen4, setIsModalOpen4] = useState(false);
+  const [isModalOpen5, setIsModalOpen5] = useState(false);
 
   const openModal2 = () => {
     //setAddress1('');
     setIsModalOpen2(true);
   };
 
-  const closeModal2 = () => {
+  const closeModal22 = () => {
     setIsModalOpen2(false);
+    window.location.reload();
+  }
+
+  const closeModal2 = () => {
     setIsModalOpen4(false);
     setIsModalOpen3(false);
+    setIsModalOpen5(false);
   };
 
 
@@ -371,6 +462,7 @@ const Address = () => {
     setSeq(seq)
   };
 
+
   const closeModal3 = () => {
     
     axios({
@@ -382,6 +474,7 @@ const Address = () => {
         },
       })
       .then((res) => {
+
         window.location.reload();
         console.log('삭제 성공!');
       })
@@ -392,9 +485,6 @@ const Address = () => {
   };
 
   //배송지 삭제 불가 모달 
-
-  //const [length, setLength] = useState('');
-
   const openModal4 = () => {
     //setAddress1('');
     setIsModalOpen4(true);
@@ -403,7 +493,16 @@ const Address = () => {
 
   const closeModal4 = () => {
     setIsModalOpen4(false);
+    setIsModalOpen5(false);
     //setLength('');
+  };
+
+
+  //배송지 추가 불가 모달 
+  const openModal5 = () => {
+    //setAddress1('');
+    setIsModalOpen5(true);
+    //setLength(length);
   };
 
   
@@ -425,9 +524,7 @@ const Address = () => {
       name:'',
       phone:'',
     });
-    
-    //setName(''); // Reset the name field
-    //setPhone(''); // Reset the phone field
+
 
     setIsOpen(true);
   };
@@ -461,15 +558,6 @@ const Address = () => {
     });
 
     setShowPostcode(false);   //주소창 모달 닫기
-  };
-
-  const handleDelete = () => {
-    const confirmDelete = window.confirm('삭제하시겠습니까?');
-    if (confirmDelete) {
-      //deleteData(); // Perform delete operation
-      window.confirm('삭제되었습니다');
-      closeModal(); // Close the modal
-    }
   };
 
   const customStyles = {
@@ -550,7 +638,7 @@ const Address = () => {
             addr2: address.detailedAddress,
             name: address.name,
             phone: address.phone,
-            checked: true,
+            checked: 0,
           },
         })
           
@@ -579,12 +667,11 @@ const Address = () => {
     .then((res) => {
       console.log("데이터 리스트:" , res.data.length);
       console.log("data: ", res.data);
-      //console.log("checked: ", res.data[2].checked);
       setData(res.data);
     })
     .catch((e) => console.log("배송지 리스트 에러: ", e));
   }, []);
-
+  
 
   return (
     <>
@@ -665,7 +752,7 @@ const Address = () => {
 
     <div> 
       {isModalOpen2 && (
-        <PopupModal2 isOpen2={isModalOpen2} closeModal2={closeModal2} />
+        <PopupModal2 isOpen2={isModalOpen2} closeModal2={closeModal22} />
       )}
     </div>
 
@@ -678,6 +765,12 @@ const Address = () => {
     <div>
       {isModalOpen4 && (
         <PopupModal4 isOpen4={isModalOpen4} closeModal2={closeModal2} closeModal4={closeModal4} />
+      )}
+    </div>
+
+    <div>
+      {isModalOpen5 && (
+        <PopupModal5 isOpen5={isModalOpen5} closeModal2={closeModal2} closeModal4={closeModal4} />
       )}
     </div>
 
@@ -936,7 +1029,7 @@ const Address = () => {
                       {/* 새 배송지 추가 버튼 클릭 시 주소 api 새 창 띄움 */}
                       {/* <Link to='/address-shipping' > */}
                       <button
-                        onClick={ data.length>=5 ? openModal4 : openModal }
+                        onClick={ () => data.length>=5 ? openModal5() : openModal() }
                         
                         className="NewAdressBtn"
                         type="button"
@@ -1020,20 +1113,18 @@ const Address = () => {
 
                         <label htmlFor="checkbox">
                           <div>
-                            
+                          
                           <input 
                               type="checkbox"
                               value={`checkbox${data[index].checked}`}
-                              //value="checkbox1"
                               id="checkbox"
-                                
-                              checked={checkboxes.includes(`checkbox${data[index].checked}`)}
-                              //checked={checkboxes === 'checkbox1'}
-                              onChange={ () => handleCheckboxChange(`checkbox${data[index].checked}`) }
-                              //checked={checkboxes.includes('checkbox1')}
-                              //onChange={() => handleCheckboxChange('checkbox1')}
-                              //onChange={handleCheckboxChange}
-
+                              checked={data[index].checked === 1}
+                              onChange={() => {
+                                  console.log("onChange seq:", item.seq);
+                                  console.log("onChange ck:", item.checked);
+                                  //console.log("onChange addr1", item.addr1);
+                                  handleCheckboxChange(`checkbox${data[index].checked}`, item.seq, data[index].addr1, data[index].addr2);
+                              }}
                               onClick={openModal2}
 
                               style={{
@@ -1044,8 +1135,8 @@ const Address = () => {
                                 
                           />
                           </div>
+                          {`checkbox${data[index].checked}`}
                         </label>
-                        {/* {`checkbox${index}`} */}
 
                       </div>
 
@@ -1070,6 +1161,7 @@ const Address = () => {
                       
                       {/* 주소 삭제 이미지 */}
                       <div className="addressDel">
+                        
                         {/* <Link to='/update'> */}
                         <button 
                           id="XBtn"

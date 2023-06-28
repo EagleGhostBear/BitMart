@@ -268,7 +268,7 @@ public class MainDAOMyBatis implements MainDAO {
 	}
 
 	
-	public void delivery_insert(Map<String, String> map) {
+	public void delivery_insert(Map<String, Object> map) {
 		sqlSession.insert("mainSQL.delivery_insert", map);
 	}
 	
@@ -338,4 +338,11 @@ public class MainDAOMyBatis implements MainDAO {
 		
 		return sqlSession.selectOne("mainSQL.comment_detail", map);
 	}
+
+	@Override
+	public void useraddr_update(Map<String, Object> map) {
+		sqlSession.update("mainSQL.useraddr_update", map);
+	}
+
+
 }

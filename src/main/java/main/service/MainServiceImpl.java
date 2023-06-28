@@ -235,7 +235,7 @@ public class MainServiceImpl implements MainService {
 
 	
 	@Override
-	public void delivery_insert(Map<String, String> map) {
+	public void delivery_insert(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		mainDAO.delivery_insert(map);
 	}
@@ -298,4 +298,10 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.comment_detail(map);
 	}
 	
+
+	@Override
+	public void useraddr_update(Map<String, Object> map) {
+		mainDAO.useraddr_update(map);
+	}
+
 }

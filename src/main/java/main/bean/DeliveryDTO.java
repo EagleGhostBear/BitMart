@@ -15,5 +15,5 @@ public class DeliveryDTO {
     private String tel1;
     private String tel2;
     private String tel3;
-    private boolean checked;
+    private int checked;
 }
