@@ -340,8 +340,7 @@ const resetPwdDB = (seq, pwd, pwdcheck) => {
   .then((res) => {
     console.log("데이터가 보내졌습니다.", res.data);
     console.log(pwd);
-    alert("비밀번호가 변경되었습니다.");
-    window.location.replace("/");
+    openModal2("비밀번호가 변경되었습니다.");
     localStorage.removeItem("id");
   })
   .catch((err) => {
