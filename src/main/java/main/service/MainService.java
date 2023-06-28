@@ -107,5 +107,9 @@ public interface MainService {
 	public void deleteUser(Map map);
 
 	public void useraddr_update(Map<String, Object> map);
+
+	UserDTO resetfindId(Map map);
+
+	void resetpwd(Map map);
 }
 

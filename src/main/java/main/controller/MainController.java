@@ -646,7 +646,19 @@ public class MainController {
 		mainService.useraddr_update(map);
 	}
 	
+	@PostMapping(value="resetfindId")
+	@ResponseBody
+	public UserDTO resetfindId(@RequestBody Map map) {
+		
+		return mainService.resetfindId(map);
+	}
 	
+	@PostMapping(value="resetpwd")
+	@ResponseBody
+	public void resetpwd(@RequestBody Map map) {
+		
+		mainService.resetpwd(map);
+	}
 }
 
 

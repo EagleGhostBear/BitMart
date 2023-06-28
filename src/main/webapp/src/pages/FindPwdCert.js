@@ -81,6 +81,7 @@ const FindPwdCert = (props) => {
             }}
             disabled={isCertMatching === false}
             onClick={() => navigate('/resetpwd')}
+            id={props.id}
           >
             확인
           </ButtonFindPwd>

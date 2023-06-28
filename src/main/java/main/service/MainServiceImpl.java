@@ -297,4 +297,16 @@ public class MainServiceImpl implements MainService {
 		mainDAO.useraddr_update(map);
 	}
 
+	@Override
+	public UserDTO resetfindId(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.resetfindId(map);
+	}
+
+	@Override
+	public void resetpwd(Map map) {
+		mainDAO.resetpwd(map);
+		
+	}
+
 }

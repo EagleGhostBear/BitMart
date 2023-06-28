@@ -254,4 +254,13 @@
 		insert into comment(product,title, name,logtime,content) values(#{product},#{title},#{name},#{logtime},#{content})
 	</insert>
 	
+	<select id="resetfindId" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where id=#{id}
+	</select>
+	
+	<update id="resetpwd" parameterType="java.util.Map">
+		update user set pwd=#{pwd} where seq=#{seq}
+	</update>
+	
+
 </mapper>

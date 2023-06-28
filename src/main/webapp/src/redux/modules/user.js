@@ -228,6 +228,8 @@ const findPwdDB = (id, email) => {
     } else {
       sendMail(id, email);
       resetPwd(id);
+      localStorage.setItem("id", id);  // 로그인 성공 시 토큰 저장
+      console.log("localStorage에 저장된 id : " + localStorage.getItem("token"));
     }
   })
   .catch((err) => {
@@ -321,19 +323,25 @@ const openModal2 = (message) => {
 };
 
 
-const resetPwdDB = (pwd, pwdcheck) => {
+const resetPwdDB = (seq, pwd, pwdcheck) => {
+  console.log();
   console.log("비밀번호 재설정 : " + pwd);
-  const data = {
-    newPassword: pwd,
-  }
+  // const data = {
+  //   newPassword: pwd,
+  // }
   axios({
     method: "post",
     url: '/resetpwd',
-    data: data,
+    data: {
+      seq: seq,
+      pwd: pwd,
+    },
   })
   .then((res) => {
     console.log("데이터가 보내졌습니다.", res.data);
     console.log(pwd);
+    alert("비밀번호가 변경되었습니다.");
+    window.location.replace("/");
   })
   .catch((err) => {
     console.log("데이터 발송 실패", err);
@@ -350,7 +358,8 @@ const actionCreators = {
   userIdCheckF,
   emailCheckF,
   findIdDB,
-  findPwdDB
+  findPwdDB,
+  resetPwdDB
 };
 
 export { actionCreators };

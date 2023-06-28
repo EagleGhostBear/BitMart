@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
 
-const Modal1 = ({isOpen, closeModal, message}) => {
+const Modal1 = ({id, isOpen, closeModal, message}) => {
   const handleConfirm = () => {
     closeModal();
-    window.location.replace("/findpwdcert");
+    window.location.replace(`/findpwdcert?id=${id}`);
   };
 
   return (

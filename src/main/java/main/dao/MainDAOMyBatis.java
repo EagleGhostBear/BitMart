@@ -336,5 +336,17 @@ public class MainDAOMyBatis implements MainDAO {
 		sqlSession.update("mainSQL.useraddr_update", map);
 	}
 
+	@Override
+	public UserDTO resetfindId(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.resetfindId", map);
+	}
+
+	@Override
+	public void resetpwd(Map map) {
+		
+		sqlSession.update("mainSQL.resetpwd", map);
+	}
+
 
 }
