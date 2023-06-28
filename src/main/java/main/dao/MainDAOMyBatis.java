@@ -326,6 +326,7 @@ public class MainDAOMyBatis implements MainDAO {
 		LocalDateTime currentTime = LocalDateTime.now();
         reviewData.put("logtime", currentTime);
 		sqlSession.insert("mainSQL.ReviewSubmit", reviewData);
+		sqlSession.update("mainSQL.Review_y", reviewData);
 	}
 		
 		
@@ -343,6 +344,11 @@ public class MainDAOMyBatis implements MainDAO {
 	public void useraddr_update(Map<String, Object> map) {
 		sqlSession.update("mainSQL.useraddr_update", map);
 	}
+
+
+//	public void ReviewUpdate(Map map) {
+//		sqlSession.update("mainSQL.ReviewUpdate",map);
+//	}
 
 
 }

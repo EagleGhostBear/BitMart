@@ -16,6 +16,7 @@ const ModalReview = (props) => {
   const [title, setTitle] = useState();
   const [review, setReview] = useState([]);
   const [contents, setContents] = useState();
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleReviewSubmit = () => {
     axios({
@@ -23,7 +24,7 @@ const ModalReview = (props) => {
       url: "/ReviewSubmit",
       data: {
         user: token_key,
-        product: product.productSeq,
+        product: props.seq,
         name: user.name,
         title: title,
         content: contents,
@@ -37,6 +38,35 @@ const ModalReview = (props) => {
       });
     props.close();
   };
+
+  // const handleReviewUpdate = () => {
+  //   axios({
+  //     method: "post",
+  //     url: "/ReviewUpdate",
+  //     data: {
+  //       user: token_key,
+  //       product: props.seq,
+  //       name: user.name,
+  //       title: title,
+  //       content: contents,
+  //       //seq: reviewSeq,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  // const handleReviewClick = () => {
+  //   if (isEditing) {
+  //     handleReviewUpdate();
+  //   } else {
+  //     handleReviewSubmit();
+  //   }
+  // };
 
   useEffect(() => {
     axios
@@ -57,10 +87,6 @@ const ModalReview = (props) => {
   useEffect(() => {
     console.log("product:" + JSON.stringify(product));
   }, [product]);
-
-  const handleReviewChange = (event) => {
-    setReviewContent(event.target.value);
-  };
 
   //이미지 상대경로저장
   const handlePhotoUpload = (event) => {
@@ -246,6 +272,7 @@ const ModalReview = (props) => {
               닫기
             </button>
             <button className="write" onClick={handleReviewSubmit}>
+              {/* {isEditing ? "수정" : "등록"} */}
               등록
             </button>
           </footer>

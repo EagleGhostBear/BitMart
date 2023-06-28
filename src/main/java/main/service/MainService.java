@@ -13,6 +13,7 @@ import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
 
+
 public interface MainService {
 
     List<MainDTO> mainList();
@@ -108,5 +109,9 @@ public interface MainService {
 
 	CommentDTO comment_detail(Map map);
 	public void useraddr_update(Map<String, Object> map);
+
+	
+
+	
 }
 

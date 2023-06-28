@@ -98,6 +98,7 @@ const Comment = (props) => {
           <DetailWrap>
             <DetailTitle>{props.productName}</DetailTitle>
             {props.file ? <DetailImage src={props.file} /> : null}
+            {props.content}
             <Detail>{props.comment}</Detail>
           </DetailWrap>
 

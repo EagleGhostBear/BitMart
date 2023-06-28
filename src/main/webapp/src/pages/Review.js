@@ -212,13 +212,13 @@ const Review = () => {
           <Tab
             text="작성가능 후기"
             onClick={handleButtonClick}
-            style={{ color: select ? "red" : "black" }}
+            style={{ color: select ? "purple" : "black" }}
           />
 
           <Tab
             text="작성한 후기"
             onClick={handleButtonClick2}
-            style={{ color: select ? "black" : "red" }}
+            style={{ color: select ? "black" : "purple" }}
           />
         </div>
 
@@ -247,7 +247,7 @@ const Review = () => {
                   onClick={() => openModal(item.productSeq)}
                   className={styles.modalButton}
                 >
-                  후기 작성
+                  후기 
                 </button>
               </React.Fragment>
               <div className={styles.contentWrap}></div>

@@ -255,7 +255,14 @@
 
 	
 	<insert id="ReviewSubmit" parameterType="java.util.Map">
-		insert into comment(product,title, name,logtime,content) values(#{product},#{title},#{name},#{logtime},#{content})
+		insert into comment(product, title, name, logtime ,content, user) values(#{product}, #{title}, #{name}, now(), #{content}, #{user})
 	</insert>
+	
+	<update id="Review_y"  parameterType="java.util.Map">
+		update order_history set review = 'y' where user = #{user} and product = #{product}
+	</update>
+	
+	
+	
 	
 </mapper>

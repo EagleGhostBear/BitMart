@@ -107,7 +107,10 @@ public interface MainDAO {
 
 	CommentDTO comment_detail(Map map);
     
-
-
+	
 	public void useraddr_update(Map<String, Object> map);
+
+	
+
+
 }
