@@ -101,6 +101,7 @@ const PwdCert = styled.div`
 position: relative;
 height: 48px;
 font-size: 16px;
+display: none;
 `;
 
 const ButtonContainer = styled.div`
