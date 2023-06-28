@@ -43,8 +43,8 @@ const CustomLabel = styled.label`
     border: 1px solid #ccc;
     border-radius: 50%;
     cursor: pointer;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     position: absolute;
     left: 0;
     top: 0;

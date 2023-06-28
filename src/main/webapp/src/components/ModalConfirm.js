@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 
-const Modal = ({isOpen, closeModal, message}) => {
+const ModalConfirm = ({isOpen, closeModal, message}) => {
   return (
     <ModalContainer style={{ display: isOpen ? "block" : "none" }}>
       <Modal2>
@@ -14,17 +14,6 @@ const Modal = ({isOpen, closeModal, message}) => {
     </ModalContainer>
   );
 };
-
-
-
-
-
-
-
-
-
-
-
 
 
 const ModalContainer = styled.div`
@@ -79,4 +68,5 @@ text-align: center;
 cursor: pointer;
 `;
 
-export default Modal;
+
+export default ModalConfirm;

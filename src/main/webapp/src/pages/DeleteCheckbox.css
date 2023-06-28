@@ -7,11 +7,11 @@
     border: 1px solid #ccc;
     border-radius: 50%;
     cursor: pointer;
-    height: 28px;
+    height: 26px;
     left: 0;
     position: absolute;
     top: 0;
-    width: 28px;
+    width: 26px;
   }
   
   .round label:after {

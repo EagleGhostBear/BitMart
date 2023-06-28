@@ -8,9 +8,10 @@ const GenderRadioButton = () => {
   };
 
   return (
-    <div>
-        <label style={labelStyle}>
-          <input style={inputStyle}
+    <div style={{ marginTop: '10px' }}>
+        <label style={ labelStyle }>
+          <input 
+            style={ inputStyle }
             type="radio"
             name="gender"
             value="male"
@@ -19,8 +20,9 @@ const GenderRadioButton = () => {
           />
           남자
         </label>
-        <label style={labelStyle}>
-          <input style={inputStyle}
+        <label style={ labelStyle } >
+          <input 
+            style={ inputStyle }
             type="radio"
             name="gender"
             value="female"
@@ -29,8 +31,9 @@ const GenderRadioButton = () => {
           />
           여자
         </label>
-        <label style={labelStyle}>
-          <input style={inputStyle}
+        <label style={ labelStyle }>
+          <input 
+            style={ inputStyle }
             type="radio"
             name="gender"
             value="none"
@@ -45,7 +48,8 @@ const GenderRadioButton = () => {
 
 const labelStyle = {
   marginRight: "30px",
-  marginLeft: "30px"
+  marginLeft: "30px",
+  marginTop: "20px"
 };
 
 const inputStyle = {
@@ -53,6 +57,5 @@ const inputStyle = {
   height: "23px",
   marginRight: "10px"
 };
-
 
 export default GenderRadioButton;
