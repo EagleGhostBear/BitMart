@@ -229,7 +229,7 @@ const findPwdDB = (id, email) => {
       sendMail(id, email);
       resetPwd(id);
       localStorage.setItem("id", id);  // 로그인 성공 시 토큰 저장
-      console.log("localStorage에 저장된 id : " + localStorage.getItem("token"));
+      console.log("localStorage에 저장된 id : " + localStorage.getItem("id"));
     }
   })
   .catch((err) => {
