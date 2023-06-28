@@ -102,14 +102,21 @@ public interface MainDAO {
 
 	List<HistoryDTO> getOrderHistory(Map map);
 
-	void ReviewSubmit(Map reviewData);
-	
-    public void update_checked(Map map);
+	public List<UserDTO> cart_delivery(String user);
 
 	CommentDTO comment_detail(Map map);
 	
+	public void ReviewSubmit(Map reviewData);
+	
+    public void update_checked(Map map);
+
 	public void useraddr_update(Map<String, Object> map);
 
-	public List<UserDTO> cart_delivery(String user);
+	UserDTO resetfindId(Map map);
+
+	public void resetpwd(Map map);
+
+	
+
 
 }

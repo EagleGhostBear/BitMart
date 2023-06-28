@@ -417,7 +417,9 @@ public class MainController {
 		String addr2 = (String)requestData.get("addr2");
 		String name = (String)requestData.get("name");
 		String phone = (String)requestData.get("phone");
-		int checked = (int) requestData.get("checked");
+		int datalength = (int)requestData.get("datalength");
+
+		int checked = 0;
 
 		//System.out.println("딜리버리 유저: "+ user);
 		
@@ -426,7 +428,10 @@ public class MainController {
 		System.out.println("주소2 : " + addr2);
 		System.out.println("이름 : " + name);
 		System.out.println("폰 : " + phone);
-		System.out.println("체크 유무 : " + checked);
+		//System.out.println("체크 유무 : " + checked);
+		System.out.println("데이터길이  : " + datalength);
+
+		//if(datalength == 0) checked = 1;
 		
 		Map<String, Object> map = new HashMap<>();
 
@@ -454,6 +459,7 @@ public class MainController {
 	    map.put("tel2", tel2);
 		
 	    map.put("tel3", tel3);
+		//map.put("checked", checked);
 	    
 	    mainService.delivery_insert(map);	
 		
@@ -652,6 +658,19 @@ public class MainController {
 		return mainService.cart_delivery(user);
 	}
 	
+	@PostMapping(value="resetfindId")
+	@ResponseBody
+	public UserDTO resetfindId(@RequestBody Map map) {
+		
+		return mainService.resetfindId(map);
+	}
+	
+	@PostMapping(value="resetpwd")
+	@ResponseBody
+	public void resetpwd(@RequestBody Map map) {
+		
+		mainService.resetpwd(map);
+	}
 }
 
 

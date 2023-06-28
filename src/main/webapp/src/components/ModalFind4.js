@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
 
-const Modal1 = ({id, isOpen, closeModal, message}) => {
+const Modal3 = ({isOpen, closeModal, message}) => {
   const handleConfirm = () => {
     closeModal();
-    window.location.replace(`/findpwdcert?id=${id}`);
+    window.location.replace("/");
   };
 
   return (
@@ -72,4 +72,4 @@ text-align: center;
 cursor: pointer;
 `;
 
-export default Modal1;
+export default Modal3;
