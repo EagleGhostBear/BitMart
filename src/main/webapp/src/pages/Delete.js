@@ -76,7 +76,7 @@ const Delete = (props) => {
                     <br/>
                     <p 
                       style={{ 
-                        color: 'purple',
+                        color: '#5F0080',
                         marginTop: '30px',
                         marginBottom: '30px'
                         }}>
