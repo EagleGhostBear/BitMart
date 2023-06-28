@@ -64,11 +64,7 @@ function App() {
     }    
   }, []);
 
-  useEffect(() => {
-    if (islogin) {
-      navigate('/inquiry');
-    }
-  }, [islogin, navigate]);
+
 
   return (
     <div className="App">
