@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "../css/category.css";
 import ReactDOM from 'react-dom';
@@ -14,6 +14,10 @@ const Header = (props) => {
   const islogin = useSelector((state) => state.user.is_login);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const token_key = `${localStorage.getItem("token")}`;
+
+  const handleDeliveryIconClick = () => {
+    navigate('/delieveryevent');
+  };
 
   const openCategory = () => {
     setIsCategoryOpen(true);
@@ -45,7 +49,9 @@ const Header = (props) => {
     <React.Fragment>
       <Grid>
         <UserMenu>
-          <DeliveryIcon></DeliveryIcon>
+        <Link to="/delieveryevent">
+            <DeliveryIcon onClick={handleDeliveryIconClick} />
+          </Link>
           <React.Fragment>
             {!islogin && (
               <>
