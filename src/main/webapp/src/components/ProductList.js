@@ -33,15 +33,16 @@ const ProductList = (props) => {
                     <>
                         <span className="discount-rate css-19lkxd2 ei5rudb0">{item.sale}% </span>
                         <span className="sales-price css-18tpqqq ei5rudb1">
-                        {Math.floor(((1 - item.sale / 100) * item.price) / 10) * 10
-                            .toFixed(0)
-                             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        <span className="won">원</span>
-                        </span>
+  {Math.floor(Math.floor(((1 - item.sale / 100) * item.price) / 10) * 10)
+    .toFixed(0)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+  <span className="won">원</span>
+</span>
+
                      </>
                      ) : (
                     <span className="sales-price css-18tpqqq ei5rudb1">
-                        {item.price}
+                        {Math.floor(item.price).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                         <span className="won">원</span>
                     </span>
                 )}
@@ -50,7 +51,7 @@ const ProductList = (props) => {
                     {item.sale !== 0 ? (
                         <>
                             <span className="dimmed-price css-18tpqqq ei5rudb1">
-                                {item.price}
+                            {Math.floor(item.price).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                 <span className="won">원</span>
                             </span>
                         </>
