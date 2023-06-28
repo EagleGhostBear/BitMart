@@ -629,7 +629,7 @@ public class MainController {
 	}
 	
 	//리뷰수정하기 
-//	@PostMapping("ReviewUpdate")
+//	@PostMapping(value="ReviewUpdate")
 //	@ResponseBody
 //	public void ReviewUpdate(@RequestBody Map map) {
 //

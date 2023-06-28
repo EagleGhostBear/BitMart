@@ -74,8 +74,15 @@ const Review = () => {
         user: token_key,
         review: "y",
       })
-      .then((response) => setData(response.data));
-  };
+      .then((response) => {
+      console.log("응답데이터 확인=  "+ response.data); // 응답 데이터 확인
+      setData(response.data);
+  });
+};
+
+useEffect(() => {
+  console.log("상태 업데이트 확인 = " + data);
+}, [data]);
 
   return (
     <div className={styles.containerWrap}>
