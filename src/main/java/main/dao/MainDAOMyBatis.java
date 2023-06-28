@@ -263,8 +263,8 @@ public class MainDAOMyBatis implements MainDAO {
 	@Override
 	public List<HistoryDTO> order_history(Map map) {
 		
-		return sqlSession.selectList("mainSQL.getOrderHistory", map);
-//		return sqlSession.selectList("mainSQL.order_history", map);
+//		return sqlSession.selectList("mainSQL.getOrderHistory", map);
+		return sqlSession.selectList("mainSQL.order_history", map);
 	}
 
 	
