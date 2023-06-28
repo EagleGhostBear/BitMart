@@ -124,7 +124,7 @@ const Modify = (props) => {
           data: {
             seq: token_key,
             pwd: password,
-            name: nickname,
+            name: getName,
             email: email,
           },
         })
