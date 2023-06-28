@@ -225,7 +225,7 @@ const PopupModal4 = ({ isOpen4, closeModal2, closeModal4 }) => {
         paddingTop: '6px',
 
       }}>
-        <h2 style={{ textAlign: 'center', fontSize: '13.5pt' }}>배송지가 하나 이상 등록되어야 해요</h2>
+        <h2 style={{ textAlign: 'center', fontSize: '13.5pt' }}>배송지는 하나 이상 등록되어야 해요</h2>
         <div className="CloseBtn" style={{
           paddingTop: '22px',
           display: 'flex',
@@ -640,7 +640,8 @@ const Address = () => {
             addr2: address.detailedAddress,
             name: address.name,
             phone: address.phone,
-            checked: 0,
+            //checked: 0,
+            datalength: data.length,
           },
         })
           
@@ -691,6 +692,7 @@ const Address = () => {
           <button
             className="FindAddressBtn"
             onClick={() => setShowPostcode(!showPostcode)}
+            style={{width:'65px'}}
           >
             주소찾기
           </button>
