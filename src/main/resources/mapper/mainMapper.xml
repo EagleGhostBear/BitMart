@@ -270,7 +270,6 @@
 		update user set pwd=#{pwd} where seq=#{seq}
 	</update>
 	
-
 	<update id="Review_y"  parameterType="java.util.Map">
 		update order_history set review = 'y' where user = #{user} and product = #{product}
 	</update>

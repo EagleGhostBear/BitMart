@@ -33,7 +33,7 @@ const OnedayProduct = (props) => {
                 <CostBox>
                     {item.sale === 0 ? (<ProductPrice>{item.price}원</ProductPrice>) : (
                     <>
-                        <Sale>{item.sale}%</Sale><ProductPrice>{(1 - item.sale/100)*item.price}원</ProductPrice><SalePrice>{item.price}원</SalePrice>
+                        <Sale>{item.sale}%</Sale><ProductPrice>{((1 - item.sale/100) * item.price).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</ProductPrice><SalePrice>{item.price}원</SalePrice>
                     </>)}
                 
                 {/* <SalePrice>{props.Price}원</SalePrice> */}
