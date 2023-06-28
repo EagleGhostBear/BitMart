@@ -166,7 +166,6 @@
 		UPDATE views SET views = views + 1, logtime = NOW() WHERE user = #{user} and product = #{product}
 	</update>
 	
-	
 	<select id="findPwd" resultType="main.bean.UserDTO">
 		SELECT * FROM user WHERE id = #{id} AND CONCAT(email1, '@', email2) = #{email}
 	</select>
@@ -206,7 +205,7 @@
 	</select>
 
 	<select id="delivery_list" parameterType="java.util.Map" resultType="main.bean.DeliveryDTO">
-		select * from deliveryaddr where user=#{user};
+		select * from deliveryaddr where user=#{user}
 	</select>
 
 	<delete id="delivery_delete" parameterType="java.util.Map">

@@ -55,6 +55,22 @@ public class MainController {
 		return list;
 	}
 	
+	@PostMapping("/recommend_product")
+	@ResponseBody
+	public List<MainDTO> recommend_product(@RequestBody Map map){
+		System.out.println("추천리스트 NUM:" + map.get("product"));
+		List<Integer> productList = (List<Integer>) map.get("product");
+		System.out.println(map.get("product").getClass().getName());
+		List<MainDTO> list = new ArrayList<>();
+		for (Integer product_seq : productList) {
+			System.out.println("반복되는 숫자: " + String.valueOf(product_seq));
+			list.add(mainService.product_detail(String.valueOf(product_seq)));
+		}
+		
+		System.out.println("추천리스트 = " + list);
+		return list;
+	}
+	
 	@PostMapping("/product_card")
 	@ResponseBody
 	public List<MainDTO> product_card(){
