@@ -53,6 +53,7 @@ const labelStyle = {
 };
 
 const inputStyle = {
+  accentColor: "purple",
   width: "23px",
   height: "23px",
   marginRight: "10px"
