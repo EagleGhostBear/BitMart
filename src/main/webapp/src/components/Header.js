@@ -196,7 +196,7 @@ const Logo = styled.div`
   position: absolute;
   left: 50%;
   bottom: 6px;
-  width: 103px;
+  width: 130px;
   height: 79px;
   margin-left: -60px;
   vertical-align: top;
