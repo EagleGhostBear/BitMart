@@ -40,7 +40,7 @@
 				WHEN 'sale' THEN sale
 				WHEN 'price' THEN price
 				ELSE seq
-			END DESC LIMIT #{endNum} OFFSET #{startNum}
+			END ASC LIMIT #{endNum} OFFSET #{startNum}
 	</select>
 	
 	<select id="oneday_product" resultType="main.bean.MainDTO">

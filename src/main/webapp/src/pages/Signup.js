@@ -61,7 +61,7 @@ const Signup = (props) => {
 
   const checkEmail = () => {
     if (!emailCheck(email)) {
-      alert("이메일 형식이 맞지 않습니다!");
+      openModal("이메일 형식이 맞지 않습니다!");
       return;
     }
     axios({
@@ -316,7 +316,7 @@ const Signup = (props) => {
                 margin="8px"
                 _onClick={() => {
                   if (!emailCheck(email)) {
-                    alert("잘못된 이메일 형식입니다");
+                    openModal("잘못된 이메일 형식입니다");
                     return false;
                   }
                   checkEmail();

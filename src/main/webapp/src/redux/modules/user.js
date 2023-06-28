@@ -100,7 +100,7 @@ const signupDB = (userId, password, passwordCheck, email, nickname) => {
         //회원가입 실패 시 다시 signup 페이지로 이동
       }
     } catch (err) {
-      alert("회원가입에 실패했습니다.");
+      openModal("회원가입에 실패했습니다.");
       console.log(err);
     }
   };
