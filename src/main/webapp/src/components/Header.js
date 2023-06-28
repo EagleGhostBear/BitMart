@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "../css/category.css";
+import ReactDOM from 'react-dom';
 
 import { actionCreators as userActions } from "../redux/modules/user";
+import Modal3 from "./ModalFind4";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ const Header = (props) => {
 
   const logout = () => {
     dispatch(userActions.outUser());
-    alert("로그아웃 되셨습니다!");
+    openModal3("로그아웃 되셨습니다!");
     navigate("/");
   };
   const [searchValue, setSearchValue] = useState(""); // 검색어 상태
@@ -325,5 +327,20 @@ const SearchIcon = styled.div`
   width: 30px;
   height: 30px;
 `;
+
+const openModal3 = (message) => {
+  const modalContainer = document.createElement("div");
+  document.body.appendChild(modalContainer);
+
+  const closeModal3 = () => {
+    ReactDOM.unmountComponentAtNode(modalContainer);
+    modalContainer.remove();
+  };
+
+  ReactDOM.render(
+    <Modal3 isOpen={true} closeModal={closeModal3} message={message} />,
+    modalContainer
+  );
+};
 
 export default Header;
