@@ -262,4 +262,13 @@
 		select addr1, addr2 from user where seq=#{user}
 	</select>
 	
+	<select id="resetfindId" parameterType="java.util.Map" resultType="main.bean.UserDTO">
+		select * from user where id=#{id}
+	</select>
+	
+	<update id="resetpwd" parameterType="java.util.Map">
+		update user set pwd=#{pwd} where seq=#{seq}
+	</update>
+	
+
 </mapper>

@@ -4,6 +4,7 @@ import axios from "axios";
 import Modal from "../../components/ModalFind";
 import Modal1 from "../../components/ModalFind2";
 import ReactDOM from 'react-dom';
+import Modal2 from "../../components/ModalFind3";
 
 // 액션
 const SET_USER = "SET_USER";
@@ -150,7 +151,7 @@ const findIdDB = (name, email) => {
     if (!res.data) {
       openModal("아이디가 존재하지 않습니다!");
     } else {
-      openModal("아이디는 " + res.data.id + "입니다!");
+      openModal2("아이디는 " + res.data.id + " 입니다!");
     }
   })
   .catch((err) => {
@@ -227,6 +228,8 @@ const findPwdDB = (id, email) => {
     } else {
       sendMail(id, email);
       resetPwd(id);
+      localStorage.setItem("id", id);  // 로그인 성공 시 토큰 저장
+      console.log("localStorage에 저장된 id : " + localStorage.getItem("id"));
     }
   })
   .catch((err) => {
@@ -254,20 +257,21 @@ const sendMail = (id, email) => {
   });
 }
 const resetPwd = (id) => {
+  console.log(id);
   axios({
     method: "post",
-    url: `/resetpwd/${id}`,
+    url: '/resetpwd',
     data: {
       id: id
     },
   })
   .then((res) => {
     console.log("데이터가 보내졌습니다.", res.data);
-    console.log(id)
+    console.log("데이터전송성공: ",id)
   })
   .catch((err) => {
     console.log("데이터 발송 실패", err);
-    console.log(id)
+    console.log("데이터전송실패: ",id)
   });
 }
 
@@ -303,6 +307,47 @@ const openModal1 = (message) => {
   );
 };
 
+const openModal2 = (message) => {
+  const modalContainer = document.createElement("div");
+  document.body.appendChild(modalContainer);
+
+  const closeModal2 = () => {
+    ReactDOM.unmountComponentAtNode(modalContainer);
+    modalContainer.remove();
+  };
+
+  ReactDOM.render(
+    <Modal2 isOpen={true} closeModal={closeModal2} message={message} />,
+    modalContainer
+  );
+};
+
+
+const resetPwdDB = (seq, pwd, pwdcheck) => {
+  console.log();
+  console.log("비밀번호 재설정 : " + pwd);
+  // const data = {
+  //   newPassword: pwd,
+  // }
+  axios({
+    method: "post",
+    url: '/resetpwd',
+    data: {
+      seq: seq,
+      pwd: pwd,
+    },
+  })
+  .then((res) => {
+    console.log("데이터가 보내졌습니다.", res.data);
+    console.log(pwd);
+    openModal2("비밀번호가 변경되었습니다.");
+    localStorage.removeItem("id");
+  })
+  .catch((err) => {
+    console.log("데이터 발송 실패", err);
+    console.log(pwd);
+  });
+}
 
 const actionCreators = {
   setUser,
@@ -313,7 +358,8 @@ const actionCreators = {
   userIdCheckF,
   emailCheckF,
   findIdDB,
-  findPwdDB
+  findPwdDB,
+  resetPwdDB
 };
 
 export { actionCreators };

@@ -348,6 +348,17 @@ public class MainDAOMyBatis implements MainDAO {
 	public List<UserDTO> cart_delivery(String user) {
 		return sqlSession.selectList("mainSQL.cart_delivery", user);
 	}
+	
+	public UserDTO resetfindId(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.resetfindId", map);
+	}
+
+	@Override
+	public void resetpwd(Map map) {
+		
+		sqlSession.update("mainSQL.resetpwd", map);
+	}
 
 
 }

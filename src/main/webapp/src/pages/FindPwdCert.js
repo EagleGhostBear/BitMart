@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const FindPwdCert = () => {
+const FindPwdCert = (props) => {
   const [cert, setCert] = useState("");
   const [isDeleteVisible, setDeleteVisible] = useState(false);
   const [isCertMatching, setCertMatching] = useState(null);
@@ -23,6 +23,7 @@ const FindPwdCert = () => {
 
 
   useEffect(() => {
+    console.log(props.id)
     axios.get('/api/mailCert')
       .then(response => {
         setMailCert(response.data);
@@ -80,6 +81,7 @@ const FindPwdCert = () => {
             }}
             disabled={isCertMatching === false}
             onClick={() => navigate('/resetpwd')}
+            id={props.id}
           >
             확인
           </ButtonFindPwd>

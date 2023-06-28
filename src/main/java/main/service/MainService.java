@@ -110,5 +110,9 @@ public interface MainService {
 	public void useraddr_update(Map<String, Object> map);
 
 	public List<UserDTO> cart_delivery(String user);
+
+	UserDTO resetfindId(Map map);
+
+	public void resetpwd(Map map);
 }
 

@@ -201,7 +201,7 @@ const Logo = styled.div`
   margin-left: -60px;
   vertical-align: top;
   max-width: 100%;
-  background: url("https://res.kurly.com/images/marketkurly/logo/logo_x2.png");
+  background: url("https://kr.object.ncloudstorage.com/bitcamp/logo.png");
   background-size: cover;
   cursor: pointer;
 `;
