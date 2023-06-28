@@ -115,4 +115,8 @@ public interface MainDAO {
 	UserDTO resetfindId(Map map);
 
 	public void resetpwd(Map map);
+
+	
+
+
 }

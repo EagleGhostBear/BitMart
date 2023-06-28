@@ -498,16 +498,15 @@ public class MainController {
 	
 	@PostMapping("/ReviewSubmit")
 	@ResponseBody
-	public void ReviewSubmit(@RequestBody Map reviewData) {
-	    String name = (String) reviewData.get("name");
-	    String title = (String) reviewData.get("title");
-	    String content = (String) reviewData.get("content");
+	public void ReviewSubmit(@RequestBody Map map) {
 	    
-	    System.out.println("이름" + name);
-	    System.out.println("title = " + title);
-	    System.out.println("content = " + content);
+		System.out.println("유저 = " + map.get("user"));
+		System.out.println("제품 = " + map.get("product"));
+	    System.out.println("이름 = " + map.get("name"));
+	    System.out.println("title = " + map.get("title"));
+	    System.out.println("content = " + map.get("content"));
 	    
-	    mainService.ReviewSubmit(reviewData);
+	    mainService.ReviewSubmit(map);
 	}
 	
 	
@@ -623,6 +622,25 @@ public class MainController {
 		mainService.useraddr_update(map);
 	}
 	
+	//리뷰수정하기 
+//	@PostMapping("ReviewUpdate")
+//	@ResponseBody
+//	public void ReviewUpdate(@RequestBody Map map) {
+//
+//	    String user = (String) map.get("user");   
+//	    String title = (String) map.get("title");
+//	    String content = (String) map.get("content");
+//	    String seq = (String) map.get("seq");
+//	    
+//	    System.out.println();
+//	    System.out.println("user: " + user); 
+//	    System.out.println("title: " + title);
+//	    System.out.println("content: " + content);   
+//	    System.out.println("seq: " + seq);
+//	    
+//	    mainService.ReviewUpdate(map);
+//	
+//	}
 
 	// 장바구니 페이지 기본배송지 등록
 	@PostMapping(value="cart_delivery")
