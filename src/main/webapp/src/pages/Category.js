@@ -1461,7 +1461,7 @@ const Category = (props) => {
                 borderBottom: "1px solid rgb(238, 238, 238)",
               }}
             >
-              <button
+              {/* <button
                 className="css-16ixplb e1frj59j9"
                 style={{
                   padding: "0px",
@@ -1661,7 +1661,7 @@ const Category = (props) => {
                     </span>
                   </a>
                 </li>
-              </nav>
+              </nav> */}
             </div>
           </div>
         </div>
