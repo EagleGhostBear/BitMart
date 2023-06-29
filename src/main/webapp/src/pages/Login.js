@@ -63,7 +63,7 @@ const Login = () => {
 
         <div
           style={{
-            width: "23%",
+            width: "18%",
             margin: "10px auto",
             display: "flex",
             justifyContent: "space-between",
