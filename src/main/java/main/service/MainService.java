@@ -116,5 +116,7 @@ public interface MainService {
 	UserDTO resetfindId(Map map);
 
 	public void resetpwd(Map map);
+
+	public void ReviewUpdate(Map<String, Object> map);
 }
 

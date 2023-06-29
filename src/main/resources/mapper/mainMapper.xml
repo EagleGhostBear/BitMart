@@ -172,7 +172,7 @@
 	</select>
 	
 	<insert id="order_success" parameterType="java.util.Map">
-	  INSERT INTO order_history (order_num, user, product, number, delivery_state,logtime) 
+	  INSERT INTO order_history (order_num, user, product, number, delivery_state,logtime)
 	  VALUES (#{order_num}, #{user}, #{product}, #{number}, #{delivery_state}, #{logtime})
 	</insert>
 
@@ -181,11 +181,19 @@
 	</delete>
 	
 	<select id="order_history" parameterType="java.util.Map" resultType="main.bean.HistoryDTO">
-		SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.logtime AS logTime,
+		SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.logtime AS logTime, OH.review AS review,
        	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
 		FROM order_history OH
 		JOIN product P ON P.seq = OH.product
-		WHERE OH.user = #{user}
+		WHERE OH.user = #{user} and OH.review ='n'
+	</select>
+
+	<select id="order_history2" parameterType="java.util.Map" resultType="main.bean.HistoryDTO">
+		SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.logtime AS logTime, OH.review AS review,
+       	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
+		FROM order_history OH
+		JOIN product P ON P.seq = OH.product
+		WHERE OH.user = #{user} and OH.review='y'
 	</select>
 	
 	<insert id="delivery_insert" parameterType="java.util.Map">
@@ -269,7 +277,10 @@
 	<update id="resetpwd" parameterType="java.util.Map">
 		update user set pwd=#{pwd} where seq=#{seq}
 	</update>
-	
+
+	<update id="ReviewUpdate" parameterType="java.util.Map">
+		update comment set title={title}, content=#{content} where user=#{user} and seq=#{product}
+	</update>
 
 	<update id="Review_y"  parameterType="java.util.Map">
 		update order_history set review = 'y' where user = #{user} and product = #{product}

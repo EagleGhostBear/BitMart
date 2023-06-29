@@ -223,6 +223,7 @@ const Review = () => {
         </div>
 
         {data.map((item, index) => (
+          
           <div className={styles.reviewContainer}>
             <div className={styles.reviewItem}>
               <div className={styles.imageContainer}>
@@ -236,6 +237,7 @@ const Review = () => {
                 <a href="">
                   <span className={styles.productName}>
                     {data[index].productTitle}
+                  
                   </span>
                 </a>
                 <div className={styles.dateWrap}>
@@ -253,6 +255,7 @@ const Review = () => {
               <div className={styles.contentWrap}></div>
             </div>
           </div>
+
         ))}
 
         <ReviewWrite
@@ -262,6 +265,8 @@ const Review = () => {
           close={closeModal}
           header="후기"
         />
+
+        
 
         {/* {modalOpen2 ? (
           <div className={styles.reviewContainer}>

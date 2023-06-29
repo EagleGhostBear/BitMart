@@ -262,9 +262,11 @@ public class MainDAOMyBatis implements MainDAO {
 
 	@Override
 	public List<HistoryDTO> order_history(Map map) {
-		
-//		return sqlSession.selectList("mainSQL.getOrderHistory", map);
-		return sqlSession.selectList("mainSQL.order_history", map);
+
+		String review = (String) map.get("review");
+		if ("n".equals(review)) return sqlSession.selectList("mainSQL.order_history", map);
+		else return sqlSession.selectList("mainSQL.order_history2", map);
+
 	}
 
 	
@@ -359,6 +361,11 @@ public class MainDAOMyBatis implements MainDAO {
 	public void resetpwd(Map map) {
 		
 		sqlSession.update("mainSQL.resetpwd", map);
+	}
+
+	@Override
+	public void ReviewUpdate(Map<String, Object> map) {
+		sqlSession.update("mainSQL.ReviewUpdate", map);
 	}
 
 

@@ -18,6 +18,8 @@ const ModalReview = (props) => {
   const [contents, setContents] = useState();
   const [isEditing, setIsEditing] = useState(false);
 
+  
+
   const handleReviewSubmit = () => {
     axios({
       method: "post",
@@ -39,34 +41,34 @@ const ModalReview = (props) => {
     props.close();
   };
 
-  // const handleReviewUpdate = () => {
-  //   axios({
-  //     method: "post",
-  //     url: "/ReviewUpdate",
-  //     data: {
-  //       user: token_key,
-  //       product: props.seq,
-  //       name: user.name,
-  //       title: title,
-  //       content: contents,
-  //       //seq: reviewSeq,
-  //     },
-  //   })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  const handleReviewUpdate = () => {
+    axios({
+      method: "post",
+      url: "/ReviewUpdate",
+      data: {
+        user: token_key,
+        product: props.seq,
+        name: user.name,
+        title: title,
+        content: contents,
+        //seq: reviewSeq,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  // const handleReviewClick = () => {
-  //   if (isEditing) {
-  //     handleReviewUpdate();
-  //   } else {
-  //     handleReviewSubmit();
-  //   }
-  // };
+  const handleReviewClick = () => {
+    if (isEditing) {
+      handleReviewUpdate();
+    } else {
+      handleReviewSubmit();
+    }
+  };
 
   useEffect(() => {
     axios
@@ -202,7 +204,7 @@ const ModalReview = (props) => {
                     id="title"
                     inputMode="text"
                     placeholder="제목을 입력하세요"
-                    value={review.content}
+                    value={review.title}
                     onChange={(e) => {
                       setTitle(e.target.value);
                     }}

@@ -403,7 +403,10 @@ public class MainController {
 	public List<HistoryDTO> order_history(@RequestBody Map map){
 		System.out.println("order호출");
 		List<HistoryDTO> list = mainService.order_history(map);
-		System.out.println(list);
+		System.out.println("list: " + list);
+
+		String review = (String) map.get("review");
+		System.out.println("review: " + review);
 		return list;
 	}
 
@@ -629,24 +632,30 @@ public class MainController {
 	}
 	
 	//리뷰수정하기 
-//	@PostMapping("ReviewUpdate")
-//	@ResponseBody
-//	public void ReviewUpdate(@RequestBody Map map) {
-//
-//	    String user = (String) map.get("user");   
-//	    String title = (String) map.get("title");
-//	    String content = (String) map.get("content");
-//	    String seq = (String) map.get("seq");
-//	    
-//	    System.out.println();
-//	    System.out.println("user: " + user); 
-//	    System.out.println("title: " + title);
-//	    System.out.println("content: " + content);   
-//	    System.out.println("seq: " + seq);
-//	    
-//	    mainService.ReviewUpdate(map);
-//	
-//	}
+	@PostMapping("ReviewUpdate")
+	@ResponseBody
+	public void ReviewUpdate(@RequestBody Map requestData) {
+
+	    String user = (String) requestData.get("user");
+	    String title = (String) requestData.get("title");
+	    String content = (String) requestData.get("content");
+	    String product = (String) requestData.get("product");
+
+	    System.out.println();
+	    System.out.println("user: " + user);
+	    System.out.println("title: " + title);
+	    System.out.println("content: " + content);
+	    System.out.println("product: " + product);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("user", user);
+		map.put("title", title);
+		map.put("content", content);
+		map.put("product", product);
+
+	    mainService.ReviewUpdate(map);
+
+	}
 
 	// 장바구니 페이지 기본배송지 등록
 	@PostMapping(value="cart_delivery")
