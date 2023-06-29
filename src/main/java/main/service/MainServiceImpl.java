@@ -318,4 +318,14 @@ public class MainServiceImpl implements MainService {
 		mainDAO.resetpwd(map);
 	}
 
+	@Override
+	public void ReviewUpdate(Map<String, Object> map) {
+		mainDAO.ReviewUpdate(map);
+	}
+
+	@Override
+	public List<HistoryDTO> getOrderHistory1(Map map) {
+		return mainDAO.getOrderHistory1(map);
+	}
+
 }
