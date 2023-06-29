@@ -1,15 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import { actionCreators as userActions } from "../redux/modules/user";
+import axios from 'axios';
 
 const ResetPwd = () => {
+  const localid = `${localStorage.getItem("id")}`;
   const dispatch = useDispatch();
   const [pwd, setPwd] = useState("");
   const [pwdCheck, setPwdCheck] = useState("");
   const [isDeleteVisible, setDeleteVisible] = useState(false);
   const [isDeleteVisible1, setDeleteVisible1] = useState(false);
+  const [data, setData] = useState();
+  const [seq, setSeq] = useState();
+
+  useEffect(() => {
+    console.log(localStorage.getItem('id'));
+
+    axios({
+      method: 'post',
+      url: '/resetfindId', // user정보 가지고 오는 url
+      data: {
+        id: localid
+      }
+    })
+    .then((res) => {
+      console.log(res.data);
+      setData(res.data);
+      setSeq(res.data.seq);
+    })
   
+  }, []);
+
   const handlePwdChange = (event) => {
     const pwd = event.target.value.trim();
     setPwd(pwd);
@@ -48,7 +70,7 @@ const ResetPwd = () => {
   const isPasswordMatch = pwd.length > 0 && pwd.length > 0 && pwd === pwdCheck;
 
   const resetPwd = () => {
-    dispatch(userActions.resetPwdDB(pwd, pwdCheck))
+    dispatch(userActions.resetPwdDB(seq, pwd, pwdCheck))
   }
   return (
     <React.Fragment>

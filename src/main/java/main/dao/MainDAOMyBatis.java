@@ -262,7 +262,8 @@ public class MainDAOMyBatis implements MainDAO {
 
 	@Override
 	public List<HistoryDTO> order_history(Map map) {
-
+		
+//		return sqlSession.selectList("mainSQL.getOrderHistory", map);
 		return sqlSession.selectList("mainSQL.order_history", map);
 	}
 
@@ -314,10 +315,9 @@ public class MainDAOMyBatis implements MainDAO {
 	public void deleteUser(Map map) {
 		sqlSession.delete("mainSQL.deleteUser", map);
 	}
-
-	@Override
+	
 	public List<HistoryDTO> getOrderHistory(Map map) {
-
+		
 		return sqlSession.selectList("mainSQL.getOrderHistory", map);
 	}
 
@@ -326,6 +326,7 @@ public class MainDAOMyBatis implements MainDAO {
 		LocalDateTime currentTime = LocalDateTime.now();
         reviewData.put("logtime", currentTime);
 		sqlSession.insert("mainSQL.ReviewSubmit", reviewData);
+		sqlSession.update("mainSQL.Review_y", reviewData);
 	}
 		
 		
@@ -335,7 +336,7 @@ public class MainDAOMyBatis implements MainDAO {
 	
 	@Override
 	public CommentDTO comment_detail(Map map) {
-
+		
 		return sqlSession.selectOne("mainSQL.comment_detail", map);
 	}
 
@@ -348,6 +349,22 @@ public class MainDAOMyBatis implements MainDAO {
 	public List<UserDTO> cart_delivery(String user) {
 		return sqlSession.selectList("mainSQL.cart_delivery", user);
 	}
+	
+	public UserDTO resetfindId(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.resetfindId", map);
+	}
+
+	@Override
+	public void resetpwd(Map map) {
+		
+		sqlSession.update("mainSQL.resetpwd", map);
+	}
+
+
+//	public void ReviewUpdate(Map map) {
+//		sqlSession.update("mainSQL.ReviewUpdate",map);
+//	}
 
 
 }

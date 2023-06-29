@@ -23,6 +23,7 @@ import Modify from "./Modify";
 import Delete from "./Delete";
 import FindPwdCert from "./FindPwdCert";
 import ResetPwd from "./ResetPwd";
+import DelieveryEvent from "./DelieveryEvent";
 
 export {
   Main,
@@ -50,4 +51,5 @@ export {
   ResetPwd,
   Modify,
   Delete,
+  DelieveryEvent
 };

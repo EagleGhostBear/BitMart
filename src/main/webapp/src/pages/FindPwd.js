@@ -68,7 +68,7 @@ const FindPwd = () => {
     setDeleteVisible1(false);
   };
 
-  const findPwd = () => {
+  const findPwd = (id) => {
     dispatch(userActions.findPwdDB(id, email));
   }
 
@@ -144,7 +144,7 @@ const FindPwd = () => {
         <ButtonContainer>
           <ButtonFindPwd
             onClick={() => {
-              findPwd();
+              findPwd(id);
             }}
             style={{
               backgroundColor: isValidEmail && isValidId ? "#5f0080" : "",

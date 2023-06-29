@@ -7,6 +7,7 @@ import '../App.css';
 
 // Components
 import { Header } from '../components/component';
+import { Footer } from '../components/component';
 
 // Pages
 import {
@@ -36,6 +37,7 @@ import {
   Review,
   FindPwdCert,
   ResetPwd,
+  DelieveryEvent,
 } from "../pages/page";
 
 function App() {
@@ -63,6 +65,8 @@ function App() {
     }    
   }, []);
 
+
+
   return (
     <div className="App">
       <Header onSearchSubmit={handleSearchSubmit} />
@@ -88,12 +92,14 @@ function App() {
         <Route path="/notices" element={<NoticeListPage />} />
         <Route path="/notices/:id" element={<NoticeDetailPage />} />
         <Route path="/faq" element={<FaqPage />} />
-        <Route path="/inquiry" element={<InquiryPage />} />
+        <Route path="/inquiry" element={islogin ? <InquiryPage /> : <Login />}/>
         <Route path="/inquirywrite" element={<InquiryFormPage />} />
         <Route path="/*" element={<NotFound />} />
         <Route path="/review" element={<Review />} />
         <Route path="/resetpwd" element={<ResetPwd/>}/> 
+        <Route path="/delieveryevent" element={<DelieveryEvent/>}/> 
       </Routes>
+      <Footer />
     </div>
   );
 }

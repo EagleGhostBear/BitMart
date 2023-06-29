@@ -117,6 +117,8 @@ const Modify = (props) => {
 
 
     if(email === testEmail){
+      // console.log(name);
+      console.log(nickname);
       dispatch(
         axios({
           method: "post",

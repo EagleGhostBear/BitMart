@@ -11,6 +11,7 @@ import Sale from "./Sale";
 import Recommend from "./Recommend.js";
 import CommentList from "./CommentList";
 import ScrollToTop from "./ScrollToTop";
+import Footer from "./Footer";
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   Recommend,
   CommentList,
   ScrollToTop,
+  Footer
 };

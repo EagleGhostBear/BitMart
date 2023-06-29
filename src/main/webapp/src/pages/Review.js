@@ -74,8 +74,15 @@ const Review = () => {
         user: token_key,
         review: "y",
       })
-      .then((response) => setData(response.data));
-  };
+      .then((response) => {
+      console.log("응답데이터 확인=  "+ response.data); // 응답 데이터 확인
+      setData(response.data);
+  });
+};
+
+useEffect(() => {
+  console.log("상태 업데이트 확인 = " + data);
+}, [data]);
 
   return (
     <div className={styles.containerWrap}>
@@ -212,13 +219,13 @@ const Review = () => {
           <Tab
             text="작성가능 후기"
             onClick={handleButtonClick}
-            style={{ color: select ? "red" : "black" }}
+            style={{ color: select ? "purple" : "black" }}
           />
 
           <Tab
             text="작성한 후기"
             onClick={handleButtonClick2}
-            style={{ color: select ? "black" : "red" }}
+            style={{ color: select ? "black" : "purple" }}
           />
         </div>
 
@@ -247,7 +254,7 @@ const Review = () => {
                   onClick={() => openModal(item.productSeq)}
                   className={styles.modalButton}
                 >
-                  후기 작성
+                  후기 
                 </button>
               </React.Fragment>
               <div className={styles.contentWrap}></div>
