@@ -294,6 +294,7 @@ public class MainController {
 		System.out.println("comment:" + map);
 		CommentDTO commentDTO = mainService.comment_detail(map);
 		System.out.println("comment detail:"  + commentDTO);
+	
 		return commentDTO;
 	}
 	
@@ -419,7 +420,22 @@ public class MainController {
 	public List<HistoryDTO> order_history(@RequestBody Map map){
 		System.out.println("order호출");
 		List<HistoryDTO> list = mainService.order_history(map);
-		System.out.println(list);
+		System.out.println("list: " + list);
+
+		String review = (String) map.get("review");
+		System.out.println("1review: " + review);
+		return list;
+	}
+
+	@PostMapping(value="getOrderHistory1")
+	@ResponseBody
+	public List<HistoryDTO> getOrderHistory1(@RequestBody Map map){
+		System.out.println("order호출");
+		List<HistoryDTO> list = mainService.getOrderHistory1(map);
+		System.out.println("list: " + list);
+
+		String review = (String) map.get("review");
+		System.out.println("review: " + review);
 		return list;
 	}
 
@@ -645,24 +661,33 @@ public class MainController {
 	}
 	
 	//리뷰수정하기 
-//	@PostMapping(value="ReviewUpdate")
-//	@ResponseBody
-//	public void ReviewUpdate(@RequestBody Map map) {
-//
-//	    String user = (String) map.get("user");   
-//	    String title = (String) map.get("title");
-//	    String content = (String) map.get("content");
-//	    String seq = (String) map.get("seq");
-//	    
-//	    System.out.println();
-//	    System.out.println("user: " + user); 
-//	    System.out.println("title: " + title);
-//	    System.out.println("content: " + content);   
-//	    System.out.println("seq: " + seq);
-//	    
-//	    mainService.ReviewUpdate(map);
-//	
-//	}
+	@PostMapping("ReviewUpdate")
+	@ResponseBody
+	public void ReviewUpdate(@RequestBody Map requestData) {
+
+	    String user = (String) requestData.get("user");
+	    String title = (String) requestData.get("title");
+	    String content = (String) requestData.get("content");
+	    int product = (int) requestData.get("product");
+		int seq = (int) requestData.get("seq");
+
+	    System.out.println();
+	    System.out.println("user: " + user);
+	    System.out.println("title: " + title);
+	    System.out.println("content: " + content);
+	    System.out.println("product: " + product);
+		System.out.println("seq: " + seq);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("user", user);
+		map.put("title", title);
+		map.put("content", content);
+		map.put("product", product);
+		map.put("seq", seq);
+
+	    mainService.ReviewUpdate(map);
+
+	}
 
 	// 장바구니 페이지 기본배송지 등록
 	@PostMapping(value="cart_delivery")
