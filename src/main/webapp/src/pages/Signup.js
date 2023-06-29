@@ -16,6 +16,7 @@ import Modal2 from "../components/ModalFind3";
 
 const Signup = (props) => {
   const dispatch = useDispatch();
+  const [isIdAvailable, setIdAvailable] = useState(false);
 
   //아이디, 비밀번호, 비밀번호 확인, 이름, 이메일 확인
   const [userId, setuserId] = useState("");
@@ -48,9 +49,11 @@ const Signup = (props) => {
           if (res.data === "") {
             openModal("사용 가능한 아이디입니다!");
             setTestId(userId);
+            setIdAvailable(true);
           } else {
             openModal("이미 사용 중인 아이디입니다!");
             setTestId("");
+            setIdAvailable(false);
           }
           return res.data;
         }
@@ -208,7 +211,7 @@ const Signup = (props) => {
               {userId !== "" && userIdCheck(userId) && (
                 <InfoUl className="checkId">
                   <li>✓ 6자 이상의 영문 혹은 영문과 숫자를 조합</li>
-                  <li>• 아이디 중복확인</li>
+                  <li>{isIdAvailable ? "✓ 아이디 중복확인" : "• 아이디 중복확인"}</li>
                 </InfoUl>
               )}
               
