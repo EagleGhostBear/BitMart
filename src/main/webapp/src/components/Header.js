@@ -104,16 +104,10 @@ const Header = (props) => {
               전체 카테고리
               {isCategoryOpen && (
                 <div className="dropdown-menu">
-                  <li onClick={() => {navigate("/category/new"); }}>수산물</li>
-                  <li onClick={() => {navigate("/category/best"); }}>육류</li>
-                  <li onClick={() => {navigate("/category/sale"); }}>야채 채소</li>
-                  <li onClick={() => {navigate("/category/price"); }}>과일</li>
-                  <li onClick={() => {navigate("/category/price"); }}>욕실 헤어 바디</li>
-                  <li onClick={() => {navigate("/category/price"); }}>주방용품</li>
-                  <li onClick={() => {navigate("/category/price"); }}>면류</li>
-                  <li onClick={() => {navigate("/category/price"); }}>간식류</li>
-                  <li onClick={() => {navigate("/category/price"); }}>건강식품</li>
-                  <li onClick={() => {navigate("/category/price"); }}>기타류</li>
+                  <li onClick={() => {navigate("/category/new"); window.scrollTo(0, 0);}}>신상품</li>
+                  <li onClick={() => {navigate("/category/best"); window.scrollTo(0, 0);}}>베스트</li>
+                  <li onClick={() => {navigate("/category/sale"); window.scrollTo(0, 0);}}>특가/혜택</li>
+                  <li onClick={() => {navigate("/category/price"); window.scrollTo(0, 0);}}>알뜰쇼핑</li>
                 </div>
               )}
             </li>
@@ -244,6 +238,7 @@ const HeaderCategory = styled.ul`
     &:hover {
       color: purple;
       text-decoration: underline;
+      background-color: transparent; //추가
     }
   }
   & .all-category::before {

@@ -6,7 +6,7 @@ const FooterRight = () => {
     <div style={{ marginTop: '-300px'}} className="w-2/4 pt-12">
       <ul style={{ listStyle: 'none', backgroundColor: '', display: 'flex', justifyContent: 'center', fontSize: '14px', width:'100%',
       paddingBottom: '29px',
-      fontWeight: '1px', lineHeight : '18px', marginLeft: '-180px'}} className="flex pb-12">
+      fontWeight: '1px', lineHeight : '18px', marginLeft: '-25%'}} className="flex pb-12">
   <li className="pr-6" style={{ marginRight: '10px' }}>
     <Link className="link" to="/shop/introduce/about_kurly.php">
       컬리소개
@@ -41,6 +41,7 @@ const FooterRight = () => {
     lineHeight: '18px',
     color: 'rgb(153, 153, 153)',
     marginBottom: '40px',
+    marginLeft: '3%',
   }}
   className="text-r-1.2 text-kmi-100"
 >
@@ -77,7 +78,7 @@ const FooterRight = () => {
   <em className="block pt-6 text-r-1 not-italic">© KURLY CORP. ALL RIGHTS RESERVED</em>
 </div>
 
-      <ul style={{ display: 'flex', justifyContent: 'center', marginLeft: '-590px' }} className="flex pt-6">          
+      <ul style={{ display: 'flex', justifyContent: 'center', marginRight: '80%' }} className="flex pt-6">          
       <li style={{ listStyle: 'none'}} className="pr-4">
           <Link to="https://instagram.com/marketkurly" className="link_sns" target="_blank">
           <img

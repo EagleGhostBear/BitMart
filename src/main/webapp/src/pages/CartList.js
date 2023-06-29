@@ -305,7 +305,7 @@ const Container = styled.div`
     width: 1050px;
     padding: 50px 0 51px;
     margin: 0 auto;
-    :after {
+    after {
       content: "";
       position: absolute;
       z-index: 299;
