@@ -138,7 +138,7 @@ const MyKurly = () => {
           </NavLink>
         </NavMenuItem>
         <NavMenuItem>
-          <NavLink>
+          <NavLink href="./review">
             상품후기
             <Icon
               height="19"
