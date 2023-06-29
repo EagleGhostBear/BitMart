@@ -181,10 +181,11 @@
 	
 	<select id="order_history" parameterType="java.util.Map" resultType="main.bean.HistoryDTO">
 		SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.logtime AS logTime,
-       	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
+	    P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
 		FROM order_history OH
 		JOIN product P ON P.seq = OH.product
 		WHERE OH.user = #{user}
+		ORDER BY OH.seq DESC;
 	</select>
 	
 	<insert id="delivery_insert" parameterType="java.util.Map">
