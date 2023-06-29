@@ -118,11 +118,10 @@ const Category = (props) => {
       const scrollHeight = document.documentElement.scrollHeight; // 문서 전체의 높이
       const clientHeight = document.documentElement.clientHeight; // 뷰포트의 높이
       const scrollDistance = scrollHeight - clientHeight; // 제일 아래로 스크롤된 거리
-      console.log(scrollDistance + ", " + document.documentElement.scrollTop);
-      //if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight && document.documentElement.offsetHeight !== window.innerHeight)
+      // console.log(scrollDistance + ", " + document.documentElement.scrollTop);
       if (scrollDistance === document.documentElement.scrollTop) {
         fetchData();
-        console.log("끝까지 도달함")
+        console.log("infinite scroll 추가 데이터 요청")
       }
     };
 
@@ -1461,7 +1460,7 @@ const Category = (props) => {
                 borderBottom: "1px solid rgb(238, 238, 238)",
               }}
             >
-              <button
+              {/* <button
                 className="css-16ixplb e1frj59j9"
                 style={{
                   padding: "0px",
@@ -1661,7 +1660,7 @@ const Category = (props) => {
                     </span>
                   </a>
                 </li>
-              </nav>
+              </nav> */}
             </div>
           </div>
         </div>

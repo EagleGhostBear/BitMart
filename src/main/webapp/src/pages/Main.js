@@ -29,14 +29,15 @@ const Main = (props) => {
   console.log(token_key)
 
   useEffect(() => {
-    dispatch(postActions.getPostDB());
+    // dispatch(postActions.getPostDB());
+    console.log("user_info: ", user_info);
   }, []);
 
   return (
     <HeaderContainer>
       <Banner images={images}></Banner>
       <Wrap>
-        {token_key !== 'null' && <AllList></AllList>}
+        {user_info.user === null ? '' : <AllList />}
         <MiddleBanner></MiddleBanner>
         <Oneday></Oneday>
         <Kurlyonly></Kurlyonly>

@@ -162,7 +162,6 @@
 		UPDATE views SET views = views + 1, logtime = NOW() WHERE user = #{user} and product = #{product}
 	</update>
 	
-	
 	<select id="findPwd" resultType="main.bean.UserDTO">
 		SELECT * FROM user WHERE id = #{id} AND CONCAT(email1, '@', email2) = #{email}
 	</select>
@@ -185,7 +184,7 @@
        	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
 		FROM order_history OH
 		JOIN product P ON P.seq = OH.product
-		WHERE OH.user = #{user} and OH.review ='n'
+		WHERE OH.user = #{user} and OH.review ='n' ORDER BY OH.seq DESC;
 	</select>
 
 	<select id="order_history2" parameterType="java.util.Map" resultType="main.bean.HistoryDTO">
@@ -193,7 +192,7 @@
        	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
 		FROM order_history OH
 		JOIN product P ON P.seq = OH.product
-		WHERE OH.user = #{user} and OH.review='y'
+		WHERE OH.user = #{user} and OH.review='y' ORDER BY OH.seq DESC;
 	</select>
 	
 	<insert id="delivery_insert" parameterType="java.util.Map">
@@ -210,7 +209,7 @@
 	</select>
 
 	<select id="delivery_list" parameterType="java.util.Map" resultType="main.bean.DeliveryDTO">
-		select * from deliveryaddr where user=#{user};
+		select * from deliveryaddr where user=#{user}
 	</select>
 
 	<delete id="delivery_delete" parameterType="java.util.Map">

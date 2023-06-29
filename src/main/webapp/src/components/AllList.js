@@ -14,15 +14,46 @@ const AllList = (props) => { //부모 컴포넌트에서 받은 state와 method
 
   //settings 부분, 슬라이더의 기능을 조정할 수 있다.
   const all_list = useSelector((state) => state.post.list[0])
+  const user = useSelector((state) => state.user.user);
   const [data, setData] = useState([]);
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   useEffect(() => {
-    axios.post('/product_card')
-      .then(response => setData(response.data));
+    const fetchRecommendedProducts = async () => {
+      try {
+        const response = await axios.get('http://101.79.11.237:5000/', {
+          params: {
+            user: user.seq // 원하는 사용자 ID를 지정하거나 동적으로 변경할 수 있습니다.
+          }
+        });
+        const { recommended_products } = response.data;
+        setRecommendedProducts(recommended_products);
+      } catch (error) {
+        console.error('Error fetching recommended products:', error);
+      }
+    };
+
+    fetchRecommendedProducts();
   }, []);
 
-  return (
+  useEffect(() => {
+    axios.post('/recommend_product', { product: recommendedProducts })
+      .then(response => setData(response.data));
+    console.log("추천시스템 제품 목록:" + JSON.stringify(recommendedProducts));
+  }, [recommendedProducts]);
 
+  // useEffect(() => {
+  //   axios.get(`http://101.79.11.237:5000/?user_id=3`)
+  //     .then(response => setData(response.data));
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log("드가자1:" + data);
+  //   console.log("드가자2:" + data.recommended_products);
+  //   console.log("드가자3:" + JSON.stringify(data));
+  // }, [data]);
+
+  return (
     < Wrap >
       <TitleWrap><span>고객님의 맞춤 상품</span></TitleWrap>
       <Slider {...settings}>

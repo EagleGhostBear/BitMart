@@ -102,14 +102,6 @@ const Header = (props) => {
             <CategoryIcon></CategoryIcon>
             <li className="category" onMouseEnter={openCategory} onMouseLeave={closeCategory}>
               전체 카테고리
-              {isCategoryOpen && (
-                <div className="dropdown-menu">
-                  <li onClick={() => {navigate("/category/new"); window.scrollTo(0, 0);}}>신상품</li>
-                  <li onClick={() => {navigate("/category/best"); window.scrollTo(0, 0);}}>베스트</li>
-                  <li onClick={() => {navigate("/category/sale"); window.scrollTo(0, 0);}}>특가/혜택</li>
-                  <li onClick={() => {navigate("/category/price"); window.scrollTo(0, 0);}}>알뜰쇼핑</li>
-                </div>
-              )}
             </li>
             <li onClick={() => {navigate("/category/new"); window.scrollTo(0, 0);}}>신상품</li>
             <li onClick={() => {navigate("/category/best"); window.scrollTo(0, 0);}}>베스트</li>

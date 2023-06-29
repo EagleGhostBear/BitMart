@@ -54,7 +54,7 @@ public interface MainService {
 
 	UserDTO checkEmail(String email);
 
-	void signUp(Map<String, Object> map);
+	public void signUp(Map<String, Object> map);
 
 	List<CommentDTO> comment_list(Map map);
 
@@ -72,16 +72,15 @@ public interface MainService {
 	
 	public void views_update(Map map);
 
-	
 	UserDTO findPwd(Map map);
 	
 	UserDTO checkName(String name);
 
-	void order_success(Map map);
+	public void order_success(Map map);
 
 	List<CartDTO> mycartList(Map map);
 
-	void cart_allDelete(Map map);
+	public void cart_allDelete(Map map);
 
 	List<HistoryDTO> order_history(Map map);
 	
@@ -95,13 +94,13 @@ public interface MainService {
 
 	public void delivery_delete(Map map);
 
-	void ReviewSubmit(Map reviewData);
+	public void ReviewSubmit(Map reviewData);
 
     public void update_checked(Map map);
 
 	UserDTO getId(Map map);
 
-	void modifyMember(Map map);
+	public void modifyMember(Map map);
 	
 	public void deleteUser(Map map);
 
