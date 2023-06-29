@@ -19,7 +19,7 @@ public class MailController {
 	public String sendMail(@RequestBody Map<String, String> requestData) {
 		String email = requestData.get("email");
 		System.out.println("Received email: " + email);
-		mailService.sendMail(email, "비트마트 인증번호");
+		mailService.sendMail(email, "비트컬리 인증번호");
 		return "Mail sent successfully";
 	}
 	

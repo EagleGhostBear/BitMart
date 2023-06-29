@@ -34,7 +34,7 @@ public class MailService {
 			mailCert = generateRandomNum();
 
 			// HTML body 설정
-			String htmlBody = "<html><body>" + "<p>비트마트를 방문해주셔서 감사합니다</p>" + "<p>인증번호는 다음과 같습니다.</p>"
+			String htmlBody = "<html><body>" + "<p>비트컬리를 방문해주셔서 감사합니다</p>" + "<p>인증번호는 다음과 같습니다.</p>"
 					+ "<p style=\"font-size: 24px;\">인증번호: " + mailCert + "</p>" + "</body></html>";
 
 			helper.setText(htmlBody, true);
