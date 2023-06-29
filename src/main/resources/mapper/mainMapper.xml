@@ -235,12 +235,12 @@
 		delete from user where seq=#{seq} 
 	</delete>
 	
-	<select id="getOrderHistory" parameterType="java.util.Map" resultType="main.bean.HistoryDTO">
+	<select id="getOrderHistory1" parameterType="java.util.Map" resultType="main.bean.HistoryDTO">
 	SELECT OH.seq AS historySeq, OH.order_num AS orderNum, OH.user, OH.product, OH.number, OH.delivery_state AS deliveryState, OH.review AS review, OH.logtime AS logTime,
        	P.seq AS productSeq, P.image AS productImage, P.title AS productTitle, P.price AS productPrice, P.sale AS productSale
 		FROM order_history OH
 		JOIN product P ON P.seq = OH.product
-		WHERE OH.user = #{user} and OH.review = #{review}
+		WHERE OH.user = #{user}
 	</select>
 
 	<update id="update_checked" parameterType="java.util.Map">
@@ -279,9 +279,10 @@
 	</update>
 
 	<update id="ReviewUpdate" parameterType="java.util.Map">
-		update comment set title={title}, content=#{content} where user=#{user} and seq=#{product}
+		update comment set title=#{title}, content=#{content}, logtime=now() where user=#{user} and product=#{product} and seq=#{seq}
 	</update>
 
+	
 	<update id="Review_y"  parameterType="java.util.Map">
 		update order_history set review = 'y' where user = #{user} and product = #{product}
 	</update>

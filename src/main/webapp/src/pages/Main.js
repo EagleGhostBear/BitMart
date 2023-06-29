@@ -18,11 +18,15 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import images from "../elements/Image";
 
 const Main = (props) => {
+  const token_key = `${localStorage.getItem("token")}`;
+
   const dispatch = useDispatch();
   const all_list = useSelector((state) => state.post.list);
   const user_info = useSelector((state) => state.user);
   console.log(all_list);
   console.log("user_info: ", user_info);
+  //console.log("user_info_seq: ", user_info.user.seq);
+  console.log(token_key)
 
   useEffect(() => {
     dispatch(postActions.getPostDB());
@@ -32,7 +36,7 @@ const Main = (props) => {
     <HeaderContainer>
       <Banner images={images}></Banner>
       <Wrap>
-        <AllList></AllList>
+        {token_key !== 'null' && <AllList></AllList>}
         <MiddleBanner></MiddleBanner>
         <Oneday></Oneday>
         <Kurlyonly></Kurlyonly>

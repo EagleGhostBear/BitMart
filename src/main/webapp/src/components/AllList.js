@@ -10,6 +10,8 @@ import CartIcon from "../elements/CartIcon";
 
 const AllList = (props) => { //부모 컴포넌트에서 받은 state와 method
 
+  
+
   //settings 부분, 슬라이더의 기능을 조정할 수 있다.
   const all_list = useSelector((state) => state.post.list[0])
   const [data, setData] = useState([]);

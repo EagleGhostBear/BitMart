@@ -166,21 +166,30 @@ const CartList = (props) => {
               </a> */}
             </ProductSummary>
 
-            {/* {!cart_list && } */}
+              {data.length === 0 ? (
+                <div style={{textAlign:'center', fontSize:'13pt', marginTop:'15px', color:'#575656'}}>장바구니에 담긴 상품이 없어요!</div>
+              ) : (
+                <>
+                  {/* {!cart_list && } */}
 
-            {/* {cart_list &&
-              cart_list.map((a, i) => {
-                return <CartItem key={i} {...a} />;
-              })} */}
-            {data.map((item, i) => {
-              now_price += item.price * item.number;
-              discount_price += ((item.sale/100) * item.price * item.number);
-              if( (now_price - discount_price) < 40000 ) {delivery_price=3000}
-              else delivery_price=0;
-              return (
-                <CartItem key={i} {...item} />
-              );
-            })}
+                  {/* {cart_list &&
+                    cart_list.map((a, i) => {
+                      return <CartItem key={i} {...a} />;
+                    })} */}
+                  {data.map((item, i) => {
+                    now_price += item.price * item.number;
+                    discount_price += (item.sale / 100) * item.price * item.number;
+                    if (now_price - discount_price < 40000) {
+                      delivery_price = 3000;
+                    } else {
+                      delivery_price = 0;
+                    }
+                    return <CartItem key={i} {...item} />;
+                  })}
+                </>
+             )}
+
+            
           </ProductWrapper>
 
           <PriceWrapper>

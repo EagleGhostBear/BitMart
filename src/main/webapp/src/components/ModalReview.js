@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 
 const ModalReview = (props) => {
   console.log("제품번호:" + props.seq);
+  console.log("p review: ", props.review);
+
   // 열기, 닫기, 작성, 모달 헤더 텍스트를 부모로부터 받아옴
   // const { open, close, header, id } = props;
   const [reviewContent, setReviewContent] = useState("");
@@ -19,7 +21,7 @@ const ModalReview = (props) => {
   const [isEditing, setIsEditing] = useState(false);
 
   
-
+  
   const handleReviewSubmit = () => {
     axios({
       method: "post",
@@ -38,6 +40,7 @@ const ModalReview = (props) => {
       .catch((err) => {
         console.log(err);
       });
+    window.alert('후기 작성이 완료되었어요');
     props.close();
   };
 
@@ -51,7 +54,7 @@ const ModalReview = (props) => {
         name: user.name,
         title: title,
         content: contents,
-        //seq: reviewSeq,
+        seq: review.seq,
       },
     })
       .then((res) => {
@@ -60,15 +63,10 @@ const ModalReview = (props) => {
       .catch((err) => {
         console.log(err);
       });
+      window.alert('후기 수정이 완료되었어요');
+      props.close();
   };
 
-  const handleReviewClick = () => {
-    if (isEditing) {
-      handleReviewUpdate();
-    } else {
-      handleReviewSubmit();
-    }
-  };
 
   useEffect(() => {
     axios
@@ -78,11 +76,15 @@ const ModalReview = (props) => {
       .post("/comment_detail", {
         user: token_key,
         product: props.seq,
+        
       })
       .then((response) => setReview(response.data));
   }, [props.seq]);
 
+  console.log('프로덕트:' ,product)
+
   useEffect(() => {
+    console.log("seq:" + props.seq);
     console.log("review:" + JSON.stringify(review));
   }, [review]);
 
@@ -195,7 +197,7 @@ const ModalReview = (props) => {
             <form>
               <div className="textWrap">
                 <label className="textLabel">
-                  제목{props.product}
+                  제목{props.product} 
                   <sup className="sup">*</sup>
                 </label>
                 <div className="Content">
@@ -204,9 +206,12 @@ const ModalReview = (props) => {
                     id="title"
                     inputMode="text"
                     placeholder="제목을 입력하세요"
-                    value={review.title}
+                    //value={review === "" ? "" : review.title}
+                    value={review && review.title ? review.title : ''}
                     onChange={(e) => {
                       setTitle(e.target.value);
+                      setReview({ ...review, title: e.target.value });
+                      console.log('title: ', review.title);
                     }}
                   ></textarea>
                 </div>
@@ -225,9 +230,12 @@ const ModalReview = (props) => {
                       aria-label="textarea-message"
                       inputMode="text"
                       placeholder="상품 특성에 맞는 후기를 작성해주세요. 예)레시피, 겉포장 속 실제 구성품사진, 플레이팅, 화장품 사용자의 피부타입 등(최소 10자 이상)"
-                      value={review.content}
+                      //value={review === "" ? "" : review.content}
+                      value={review && review.content ? review.content : ''}
                       onChange={(e) => {
                         setContents(e.target.value);
+                        setReview({ ...review, content: e.target.value });
+                        console.log('content: ', review.content);
                       }}
                     ></textarea>
                   </div>
@@ -273,9 +281,8 @@ const ModalReview = (props) => {
             <button className="close" onClick={props.close}>
               닫기
             </button>
-            <button className="write" onClick={handleReviewSubmit}>
-              {/* {isEditing ? "수정" : "등록"} */}
-              등록
+            <button className="write" onClick={(props.review === "y") ? handleReviewUpdate : handleReviewSubmit}>
+              {props.review === "y" ? '수정': '등록'}
             </button>
           </footer>
         </section>

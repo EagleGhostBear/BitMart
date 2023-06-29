@@ -22,7 +22,7 @@ const Order = () => {
     
     axios({
       method: 'post',
-      url: 'order_history',
+      url: 'getOrderHistory1',
       data: {
         user: token_key,
       },

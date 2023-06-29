@@ -34,7 +34,9 @@ const Review = () => {
   const [data, setData] = useState([]);
   const [select, setSelect] = useState(true);
   const selectProduct = useRef(0);
+  const selectReview = useRef('');
 
+  
   useEffect(() => {
     axios
       .post("/order_history", {
@@ -44,14 +46,16 @@ const Review = () => {
       .then((response) => setData(response.data));
   }, []);
 
-  const openModal = (seq) => {
+  const openModal = (seq, review) => {
     selectProduct.current = seq;
+    selectReview.current = review;
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
   };
+  
 
   // 작성가능후기 & 작성한 후기 모달창 열기 버튼
   let [modalOpen1, setModalOpen1] = useState(true);
@@ -64,7 +68,11 @@ const Review = () => {
         user: token_key,
         review: "n",
       })
-      .then((response) => setData(response.data));
+      .then((response) => {
+        console.log("응답데이터 확인1=  "+ response.data)
+        setData(response.data)
+        console.log("d: ", data);
+      });
   };
 
   const handleButtonClick2 = () => {
@@ -74,8 +82,16 @@ const Review = () => {
         user: token_key,
         review: "y",
       })
-      .then((response) => setData(response.data));
-  };
+      .then((response) => {
+      console.log("응답데이터 확인2=  "+ response.data); // 응답 데이터 확인
+      setData(response.data);
+      console.log("d: ", data);
+  });
+};
+
+useEffect(() => {
+  console.log("상태 업데이트 확인 = " + data);
+}, [data]);
 
   return (
     <div className={styles.containerWrap}>
@@ -145,7 +161,10 @@ const Review = () => {
             </a>
           </li>
           <li className={styles["menu-ul-li"]}>
-            <a className={styles["menu-a"]} href="/review">
+            <a className={styles["menu-a"]} href="/review" style={{
+                        color:'#5f0080',
+                        backgroundColor:'rgb(250, 250, 250)',
+                      }}>
               상품후기
               <svg
                 className={styles["menu-a-svg"]}
@@ -221,8 +240,11 @@ const Review = () => {
             style={{ color: select ? "black" : "purple" }}
           />
         </div>
-
-        {data.map((item, index) => (
+ 
+        {data.length === 0 ? ( select === true ? (
+          <div style={{textAlign:'center', marginTop:'15px',fontSize:'12.5pt',}}>작성가능한 후기가 없어요!</div>
+        ) : (<div style={{textAlign:'center', marginTop:'15px',fontSize:'12.5pt',}}>작성한 후기가 없어요!</div>)
+        ) : data.map((item, index) => (
           
           <div className={styles.reviewContainer}>
             <div className={styles.reviewItem}>
@@ -246,7 +268,7 @@ const Review = () => {
               </div>
               <React.Fragment>
                 <button
-                  onClick={() => openModal(item.productSeq)}
+                  onClick={() => openModal(item.productSeq, item.review)}
                   className={styles.modalButton}
                 >
                   후기 
@@ -260,94 +282,13 @@ const Review = () => {
 
         <ReviewWrite
           seq={selectProduct.current}
+          review={selectReview.current}
           //content={item}
           open={modalOpen}
           close={closeModal}
-          header="후기"
+          header="후기 "
         />
 
-        
-
-        {/* {modalOpen2 ? (
-          <div className={styles.reviewContainer}>
-            {data.map((item, index) => (
-              <div className={styles.reviewItem} key={index}>
-                <div className={styles.imageContainer}>
-                  <img className={styles.productImage} alt="상품이미지" />
-                </div>
-                <div className={styles.productInfo}>
-                  <a href="">
-                    <span className={styles.productName}>상품명</span>
-                  </a>
-                  <div className={styles.dateWrap}>
-                    <span className={styles.date}>날짜</span>
-                  </div>
-                  <div className="content">후기내용</div>
-                </div>
-                <React.Fragment>
-                  <button
-                    onClick={() => openModal(item)}
-                    data={item}
-                    className={styles.modalButton}
-                  >
-                    후기 수정
-                  </button>
-                  <ReviewWrite
-                    content={item}
-                    open={modalOpen}
-                    close={closeModal}
-                    header="후기"
-                  ></ReviewWrite>
-                </React.Fragment>
-                <div className={styles.contentWrap}></div>
-              </div>
-            ))}
-          </div>
-        ) : null}
-
-        {modalOpen1
-          ? data.map((item, index) => (
-              <div className={styles.reviewContainer}>
-                <div className={styles.reviewItem}>
-                  <div className={styles.imageContainer}>
-                    <img
-                      className={styles.productImage}
-                      alt="상품이미지"
-                      src={data[index].productImage}
-                    />
-                  </div>
-                  <div className={styles.productInfo}>
-                    <a href="">
-                      <span className={styles.productName}>
-                        {data[index].productTitle}
-                      </span>
-                    </a>
-                    <div className={styles.dateWrap}>
-                      <span className={styles.date}>{data[index].logTime}</span>
-                    </div>
-                  </div>
-                  <React.Fragment>
-                    <button
-                      onClick={() => openModal(data)}
-                      data={data}
-                      className={styles.modalButton}
-                    >
-                      후기 작성
-                    </button>
-
-                    <ReviewWrite
-                      product_seq={item.productSeq}
-                      content={item}
-                      open={modalOpen}
-                      close={closeModal}
-                      header="후기"
-                    ></ReviewWrite>
-                  </React.Fragment>
-                  <div className={styles.contentWrap}></div>
-                </div>
-              </div>
-            ))
-          : null} */}
       </div>
     </div>
   );

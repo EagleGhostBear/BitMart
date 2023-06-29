@@ -38,8 +38,10 @@ const AddressForm = () => {
   const token_key = `${localStorage.getItem("token")}`;
   const [data, setData] = useState([]);
 
-  console.log('addr: ', addr )
-  console.log('data length: ', data.length );
+  const [addr1, setAddr1] = useState('');
+
+  //console.log('addr: ', addr )
+  //console.log('data length: ', data.length );
 
   useEffect(() => {
     axios({
@@ -51,11 +53,19 @@ const AddressForm = () => {
     })
     .then((res) => {
       console.log('유저 배송지 주소: ', res.data);
-      if(res.data != null) setData(res.data);
+      if(res.data != null) {
+        setData(res.data);
+        //console.log("1", res.data[0].addr1)
+        setAddr1(res.data[0].addr1);
+      }
       else setData('null');
     })
     .catch((e) => console.log('주소 가져오기 에러: ', e));
   }, []);
+
+  console.log('addr: ', addr);
+  console.log('data length: ', data.length);
+  console.log('addr1: ', addr1);
 
 
     return (
@@ -64,7 +74,7 @@ const AddressForm = () => {
         <FaMapMarkerAlt className="marker-icon" />
         배송지
       </p>
-      {(addr === null && data.length === 1 && data === 'null' ) && (
+      {(addr1 === '' && addr === null ) && (
         <div>
           <p>
             <span className="delivery-message">배송지를 등록하고</span>
@@ -74,7 +84,7 @@ const AddressForm = () => {
           </p>
         </div>
       )}
-      {addr !== null && (
+      {((addr !== null &&  addr1 !=='') || (addr !== null && addr1 ==='') )&&(
         <p className="delivery-address">
           <span>{`${addr} ${buildingName && '(' + buildingName + ')'}`}</span>
           <span><input type='text' placeholder=" 상세주소를 입력해 주세요" style={{height:'33px', width:'200px', marginTop:'7px', marginBottom:'-15px'}}/></span>
@@ -82,7 +92,7 @@ const AddressForm = () => {
         </p>
       )}
 
-      {(data !== null && addr !== null) || (data != null && addr === null ) && (
+      {addr1 !== '' && addr ===null &&(
         (data.map((item, index) => (
           <p className="delivery-address ">
             <span> {item?.addr1}&ensp;{item?.addr2}</span>
@@ -116,7 +126,7 @@ const AddressForm = () => {
           marginTop:'0px',
         }}
       >
-        {(addr === null && data.length===1 ) ? (
+        {(addr1 === '' && addr === null) ? (
           <>
             <FaSearch className="search-icon" />
             주소 검색

@@ -338,8 +338,11 @@ public class MainDAOMyBatis implements MainDAO {
 	
 	@Override
 	public CommentDTO comment_detail(Map map) {
-		
+
+		System.out.println("맵: "+ map);
+
 		return sqlSession.selectOne("mainSQL.comment_detail", map);
+
 	}
 
 	@Override
@@ -366,6 +369,11 @@ public class MainDAOMyBatis implements MainDAO {
 	@Override
 	public void ReviewUpdate(Map<String, Object> map) {
 		sqlSession.update("mainSQL.ReviewUpdate", map);
+	}
+
+	@Override
+	public List<HistoryDTO> getOrderHistory1(Map map) {
+		return sqlSession.selectList("mainSQL.getOrderHistory1", map);
 	}
 
 

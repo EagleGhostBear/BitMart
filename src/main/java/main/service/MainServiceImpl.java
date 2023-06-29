@@ -323,4 +323,9 @@ public class MainServiceImpl implements MainService {
 		mainDAO.ReviewUpdate(map);
 	}
 
+	@Override
+	public List<HistoryDTO> getOrderHistory1(Map map) {
+		return mainDAO.getOrderHistory1(map);
+	}
+
 }

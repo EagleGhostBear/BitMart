@@ -118,5 +118,7 @@ public interface MainService {
 	public void resetpwd(Map map);
 
 	public void ReviewUpdate(Map<String, Object> map);
+
+	public List<HistoryDTO> getOrderHistory1(Map map);
 }
 

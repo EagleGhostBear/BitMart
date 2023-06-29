@@ -100,6 +100,8 @@ const Category = (props) => {
 
     useEffect(() => {
       category.current = isPressed;
+      startNum.current = 0;
+      endNum.current = 9;
 
       axios.post('/list1', {
         tag: tag.current,
