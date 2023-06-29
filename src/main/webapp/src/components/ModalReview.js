@@ -42,6 +42,7 @@ const ModalReview = (props) => {
       });
     window.alert('후기 작성이 완료되었어요');
     props.close();
+    window.location.reload();
   };
 
   const handleReviewUpdate = () => {
@@ -65,6 +66,7 @@ const ModalReview = (props) => {
       });
       window.alert('후기 수정이 완료되었어요');
       props.close();
+      window.location.reload();
   };
 
 

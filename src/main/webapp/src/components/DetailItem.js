@@ -143,7 +143,7 @@ const DetailItem = (props) => {
             <strong>총 상품금액 :</strong>
             {/* <span className="num">{setDisconunt.toLocaleString()}</span> */}
             {/* 금액 " , " 를 사용 : toLocalString() 사용 -> 주의점 : Number.prototype.toLocaleString() 이기때문에 꼭 Number()로 타입변경  */}
-            <span className="won">{Math.floor(Math.floor(((1 - data.sale / 100) * data.price) / 10) * 10)
+            <span className="won">{Math.floor(Math.floor(((1 - data.sale / 100) * data.price) / 10) * 10 * count)
     .toFixed(0)
     .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>
           </div>
