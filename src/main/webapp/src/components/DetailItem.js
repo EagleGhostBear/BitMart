@@ -86,7 +86,7 @@ const DetailItem = (props) => {
             </dl>
             <dl className="list">
               <dt className="tit">배송구분</dt>
-              <dd className="desc">{data.delivery}</dd>
+              <dd className="desc">샛별배송</dd>
             </dl>
             {/* <dl className="list">
                             <dt className="tit">원산지</dt>
@@ -98,7 +98,7 @@ const DetailItem = (props) => {
             </dl>
             <dl className="list">
               <dt className="tit">알레르기정보</dt>
-              <dd className="desc">{data.contactAnt}</dd>
+              <dd className="desc">알레르기 유발물질은 상품별 상이하여, 하단 상세페이지 참조 부탁드립니다.</dd>
             </dl>
             <dl className="list">
               <dt className="tit">안내사항</dt>

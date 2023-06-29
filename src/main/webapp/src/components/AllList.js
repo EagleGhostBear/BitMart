@@ -37,7 +37,7 @@ const AllList = (props) => { //부모 컴포넌트에서 받은 state와 method
   useEffect(() => {
     axios.post('/recommend_product', { product: recommendedProducts })
       .then(response => setData(response.data));
-    console.log("드가자1:" + JSON.stringify(recommendedProducts));
+    console.log("추천시스템 제품 목록:" + JSON.stringify(recommendedProducts));
   }, [recommendedProducts]);
 
   // useEffect(() => {

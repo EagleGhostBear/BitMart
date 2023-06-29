@@ -25,14 +25,15 @@ const Main = (props) => {
   console.log("user_info: ", user_info);
 
   useEffect(() => {
-    dispatch(postActions.getPostDB());
+    // dispatch(postActions.getPostDB());
+    console.log("user_info: ", user_info);
   }, []);
 
   return (
     <HeaderContainer>
       <Banner images={images}></Banner>
       <Wrap>
-        <AllList></AllList>
+        {user_info.user === null ? '' : <AllList />}
         <MiddleBanner></MiddleBanner>
         <Oneday></Oneday>
         <Kurlyonly></Kurlyonly>
