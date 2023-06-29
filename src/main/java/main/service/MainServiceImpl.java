@@ -235,20 +235,18 @@ public class MainServiceImpl implements MainService {
 
 	
 	@Override
-	public void delivery_insert(Map<String, String> map) {
+	public void delivery_insert(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		mainDAO.delivery_insert(map);
 	}
 	
 	@Override
 	public UserDTO checkInfo(Map map) {
-		// TODO Auto-generated method stub
 		return mainDAO.checkInfo(map);
 	}
 
 	@Override
 	public UserDTO userUpdate(Map map) {
-		// TODO Auto-generated method stub
 		return mainDAO.userUpdate(map);
 	}
 
@@ -263,6 +261,61 @@ public class MainServiceImpl implements MainService {
 		mainDAO.delivery_delete(map);
 	}
 
+	@Override
+	public UserDTO getId(Map map) {
+		return mainDAO.getId(map);
+	}
+	public List<HistoryDTO> getOrderHistory(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.getOrderHistory(map);
+	}
 
+	@Override
+	public CommentDTO comment_detail(Map map) {
+		return mainDAO.comment_detail(map);
+	}
+
+	@Override
+	public void ReviewSubmit(Map reviewData) {
+		// TODO Auto-generated method stub
+		mainDAO.ReviewSubmit(reviewData);
+		
+	}
+
+	public void update_checked(Map map) {
+		mainDAO.update_checked(map);
+	}
+
+
+	@Override
+	public void modifyMember(Map map) {
+		mainDAO.modifyMember(map);
+	}
 	
+	@Override
+	public void deleteUser(Map map) {
+		mainDAO.deleteUser(map);
+	}
+	
+
+	@Override
+	public void useraddr_update(Map<String, Object> map) {
+		mainDAO.useraddr_update(map);
+	}
+
+	@Override
+	public List<UserDTO> cart_delivery(String user) {
+		return mainDAO.cart_delivery(user);
+	}
+
+	public UserDTO resetfindId(Map map) {
+		// TODO Auto-generated method stub
+		return mainDAO.resetfindId(map);
+	}
+
+	@Override
+	public void resetpwd(Map map) {
+		mainDAO.resetpwd(map);
+	}
+
 }

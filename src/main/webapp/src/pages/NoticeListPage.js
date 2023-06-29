@@ -33,30 +33,137 @@ const NoticeListPage = () => {
   };
 
   return (
-    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: '300px', marginTop: "50px" }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginLeft: "15px" }}>
-        <div style={{ fontSize: '28px', fontWeight: '700', border: '1px solid white', padding: '10px' }}>고객센터</div>
-        <ul style={{ width: '200px', listStyleType: 'none', padding: 0, border: '1px solid lightgray', marginTop: '10px', padding: '10px', backgroundColor: 'white' }}>
-          <li style={{ height: '32px' }}>
-            <a href="/notices" style={{ color: 'rgba(0, 0, 0, 0.7)', textDecoration: 'none' }}>
-              공지사항
-            </a>
-          </li>
-          <hr style={{ margin: '5px 0', width: '185px' }} />
-          <li style={{ height: '32px' }}>
-            <a href="/faq" style={{ color: 'rgba(0, 0, 0, 0.7)', textDecoration: 'none' }}>
-              자주하는 질문
-            </a>
-          </li>
-          <hr style={{ margin: '5px 0', width: '185px' }} /> {/* 수평 선 추가 */}
-          <li style={{ height: '32px' }}>
-            <a href="/inquiry" style={{ color: 'rgba(0, 0, 0, 0.7)', textDecoration: 'none' }}>
-              1:1 문의
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div style={{ width: '80%', maxWidth: '800px', marginLeft: '40px' }}>
+   <div style={{ minHeight: '1000px' }}>
+    <div style={{ marginLeft: '230px', marginTop: '60px'}} className="NavHeader">
+    <div className="NavTitle">
+      고객센터
+    </div>
+    <ul className="NavMain">
+      <li className="NavDetail">
+        <a href="/notices" className="Notices"
+            style={{
+              color:'#5f0080',
+            }}>
+          공지사항
+          
+          {/* svg, g태그 : 이미지 사용할때! => 화살표 태그 이미지 삽입 */}
+          <svg
+            id="Arrow"
+            height="19"
+            width="19"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <path
+                id="gfk9q0rhta"
+                d="M1.657 1.657L9.657 1.657 9.657 9.657"      /* 화살표 이미지 경로 */
+              />
+            </defs>
+            <g
+              fill="none"
+              fillRule="evenodd"
+            >
+              <g
+                transform="translate(-339 -398) translate(0 386) translate(339 12) translate(4.69 6.343)"
+              >
+                <use
+                  id="arrowIcon"
+                  stroke="#5f0080"          // 화살표 색상
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.8"
+                  transform="rotate(45 5.657 5.657)"
+                  xlinkHref="#gfk9q0rhta"
+              />
+              </g>
+            </g>
+          </svg>
+        </a>
+      </li>
+      
+      
+      <li className="NavDetail" >
+        <a href="/faq" className="Faq">
+         자주하는 질문
+          <svg
+            id="Arrow"
+            height="19"
+            width="19"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs >
+              <path
+                id="gfk9q0rhta"
+                d="M1.657 1.657L9.657 1.657 9.657 9.657"
+              />
+            </defs>
+            <g
+              fill="none"
+              fillRule="evenodd"
+            >
+              
+              <g
+                transform="translate(-339 -398) translate(0 386) translate(339 12) translate(4.69 6.343)"
+              >
+                <use
+                  id="arrowIcon"
+                  stroke="#999"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.8"
+                  transform="rotate(45 5.657 5.657)"
+                  xlinkHref="#gfk9q0rhta"
+                />
+              </g>
+                
+            </g>
+          </svg>
+        </a>
+      </li>
+      <li className="NavDetail">
+        <a href="/inquiry" className="Inquiry">
+          1:1 문의
+          <svg
+            id="Arrow"
+            height="19"
+            width="19"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <path
+                id="gfk9q0rhta"
+                d="M1.657 1.657L9.657 1.657 9.657 9.657"
+              />
+            </defs>
+            <g
+              fill="none"
+              fillRule="evenodd"
+            >
+              
+              <g
+                transform="translate(-339 -398) translate(0 386) translate(339 12) translate(4.69 6.343)"
+              >
+                <use
+                  id="arrowIcon"
+                  stroke="#999"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.8"
+                  transform="rotate(45 5.657 5.657)"
+                  xlinkHref="#gfk9q0rhta"
+                />
+              </g>
+                  
+            </g>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+      <div style={{ width: '80%', maxWidth: '800px', marginLeft: '500px', marginTop: '-230px' }}>
         <h1 style={{ fontSize: '25px', fontWeight: 'bold', marginBottom: '30px' }}>공지사항</h1>
         <p style={{ fontSize: '14px', opacity: '0.7' }}>컬리의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
         <div>
@@ -108,6 +215,7 @@ const NoticeListPage = () => {
         )}
       </div>
     </div>
+    
   );
 };
 

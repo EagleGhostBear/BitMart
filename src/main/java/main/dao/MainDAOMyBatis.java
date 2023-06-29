@@ -263,11 +263,12 @@ public class MainDAOMyBatis implements MainDAO {
 	@Override
 	public List<HistoryDTO> order_history(Map map) {
 		
+//		return sqlSession.selectList("mainSQL.getOrderHistory", map);
 		return sqlSession.selectList("mainSQL.order_history", map);
 	}
 
 	
-	public void delivery_insert(Map<String, String> map) {
+	public void delivery_insert(Map<String, Object> map) {
 		sqlSession.insert("mainSQL.delivery_insert", map);
 	}
 	
@@ -278,7 +279,6 @@ public class MainDAOMyBatis implements MainDAO {
 
 	@Override
 	public UserDTO userUpdate(Map map) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("mainSQL.userUpdate", map);
 	}
 
@@ -293,6 +293,78 @@ public class MainDAOMyBatis implements MainDAO {
 		sqlSession.delete("mainSQL.delivery_delete", map);
 	}
 
+	@Override
+	public UserDTO getId(Map map) {
+		return sqlSession.selectOne("mainSQL.getId", map);
+	}
+
+	@Override
+	public void modifyMember(Map map) {
+		String email = (String) map.get("email");
+		String[] parts = email.split("@"); // "@"를 기준으로 email을 나눔
+	    String email1 = parts[0]; // "@" 앞 부분
+	    String email2 = parts[1]; // "@" 뒷 부분
+	    map.put("email1", email1);
+	    map.put("email2", email2);
+	    System.out.println("email1의 값 = "+ email1);
+	    System.out.println("email2의 값 = " + email2);
+		sqlSession.update("mainSQL.modifyMember", map);
+	}
 	
+	@Override
+	public void deleteUser(Map map) {
+		sqlSession.delete("mainSQL.deleteUser", map);
+	}
 	
+	public List<HistoryDTO> getOrderHistory(Map map) {
+		
+		return sqlSession.selectList("mainSQL.getOrderHistory", map);
+	}
+
+	@Override
+	public void ReviewSubmit(Map reviewData) {
+		LocalDateTime currentTime = LocalDateTime.now();
+        reviewData.put("logtime", currentTime);
+		sqlSession.insert("mainSQL.ReviewSubmit", reviewData);
+		sqlSession.update("mainSQL.Review_y", reviewData);
+	}
+		
+		
+	public void update_checked(Map map) {
+		sqlSession.update("mainSQL.update_checked", map);
+	}
+	
+	@Override
+	public CommentDTO comment_detail(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.comment_detail", map);
+	}
+
+	@Override
+	public void useraddr_update(Map<String, Object> map) {
+		sqlSession.update("mainSQL.useraddr_update", map);
+	}
+
+	@Override
+	public List<UserDTO> cart_delivery(String user) {
+		return sqlSession.selectList("mainSQL.cart_delivery", user);
+	}
+	
+	public UserDTO resetfindId(Map map) {
+		
+		return sqlSession.selectOne("mainSQL.resetfindId", map);
+	}
+
+	@Override
+	public void resetpwd(Map map) {
+		
+		sqlSession.update("mainSQL.resetpwd", map);
+	}
+
+
+//	public void ReviewUpdate(Map map) {
+//		sqlSession.update("mainSQL.ReviewUpdate",map);
+//	}
+
+
 }

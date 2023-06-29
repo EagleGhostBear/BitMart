@@ -1,12 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
+import axios from 'axios';
+import { useDispatch } from "react-redux";
 
 const width = 500;
 const height = 400;
 
 const AddressForm = () => {
-  const [addr, setAddr] = useState(sessionStorage.getItem('address'));
-  const [buildingName, setBuildingName] = useState(sessionStorage.getItem('buildingName'));
+  const [addr, setAddr] = useState(null);
+  const [buildingName, setBuildingName] = useState(null);
+  //const [addr, setAddr] = useState(sessionStorage.getItem('address'));
+  //const [buildingName, setBuildingName] = useState(sessionStorage.getItem('buildingName'));
 
   const onClickLink = useCallback(() => {
     /*global daum*/
@@ -20,6 +24,8 @@ const AddressForm = () => {
 
         setAddr(selectedAddr);
         setBuildingName(selectedBuildingName);
+
+        console.log('빌딩 이름; ' , buildingName);
       },
     }).open({
       left: Math.ceil((window.screen.width - width) / 2),
@@ -27,27 +33,62 @@ const AddressForm = () => {
     });
   }, []);
 
-  return (
+  // 기본 배송지 등록
+  const dispatch = useDispatch();
+  const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = useState([]);
+
+  console.log('addr: ', addr )
+  console.log('data length: ', data.length );
+
+  useEffect(() => {
+    axios({
+      method:'post',
+      url:'cart_delivery',
+      data:{
+        user:token_key,
+      },
+    })
+    .then((res) => {
+      console.log('유저 배송지 주소: ', res.data);
+      if(res.data != null) setData(res.data);
+      else setData('null');
+    })
+    .catch((e) => console.log('주소 가져오기 에러: ', e));
+  }, []);
+
+
+    return (
     <div className="address-form-container">
       <p>
         <FaMapMarkerAlt className="marker-icon" />
         배송지
       </p>
-      {addr === null && (
+      {(addr === null && data.length === 1 && data === 'null' ) && (
         <div>
           <p>
             <span className="delivery-message">배송지를 등록하고</span>
           </p>
           <p>
-            <span className="block-message">구매 가능한 상품을 확인하세요!</span>
+            <span className="block-message" style={{marginBottom:'0px'}}>구매 가능한 상품을 확인하세요!</span>
           </p>
         </div>
       )}
       {addr !== null && (
         <p className="delivery-address">
           <span>{`${addr} ${buildingName && '(' + buildingName + ')'}`}</span>
+          <span><input type='text' placeholder=" 상세주소를 입력해 주세요" style={{height:'33px', width:'200px', marginTop:'7px', marginBottom:'-15px'}}/></span>
           <span className="block-message"></span>
         </p>
+      )}
+
+      {(data !== null && addr !== null) || (data != null && addr === null ) && (
+        (data.map((item, index) => (
+          <p className="delivery-address ">
+            <span> {item?.addr1}&ensp;{item?.addr2}</span>
+            <span className="block-message"></span>
+          </p>
+        )))
       )}
 
       <div className="delivery-type">
@@ -71,9 +112,11 @@ const AddressForm = () => {
           alignItems: 'center',
           justifyContent: 'center',
           textAlign: 'center',
+          cursor:'pointer',
+          marginTop:'0px',
         }}
       >
-        {addr === null ? (
+        {(addr === null && data.length===1 ) ? (
           <>
             <FaSearch className="search-icon" />
             주소 검색

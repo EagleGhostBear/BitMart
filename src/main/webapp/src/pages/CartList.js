@@ -126,42 +126,13 @@ const CartList = (props) => {
                   user: token_key
                 }
               })
+              window.location.reload();
             })
         });
     } else {
       alert(`결제 실패: ${error_msg}`);
       console.log("결제 안되는데 컨트롤러로도 안감");
-      axios({
-        method: "post",
-        url: '/mycartList',
-        data: {
-          user: token_key
-        }
-      })
-        .then((res) => {
-          console.log(res.data);
-          const products = res.data.map((item) => item.product);
-          const numbers = res.data.map((item) => item.number);
-          console.log(products);
-          axios({
-            method: "post",
-            url: '/Order_success',
-            data: {
-              user: token_key,
-              products: products,
-              numbers: numbers
-            }
-          })
-            .then((res) => {
-              axios({
-                method: "post",
-                url: "/cart_allDelete",
-                data: {
-                  user: token_key
-                }
-              })
-            })
-        });
+      window.location.reload();
     }
   };
 
@@ -187,7 +158,7 @@ const CartList = (props) => {
                 />
                 <span className="ico" /> */}
               <div style={{ marginBottom: "10px" }}>
-                전체선택 ({total_quantity}/{total_quantity})
+                {/* 전체선택 ({total_quantity}/{total_quantity}) */}
               </div>
               {/* </label> */}
               {/* <a href="#none" className="select-delete">
@@ -325,7 +296,7 @@ const Container = styled.div`
     width: 1050px;
     padding: 50px 0 51px;
     margin: 0 auto;
-    :after {
+    after {
       content: "";
       position: absolute;
       z-index: 299;

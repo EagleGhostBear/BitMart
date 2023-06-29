@@ -4,7 +4,9 @@ import { Text, LoginBox } from "../elements/element";
 import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { Link, useNavigate } from "react-router-dom";
+import ReactDOM from 'react-dom';
 import axios from 'axios';
+import Modal from "../components/ModalFind";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ const Login = () => {
 
   const login = () => {
     if (username === "" || password === "") {
-      window.alert("아이디와 비밀번호를 입력해주세요.");
+      openModal("아이디와 비밀번호를 입력해주세요.");
       return;
     } else {
       dispatch(userActions.loginDB(username, password));
@@ -61,7 +63,7 @@ const Login = () => {
 
         <div
           style={{
-            width: "27%",
+            width: "23%",
             margin: "10px auto",
             display: "flex",
             justifyContent: "space-between",
@@ -122,6 +124,23 @@ const Login = () => {
   );
 };
 
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); // 새로운 div 요소 생성
+  document.body.appendChild(modalContainer); // body 요소에 새로운 div 요소 추가
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove(); // div 요소 삭제
+};
+
 const LoginWrap = styled.div`
   margin: 0px auto 100px 0px;
   justify-content: center;
@@ -145,7 +164,8 @@ const FindStyle = styled.ul`
 
 const ButtonLogin = styled.button`
   margin: 10px auto;
-  width: 27%;
+  /* width: 25%; */
+  width: 350px;
   height: 54px;
   border-radius: 3px;
   border: 1px solid #5f0081;
@@ -158,7 +178,8 @@ const ButtonLogin = styled.button`
 
 const ButtonSignup = styled.button`
   margin: 10px auto;
-  width: 27%;
+  /* width: 25%; */
+  width: 350px;
   height: 54px;
   border-radius: 3px;
   border: 1px solid #5f0081;

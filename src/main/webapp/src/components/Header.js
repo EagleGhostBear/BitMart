@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "../css/category.css";
+import ReactDOM from 'react-dom';
 
 import { actionCreators as userActions } from "../redux/modules/user";
+import Modal3 from "./ModalFind4";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -12,6 +14,10 @@ const Header = (props) => {
   const islogin = useSelector((state) => state.user.is_login);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const token_key = `${localStorage.getItem("token")}`;
+
+  const handleDeliveryIconClick = () => {
+    navigate('/delieveryevent');
+  };
 
   const openCategory = () => {
     setIsCategoryOpen(true);
@@ -23,7 +29,7 @@ const Header = (props) => {
 
   const logout = () => {
     dispatch(userActions.outUser());
-    alert("로그아웃 되셨습니다!");
+    openModal3("로그아웃 되셨습니다!");
     navigate("/");
   };
   const [searchValue, setSearchValue] = useState(""); // 검색어 상태
@@ -43,7 +49,9 @@ const Header = (props) => {
     <React.Fragment>
       <Grid>
         <UserMenu>
-          <DeliveryIcon></DeliveryIcon>
+        <Link to="/delieveryevent">
+            <DeliveryIcon onClick={handleDeliveryIconClick} />
+          </Link>
           <React.Fragment>
             {!islogin && (
               <>
@@ -96,16 +104,10 @@ const Header = (props) => {
               전체 카테고리
               {isCategoryOpen && (
                 <div className="dropdown-menu">
-                  <li onClick={() => {navigate("/category/new"); }}>수산물</li>
-                  <li onClick={() => {navigate("/category/best"); }}>육류</li>
-                  <li onClick={() => {navigate("/category/sale"); }}>야채 채소</li>
-                  <li onClick={() => {navigate("/category/price"); }}>과일</li>
-                  <li onClick={() => {navigate("/category/price"); }}>욕실 헤어 바디</li>
-                  <li onClick={() => {navigate("/category/price"); }}>주방용품</li>
-                  <li onClick={() => {navigate("/category/price"); }}>면류</li>
-                  <li onClick={() => {navigate("/category/price"); }}>간식류</li>
-                  <li onClick={() => {navigate("/category/price"); }}>건강식품</li>
-                  <li onClick={() => {navigate("/category/price"); }}>기타류</li>
+                  <li onClick={() => {navigate("/category/new"); window.scrollTo(0, 0);}}>신상품</li>
+                  <li onClick={() => {navigate("/category/best"); window.scrollTo(0, 0);}}>베스트</li>
+                  <li onClick={() => {navigate("/category/sale"); window.scrollTo(0, 0);}}>특가/혜택</li>
+                  <li onClick={() => {navigate("/category/price"); window.scrollTo(0, 0);}}>알뜰쇼핑</li>
                 </div>
               )}
             </li>
@@ -118,7 +120,17 @@ const Header = (props) => {
               <SearchIcon onClick={handleSearchSubmit} />
             </SearchWrap>
             <IconWrap>
-              <LocationIcon />
+              <LocationIcon 
+                onClick={() => {
+                  if(token_key === "null"){
+                    alert('로그인 후 이용해주세요!')
+                    navigate("/login")
+                  }
+                  else{
+                    navigate("/address");
+                  }
+                }}
+              />
               <HeartIcon />
               <CartIcon
                 onClick={() => {
@@ -196,12 +208,12 @@ const Logo = styled.div`
   position: absolute;
   left: 50%;
   bottom: 6px;
-  width: 103px;
+  width: 130px;
   height: 79px;
   margin-left: -60px;
   vertical-align: top;
   max-width: 100%;
-  background: url("https://res.kurly.com/images/marketkurly/logo/logo_x2.png");
+  background: url("https://kr.object.ncloudstorage.com/bitcamp/logo.png");
   background-size: cover;
   cursor: pointer;
 `;
@@ -315,5 +327,20 @@ const SearchIcon = styled.div`
   width: 30px;
   height: 30px;
 `;
+
+const openModal3 = (message) => {
+  const modalContainer = document.createElement("div");
+  document.body.appendChild(modalContainer);
+
+  const closeModal3 = () => {
+    ReactDOM.unmountComponentAtNode(modalContainer);
+    modalContainer.remove();
+  };
+
+  ReactDOM.render(
+    <Modal3 isOpen={true} closeModal={closeModal3} message={message} />,
+    modalContainer
+  );
+};
 
 export default Header;

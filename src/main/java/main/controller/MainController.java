@@ -33,6 +33,7 @@ import main.bean.InquiryDTO;
 import main.bean.MainDTO;
 import main.bean.NoticeDTO;
 import main.bean.UserDTO;
+import main.service.MailService;
 import main.service.MainService;
 
 @Controller
@@ -287,6 +288,15 @@ public class MainController {
 		return list;
 	}
 	
+	@PostMapping(value = "comment_detail")
+	@ResponseBody
+	public CommentDTO comment_detail(@RequestBody Map map) {
+		System.out.println("comment:" + map);
+		CommentDTO commentDTO = mainService.comment_detail(map);
+		System.out.println("comment detail:"  + commentDTO);
+		return commentDTO;
+	}
+	
 	@PostMapping(value = "comment_count")
 	@ResponseBody
 	public String comment_count(@RequestBody Map map) {
@@ -407,16 +417,12 @@ public class MainController {
 	@PostMapping(value="order_history")
 	@ResponseBody
 	public List<HistoryDTO> order_history(@RequestBody Map map){
-		
-		String user = (String) map.get("user");
-		System.out.println("이것은 주문내역의 user값이여 : " + user);
-		
-		return mainService.order_history(map);
+		System.out.println("order호출");
+		List<HistoryDTO> list = mainService.order_history(map);
+		System.out.println(list);
+		return list;
 	}
-	
-	
 
-	
 	@PostMapping(value="/delivery_insert")
 	@ResponseBody
 	public void delivery_insert(@RequestBody Map requestData){
@@ -427,6 +433,9 @@ public class MainController {
 		String addr2 = (String)requestData.get("addr2");
 		String name = (String)requestData.get("name");
 		String phone = (String)requestData.get("phone");
+		int datalength = (int)requestData.get("datalength");
+
+		int checked = 0;
 
 		//System.out.println("딜리버리 유저: "+ user);
 		
@@ -435,13 +444,18 @@ public class MainController {
 		System.out.println("주소2 : " + addr2);
 		System.out.println("이름 : " + name);
 		System.out.println("폰 : " + phone);
+		//System.out.println("체크 유무 : " + checked);
+		System.out.println("데이터길이  : " + datalength);
+
+		//if(datalength == 0) checked = 1;
 		
-		Map<String, String> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 
 		map.put("user", user);
 		map.put("addr1", addr1);
 		map.put("addr2", addr2);
 		map.put("name", name);
+		map.put("checked", checked);
 
 		String[] parts = new String[3];
 
@@ -459,7 +473,9 @@ public class MainController {
 
 	    map.put("tel1", tel1);
 	    map.put("tel2", tel2);
-		map.put("tel3", tel3);
+		
+	    map.put("tel3", tel3);
+		//map.put("checked", checked);
 	    
 	    mainService.delivery_insert(map);	
 		
@@ -469,6 +485,11 @@ public class MainController {
 	@ResponseBody
 	public List<DeliveryDTO> delivery_list(@RequestBody Map map){
 		System.out.println("배송지 리스트 서버 왔다 !");
+
+		String user = (String) map.get("user");
+
+		System.out.println("user: "+ user);
+
 		return mainService.delivery_list(map);
 	}
 
@@ -482,33 +503,189 @@ public class MainController {
 
 		System.out.println("user: "+ user + " seq: " + seq);
 
-		mainService.delivery_delete(map);
+		System.out.println("데이터 길이: " + map.size()); 
+
+		mainService.delivery_delete(map); 
+
 	}
 	
-//	@PostMapping(value="review")
-//	@ResponseBody
-//	public List<HistoryDTO> review(@RequestBody Map<String, Object> map){
-//		String user = (String) map.get("user");
-//		
-//		List<HistoryDTO> orderHistory = mainService.getOrderHistory(user);
-//		return orderHistory; 
-//	}
+	@PostMapping(value="review")
+	@ResponseBody
+	public List<HistoryDTO> review(@RequestBody Map map){
+		
+		List<HistoryDTO> orderHistory = mainService.getOrderHistory(map);
+		return orderHistory; 
+	}
+	
+	
+	@PostMapping("/ReviewSubmit")
+	@ResponseBody
+	public void ReviewSubmit(@RequestBody Map map) {
+	    
+		System.out.println("유저 = " + map.get("user"));
+		System.out.println("제품 = " + map.get("product"));
+	    System.out.println("이름 = " + map.get("name"));
+	    System.out.println("title = " + map.get("title"));
+	    System.out.println("content = " + map.get("content"));
+	    
+	    mainService.ReviewSubmit(map);
+	}
+	
 	
 	@PostMapping(value = "checkInfo")
 	@ResponseBody
 	public UserDTO checkInfo(@RequestBody Map map) {
 		
 		UserDTO userDTO = mainService.checkInfo(map);
-		System.out.println("sfd:" + userDTO);
+		System.out.println("checkInfo:" + userDTO);
 		return userDTO;
 	}
 	
+	//회원 정보 수정 페이지에서 변경할 회원 정보 가져오기
 	@PostMapping(value="userUpdate")
 	@ResponseBody
 	public UserDTO userUpdate(@RequestBody Map map) {
 		
 		System.out.println("여기까지 오나?");
 		return mainService.userUpdate(map); 
+	}
+	
+
+	@PostMapping(value="/update_checked")
+	@ResponseBody
+	public void update_checked(@RequestBody Map requestData){
+		String checked = (String)requestData.get("checked");
+		String user = (String) requestData.get("user");
+		String seq = (String) requestData.get("seq");
+
+		System.out.println("데이터 길이: "+ requestData.size());
+		System.out.println("data: " + requestData);
+
+		System.out.println();
+		System.out.println("update user: " + user);
+		System.out.println("update seq: " + seq);
+		System.out.println("update checked: " + checked);
+
+		if (checked.equals("checkbox1")){
+			checked = 0+"";
+		}
+		else checked= 1+"";
+
+		int checkedInt = checked.equals("checkbox1") ? 0 : 1;
+		boolean checkedValue = checked.equals("checkbox1") ? false : true;
+
+
+		System.out.println();
+		System.out.println("change checked: " + checked);
+		System.out.println("change checkedInt: " + checkedInt);
+		System.out.println("change checkedValue: " + checkedValue);
+
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("user", user);
+		map.put("seq", seq);
+		map.put("checked", checkedInt);
+		//map.put("checked", checkedValue);
+
+		mainService.update_checked(map);
+	}
+	
+	@PostMapping(value="getId")
+	@ResponseBody
+	public UserDTO getId(@RequestBody Map map) {
+		return mainService.getId(map);
+	}
+	
+	//회원 정보 수정
+	@PostMapping(value = "modifyMember")
+	@ResponseBody
+	public void modifyMember(@RequestBody Map map) {
+		String email = (String) map.get("email");
+		String seq = (String) map.get("seq");
+		String user = (String) map.get("id");
+		String pwd = (String) map.get("pwd");
+		System.out.println("user의 값은 = " + user);
+		System.out.println("pwd값은 = " + pwd);
+		System.out.println("email값은 = " + email);
+		System.out.println("seq값은 = " + seq);
+		mainService.modifyMember(map);
+	}
+	
+	//회원 탈퇴
+	@PostMapping(value="deleteUser")
+	@ResponseBody
+	public void deleteUser(@RequestBody Map map){
+		System.out.println("delete 서버 성공");
+		mainService.deleteUser(map);
+	}
+
+	// 유저 테이블 기본 배송지 설정
+	@PostMapping(value="useraddr_update")
+	@ResponseBody
+	public void useraddr_update(@RequestBody Map requestData){
+		String user = (String) requestData.get("user");
+		String checked = (String) requestData.get("checked");
+		String addr1 = (String) requestData.get("addr1");
+		String addr2 = (String) requestData.get("addr2");
+
+
+		System.out.println();
+		System.out.println("updateD user: " + user);
+		System.out.println("updateD checked: " + checked);
+		System.out.println("updateD addr1: " + addr1);
+		System.out.println("updateD addr2: " + addr2);
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("user", user);
+		map.put("addr1", addr1);
+		map.put("addr2", addr2);
+		map.put("checked", checked);
+
+		mainService.useraddr_update(map);
+	}
+	
+	//리뷰수정하기 
+//	@PostMapping(value="ReviewUpdate")
+//	@ResponseBody
+//	public void ReviewUpdate(@RequestBody Map map) {
+//
+//	    String user = (String) map.get("user");   
+//	    String title = (String) map.get("title");
+//	    String content = (String) map.get("content");
+//	    String seq = (String) map.get("seq");
+//	    
+//	    System.out.println();
+//	    System.out.println("user: " + user); 
+//	    System.out.println("title: " + title);
+//	    System.out.println("content: " + content);   
+//	    System.out.println("seq: " + seq);
+//	    
+//	    mainService.ReviewUpdate(map);
+//	
+//	}
+
+	// 장바구니 페이지 기본배송지 등록
+	@PostMapping(value="cart_delivery")
+	@ResponseBody
+	public List<UserDTO> cart_delivery(@RequestBody Map map){
+		String user = (String) map.get("user");
+		System.out.println("장바구니 유저 값: " + user);
+
+		return mainService.cart_delivery(user);
+	}
+	
+	@PostMapping(value="resetfindId")
+	@ResponseBody
+	public UserDTO resetfindId(@RequestBody Map map) {
+		
+		return mainService.resetfindId(map);
+	}
+	
+	@PostMapping(value="resetpwd")
+	@ResponseBody
+	public void resetpwd(@RequestBody Map map) {
+		
+		mainService.resetpwd(map);
 	}
 }
 

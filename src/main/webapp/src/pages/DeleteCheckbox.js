@@ -16,14 +16,6 @@ export default function DeleteCheckbox() {
                 <CustomCheckbox type="checkbox" isChecked={isChecked} />
                 <CustomLabel onClick={onClickCheck} isChecked={isChecked} />
             </CustomCheckboxWrapper>
-            {/* <div class="container">
-                <div class="round">
-                    <input type="checkbox" checked id="checkbox" 
-                    isChecked={isChecked} />
-                    <label for="checkbox"
-                    onClick={onClickCheck} isChecked={isChecked}></label>
-                </div>
-            </div> */}
         </>
     );
 }
@@ -47,43 +39,37 @@ const CustomCheckbox = styled.input`
 `;
 
 const CustomLabel = styled.label`
-    background: #fff;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 50%;
     cursor: pointer;
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     position: absolute;
     left: 0;
     top: 0;
     ${({ isChecked }) =>
         isChecked
-            ? {
-                  backgroundColor: "#5f0080",
-                  borderColor: "#5f0080",
-                  "&:after": {
-                      content: {
-                          backgroundColor: "#f00",
-                          border: "2px solid #fff",
-                          borderTop: "none",
-                          borderRight: "none",
-                          content: "",
-                          height: 6,
-                          left: "7px",
-                          opacity: 0,
-                          position: "absolute",
-                          top: "8px",
-                          transform: "rotate(-45deg)",
-                          width: 12
-                      }
+            ? css`
+                  background-color: #5f0080;
+                  border-color: #5f0080;
+                  &:after {
+                      border: 2px solid #fff;
+                      border-top: none;
+                      border-right: none;
+                      content: "";
+                      height: 6px;
+                      left: 7px;
+                      position: absolute;
+                      top: 8px;
+                      transform: rotate(-45deg);
+                      width: 12px;
                   }
-              }
-            : {
-                  backgroundColor: "#fff",
-                  "&:after": {
-                      content: {
-                          opacity: 1
-                      }
+              `
+            : css`
+                  background-color: #fff !important;
+                  &:after {
+                      opacity: 1;
                   }
-              }}
+              `}
 `;

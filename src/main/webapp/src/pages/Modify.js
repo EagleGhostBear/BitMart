@@ -6,6 +6,9 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import GenderRadioButton from "./GenderRadioButton";
 import Navbar from "../components/NavigationBar";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import Modal from "../components/ModalConfirm";
+import ReactDOM from 'react-dom';
 
 import {
   userIdCheck,
@@ -15,12 +18,14 @@ import {
 } from "../shared/common";
 
 
-
 const Modify = (props) => {
   const dispatch = useDispatch();
+
   const token_key = `${localStorage.getItem("token")}`;
+  const [data, setData] = React.useState([]);
 
 
+  //로그인 되어 있는 아이디 값 불러오기
   useEffect(() => {
     axios({
       method: 'post',
@@ -30,15 +35,18 @@ const Modify = (props) => {
       },
     })
       .then((res)=>{
-        // console.log(res)
-        const { username } = res.data;
-        setUsername(username);
+        console.log(res.data)
+        setData(res.data);
+        setUsername(res.data);
+        setGetname(res.data.name);
       })
-      .catch((error) => {
-        console.error("error:", error);
-      });
   }, []);
 
+  //회원탈퇴 페이지로 이동 
+  const navigate = useNavigate();
+  const handleDeleteClick = () => {
+    navigate('/delete');
+  };
 
   //아이디, 비밀번호, 비밀번호 확인, 이름, 이메일 확인
   const [username, setUsername] = React.useState("");
@@ -46,66 +54,103 @@ const Modify = (props) => {
   const [passwordCheck, setPasswordCheck] = React.useState("");
   const [nickname, setNickname] = React.useState("");
   const [email, setEmail] = React.useState("");
+  const [getName, setGetname] = React.useState("");
 
-  //이메일 중복검사
+  //이메일 중복 확인
   const [email_check, setEmailCheck] = React.useState(false);
-
+  const [testEmail, setTestEmail] = useState("");
+  
   const checkEmail = () => {
     if (!emailCheck(email)) {
-      alert("이메일 형식이 맞지 않습니다");
+      openModal("이메일 형식이 맞지 않습니다.");
       return;
     }
-    dispatch(userActions.emailCheckF(email));
-  };
+  axios({
+    method: "post",
+    url: "/checkEmail",
+    data: {
+      email: email,
+    },
+  })
+    .then((res) => {
+      if (!res.data) {
+        openModal("사용 가능한 이메일입니다.");
+        setTestEmail(email);
+      } else {
+        openModal("이미 사용 중인 이메일입니다.");
+        setTestEmail("");
+      }
+    })
+    .catch((err) => {
+      console.log("이메일 중복", err);
+      openModal("이메일 중복 확인에 문제가 발생했습니다.");
+    });
+};
 
   //회원 정보 변경 시, 빈 칸이 있을 경우 alert 띄우기
-  const Modify = () => {
+  const updateBtn = () => {
     if (
-      username === "" ||
       password === "" ||
       passwordCheck === "" ||
-      email === "" ||
-      nickname === ""
+      email === "" //||
+      // nickname === ""
     ) {
-      window.alert("빈 칸을 모두 입력해 주세요");
+      openModal("빈 칸을 모두 입력해주세요.")
       return;
     }
 
-    //회원가입 시 아이디, 비밀번호, 비밀번호 확인, 이름, 이메일 유효성 검사
-    if (!userIdCheck(username)) {
-      window.alert("아이디 형식이 맞지 않습니다");
-      return;
-    }
-
+    //비밀번호, 비밀번호 확인, 이름, 이메일 유효성 검사
     if (!pwdCheck(password)) {
-      window.alert("비밀번호 형식이 맞지 않습니다");
+      openModal("비밀번호 형식이 맞지 않습니다.");
       return;
     }
 
     if (password !== passwordCheck) {
-      window.alert("동일한 비밀번호를 입력해주세요.");
-      return;
-    }
-
-    if (!nicknameCheck(nickname)) {
-      window.alert("이름 형식이 맞지 않습니다");
+      openModal("동일한 비밀번호를 입력해주세요.");
       return;
     }
 
     if (!emailCheck(email)) {
-      window.alert("잘못된 이메일 형식입니다");
+      openModal("잘못된 이메일 형식입니다.");
       return;
     }
 
-    //signupDB에 회원가입 시 입력한 내역들을 보내주기
-    dispatch(
-      userActions.signupDB(username, password, passwordCheck, email, nickname)
-    );
+
+    if(email === testEmail){
+      // console.log(name);
+      console.log(nickname);
+      dispatch(
+        axios({
+          method: "post",
+          url: "/modifyMember",
+          data: {
+            seq: token_key,
+            pwd: password,
+            name: getName,
+            email: email,
+          },
+        })
+          .then((res) => {
+            console.log(res.data);
+            openModal("회원 정보가 수정되었습니다.");
+            window.location.replace("/confirmPwd");
+          })
+          .catch((err) => {
+            console.log("회원정보수정 실패", err);
+            // window.alert("회원 정보 수정 실패");
+          })
+      );
+    }
+    else {
+      openModal("이메일 중복 확인을 해주세요.");
+      return;
+    }
   };
+
 
   return (
     <div className="mainContainer"
-        style={{ 
+        style={{
             display: 'flex',
             justifyContent: 'center',
             marginTop: '100px',
@@ -113,42 +158,39 @@ const Modify = (props) => {
         }}
     >
 
-        {/* 네비게이션 바 */}
-        <div style={{ marginRight: '20px'}}>
-          <Navbar />
-        </div>
+      {/* 네비게이션 바 */}
+      <div style={{ marginRight: '20px'}}>
+        <Navbar />
+      </div>
 
         <Container>
         <Title>개인 정보 수정</Title>
         <RequiredBox>
             <Text size="13px" color="#666666">
-            <CheckSpan> * </CheckSpan>필수 입력사항
+              <CheckSpan> * </CheckSpan>필수 입력사항
             </Text>
         </RequiredBox>
         <Line />
-        <SignupTable>
+        <ModifyTable>
             <tbody>
             <tr>
                 <td>
-                아이디
+                  아이디
                 </td>
                 <td>
                 <input
+                  id="username"
+                  name="username"
                   type="text"
-                  value={username}
-                    placeholder=""
-                    padding="14px"
-                    width="332px"
-                    readOnly
-                    _onChange={(e) => {
-                    setUsername(e.target.value);
-                    }}
+                  value={data.id}
+                  readOnly
+                  style={inputStyle}
                 />
                 </td>
             </tr>
             <tr>
                 <td>
-                새 비밀번호<CheckSpan>*</CheckSpan>
+                  새 비밀번호<CheckSpan>*</CheckSpan>
                 </td>
                 <td>
                 <Input
@@ -162,14 +204,15 @@ const Modify = (props) => {
                 />
                 {password !== "" && !pwdCheck(password) && (
                     <InfoUl className="checkPw">
-                    <a> 10자 이상 입력</a>
+                    <li> 영문/숫자/특수문자 포함 (공백 제외)</li>
+                    <li> 10자 이상 입력 </li>
                     </InfoUl>
                 )}
                 </td>
             </tr>
             <tr>
                 <td>
-                새 비밀번호 확인<CheckSpan>*</CheckSpan>
+                  새 비밀번호 확인<CheckSpan>*</CheckSpan>
                 </td>
                 <td>
                 <Input
@@ -183,33 +226,33 @@ const Modify = (props) => {
                 />
                 {password !== "" && !pwdCheck(passwordCheck) && (
                     <InfoUl className="ReCheckPw">
-                    <a>동일한 비밀번호를 입력해주세요.</a>
+                    <li>동일한 비밀번호를 입력해주세요.</li>
                     </InfoUl>
                 )}
                 </td>
             </tr>
             <tr>
                 <td>
-                이름<CheckSpan>*</CheckSpan>
+                  이름<CheckSpan></CheckSpan>
                 </td>
                 <td>
-                <Input
-                    placeholder="이름을 입력해 주세요"
-                    padding="14px"
-                    width="332px"
-                    _onChange={(e) => {
-                    setNickname(e.target.value);
-                    }}
+                  
+                {/* 회원정보 수정할 회원 이름 가져오기 */}
+                <input
+                  id="username"
+                  name="username"
+                  value={data.name}
+                  style={inputStyle}
                 />
                 </td>
             </tr>
             <tr>
                 <td>
-                이메일<CheckSpan> * </CheckSpan>
+                  이메일<CheckSpan>*</CheckSpan>
                 </td>
                 <td>
                 <Input
-                    placeholder="예: marketkurly@kurly.com"
+                    placeholder="예: bitkurly@kurly.com"
                     padding="14px"
                     width="332px"
                     _onChange={(e) => {
@@ -226,7 +269,7 @@ const Modify = (props) => {
                     margin="8px"
                     _onClick={() => {
                     if (!emailCheck(email)) {
-                        alert("잘못된 이메일 형식입니다");
+                        openModal("잘못된 이메일 형식입니다.");
                         return false;
                     }
                     checkEmail();
@@ -238,20 +281,14 @@ const Modify = (props) => {
             </tr>
             <tr>
                 <td>
-                성별<CheckSpan>*</CheckSpan>
+                  성별
                 </td>
                 <td>
                     <GenderRadioButton />
                 </td>
             </tr>
             </tbody>
-        </SignupTable>
-        {/* <Button width="150px" _onClick={() => ()}>
-            탈퇴하기
-        </Button>
-        <Button width="150px" _onClick={() => Modify()}>
-            회원정보수정 
-        </Button> */}
+        </ModifyTable>
         <div
             className="formBtnDiv"
             style={formBtnDivStyle}
@@ -260,6 +297,7 @@ const Modify = (props) => {
                 className="deleteBtn"
                 type="button"
                 style={buttonStyle}
+                onClick={handleDeleteClick}
             >
                 <span className="BtnText">
                 탈퇴하기
@@ -268,7 +306,7 @@ const Modify = (props) => {
             <button
                 className="modifiyBtn"
                 type="submit"
-                // onClick={}
+                onClick={() => updateBtn()}
                 style={modifyBtnStyle}
             >
                 <span className="BtnText">
@@ -282,6 +320,23 @@ const Modify = (props) => {
 };
 
 Modify.defaultProps = {};
+
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); 
+  document.body.appendChild(modalContainer);
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove();
+};
 
 const Container = styled.div`
   width: 640px;
@@ -315,9 +370,9 @@ const Line = styled.span`
   margin-top: -2px;
 `;
 
-const SignupTable = styled.table`
+const ModifyTable = styled.table`
   margin-top: 10px;
-  padding-bottom: 49px;
+  padding-bottom: 30px;
   width: 100%;
   & tr {
     text-align: left;
@@ -337,7 +392,7 @@ const SignupTable = styled.table`
 `;
 
 const InfoUl = styled.ul`
-  font-size: 14px;
+  font-size: 12px;
   color: red;
   position: relative;
   left: -37px;
@@ -348,7 +403,7 @@ const InfoUl = styled.ul`
 
 const formBtnDivStyle = {
   padding: "0px",
-  margin: "0px",
+  margin: "20px 0px 50px",
   boxSizing: "border-box",
   borderTop: "1px solid rgb(244, 244, 244)",
   display: "flex",
@@ -387,5 +442,24 @@ const modifyBtnStyle = {
   color: "rgb(255, 255, 255)",
 };
 
+const inputStyle= {
+  margin: "10px auto",
+  display: "block",
+  borderRadius: "3px",
+  border: "1px solid #e0dede",
+  width: "332px",
+  height: "38px",
+  float: "left",
+  maxWidth: "100%",
+  padding: "0px 19px",
+  boxSizing: "border-box",
+  letterSpacing: "-0.05em",
+  display: "flex",
+  justifyContent: "center",
+  backgroundColor: "#fff",
+  fontSize: "14px",
+  lineHeight: "20px",
+  outline: "none",
+};
 
 export default Modify;

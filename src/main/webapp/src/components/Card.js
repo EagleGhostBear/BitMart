@@ -32,7 +32,7 @@ const Card = (props) => {
             <CostBox></CostBox>
             <CostBox>
               <Sale>{item.sale}%</Sale>
-              <ProductPrice>{(1 - item.sale/100)*item.price}원</ProductPrice>
+              <ProductPrice>{(Math.floor(((1 - item.sale/100) * item.price) / 10) * 10).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</ProductPrice>
             </CostBox>
             <SalePrice>{item.price}원</SalePrice>
           </TextWrap>

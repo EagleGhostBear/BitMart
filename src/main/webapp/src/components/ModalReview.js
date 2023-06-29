@@ -1,22 +1,92 @@
 import React, { useEffect, useState } from "react";
 import "../css/modalReview.css";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ModalReview = (props) => {
+  console.log("제품번호:" + props.seq);
   // 열기, 닫기, 작성, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header } = props;
+  // const { open, close, header, id } = props;
   const [reviewContent, setReviewContent] = useState("");
   const [showImages, setShowImages] = useState([]);
+  const token_key = `${localStorage.getItem("token")}`;
+  const user = useSelector((state) => state.user.user);
+  const [data, setData] = useState();
+  const [product, setProduct] = useState([]);
+  const [title, setTitle] = useState();
+  const [review, setReview] = useState([]);
+  const [contents, setContents] = useState();
+  const [isEditing, setIsEditing] = useState(false);
 
-  const handleReviewSubmit = (e) => {
-    e.preventDefault();
-    // 후기 작성 처리 로직
-    // reviewContent를 서버로 전송 또는 상태 관리하여 저장
-    close(); //모달닫기
+  const handleReviewSubmit = () => {
+    axios({
+      method: "post",
+      url: "/ReviewSubmit",
+      data: {
+        user: token_key,
+        product: props.seq,
+        name: user.name,
+        title: title,
+        content: contents,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    props.close();
   };
 
-  const handleReviewChange = (event) => {
-    setReviewContent(event.target.value);
-  };
+  // const handleReviewUpdate = () => {
+  //   axios({
+  //     method: "post",
+  //     url: "/ReviewUpdate",
+  //     data: {
+  //       user: token_key,
+  //       product: props.seq,
+  //       name: user.name,
+  //       title: title,
+  //       content: contents,
+  //       //seq: reviewSeq,
+  //     },
+  //   })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  // const handleReviewClick = () => {
+  //   if (isEditing) {
+  //     handleReviewUpdate();
+  //   } else {
+  //     handleReviewSubmit();
+  //   }
+  // };
+
+  useEffect(() => {
+    axios
+      .get("/product_detail?seq=" + props.seq)
+      .then((response) => setProduct(response.data));
+    axios
+      .post("/comment_detail", {
+        user: token_key,
+        product: props.seq,
+      })
+      .then((response) => setReview(response.data));
+  }, [props.seq]);
+
+  useEffect(() => {
+    console.log("review:" + JSON.stringify(review));
+  }, [review]);
+
+  useEffect(() => {
+    console.log("product:" + JSON.stringify(product));
+  }, [product]);
 
   //이미지 상대경로저장
   const handlePhotoUpload = (event) => {
@@ -25,7 +95,7 @@ const ModalReview = (props) => {
 
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      filesUrlLists.push(file);
+      filesUrlLists.push(URL.createObjectURL(file));
     }
 
     if (filesUrlLists.length > 8) {
@@ -37,12 +107,12 @@ const ModalReview = (props) => {
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-    <div className={open ? "openModal modal" : "modal"}>
-      {open ? (
+    <div className={props.open ? "openModal modal" : "modal"}>
+      {props.open ? (
         <section>
           <header>
-            {header}
-            <button className="close" onClick={close}>
+            {props.header}
+            <button className="close" onClick={props.close}>
               &times;
             </button>
           </header>
@@ -61,13 +131,15 @@ const ModalReview = (props) => {
                 <img
                   className="productImg"
                   alt="이탈리안 & 샐러드 Kit 180g"
-                  src="https://product-image.kurly.com/product/image/022b8205-dd18-4692-b13a-d362d91d93e5.jpg"
-                  srcSet="https://product-image.kurly.com/product/image/022b8205-dd18-4692-b13a-d362d91d93e5.jpg 1x, https://product-image.kurly.com/product/image/022b8205-dd18-4692-b13a-d362d91d93e5.jpg 2x"
+                  src={product.image}
+                  srcSet={`${product.image} 1x, ${product.image} 2x`}
+                  // src="https://product-image.kurly.com/product/image/8654cf12-a4b5-4039-a131-5bb5c3121a6b.jpg"
+                  // srcSet="https://product-image.kurly.com/product/image/8654cf12-a4b5-4039-a131-5bb5c3121a6b.jpg 1x, https://product-image.kurly.com/product/image/8654cf12-a4b5-4039-a131-5bb5c3121a6b.jpg 2x"
                 />
                 <noscript />
               </span>
               <div className="productNameWrap">
-                <span className="productName">상품명</span>
+                <span className="productName">{product.title}</span>
               </div>
             </div>
 
@@ -121,6 +193,24 @@ const ModalReview = (props) => {
             <form>
               <div className="textWrap">
                 <label className="textLabel">
+                  제목{props.product}
+                  <sup className="sup">*</sup>
+                </label>
+                <div className="Content">
+                  <textarea
+                    className="textTitle"
+                    id="title"
+                    inputMode="text"
+                    placeholder="제목을 입력하세요"
+                    value={review.content}
+                    onChange={(e) => {
+                      setTitle(e.target.value);
+                    }}
+                  ></textarea>
+                </div>
+              </div>
+              <div className="textWrap">
+                <label className="textLabel">
                   내용
                   <sup className="sup">*</sup>
                 </label>
@@ -133,6 +223,10 @@ const ModalReview = (props) => {
                       aria-label="textarea-message"
                       inputMode="text"
                       placeholder="상품 특성에 맞는 후기를 작성해주세요. 예)레시피, 겉포장 속 실제 구성품사진, 플레이팅, 화장품 사용자의 피부타입 등(최소 10자 이상)"
+                      value={review.content}
+                      onChange={(e) => {
+                        setContents(e.target.value);
+                      }}
                     ></textarea>
                   </div>
                 </div>
@@ -143,7 +237,7 @@ const ModalReview = (props) => {
 
           <div className="uploadWrap">
             <label className="upload">사진 첨부</label>
-            {/* <span className="imgUpload"></span> */}
+
             <label className="photoUpload">
               <img
                 src="https://res.kurly.com/pc/ico/1806/img_add_thumb_x2.png"
@@ -159,24 +253,28 @@ const ModalReview = (props) => {
                 accept="image/*"
                 multiple
                 onChange={handlePhotoUpload}
-                //ref={fileInput}
-                // disabled={uploading}
               />
             </label>
-            {/* <input
-                  type="file"
-                  id="photoUpload"
-                  accept="image/*"
-                  multiple
-                  onChange={handlePhotoUpload}
-                /> */}
+
+            {/* 이미지 미리 보기 */}
+            {showImages.map((image, index) => (
+              <img
+                key={index}
+                src={image}
+                alt={`Preview ${index + 1}`}
+                style={{ width: "100px", height: "100px" }}
+              />
+            ))}
           </div>
 
           <footer>
-            <button className="close" onClick={close}>
+            <button className="close" onClick={props.close}>
               닫기
             </button>
-            <button className="write">등록</button>
+            <button className="write" onClick={handleReviewSubmit}>
+              {/* {isEditing ? "수정" : "등록"} */}
+              등록
+            </button>
           </footer>
         </section>
       ) : null}

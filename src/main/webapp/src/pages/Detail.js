@@ -41,7 +41,7 @@ const Detail = (props) => {
     <React.Fragment>
       {/* <DetailItem {...detail_list}></DetailItem> */}
       <DetailItem seq={seq} />
-      <DetailImage />
+      {/* <DetailImage /> */}
       {/* <Navbar>
         <span>후기</span>
       </Navbar> */}
