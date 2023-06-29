@@ -229,22 +229,11 @@ const Signup = (props) => {
                   setPassword(e.target.value);
                 }}
               />
-              {password !== "" && !pwdCheck(password) && (
+             {password !== "" && (
                 <InfoUl className="checkPw">
-                  <li>• 10글자 이상 입력</li>
-                  <li>
-                    • 영문/숫자/특수문자(공백 제외)만 허용, 2개 이상의 조합
-                  </li>
-                  <li>• 동일한 숫자 3개 이상 연속 사용 불가</li>
-                </InfoUl>
-              )}
-              {password !== "" && pwdCheck(password) && (
-                <InfoUl className="checkPw">
-                  <li>✓ 10글자 이상 입력</li>
-                  <li>
-                    ✓ 영문/숫자/특수문자(공백 제외)만 허용, 2개 이상의 조합
-                  </li>
-                  <li>✓ 동일한 숫자 3개 이상 연속 사용 불가</li>
+                  <li>{password.length >= 10 ? '✓' : '•'} 10글자 이상 입력</li>
+                  <li>{/[a-zA-Z]/.test(password) ? '✓' : '•'} 영문/숫자/특수문자(공백 제외)만 허용, 2개 이상의 조합</li>
+                  <li>{!(/(.)\1\1/.test(password)) ? '✓' : '•'} 동일한 숫자 3개 이상 연속 사용 불가</li>
                 </InfoUl>
               )}
             </td>
