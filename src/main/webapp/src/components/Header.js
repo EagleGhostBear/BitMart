@@ -238,6 +238,7 @@ const HeaderCategory = styled.ul`
     &:hover {
       color: purple;
       text-decoration: underline;
+      background-color: transparent; //추가
     }
   }
   & .all-category::before {

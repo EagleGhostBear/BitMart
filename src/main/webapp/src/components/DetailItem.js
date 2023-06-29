@@ -64,7 +64,9 @@ const DetailItem = (props) => {
             <PriceWrap>
               <p>회원할인가</p>
               <Price>
-                {(1 - data.sale/100)*data.price}
+              {Math.floor(Math.floor(((1 - data.sale / 100) * data.price) / 10) * 10)
+    .toFixed(0)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 <span>원</span>
               </Price>
               <Disconunt>{data.sale}%</Disconunt>
@@ -141,7 +143,9 @@ const DetailItem = (props) => {
             <strong>총 상품금액 :</strong>
             {/* <span className="num">{setDisconunt.toLocaleString()}</span> */}
             {/* 금액 " , " 를 사용 : toLocalString() 사용 -> 주의점 : Number.prototype.toLocaleString() 이기때문에 꼭 Number()로 타입변경  */}
-            <span className="won">{((1 - data.sale / 100) * data.price) * count}원</span>
+            <span className="won">{Math.floor(Math.floor(((1 - data.sale / 100) * data.price) / 10) * 10)
+    .toFixed(0)
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>
           </div>
         </Total>
       )}
