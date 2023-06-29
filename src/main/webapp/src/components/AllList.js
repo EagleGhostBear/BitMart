@@ -21,7 +21,7 @@ const AllList = (props) => { //부모 컴포넌트에서 받은 state와 method
       try {
         const response = await axios.get('http://101.79.11.237:5000/', {
           params: {
-            user: 1 // 원하는 사용자 ID를 지정하거나 동적으로 변경할 수 있습니다.
+            user: user.seq // 원하는 사용자 ID를 지정하거나 동적으로 변경할 수 있습니다.
           }
         });
         const { recommended_products } = response.data;
