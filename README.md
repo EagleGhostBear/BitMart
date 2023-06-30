@@ -17,7 +17,7 @@
       <sub><b>팀원: 최현주</b></sub>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/987654321?v=4" width="100px" alt="jihyekim" /><br />
+      <img src="https://avatars.githubusercontent.com/u/121778189?v=4" width="100px" alt="jihyekim" /><br />
       <sub><b>팀원: 김지혜</b></sub>
     </td>
     <td align="center">
