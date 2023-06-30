@@ -37,4 +37,5 @@
 
 ## 📜 페이지 설명
 ### 메인페이지
-![이미지 설명](https://i.imgur.com/UKtmRBI.jpg)
+![메인화면](https://i.imgur.com/UKtmRBI.jpg)
+![메인화면2](https://imgur.com/BR04DA8.jpg)
