@@ -38,7 +38,8 @@
 # 사용 기술
 
 - React
-- JavaScript
+- ![Bitbucket Pipelines](https://img.shields.io/bitbucket/pipelines/:user/:repo/:branch?style=for-the-badge&logo=%23F7DF1E&logoColor=%23ECD53F)
+
 - CSS
 - Redux
 - Axios
