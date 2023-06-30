@@ -1,11 +1,36 @@
 # BitMart
 
-# Project Team
-| 이름 | 프로필 사진 |
-|------|--------------|
-| 건률 | ![GEON RYUL](https://avatars.githubusercontent.com/u/109847507?v=4) |
-| 동빈 | ![KIMDONGBEEN](https://avatars.githubusercontent.com/u/97274814?v=4) |
-| 현주 | ![youngsun](https://avatars.githubusercontent.com/u/121652746?v=4) |
-| 지혜 | ![hyunju](https://avatars.githubusercontent.com/u/33363571?v=4) |
-| 도담 | ![sunghwan](https://avatars.githubusercontent.com/u/121652054?v=4) |
-| 소훈 | ![seojeong](https://avatars.githubusercontent.com/u/81378507?v=4) |
+<h2>Team👪</h2>
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/109847507?v=4" width="100px" alt="geonryul" /><br />
+      <sub><b>팀원: 박건률</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/97274814?v=4" width="100px" alt="kimdongbeen" /><br />
+      <sub><b>팀원: 김동빈</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/123456789?v=4" width="100px" alt="hyunjuchoi" /><br />
+      <sub><b>팀원: 최현주</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/987654321?v=4" width="100px" alt="jihyekim" /><br />
+      <sub><b>팀원: 김지혜</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/555555555?v=4" width="100px" alt="dodamchoi" /><br />
+      <sub><b>팀원: 최도담</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/888888888?v=4" width="100px" alt="sohunlee" /><br />
+      <sub><b>팀원: 이소훈</b></sub>
+    </td>
+    <td align="center">
+      <img src="https://avatars.githubusercontent.com/u/666666666?v=4" width="100px" alt="sukyungshin" /><br />
+      <sub><b>팀원: 신수경</b></sub>
+    </td>
+  </tr>
+</table>
