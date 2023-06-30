@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 
 import { actionCreators as userActions } from "../redux/modules/user";
 import Modal3 from "./ModalFind4";
+import Modal2 from "./ModalFind3";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -115,8 +116,7 @@ const Header = (props) => {
               <LocationIcon 
                 onClick={() => {
                   if(token_key === "null"){
-                    alert('로그인 후 이용해주세요!')
-                    navigate("/login")
+                    openModal2('로그인 후 이용해주세요!')
                   }
                   else{
                     navigate("/address");
@@ -127,8 +127,7 @@ const Header = (props) => {
               <CartIcon
                 onClick={() => {
                   if(token_key === "null"){
-                    alert('로그인 후 이용해주세요!')
-                    navigate("/login")
+                    openModal2('로그인 후 이용해주세요!')
                   }
                   else{ 
                     navigate("/cart");
@@ -141,6 +140,21 @@ const Header = (props) => {
         </div>
       </Grid>
     </React.Fragment>
+  );
+};
+
+const openModal2 = (message) => {
+  const modalContainer = document.createElement("div");
+  document.body.appendChild(modalContainer);
+
+  const closeModal2 = () => {
+    ReactDOM.unmountComponentAtNode(modalContainer);
+    modalContainer.remove();
+  };
+
+  ReactDOM.render(
+    <Modal2 isOpen={true} closeModal={closeModal2} message={message} />,
+    modalContainer
   );
 };
 

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import ReactDOM from 'react-dom';
 import moment from "moment";
 
 import { actionCreators as commentActions } from "../redux/modules/comment";
+import Modal2 from "./ModalFind3";
 
 const Comment = (props) => {
   const dispatch = useDispatch();
@@ -20,8 +22,7 @@ const Comment = (props) => {
 
   const helpReview = () => {
     if (!userId) {
-      alert("로그인부터 부탁드려요!");
-      window.location.replace("/login");
+      openModal2("로그인부터 부탁드려요!");
     }
     dispatch(commentActions.helpCommentFB(props.commentId, userId));
   };
@@ -115,6 +116,21 @@ const Comment = (props) => {
         </CommentDetail>
       )}
     </>
+  );
+};
+
+const openModal2 = (message) => {
+  const modalContainer = document.createElement("div");
+  document.body.appendChild(modalContainer);
+
+  const closeModal2 = () => {
+    ReactDOM.unmountComponentAtNode(modalContainer);
+    modalContainer.remove();
+  };
+
+  ReactDOM.render(
+    <Modal2 isOpen={true} closeModal={closeModal2} message={message} />,
+    modalContainer
   );
 };
 

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import ReactDOM from 'react-dom';
 import styled from "styled-components";
 import axios from 'axios';
 
 import { actionCreators as cartActions } from "../redux/modules/cart";
+import Modal from "./ModalFind";
 
 const CartItem = (props) => {
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ const CartItem = (props) => {
     console.log("삭제할 카트 번호: ", cart_seq);
     axios.post('/cart_delete', { cart_seq: cart_seq })
     //dispatch(cartActions.deleteCartDB(cart_list.pid));
-    alert("장바구니 물품이 삭제되었습니다!");
+    openModal("장바구니 물품이 삭제되었습니다!");
   };
 
   return (
@@ -118,6 +120,24 @@ const CartItem = (props) => {
       </ul>
     </ItemBox>
   );
+};
+
+
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); // 새로운 div 요소 생성
+  document.body.appendChild(modalContainer); // body 요소에 새로운 div 요소 추가
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove(); // div 요소 삭제
 };
 
 const ItemBox = styled.div`
