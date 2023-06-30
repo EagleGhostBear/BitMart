@@ -35,6 +35,19 @@
   </tr>
 </table>
 
+# 사용 기술
+
+- React
+- JavaScript
+- CSS
+- Redux
+- Axios
+- Naver Cloud
+- MySQL
+- MyBatis
+- Git
+- Python
+
 ## 📜 페이지 설명
 ### 메인페이지
 ![메인화면](https://i.imgur.com/UKtmRBI.jpg)
