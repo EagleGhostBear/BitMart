@@ -21,7 +21,7 @@
       <sub><b>팀원: 김지혜</b></sub>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/555555555?v=4" width="100px" alt="dodamchoi" /><br />
+      <img src="https://avatars.githubusercontent.com/u/121652059?v=4" width="100px" alt="dodamchoi" /><br />
       <sub><b>팀원: 최도담</b></sub>
     </td>
     <td align="center">
@@ -29,7 +29,7 @@
       <sub><b>팀원: 이소훈</b></sub>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/666666666?v=4" width="100px" alt="sukyungshin" /><br />
+      <img src="https://avatars.githubusercontent.com/u/120912398?v=4" width="100px" alt="sukyungshin" /><br />
       <sub><b>팀원: 신수경</b></sub>
     </td>
   </tr>
