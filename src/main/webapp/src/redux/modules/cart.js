@@ -1,6 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import axios from "axios";
+import ReactDOM from 'react-dom';
+import Modal from "../../components/ModalFind";
 
 // actions
 const ADD_CART = "ADD_CART";
@@ -65,7 +67,7 @@ const addCartDB = (pid, quantity) => {
       .then((res) => {
         console.log(res.data);
         dispatch(addCart(res.data));
-        alert("장바구니에 물품을 담으셨습니다!");
+        openModal("장바구니에 물품을 담으셨습니다!");
         // window.location.replace("/cart");
         // console.log("카트담기 성공");
       })
@@ -176,5 +178,23 @@ const actionCreators = {
   editCartDB,
   deleteCartDB,
 };
+
+// 모달 창 열기
+const openModal = (message) => {
+  const modalContainer = document.createElement("div"); // 새로운 div 요소 생성
+  document.body.appendChild(modalContainer); // body 요소에 새로운 div 요소 추가
+
+  ReactDOM.render(
+    <Modal isOpen={true} closeModal={() => closeModal(modalContainer)} message={message} />,
+    modalContainer
+  );
+};
+
+// 모달 창 닫기
+const closeModal = (modalContainer) => {
+  ReactDOM.unmountComponentAtNode(modalContainer);
+  modalContainer.remove(); // div 요소 삭제
+};
+
 
 export { actionCreators };
