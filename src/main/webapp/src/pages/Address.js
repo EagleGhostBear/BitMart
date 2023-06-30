@@ -361,6 +361,100 @@ const PopupModal5 = ({ isOpen5, closeModal2, closeModal4 }) => {
 };
 
 
+// 기본배송지 삭제 불가 모달
+const PopupModal6 = ({ isOpen6, closeModal2, closeModal4 }) => {
+
+  const customStyles6 = {
+    content: {
+      border: "none",
+      background: "rgb(255, 255, 255)",
+      position: "relative",
+      boxSizing: "border-box",
+      flexDirection: "column",
+      justifyContent: "center",
+      width: '18%', // Set the desired width
+      height: '18%',
+      fontFamily: "inherit",
+      fontSize: "1rem",
+      WebkitTapHighlightColor: "transparent",
+      borderRadius: "12px",
+      padding: "0px",
+      maxWidth: "360px",
+      animation: "0s ease 0s 1 normal none running none",
+      margin: "auto",
+      display: "flex",
+      position: "absolute",
+      //top: 500,
+      //left: 500,
+      //zIndex: 200,
+      border: "1px solid #5f0080",
+
+      borderRadius: '8px',
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      //textAlign: 'center',
+      padding: 'auto',
+
+
+    },
+
+    
+  };
+
+
+  return (
+
+    <Modal isOpen={isOpen6} onRequestClose={closeModal2} style={customStyles6}>
+      
+      {/* Content of your modal */}
+      <div style={{
+        paddingTop: '5%',
+
+      }}>
+        <h2 style={{ textAlign: 'center', fontSize: '13.5pt', }}>기본 배송지로 선택된 배송지는 <br/>삭제할 수 없어요</h2>
+        <div className="CloseBtn" style={{
+          paddingTop: '5%',
+          display: 'flex',
+          //justifyContent: 'center',
+          justifyContent: 'right',
+          marginRight: '5%',
+
+        }}>
+          &ensp;
+          <button
+            className="closeBtn"
+            onClick={closeModal4}
+            style={{
+              boxSizing: "border-box",
+              font: "inherit",
+              margin: "0px",
+              WebkitTapHighlightColor: "transparent",
+              overflow: "visible",
+              textTransform: "none",
+              appearance: "button",
+              cursor: "pointer",
+              borderRadius: "0px",
+              fontFamily:
+                '"Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif',
+              border: "none",
+              padding: "0px 18px",
+              background: "transparent",
+              width: "auto",
+              height: "100%",
+              fontSize: "16px",
+              fontWeight: 600,
+              color: "rgb(95, 0, 128)",
+              backgroundColor: "transparent",
+              marginBottom:'10%' 
+
+            }}
+          >닫기</button>
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
+
 
 const Address = () => {
 
@@ -437,6 +531,7 @@ const Address = () => {
   const [isModalOpen3, setIsModalOpen3] = useState(false);
   const [isModalOpen4, setIsModalOpen4] = useState(false);
   const [isModalOpen5, setIsModalOpen5] = useState(false);
+  const [isModalOpen6, setIsModalOpen6] = useState(false);
 
   const openModal2 = () => {
     //setAddress1('');
@@ -452,6 +547,7 @@ const Address = () => {
     setIsModalOpen4(false);
     setIsModalOpen3(false);
     setIsModalOpen5(false);
+    setIsModalOpen6(false);
   };
 
 
@@ -496,15 +592,19 @@ const Address = () => {
   const closeModal4 = () => {
     setIsModalOpen4(false);
     setIsModalOpen5(false);
+    setIsModalOpen6(false);
     //setLength('');
   };
 
 
   //배송지 추가 불가 모달 
   const openModal5 = () => {
-    //setAddress1('');
     setIsModalOpen5(true);
-    //setLength(length);
+  };
+
+  // 기본 배송지 삭제 불가 모달
+  const openModal6 = () => {
+    setIsModalOpen6(true);
   };
 
   
@@ -778,6 +878,12 @@ const Address = () => {
       )}
     </div>
 
+    <div>
+      {isModalOpen6 && (
+        <PopupModal6 isOpen6={isModalOpen6} closeModal2={closeModal2} closeModal4={closeModal4} />
+      )}
+    </div>
+
     {showPostcode && (
         <Modal isOpen={true} onRequestClose={() => setShowPostcode(false)} style={customStyles}>
           <div >
@@ -1044,6 +1150,9 @@ const Address = () => {
                           <img      // + 버튼 이미지
                             className="PlusBtn"
                             src="https://res.kurly.com/pc/ico/2006/ico_add_16x16.svg"
+                            style={{
+                              marginTop:'3.5%',
+                            }}
                           />
                           새 배송지 추가
                         </span>
@@ -1167,11 +1276,14 @@ const Address = () => {
                       <div className="addressDel">
                         
                         {/* <Link to='/update'> */}
-                        <button 
+                        <button
+                          style={{
+                            marginTop:'9.5%',
+                          }} 
                           id="XBtn"
                           onClick={() => {
                               if (data[index].checked === 1) {
-                                  window.alert('기본배송지로 선택된 배송지는 삭제할 수 없어요');
+                                 openModal6();
                               }
                               else if (data.length === 1) {
                                 openModal4();

@@ -200,13 +200,13 @@ const Logo = styled.div`
   position: absolute;
   left: 50%;
   bottom: 6px;
-  width: 130px;
-  height: 79px;
+  width: 103px;
+  height: 66px;
   margin-left: -60px;
   vertical-align: top;
   max-width: 100%;
   background: url("https://kr.object.ncloudstorage.com/bitcamp/logo.png");
-  background-size: cover;
+  background-size: 103px 66px;
   cursor: pointer;
 `;
 

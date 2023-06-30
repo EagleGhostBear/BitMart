@@ -87,7 +87,10 @@ const AddressForm = () => {
       {((addr !== null &&  addr1 !=='') || (addr !== null && addr1 ==='') )&&(
         <p className="delivery-address">
           <span>{`${addr} ${buildingName && '(' + buildingName + ')'}`}</span>
-          <span><input type='text' placeholder=" 상세주소를 입력해 주세요" style={{height:'33px', width:'200px', marginTop:'7px', marginBottom:'-15px'}}/></span>
+          &ensp;
+          <input type='text' placeholder=" 상세주소를 입력해 주세요" style={{fontSize:'11pt', height:'33px', width:'200px', marginTop:'7px', marginBottom:'-15px', 
+                      border:'white', 
+                      borderBottom:'1px solid lightgrey'}}/>
           <span className="block-message"></span>
         </p>
       )}
