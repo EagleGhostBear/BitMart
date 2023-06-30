@@ -1,12 +1,12 @@
 # BitMart
 
-<h2>Team👪</h2>
+# 프로젝트 팀원
 
 <table>
   <tr>
     <td align="center">
       <img src="https://avatars.githubusercontent.com/u/109847507?v=4" width="100px" alt="geonryul" /><br />
-      <sub><b>팀원: 박건률</b></sub>
+      <sub><b>팀장: 박건률</b></sub>
     </td>
     <td align="center">
       <img src="https://avatars.githubusercontent.com/u/97274814?v=4" width="100px" alt="kimdongbeen" /><br />
