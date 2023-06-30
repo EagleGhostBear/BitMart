@@ -113,16 +113,16 @@ const ModalReview = (props) => {
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-    <div className={props.open ? "openModal modal" : "modal"}>
+    <div className={props.open ? "openModal modal" : "modal"} >
       {props.open ? (
-        <section>
+        <section >
           <header>
-            {props.header}
+            &ensp;{props.header}
             <button className="close" onClick={props.close}>
               &times;
             </button>
           </header>
-          <main>
+          <main style={{marginLeft:'3%', marginRight:'3%',}}>
             {props.children}
             <div className="productImage">
               <span>
@@ -197,17 +197,22 @@ const ModalReview = (props) => {
             </div>
             {/* 내용 부분시작 */}
             <form>
-              <div className="textWrap">
-                <label className="textLabel">
+              <div className="textWrap" >
+                <label className="textLabel" >
                   제목{props.product} 
                   <sup className="sup">*</sup>
                 </label>
-                <div className="Content">
+                <div className="Content" style={{marginTop:'1%', marginLeft:'-3%', }}>
                   <textarea
                     className="textTitle"
                     id="title"
                     inputMode="text"
-                    placeholder="제목을 입력하세요"
+                    placeholder="  제목을 입력하세요"
+                    aria-label="textarea-message"
+                    style={{
+                      marginLeft:'-8%',
+                      
+                    }}
                     //value={review === "" ? "" : review.title}
                     value={review && review.title ? review.title : ''}
                     onChange={(e) => {
@@ -224,7 +229,7 @@ const ModalReview = (props) => {
                   <sup className="sup">*</sup>
                 </label>
                 <div className="textcontentWrap">
-                  <div className="textContent">
+                  <div className="textContent" style={{marginTop:'1.5%', marginLeft:'-3.6%'}}>
                     <textarea
                       className="textarea"
                       id="contents"
@@ -247,16 +252,17 @@ const ModalReview = (props) => {
           </main>
           {/* 사진 업로드시작 */}
 
-          <div className="uploadWrap">
+          <div className="uploadWrap" style={{marginLeft:'3%', marginRight:'3%',}}>
             <label className="upload">사진 첨부</label>
 
-            <label className="photoUpload">
+            <label className="photoUpload" style={{marginLeft:'-2%', marginTop:'0.4%', borderRadius:'5px'}}>
               <img
                 src="https://res.kurly.com/pc/ico/1806/img_add_thumb_x2.png"
                 style={{
                   width: "20px",
                   marginTop: "33px",
                   color: "#e2e2e2",
+                  cursor: "pointer",
                 }}
               />
               <input
@@ -265,6 +271,7 @@ const ModalReview = (props) => {
                 accept="image/*"
                 multiple
                 onChange={handlePhotoUpload}
+                
               />
             </label>
 
