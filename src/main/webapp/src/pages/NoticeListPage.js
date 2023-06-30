@@ -34,7 +34,7 @@ const NoticeListPage = () => {
 
   return (
    <div style={{ minHeight: '1000px' }}>
-    <div style={{ marginLeft: '230px', marginTop: '60px'}} className="NavHeader">
+    <div style={{ marginLeft: '430px', marginTop: '60px'}} className="NavHeader">
     <div className="NavTitle">
       고객센터
     </div>
@@ -163,7 +163,7 @@ const NoticeListPage = () => {
     </ul>
   </div>
 
-      <div style={{ width: '80%', maxWidth: '800px', marginLeft: '500px', marginTop: '-230px' }}>
+      <div style={{ width: '80%', maxWidth: '800px', marginLeft: '700px', marginTop: '-230px' }}>
         <h1 style={{ fontSize: '25px', fontWeight: 'bold', marginBottom: '30px' }}>공지사항</h1>
         <p style={{ fontSize: '14px', opacity: '0.7' }}>컬리의 새로운 소식들과 유용한 정보들을 한곳에서 확인하세요.</p>
         <div>

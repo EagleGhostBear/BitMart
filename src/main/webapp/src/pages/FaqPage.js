@@ -39,7 +39,7 @@ function FaqPage() {
 
   return (
     <div style={{ minHeight: '1300px' }}>
-      <div style={{ marginLeft: '230px', marginTop: '60px' }} className="NavHeader">
+      <div style={{ marginLeft: '430px', marginTop: '60px' }} className="NavHeader">
         <div className="NavTitle">
           고객센터
         </div>
@@ -167,7 +167,7 @@ function FaqPage() {
           </li>
         </ul>
       </div>
-      <div style={{ flex: '10', paddingRight: '230px', paddingBottom: '20px', minWidth: '800px', maxWidth: '1200px', marginLeft: '480px', marginTop: '-270px' }}>
+      <div style={{ flex: '10', paddingRight: '230px', paddingBottom: '20px', width: '600px', marginLeft: '680px', marginTop: '-270px' }}>
         <h1 style={{ fontSize: '25px', fontWeight: 'bold', margin: '20px 0', marginTop: '55px' }}>자주하는 질문</h1>
         <h1 style={{ fontSize: '15px', fontWeight: 'lighter', color: 'gray', margin: '20px 0' }}>고객님들께서 가장 자주하시는 질문들을 모두 모았습니다</h1>
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>

@@ -11,7 +11,7 @@ const InquiryPage = () => {
 
   return (
     <div style={{ minHeight: '1300px' }}>
-    <div style={{ marginLeft: '230px', marginTop: '60px'}} className="NavHeader">
+    <div style={{ marginLeft: '430px', marginTop: '60px'}} className="NavHeader">
     <div className="NavTitle">
       고객센터
     </div>
@@ -139,7 +139,7 @@ const InquiryPage = () => {
       </li>
     </ul>
   </div>
-      <div style={{ marginTop: '-100px', marginLeft: '350px', marginTop: '-220px' }}>
+      <div style={{ marginTop: '-100px', marginLeft: '550px', marginTop: '-220px' }}>
         <InquiryList />
       </div>
       <div style={{ marginTop: '20px' }}>
