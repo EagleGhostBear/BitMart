@@ -240,6 +240,7 @@
 		FROM order_history OH
 		JOIN product P ON P.seq = OH.product
 		WHERE OH.user = #{user}
+		ORDER BY OH.seq DESC;
 	</select>
 
 	<update id="update_checked" parameterType="java.util.Map">
