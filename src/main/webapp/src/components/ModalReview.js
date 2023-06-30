@@ -69,17 +69,13 @@ const ModalReview = (props) => {
       window.location.reload();
   };
 
-
   useEffect(() => {
-    axios
-      .get("/product_detail?seq=" + props.seq)
+    axios.get("/product_detail?seq=" + props.seq)
       .then((response) => setProduct(response.data));
-    axios
-      .post("/comment_detail", {
-        user: token_key,
-        product: props.seq,
-        
-      })
+    axios.post("/comment_detail", {
+      user: token_key,
+      product: props.seq,
+    })
       .then((response) => setReview(response.data));
   }, [props.seq]);
 
