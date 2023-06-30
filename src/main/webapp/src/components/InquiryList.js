@@ -106,7 +106,7 @@ const InquiryList = () => {
       <table>
         <thead>
           <tr>
-            <th style={{ textAlign: 'left' }}>제목</th>
+            <th style={{ textAlign: 'left' }}>&ensp;제목</th>
           </tr>
         </thead>
         <tbody>
@@ -123,35 +123,40 @@ const InquiryList = () => {
               >
                 {selectedInquiry && selectedInquiry.id === inquiry.id ? (
                   <>
-                    <td>{inquiry.title}</td>
+                    <td>&ensp;{inquiry.title}</td>
                   </>
                 ) : (
-                  <td colSpan="3">{inquiry.title}</td>
+                  <td colSpan="3">&ensp;{inquiry.title}</td>
                 )}
               </tr>
               {selectedInquiry && selectedInquiry.id === inquiry.id && (
                 <tr>
-                  <td colSpan="5" style={{ backgroundColor: 'rgb(250, 250, 250)' }}>
+                  <td colSpan="5" style={{ backgroundColor: 'rgb(250, 250, 250)', padding:'1%'}}>
                     <p>
-                      <strong>유형:</strong> {inquiry.type} {'<'}
+                      <strong>&ensp;유형:</strong> {inquiry.type} &ensp;{'<'}
                       <strong>상세 유형:</strong> {inquiry.subType}
                     </p>
                     <p>
-                      <strong>내용:</strong> {inquiry.content}
+
+                      <strong>&ensp;내용:</strong> {inquiry.content}
                     </p>
                     <button
                       style={{
-                        marginLeft: '710px',
-                        backgroundColor: 'rgb(95, 0, 128)',
+                        marginLeft: '86%',
+                        marginRight:'0.8%',
+                        backgroundColor: '#5f0080',
                         color: 'white',
-                        borderColor: 'none'
+                        borderColor: 'none',
+                        borderRadius:'5px',
+                        marginBottom:'2%',
                       }}
                       onClick={() => handleUpdateInquiry(inquiry)}
                     >
                       수정
                     </button>
                     <button
-                      style={{ backgroundColor: 'rgb(95, 0, 128)', color: 'white', borderColor: 'none' }}
+                      style={{ borderRadius:'5px', backgroundColor: '#5f0080', color: 'white', alignItems: 'center',
+                        textDecoration: 'none',}}
                       onClick={() => handleDeleteInquiry(inquiry.id)}
                     >
                       삭제

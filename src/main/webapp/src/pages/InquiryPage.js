@@ -155,6 +155,7 @@ const InquiryPage = () => {
             alignItems: 'center',
             textDecoration: 'none',
             marginLeft: '1150px',
+            borderRadius:'5px',
           }}
         >
           문의하기
