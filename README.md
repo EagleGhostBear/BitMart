@@ -34,3 +34,6 @@
     </td>
   </tr>
 </table>
+
+## 📜 페이지 설명
+![image](https://imgur.com/KZWsWmT)
