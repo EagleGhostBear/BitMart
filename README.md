@@ -36,4 +36,4 @@
 </table>
 
 ## 📜 페이지 설명
-[Imgur](https://imgur.com/UKtmRBI)
+![Img](https://imgur.com/UKtmRBI)
