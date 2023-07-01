@@ -268,6 +268,8 @@ const Order = () => {
                             const formattedDate = `${year}-${month}-${day}`;
                             const formattedTime = `${hours.toString().padStart(2, '0')}시 ${minutes.toString().padStart(2, '0')}분`;
 
+                            console.log('prductnum:', data[index].product)
+
                             return `${formattedDate} (${formattedTime})`;
                           })()
                         }
@@ -275,9 +277,11 @@ const Order = () => {
                         </span>
                       </div> {/* OrderDetailSubject */}
 
+                      
+
                       <div className="OrderDetailItem">
                         <div className="css-fhxb3m e1437c649">
-                          <NavLink to={"../address"}>
+                          <NavLink to={`../detail/${data[index].product}`}>
                             <img
                               className="OrderItemImg"
                               alt="상품 이미지"
