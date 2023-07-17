@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import axios from 'axios';
+import { Link, NavLink } from 'react-router-dom';
 
 import { actionCreators as cartActions } from "../redux/modules/cart";
 
@@ -56,15 +57,16 @@ const CartItem = (props) => {
             </div>
 
             <div className="goods">
-              <a
-                href="#"
+              <NavLink to={`../detail/${cart_list.product}`}
+                //href=`url`../detail/${data[index].product}"
                 className="thumb"
                 style={{
                   backgroundImage: `url(${cart_list.image})`,
                 }}
               >
                 상품이미지
-              </a>
+              
+              </NavLink>
 
               <div className="price">
                 <div className="real-price">
