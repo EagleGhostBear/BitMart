@@ -76,7 +76,7 @@
 
 ## 기술 설계
 <p align="left">
-  <img src="./images/architecture.png">
+  <img src="./images/BitKurly_Architecture.png">
 </p>
 
 ## 설치 및 실행
