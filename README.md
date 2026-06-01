@@ -120,10 +120,6 @@
       <sub><b>팀원: 김지혜</b></sub>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/121652059?v=4" width="100px" alt="dodamchoi" /><br />
-      <sub><b>팀원: 최도담</b></sub>
-    </td>
-    <td align="center">
       <img src="https://avatars.githubusercontent.com/u/888888888?v=4" width="100px" alt="sohunlee" /><br />
       <sub><b>팀원: 이소훈</b></sub>
     </td>
